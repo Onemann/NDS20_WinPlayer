@@ -49,7 +49,7 @@
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.pnlHeader.Size = new System.Drawing.Size(878, 34);
+            this.pnlHeader.Size = new System.Drawing.Size(878, 52);
             this.pnlHeader.TabIndex = 0;
             // 
             // panelControl1
