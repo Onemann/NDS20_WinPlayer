@@ -50,7 +50,11 @@ namespace NDS20WinPlayer
             Subframe newSubframe = new Subframe(jsonFrame);
             newSubframe.TopLevel = false;
             newSubframe.Parent = this;
+<<<<<<< HEAD
             newSubframe.BackColor = Color.Blue;
+=======
+            newSubframe.BackColor = Color.Gold;
+>>>>>>> 780594549bd02c8d5641f7fa24116b2a1edd4caa
             newSubframe.Show();
         }
 
