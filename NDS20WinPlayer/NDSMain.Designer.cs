@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.pnlHeader = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.pnlBottom = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.pnlHeader)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlBottom)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -52,23 +52,23 @@
             this.pnlHeader.Size = new System.Drawing.Size(878, 52);
             this.pnlHeader.TabIndex = 0;
             // 
-            // panelControl1
+            // pnlBottom
             // 
-            this.panelControl1.Appearance.BackColor = System.Drawing.Color.White;
-            this.panelControl1.Appearance.BackColor2 = System.Drawing.Color.Black;
-            this.panelControl1.Appearance.BorderColor = System.Drawing.Color.Black;
-            this.panelControl1.Appearance.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.panelControl1.Appearance.Options.UseBackColor = true;
-            this.panelControl1.Appearance.Options.UseBorderColor = true;
-            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.ContentImageAlignment = System.Drawing.ContentAlignment.BottomCenter;
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl1.Location = new System.Drawing.Point(0, 571);
-            this.panelControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.panelControl1.Size = new System.Drawing.Size(878, 39);
-            this.panelControl1.TabIndex = 1;
+            this.pnlBottom.Appearance.BackColor = System.Drawing.Color.White;
+            this.pnlBottom.Appearance.BackColor2 = System.Drawing.Color.Black;
+            this.pnlBottom.Appearance.BorderColor = System.Drawing.Color.Black;
+            this.pnlBottom.Appearance.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            this.pnlBottom.Appearance.Options.UseBackColor = true;
+            this.pnlBottom.Appearance.Options.UseBorderColor = true;
+            this.pnlBottom.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pnlBottom.ContentImageAlignment = System.Drawing.ContentAlignment.BottomCenter;
+            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlBottom.Location = new System.Drawing.Point(0, 571);
+            this.pnlBottom.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlBottom.Name = "pnlBottom";
+            this.pnlBottom.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.pnlBottom.Size = new System.Drawing.Size(878, 39);
+            this.pnlBottom.TabIndex = 1;
             // 
             // NDSMain
             // 
@@ -79,7 +79,7 @@
             this.BackgroundImage = global::NDS20WinPlayer.Properties.Resources.Logo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(878, 610);
-            this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.pnlHeader);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Black;
@@ -92,7 +92,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NDSMain_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NDSMain_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.pnlHeader)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlBottom)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -100,7 +100,7 @@
         #endregion
 
         private DevExpress.XtraEditors.PanelControl pnlHeader;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraEditors.PanelControl pnlBottom;
 
 
 

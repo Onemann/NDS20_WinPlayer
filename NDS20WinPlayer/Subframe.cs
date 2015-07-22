@@ -35,7 +35,7 @@ namespace NDS20WinPlayer
             m_player = m_factory.CreatePlayer<IDiskPlayer>();
             //            m_player.Events.PlayerPositionChanged += new EventHandler<MediaPlayerPositionChanged>(Events_PlayerPositionChanged);
 
-            m_player.WindowHandle = Subframe.ActiveForm.Handle;
+            //m_player.WindowHandle = Subframe.ActiveForm.Handle;
             #endregion
 
             JsonObjectCollection col = (JsonObjectCollection)paramSchedule;
