@@ -30,33 +30,56 @@ namespace NDS20WinPlayer
         {
             InitializeComponent();
 
-            # region Create Player
-            m_factory = new MediaPlayerFactory(true);
-            m_player = m_factory.CreatePlayer<IDiskPlayer>();
-            //            m_player.Events.PlayerPositionChanged += new EventHandler<MediaPlayerPositionChanged>(Events_PlayerPositionChanged);
-
-            //m_player.WindowHandle = Subframe.ActiveForm.Handle;
-            #endregion
-
             JsonObjectCollection col = (JsonObjectCollection)paramSchedule;
             frameInfoStrc frameInfo = new frameInfoStrc();
 
             frameInfo.xPos = int.Parse(col["xPos"].GetValue().ToString());
             frameInfo.yPos = int.Parse(col["yPos"].GetValue().ToString());
+            frameInfo.width = int.Parse(col["width"].GetValue().ToString());
+            frameInfo.height = int.Parse(col["height"].GetValue().ToString());
+            frameInfo.contentsFileName = (string)col["fileName"].GetValue();
+            frameInfo.mute = bool.Parse(col["mute"].GetValue().ToString());
 
+            this.Width = frameInfo.width;
+            this.Height = frameInfo.height;
             this.Location = new System.Drawing.Point(frameInfo.xPos, frameInfo.yPos);
+
+            # region Create Player
+            m_factory = new MediaPlayerFactory(true);
+            m_player = m_factory.CreatePlayer<IDiskPlayer>();
+            m_player.AspectRatio = AspectRatioMode.Default;
+            m_player.Mute = frameInfo.mute;
+           
+            m_player.WindowHandle = this.pnlPlayerBack.Handle;
+
+            UISync.Init(this);
+            #endregion
+
+            #region Contents play
+            FileInfo contentsFileInfo = new FileInfo(@frameInfo.contentsFileName);
+            m_media = m_factory.CreateMedia<IMediaFromFile>(contentsFileInfo.FullName);
+            
+            m_player.Open(m_media);
+            m_media.Parse(true);
+
+            m_player.Play();
+            #endregion
         }
 
-        private void Subframe_Activated(object sender, EventArgs e)
+        private class UISync
         {
-            //this.Parent.Focus();
-        }
+            private static ISynchronizeInvoke Sync;
 
-        private void Subframe_Enter(object sender, EventArgs e)
-        {
-            MessageBox.Show("ddd");
-        }
+            public static void Init(ISynchronizeInvoke sync)
+            {
+                Sync = sync;
+            }
 
+            public static void Execute(Action action)
+            {
+                Sync.BeginInvoke(action, null);
+            }
+        }
     }
 
 }

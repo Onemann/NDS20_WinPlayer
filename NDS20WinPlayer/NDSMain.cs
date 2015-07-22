@@ -50,8 +50,9 @@ namespace NDS20WinPlayer
             Subframe newSubframe = new Subframe(jsonFrame);
             newSubframe.TopLevel = false;
             newSubframe.Parent = this;
-
             newSubframe.BackColor = Color.Gold;
+            newSubframe.Show();
+
 
         }
 
@@ -81,36 +82,70 @@ namespace NDS20WinPlayer
         {
             arrSchedule.Add(
                 "{" +
-                " \"xPos\": 100," +
-                " \"yPos\": 0," +
-                " \"hLen\": 360," +
-                " \"vLen\": 200," +
-                " \"fileName\": \"d:/Projects/NDS/Contents/A.avi\"," +
-                " \"volume\": 0 " +
-                "}"
-                );
-
-            arrSchedule.Add(
-                "{" +
                 " \"xPos\": 400," +
                 " \"yPos\": 100," +
-                " \"hLen\": 500," +
-                " \"vLen\": 280," +
-                " \"fileName\": \"d:/Projects/NDS/Contents/A.tp\"," +
-                " \"volume\": 0 " +
+                " \"width\": 700," +
+                " \"height\": 396," +
+                " \"fileName\": \"D:/Projects/NDS/Contents/A.avi\"," +
+                " \"mute\": true " +
                 "}"
                 );
 
             arrSchedule.Add(
                 "{" +
-                " \"xPos\": 200," +
-                " \"yPos\": 300," +
-                " \"hLen\": 500," +
-                " \"vLen\": 350," +
-                " \"fileName\": \"d:/Projects/NDS/Contents/A.wmv\"," +
-                " \"volume\": 100 " +
+                " \"xPos\": 900," +
+                " \"yPos\": 150," +
+                " \"width\": 890," +
+                " \"height\": 500," +
+                " \"fileName\": \"D:/Projects/NDS/Contents/A.tp\"," +
+                " \"mute\": false " +
                 "}"
                 );
+
+            arrSchedule.Add(
+                "{" +
+                " \"xPos\": 500," +
+                " \"yPos\": 500," +
+                " \"width\": 501," +
+                " \"height\": 282," +
+                " \"fileName\": \"D:/Projects/NDS/Contents/A.mov\"," +
+                " \"mute\": true " +
+                "}"
+                );
+
+            arrSchedule.Add(
+                "{" +
+                " \"xPos\": 800," +
+                " \"yPos\": 600," +
+                " \"width\": 600," +
+                " \"height\": 350," +
+                " \"fileName\": \"D:/Projects/NDS/Contents/A.wmv\"," +
+                " \"mute\": true " +
+                "}"
+                );
+
+            arrSchedule.Add(
+                "{" +
+                " \"xPos\": 1400," +
+                " \"yPos\": 700," +
+                " \"width\": 501," +
+                " \"height\": 282," +
+                " \"fileName\": \"D:/Projects/NDS/Contents/A.ts\"," +
+                " \"mute\": true " +
+                "}"
+                );
+
+            arrSchedule.Add(
+                "{" +
+                " \"xPos\": 50," +
+                " \"yPos\": 50," +
+                " \"width\": 500," +
+                " \"height\": 900," +
+                " \"fileName\": \"D:/Projects/NDS/Contents/B.wmv\"," +
+                " \"mute\": true " +
+                "}"
+                );
+
         }
 
         private void drawSubFrame()
