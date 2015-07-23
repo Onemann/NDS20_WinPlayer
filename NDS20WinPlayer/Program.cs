@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.UserSkins;
+using DevExpress.Skins;
+using DevExpress.LookAndFeel;
 
 namespace NDS20WinPlayer
 {
@@ -16,6 +19,11 @@ namespace NDS20WinPlayer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            BonusSkins.Register();
+            SkinManager.EnableFormSkins();
+            UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
+
             Application.Run(new NDSMain());
         }
     }

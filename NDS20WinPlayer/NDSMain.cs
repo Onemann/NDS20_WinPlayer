@@ -170,8 +170,8 @@ namespace NDS20WinPlayer
 
         private void ShowManagerForm()
         {
-//            Manager managerForm = new Manager();
-//            managerForm.Show();
+            ManagerForm managerForm = new ManagerForm();
+            managerForm.Show();
             //managerForm.TopLevel = true;
         }
     }

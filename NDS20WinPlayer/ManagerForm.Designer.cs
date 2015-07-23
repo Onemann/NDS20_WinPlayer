@@ -1,0 +1,193 @@
+﻿namespace NDS20WinPlayer
+{
+    partial class ManagerForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
+            this.xtabManager = new DevExpress.XtraTab.XtraTabControl();
+            this.xtabpg1PlayStatus = new DevExpress.XtraTab.XtraTabPage();
+            this.spltcontCntlManager = new DevExpress.XtraEditors.SplitContainerControl();
+            this.xtabpg2Download = new DevExpress.XtraTab.XtraTabPage();
+            this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
+            this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).BeginInit();
+            this.xtabManager.SuspendLayout();
+            this.xtabpg1PlayStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spltcontCntlManager)).BeginInit();
+            this.spltcontCntlManager.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // xtabManager
+            // 
+            this.xtabManager.AppearancePage.Header.Options.UseTextOptions = true;
+            this.xtabManager.AppearancePage.Header.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.xtabManager.AppearancePage.HeaderActive.BackColor = System.Drawing.Color.Black;
+            this.xtabManager.AppearancePage.HeaderActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.xtabManager.AppearancePage.HeaderActive.Options.UseBackColor = true;
+            this.xtabManager.AppearancePage.HeaderActive.Options.UseFont = true;
+            this.xtabManager.AppearancePage.HeaderActive.Options.UseForeColor = true;
+            this.xtabManager.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xtabManager.Location = new System.Drawing.Point(2, 2);
+            this.xtabManager.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.xtabManager.Name = "xtabManager";
+            this.xtabManager.SelectedTabPage = this.xtabpg1PlayStatus;
+            this.xtabManager.Size = new System.Drawing.Size(821, 505);
+            this.xtabManager.TabIndex = 0;
+            this.xtabManager.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtabpg1PlayStatus,
+            this.xtabpg2Download,
+            this.xtabpg3Log,
+            this.xtabpg4Setup});
+            this.xtabManager.TabPageWidth = 100;
+            // 
+            // xtabpg1PlayStatus
+            // 
+            this.xtabpg1PlayStatus.Appearance.PageClient.BackColor = System.Drawing.Color.White;
+            this.xtabpg1PlayStatus.Appearance.PageClient.BackColor2 = System.Drawing.Color.White;
+            this.xtabpg1PlayStatus.Appearance.PageClient.Options.UseBackColor = true;
+            this.xtabpg1PlayStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.xtabpg1PlayStatus.Controls.Add(this.spltcontCntlManager);
+            this.xtabpg1PlayStatus.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg1PlayStatus.Image")));
+            this.xtabpg1PlayStatus.Name = "xtabpg1PlayStatus";
+            this.xtabpg1PlayStatus.ShowCloseButton = DevExpress.Utils.DefaultBoolean.False;
+            this.xtabpg1PlayStatus.Size = new System.Drawing.Size(815, 474);
+            this.xtabpg1PlayStatus.Text = "재생상태";
+            // 
+            // spltcontCntlManager
+            // 
+            this.spltcontCntlManager.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spltcontCntlManager.Location = new System.Drawing.Point(0, 0);
+            this.spltcontCntlManager.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.spltcontCntlManager.Name = "spltcontCntlManager";
+            this.spltcontCntlManager.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.spltcontCntlManager.Panel1.ShowCaption = true;
+            this.spltcontCntlManager.Panel1.Text = "재생 스케줄";
+            this.spltcontCntlManager.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.spltcontCntlManager.Panel2.Text = "프레임별 재생 정보";
+            this.spltcontCntlManager.Size = new System.Drawing.Size(815, 474);
+            this.spltcontCntlManager.SplitterPosition = 213;
+            this.spltcontCntlManager.TabIndex = 0;
+            this.spltcontCntlManager.Text = "NDS2.0 Manager";
+            // 
+            // xtabpg2Download
+            // 
+            this.xtabpg2Download.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg2Download.Image")));
+            this.xtabpg2Download.Name = "xtabpg2Download";
+            this.xtabpg2Download.Size = new System.Drawing.Size(817, 497);
+            this.xtabpg2Download.Text = "다운로드 상태";
+            // 
+            // xtabpg3Log
+            // 
+            this.xtabpg3Log.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg3Log.Image")));
+            this.xtabpg3Log.Name = "xtabpg3Log";
+            this.xtabpg3Log.Size = new System.Drawing.Size(817, 497);
+            this.xtabpg3Log.Text = "로그 확인";
+            // 
+            // xtabpg4Setup
+            // 
+            this.xtabpg4Setup.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg4Setup.Image")));
+            this.xtabpg4Setup.Name = "xtabpg4Setup";
+            this.xtabpg4Setup.Size = new System.Drawing.Size(817, 497);
+            this.xtabpg4Setup.Text = "설정";
+            // 
+            // defaultLookAndFeel1
+            // 
+            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Office 2013";
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControl1.Controls.Add(this.xtabManager);
+            this.panelControl1.Location = new System.Drawing.Point(0, 0);
+            this.panelControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(825, 509);
+            this.panelControl1.TabIndex = 0;
+            this.panelControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.panelControl1_Paint);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.statusStrip1.Location = new System.Drawing.Point(0, 506);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(823, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // ManagerForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(823, 528);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.panelControl1);
+            this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
+            this.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.Name = "ManagerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "NDS2.0 Player";
+            this.TopMost = true;
+            ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).EndInit();
+            this.xtabManager.ResumeLayout(false);
+            this.xtabpg1PlayStatus.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spltcontCntlManager)).EndInit();
+            this.spltcontCntlManager.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private DevExpress.XtraTab.XtraTabControl xtabManager;
+        private DevExpress.XtraTab.XtraTabPage xtabpg1PlayStatus;
+        private DevExpress.XtraTab.XtraTabPage xtabpg2Download;
+        private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
+        private DevExpress.XtraEditors.SplitContainerControl spltcontCntlManager;
+        private DevExpress.XtraTab.XtraTabPage xtabpg3Log;
+        private DevExpress.XtraTab.XtraTabPage xtabpg4Setup;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+
+
+    }
+}
