@@ -90,7 +90,6 @@
             this.Text = "NDS20 Player";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NDSMain_KeyDown);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NDSMain_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.pnlHeader)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlBottom)).EndInit();
             this.ResumeLayout(false);

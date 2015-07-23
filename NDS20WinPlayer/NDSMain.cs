@@ -60,15 +60,15 @@ namespace NDS20WinPlayer
         {
             switch (e.KeyCode)
             {
-#if DEBUG
+//#if DEBUG
                 case Keys.F3:
                     initMainScreen();
                     drawSubFrame();
                     break;
 
-#endif
+//#endif
                 case Keys.F7:
-
+                    ShowManagerForm();
                     break;
 
                 case Keys.Escape:
@@ -166,6 +166,13 @@ namespace NDS20WinPlayer
             pnlHeader.Visible = false;
             pnlBottom.Visible = false;
             this.BackgroundImage = null;
+        }
+
+        private void ShowManagerForm()
+        {
+//            Manager managerForm = new Manager();
+//            managerForm.Show();
+            //managerForm.TopLevel = true;
         }
     }
         #endregion
