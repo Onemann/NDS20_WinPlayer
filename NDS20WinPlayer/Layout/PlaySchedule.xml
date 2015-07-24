@@ -1,0 +1,151 @@
+﻿<XtraSerializer version="1.0" application="TreeList">
+  <property name="#LayoutVersion" />
+  <property name="TreeLevelWidth">18</property>
+  <property name="RowHeight">-1</property>
+  <property name="ColumnPanelRowHeight">-1</property>
+  <property name="BandPanelRowHeight">-1</property>
+  <property name="FooterPanelHeight">-1</property>
+  <property name="DragExpandDelay">1000</property>
+  <property name="Columns" iskey="true" value="3">
+    <property name="Item1" isnull="true" iskey="true">
+      <property name="FilterMode">Value</property>
+      <property name="RowIndex">0</property>
+      <property name="SortOrder">None</property>
+      <property name="SortIndex">-1</property>
+      <property name="SortMode">Default</property>
+      <property name="ShowUnboundExpressionMenu">false</property>
+      <property name="UnboundExpression" />
+      <property name="UnboundType">Bound</property>
+      <property name="Tag" isnull="true" />
+      <property name="Format" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">None</property>
+      </property>
+      <property name="SummaryFooterStrFormat">{0}</property>
+      <property name="MinWidth">20</property>
+      <property name="RowFooterSummaryStrFormat">{0}</property>
+      <property name="RowFooterSummary">None</property>
+      <property name="Width">100</property>
+      <property name="SummaryFooter">None</property>
+      <property name="AllNodesSummary">false</property>
+      <property name="ImageIndex">-1</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
+      <property name="Caption">스케줄</property>
+      <property name="ToolTip" />
+      <property name="CustomizationCaption" />
+      <property name="FieldName">tlclScheduleField</property>
+      <property name="ImageAlignment">Near</property>
+      <property name="Name">tlclSchedule</property>
+      <property name="Fixed">None</property>
+      <property name="ColumnEditName">repositoryItemTextEdit1</property>
+      <property name="ShowButtonMode">Default</property>
+      <property name="VisibleIndex">0</property>
+      <property name="Visible">true</property>
+      <property name="AllowIncrementalSearch">true</property>
+    </property>
+    <property name="Item2" isnull="true" iskey="true">
+      <property name="FilterMode">Value</property>
+      <property name="RowIndex">0</property>
+      <property name="SortOrder">Descending</property>
+      <property name="SortIndex">0</property>
+      <property name="SortMode">DisplayText</property>
+      <property name="ShowUnboundExpressionMenu">false</property>
+      <property name="UnboundExpression" />
+      <property name="UnboundType">Bound</property>
+      <property name="Tag" isnull="true" />
+      <property name="Format" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">None</property>
+      </property>
+      <property name="SummaryFooterStrFormat">{0}</property>
+      <property name="MinWidth">20</property>
+      <property name="RowFooterSummaryStrFormat">{0}</property>
+      <property name="RowFooterSummary">None</property>
+      <property name="Width">53</property>
+      <property name="SummaryFooter">None</property>
+      <property name="AllNodesSummary">false</property>
+      <property name="ImageIndex">-1</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
+      <property name="Caption">시작일</property>
+      <property name="ToolTip" />
+      <property name="CustomizationCaption" />
+      <property name="FieldName">tlclStartDateField</property>
+      <property name="ImageAlignment">Near</property>
+      <property name="Name">tlclStartDate</property>
+      <property name="Fixed">None</property>
+      <property name="ColumnEditName">repositoryItemDateEdit1</property>
+      <property name="ShowButtonMode">Default</property>
+      <property name="VisibleIndex">1</property>
+      <property name="Visible">true</property>
+      <property name="AllowIncrementalSearch">true</property>
+    </property>
+    <property name="Item3" isnull="true" iskey="true">
+      <property name="FilterMode">Value</property>
+      <property name="RowIndex">0</property>
+      <property name="SortOrder">None</property>
+      <property name="SortIndex">-1</property>
+      <property name="SortMode">Default</property>
+      <property name="ShowUnboundExpressionMenu">false</property>
+      <property name="UnboundExpression" />
+      <property name="UnboundType">Bound</property>
+      <property name="Tag" isnull="true" />
+      <property name="Format" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">None</property>
+      </property>
+      <property name="SummaryFooterStrFormat">{0}</property>
+      <property name="MinWidth">20</property>
+      <property name="RowFooterSummaryStrFormat">{0}</property>
+      <property name="RowFooterSummary">None</property>
+      <property name="Width">54</property>
+      <property name="SummaryFooter">None</property>
+      <property name="AllNodesSummary">false</property>
+      <property name="ImageIndex">-1</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
+      <property name="Caption">종료일</property>
+      <property name="ToolTip" />
+      <property name="CustomizationCaption" />
+      <property name="FieldName">tlclEndDateField</property>
+      <property name="ImageAlignment">Near</property>
+      <property name="Name">tlclEndDate</property>
+      <property name="Fixed">None</property>
+      <property name="ColumnEditName">repositoryItemDateEdit2</property>
+      <property name="ShowButtonMode">Default</property>
+      <property name="VisibleIndex">2</property>
+      <property name="Visible">true</property>
+      <property name="AllowIncrementalSearch">true</property>
+    </property>
+  </property>
+  <property name="TreeLineStyle">Percent50</property>
+  <property name="FindFilterText" />
+  <property name="BestFitVisibleOnly">false</property>
+  <property name="HorzScrollVisibility">Auto</property>
+  <property name="HorzScrollStep">3</property>
+  <property name="VertScrollVisibility">Auto</property>
+  <property name="ActiveFilterEnabled">true</property>
+  <property name="ActiveFilterString" />
+  <property name="CustomizationFormBounds">@4,X=-497@3,Y=646@3,Width=206@3,Height=175</property>
+  <property name="FixedLineWidth">2</property>
+  <property name="IndicatorWidth">-1</property>
+  <property name="PreviewLineCount">1</property>
+  <property name="ParentFieldName">Name</property>
+  <property name="PreviewFieldName" />
+  <property name="ShowButtonMode">ShowForFocusedCell</property>
+  <property name="OptionsBehavior" isnull="true" iskey="true">
+    <property name="PopulateServiceColumns">true</property>
+  </property>
+  <property name="KeyFieldName">Count</property>
+  <property name="ImageIndexFieldName">ImageIndex</property>
+  <property name="RootValue" type="System.Int32">0</property>
+  <property name="BorderStyle">Default</property>
+  <property name="Bands" iskey="true" value="0" />
+  <property name="FormatConditions" iskey="true" value="0" />
+  <property name="FilterConditions" iskey="true" value="0" />
+  <property name="FormatRules" iskey="true" value="0" />
+</XtraSerializer>
