@@ -9,7 +9,7 @@ namespace NDS20WinPlayer
         public int width;
         public int height;
         public string contentsFileName;
-        public bool mute;
+        public bool mute; //volumeS
 
     }
 
