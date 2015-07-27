@@ -18,6 +18,7 @@ namespace NDS20WinPlayer
         public string tlclScheduleField { get; set; }
         public DateTime tlclStartDateField { get; set; }
         public DateTime tlclEndDateField { get; set; }
+        //added
     }
 
 }
