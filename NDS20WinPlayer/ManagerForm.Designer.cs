@@ -40,19 +40,15 @@
             this.repositoryItemDateEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.tlclEndDate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemDateEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.treeListColumn1 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.grdctrFramePlayStatus = new DevExpress.XtraGrid.GridControl();
-            this.pLinqServerModeSource1 = new DevExpress.Data.PLinq.PLinqServerModeSource();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.xtabpg2Download = new DevExpress.XtraTab.XtraTabPage();
             this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.viewDataSource1 = new DevExpress.Persistent.Base.ReportsV2.ViewDataSource();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).BeginInit();
             this.xtabManager.SuspendLayout();
             this.xtabpg1PlayStatus.SuspendLayout();
@@ -65,12 +61,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdctrFramePlayStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pLinqServerModeSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.viewDataSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // xtabManager
@@ -124,7 +117,7 @@
             this.spltcontCntlManager.Panel2.ShowCaption = true;
             this.spltcontCntlManager.Panel2.Text = "프레임별 재생 정보";
             this.spltcontCntlManager.Size = new System.Drawing.Size(951, 474);
-            this.spltcontCntlManager.SplitterPosition = 280;
+            this.spltcontCntlManager.SplitterPosition = 344;
             this.spltcontCntlManager.TabIndex = 0;
             this.spltcontCntlManager.Text = "NDS2.0 Manager";
             this.spltcontCntlManager.Paint += new System.Windows.Forms.PaintEventHandler(this.spltcontCntlManager_Paint);
@@ -137,8 +130,7 @@
             this.treeList1.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.tlclSchedule,
             this.tlclStartDate,
-            this.tlclEndDate,
-            this.treeListColumn1});
+            this.tlclEndDate});
             this.treeList1.CustomizationFormBounds = new System.Drawing.Rectangle(478, 476, 206, 175);
             this.treeList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeList1.KeyFieldName = "schedule";
@@ -146,12 +138,17 @@
             this.treeList1.LookAndFeel.SkinName = "Dark Side";
             this.treeList1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.treeList1.Name = "treeList1";
+            this.treeList1.OptionsBehavior.PopulateServiceColumns = true;
+            this.treeList1.OptionsView.AutoWidth = false;
+            this.treeList1.OptionsView.EnableAppearanceEvenRow = true;
+            this.treeList1.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFullFocus;
+            this.treeList1.OptionsView.ShowSummaryFooter = true;
             this.treeList1.ParentFieldName = "Name";
             this.treeList1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1,
             this.repositoryItemDateEdit1,
             this.repositoryItemDateEdit2});
-            this.treeList1.Size = new System.Drawing.Size(276, 450);
+            this.treeList1.Size = new System.Drawing.Size(340, 450);
             this.treeList1.TabIndex = 0;
             // 
             // tlclSchedule
@@ -164,9 +161,14 @@
             this.tlclSchedule.MinWidth = 52;
             this.tlclSchedule.Name = "tlclSchedule";
             this.tlclSchedule.OptionsColumn.AllowEdit = false;
+            this.tlclSchedule.OptionsColumn.AllowFocus = false;
+            this.tlclSchedule.OptionsColumn.ReadOnly = true;
+            this.tlclSchedule.SortOrder = System.Windows.Forms.SortOrder.Ascending;
+            this.tlclSchedule.SummaryFooter = DevExpress.XtraTreeList.SummaryItemType.Count;
+            this.tlclSchedule.SummaryFooterStrFormat = "{0}건";
             this.tlclSchedule.Visible = true;
             this.tlclSchedule.VisibleIndex = 0;
-            this.tlclSchedule.Width = 100;
+            this.tlclSchedule.Width = 162;
             // 
             // repositoryItemTextEdit1
             // 
@@ -175,6 +177,7 @@
             // 
             // tlclStartDate
             // 
+            this.tlclStartDate.AllowIncrementalSearch = false;
             this.tlclStartDate.AppearanceHeader.Options.UseTextOptions = true;
             this.tlclStartDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlclStartDate.Caption = "시작일";
@@ -182,11 +185,13 @@
             this.tlclStartDate.FieldName = "tlclStartDateField";
             this.tlclStartDate.Name = "tlclStartDate";
             this.tlclStartDate.OptionsColumn.AllowEdit = false;
+            this.tlclStartDate.OptionsColumn.AllowFocus = false;
+            this.tlclStartDate.OptionsColumn.ReadOnly = true;
             this.tlclStartDate.SortMode = DevExpress.XtraGrid.ColumnSortMode.DisplayText;
-            this.tlclStartDate.SortOrder = System.Windows.Forms.SortOrder.Descending;
+            this.tlclStartDate.SortOrder = System.Windows.Forms.SortOrder.Ascending;
             this.tlclStartDate.Visible = true;
             this.tlclStartDate.VisibleIndex = 1;
-            this.tlclStartDate.Width = 53;
+            this.tlclStartDate.Width = 86;
             // 
             // repositoryItemDateEdit1
             // 
@@ -206,9 +211,11 @@
             this.tlclEndDate.FieldName = "tlclEndDateField";
             this.tlclEndDate.Name = "tlclEndDate";
             this.tlclEndDate.OptionsColumn.AllowEdit = false;
+            this.tlclEndDate.OptionsColumn.AllowFocus = false;
+            this.tlclEndDate.OptionsColumn.ReadOnly = true;
             this.tlclEndDate.Visible = true;
             this.tlclEndDate.VisibleIndex = 2;
-            this.tlclEndDate.Width = 54;
+            this.tlclEndDate.Width = 73;
             // 
             // repositoryItemDateEdit2
             // 
@@ -219,17 +226,8 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemDateEdit2.Name = "repositoryItemDateEdit2";
             // 
-            // treeListColumn1
-            // 
-            this.treeListColumn1.Caption = "treeListColumn1";
-            this.treeListColumn1.FieldName = "treeListColumn1";
-            this.treeListColumn1.Name = "treeListColumn1";
-            this.treeListColumn1.Visible = true;
-            this.treeListColumn1.VisibleIndex = 3;
-            // 
             // grdctrFramePlayStatus
             // 
-            this.grdctrFramePlayStatus.DataSource = this.pLinqServerModeSource1;
             this.grdctrFramePlayStatus.Location = new System.Drawing.Point(-3, 0);
             this.grdctrFramePlayStatus.MainView = this.gridView1;
             this.grdctrFramePlayStatus.Name = "grdctrFramePlayStatus";
@@ -237,11 +235,6 @@
             this.grdctrFramePlayStatus.TabIndex = 0;
             this.grdctrFramePlayStatus.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
-            // 
-            // pLinqServerModeSource1
-            // 
-            this.pLinqServerModeSource1.DefaultSorting = "IsReadOnly ASC";
-            this.pLinqServerModeSource1.ElementType = typeof(System.Net.Json.JsonArrayCollection);
             // 
             // gridView1
             // 
@@ -278,10 +271,6 @@
             this.xtabpg4Setup.Size = new System.Drawing.Size(951, 474);
             this.xtabpg4Setup.Text = "설정";
             // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(System.Net.Json.JsonArrayCollection);
-            // 
             // defaultLookAndFeel1
             // 
             this.defaultLookAndFeel1.LookAndFeel.SkinName = "Office 2013";
@@ -309,12 +298,6 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // viewDataSource1
-            // 
-            this.viewDataSource1.Name = "viewDataSource1";
-            this.viewDataSource1.ObjectTypeName = null;
-            this.viewDataSource1.TopReturnedRecords = 0;
-            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -331,6 +314,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NDS2.0 Player";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ManagerForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).EndInit();
             this.xtabManager.ResumeLayout(false);
             this.xtabpg1PlayStatus.ResumeLayout(false);
@@ -343,12 +327,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdctrFramePlayStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pLinqServerModeSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.viewDataSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,11 +355,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit2;
         private DevExpress.XtraGrid.GridControl grdctrFramePlayStatus;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.Data.PLinq.PLinqServerModeSource pLinqServerModeSource1;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
-        private DevExpress.Persistent.Base.ReportsV2.ViewDataSource viewDataSource1;
-        private System.Windows.Forms.BindingSource bindingSource1;
-        private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn1;
 
 
     }
