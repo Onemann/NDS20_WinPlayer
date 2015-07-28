@@ -37,9 +37,9 @@ namespace NDS20WinPlayer
 
 
             string jsonSchedule = "[" +
-                "{'tlclScheduleField':'sc2', 'tlclStartDateField':'2015-07-28T12:00Z', 'tlclEndDateField':'2015-08-30T12:00:00Z'}," +
-                "{'tlclScheduleField':'sc3', 'tlclStartDateField':'2015-07-28T12:00Z', 'tlclEndDateField':'2015-08-30T12:00:00Z'}," +
-                "{'tlclScheduleField':'sc4', 'tlclStartDateField':'2015-07-28T12:00Z', 'tlclEndDateField':'2015-08-30T12:00:00Z'}" +
+                "{'tlclScheduleField':'sc2', 'tlclTypeField':'기본','tlclStartDateField':'2015-07-28T12:00Z', 'tlclEndDateField':'2015-08-30T12:00:00Z'}," +
+                "{'tlclScheduleField':'sc3', 'tlclTypeField':'기본', 'tlclStartDateField':'2015-07-28T12:00Z', 'tlclEndDateField':'2015-08-30T12:00:00Z'}," +
+                "{'tlclScheduleField':'sc4', 'tlclTypeField':'이벤트', 'tlclStartDateField':'2015-07-28T12:00Z', 'tlclEndDateField':'2015-08-30T12:00:00Z'}" +
                 "]";
 
             scheduleclass[] shclist = JsonConvert.DeserializeObject<scheduleclass[]>(jsonSchedule, new IsoDateTimeConverter());

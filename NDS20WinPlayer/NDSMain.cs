@@ -30,6 +30,8 @@ namespace NDS20WinPlayer
         public NDSMain()
         {
             InitializeComponent();
+
+            
             arrSubframe = new List<Subframe>();
             arrSchedule = new List<string>();
 
@@ -38,11 +40,60 @@ namespace NDS20WinPlayer
 
         private void NDSMain_MouseDown(object sender, MouseEventArgs e)
         {
-#if DEBUG
+//#if DEBUG
             ReleaseCapture();
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-#endif
+//#endif
         }
+
+        
+        /*
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (Screen.AllScreens.Length > 1)
+            {
+
+                NDSMain frm = new NDSMain();
+
+                // Important !
+                frm.StartPosition = FormStartPosition.Manual;
+
+                // Get the second monitor screen
+                Screen screen = GetSecondaryScreen();
+
+                // set the location to the top left of the second screen
+                frm.Location = screen.WorkingArea.Location;
+                frm.Location = frm.Location.X - 100;
+                // set it full screen
+                frm.Size = new Size(screen.WorkingArea.Width+ 200, screen.WorkingArea.Height);
+
+                // Show the form
+                frm.Show();
+
+            }
+        }
+        
+
+        public Screen GetSecondaryScreen()
+        {
+            if (Screen.AllScreens.Length == 1)
+            {
+                return null;
+            }
+
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                if (screen.Primary == false)
+                {
+                    return screen;
+                }
+            }
+
+            return null;
+        }
+        */
 
         // open new sub frame with JSON frame parameter 
         private void openSubframe(JsonObject jsonFrame)
@@ -93,10 +144,10 @@ namespace NDS20WinPlayer
 
             arrSchedule.Add(
                 "{" +
-                " \"xPos\": 900," +
-                " \"yPos\": 150," +
-                " \"width\": 890," +
-                " \"height\": 500," +
+                " \"xPos\": 1200," +
+                " \"yPos\": 50," +
+                " \"width\": 1400," +
+                " \"height\": 788," +
                 " \"fileName\": \"D:/Projects/NDS/Contents/A.tp\"," +
                 " \"mute\": false " +
                 "}"
@@ -126,8 +177,8 @@ namespace NDS20WinPlayer
 
             arrSchedule.Add(
                 "{" +
-                " \"xPos\": 1400," +
-                " \"yPos\": 700," +
+                " \"xPos\": 2400," +
+                " \"yPos\": 900," +
                 " \"width\": 501," +
                 " \"height\": 282," +
                 " \"fileName\": \"D:/Projects/NDS/Contents/A.ts\"," +
@@ -173,6 +224,18 @@ namespace NDS20WinPlayer
             ManagerForm managerForm = new ManagerForm();
             managerForm.Show();
             //managerForm.TopLevel = true;
+        }
+
+        private void NDSMain_Load(object sender, EventArgs e)
+        {
+            int screenLeft = SystemInformation.VirtualScreen.Left;
+            int screenTop = SystemInformation.VirtualScreen.Top;
+            int screenWidth = SystemInformation.VirtualScreen.Width;
+            int screenHeight = SystemInformation.VirtualScreen.Height;
+
+            this.Size = new System.Drawing.Size(screenWidth, screenHeight);
+            this.Location = new System.Drawing.Point(screenLeft, screenTop);
+
         }
     }
         #endregion

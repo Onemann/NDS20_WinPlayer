@@ -49,7 +49,7 @@
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.pnlHeader.Size = new System.Drawing.Size(878, 52);
+            this.pnlHeader.Size = new System.Drawing.Size(1024, 52);
             this.pnlHeader.TabIndex = 0;
             // 
             // pnlBottom
@@ -63,11 +63,11 @@
             this.pnlBottom.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pnlBottom.ContentImageAlignment = System.Drawing.ContentAlignment.BottomCenter;
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBottom.Location = new System.Drawing.Point(0, 571);
+            this.pnlBottom.Location = new System.Drawing.Point(0, 729);
             this.pnlBottom.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBottom.Name = "pnlBottom";
             this.pnlBottom.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.pnlBottom.Size = new System.Drawing.Size(878, 39);
+            this.pnlBottom.Size = new System.Drawing.Size(1024, 39);
             this.pnlBottom.TabIndex = 1;
             // 
             // NDSMain
@@ -78,7 +78,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::NDS20WinPlayer.Properties.Resources.Logo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(878, 610);
+            this.ClientSize = new System.Drawing.Size(1024, 768);
             this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.pnlHeader);
             this.DoubleBuffered = true;
@@ -88,8 +88,9 @@
             this.Name = "NDSMain";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "NDS20 Player";
+            this.Load += new System.EventHandler(this.NDSMain_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NDSMain_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pnlHeader)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlBottom)).EndInit();

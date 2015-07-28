@@ -41,14 +41,15 @@
             this.tlclEndDate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemDateEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.grdctrFramePlayStatus = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.xtabpg2Download = new DevExpress.XtraTab.XtraTabPage();
             this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tlclType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.cardView1 = new DevExpress.XtraGrid.Views.Card.CardView();
+            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).BeginInit();
             this.xtabManager.SuspendLayout();
             this.xtabpg1PlayStatus.SuspendLayout();
@@ -61,9 +62,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdctrFramePlayStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cardView1)).BeginInit();
             this.SuspendLayout();
             // 
             // xtabManager
@@ -117,7 +118,7 @@
             this.spltcontCntlManager.Panel2.ShowCaption = true;
             this.spltcontCntlManager.Panel2.Text = "프레임별 재생 정보";
             this.spltcontCntlManager.Size = new System.Drawing.Size(951, 474);
-            this.spltcontCntlManager.SplitterPosition = 344;
+            this.spltcontCntlManager.SplitterPosition = 396;
             this.spltcontCntlManager.TabIndex = 0;
             this.spltcontCntlManager.Text = "NDS2.0 Manager";
             this.spltcontCntlManager.Paint += new System.Windows.Forms.PaintEventHandler(this.spltcontCntlManager_Paint);
@@ -129,6 +130,7 @@
             this.treeList1.Appearance.HeaderPanel.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.treeList1.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.tlclSchedule,
+            this.tlclType,
             this.tlclStartDate,
             this.tlclEndDate});
             this.treeList1.CustomizationFormBounds = new System.Drawing.Rectangle(478, 476, 206, 175);
@@ -148,7 +150,7 @@
             this.repositoryItemTextEdit1,
             this.repositoryItemDateEdit1,
             this.repositoryItemDateEdit2});
-            this.treeList1.Size = new System.Drawing.Size(340, 450);
+            this.treeList1.Size = new System.Drawing.Size(392, 450);
             this.treeList1.TabIndex = 0;
             // 
             // tlclSchedule
@@ -190,7 +192,7 @@
             this.tlclStartDate.SortMode = DevExpress.XtraGrid.ColumnSortMode.DisplayText;
             this.tlclStartDate.SortOrder = System.Windows.Forms.SortOrder.Ascending;
             this.tlclStartDate.Visible = true;
-            this.tlclStartDate.VisibleIndex = 1;
+            this.tlclStartDate.VisibleIndex = 2;
             this.tlclStartDate.Width = 86;
             // 
             // repositoryItemDateEdit1
@@ -214,7 +216,7 @@
             this.tlclEndDate.OptionsColumn.AllowFocus = false;
             this.tlclEndDate.OptionsColumn.ReadOnly = true;
             this.tlclEndDate.Visible = true;
-            this.tlclEndDate.VisibleIndex = 2;
+            this.tlclEndDate.VisibleIndex = 3;
             this.tlclEndDate.Width = 73;
             // 
             // repositoryItemDateEdit2
@@ -229,26 +231,12 @@
             // grdctrFramePlayStatus
             // 
             this.grdctrFramePlayStatus.Location = new System.Drawing.Point(-3, 0);
-            this.grdctrFramePlayStatus.MainView = this.gridView1;
+            this.grdctrFramePlayStatus.MainView = this.cardView1;
             this.grdctrFramePlayStatus.Name = "grdctrFramePlayStatus";
             this.grdctrFramePlayStatus.Size = new System.Drawing.Size(664, 433);
             this.grdctrFramePlayStatus.TabIndex = 0;
             this.grdctrFramePlayStatus.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
-            // 
-            // gridView1
-            // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colName});
-            this.gridView1.GridControl = this.grdctrFramePlayStatus;
-            this.gridView1.Name = "gridView1";
-            // 
-            // colName
-            // 
-            this.colName.FieldName = "Name";
-            this.colName.Name = "colName";
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 0;
+            this.cardView1});
             // 
             // xtabpg2Download
             // 
@@ -298,6 +286,34 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // tlclType
+            // 
+            this.tlclType.Caption = "타입";
+            this.tlclType.FieldName = "tlclTypeField";
+            this.tlclType.Name = "tlclType";
+            this.tlclType.OptionsColumn.AllowEdit = false;
+            this.tlclType.OptionsColumn.AllowFocus = false;
+            this.tlclType.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
+            this.tlclType.Visible = true;
+            this.tlclType.VisibleIndex = 1;
+            this.tlclType.Width = 55;
+            // 
+            // cardView1
+            // 
+            this.cardView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colName});
+            this.cardView1.FocusedCardTopFieldIndex = 0;
+            this.cardView1.GridControl = this.grdctrFramePlayStatus;
+            this.cardView1.Name = "cardView1";
+            this.cardView1.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Auto;
+            // 
+            // colName
+            // 
+            this.colName.FieldName = "Name";
+            this.colName.Name = "colName";
+            this.colName.Visible = true;
+            this.colName.VisibleIndex = 0;
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -327,9 +343,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdctrFramePlayStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cardView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,7 +370,8 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit2;
         private DevExpress.XtraGrid.GridControl grdctrFramePlayStatus;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tlclType;
+        private DevExpress.XtraGrid.Views.Card.CardView cardView1;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
 
 
