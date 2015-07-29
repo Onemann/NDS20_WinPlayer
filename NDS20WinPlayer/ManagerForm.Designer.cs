@@ -41,9 +41,6 @@
             this.repositoryItemDateEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.tlclEndDate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemDateEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.grdctrFramePlayStatus = new DevExpress.XtraGrid.GridControl();
-            this.cardView1 = new DevExpress.XtraGrid.Views.Card.CardView();
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.xtabpg2Download = new DevExpress.XtraTab.XtraTabPage();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.trlstSchedule = new DevExpress.XtraTreeList.TreeList();
@@ -56,9 +53,7 @@
             this.tlcScheEnddate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemDateEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.repositoryItemDateEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.cardView2 = new DevExpress.XtraGrid.Views.Card.CardView();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.memoEdit1 = new DevExpress.XtraEditors.MemoEdit();
             this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
@@ -75,8 +70,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdctrFramePlayStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cardView1)).BeginInit();
             this.xtabpg2Download.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
@@ -86,8 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cardView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memoEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.SuspendLayout();
@@ -139,7 +131,6 @@
             this.spltcontCntlManager.Panel1.ShowCaption = true;
             this.spltcontCntlManager.Panel1.Text = "재생 스케줄";
             this.spltcontCntlManager.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.spltcontCntlManager.Panel2.Controls.Add(this.grdctrFramePlayStatus);
             this.spltcontCntlManager.Panel2.ShowCaption = true;
             this.spltcontCntlManager.Panel2.Text = "프레임별 재생 정보";
             this.spltcontCntlManager.Size = new System.Drawing.Size(951, 474);
@@ -265,32 +256,6 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemDateEdit2.Name = "repositoryItemDateEdit2";
             // 
-            // grdctrFramePlayStatus
-            // 
-            this.grdctrFramePlayStatus.Location = new System.Drawing.Point(-3, 0);
-            this.grdctrFramePlayStatus.MainView = this.cardView1;
-            this.grdctrFramePlayStatus.Name = "grdctrFramePlayStatus";
-            this.grdctrFramePlayStatus.Size = new System.Drawing.Size(664, 433);
-            this.grdctrFramePlayStatus.TabIndex = 0;
-            this.grdctrFramePlayStatus.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.cardView1});
-            // 
-            // cardView1
-            // 
-            this.cardView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colName});
-            this.cardView1.FocusedCardTopFieldIndex = 0;
-            this.cardView1.GridControl = this.grdctrFramePlayStatus;
-            this.cardView1.Name = "cardView1";
-            this.cardView1.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Auto;
-            // 
-            // colName
-            // 
-            this.colName.FieldName = "Name";
-            this.colName.Name = "colName";
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 0;
-            // 
             // xtabpg2Download
             // 
             this.xtabpg2Download.Controls.Add(this.splitContainerControl1);
@@ -310,7 +275,7 @@
             this.splitContainerControl1.Panel1.ShowCaption = true;
             this.splitContainerControl1.Panel1.Text = "재생 스케줄";
             this.splitContainerControl1.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.splitContainerControl1.Panel2.Controls.Add(this.gridControl1);
+            this.splitContainerControl1.Panel2.Controls.Add(this.memoEdit1);
             this.splitContainerControl1.Panel2.ShowCaption = true;
             this.splitContainerControl1.Panel2.Text = "프레임별 재생 정보";
             this.splitContainerControl1.Size = new System.Drawing.Size(951, 474);
@@ -349,6 +314,7 @@
             this.repositoryItemDateEdit4});
             this.trlstSchedule.Size = new System.Drawing.Size(467, 450);
             this.trlstSchedule.TabIndex = 0;
+            this.trlstSchedule.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.trlstSchedule_FocusedNodeChanged);
             this.trlstSchedule.Load += new System.EventHandler(this.trlstSchedule_Load);
             // 
             // tlcScheCatagory
@@ -456,31 +422,14 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemDateEdit4.Name = "repositoryItemDateEdit4";
             // 
-            // gridControl1
+            // memoEdit1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(-3, 0);
-            this.gridControl1.MainView = this.cardView2;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(664, 433);
-            this.gridControl1.TabIndex = 0;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.cardView2});
-            // 
-            // cardView2
-            // 
-            this.cardView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1});
-            this.cardView2.FocusedCardTopFieldIndex = 0;
-            this.cardView2.GridControl = this.gridControl1;
-            this.cardView2.Name = "cardView2";
-            this.cardView2.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Auto;
-            // 
-            // gridColumn1
-            // 
-            this.gridColumn1.FieldName = "Name";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
+            this.memoEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.memoEdit1.EditValue = "";
+            this.memoEdit1.Location = new System.Drawing.Point(0, 0);
+            this.memoEdit1.Name = "memoEdit1";
+            this.memoEdit1.Size = new System.Drawing.Size(471, 450);
+            this.memoEdit1.TabIndex = 0;
             // 
             // xtabpg3Log
             // 
@@ -551,8 +500,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdctrFramePlayStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cardView1)).EndInit();
             this.xtabpg2Download.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
@@ -562,8 +509,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cardView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memoEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -589,10 +535,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit2;
-        private DevExpress.XtraGrid.GridControl grdctrFramePlayStatus;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlclType;
-        private DevExpress.XtraGrid.Views.Card.CardView cardView1;
-        private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
         private DevExpress.XtraTreeList.TreeList trlstSchedule;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheCatagory;
@@ -604,9 +547,7 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheEnddate;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit3;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit4;
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Card.CardView cardView2;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraEditors.MemoEdit memoEdit1;
 
 
     }

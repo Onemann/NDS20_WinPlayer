@@ -194,6 +194,7 @@ namespace NDS20WinPlayer
         {
             var AppIniFile = new IniFile();
 
+            AppInfoStrc.DirOfApplication = Environment.CurrentDirectory;
             AppInfoStrc.DirOfSchedule = AppIniFile.Read("DirOfSchedule", "PATH");
             
             

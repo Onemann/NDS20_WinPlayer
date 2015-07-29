@@ -4,6 +4,7 @@ namespace NDS20WinPlayer
 {
     class AppInfoStrc
     {
+        public static string DirOfApplication;
         public static string DirOfSchedule;
 
     }
@@ -29,7 +30,12 @@ namespace NDS20WinPlayer
 
     public class clssScheduleFileList
     {
-        public string 
+        public string scheCatagory { get; set; }
+        public string scheType { get; set; }
+        public string ctscKey { get; set; }
+        public string ctscName { get; set; }
+        public string ctscStartdate { get; set; }
+        public string ctscEnddate { get; set; }
     }
 
 }

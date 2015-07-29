@@ -18,7 +18,8 @@ namespace NDS20WinPlayer
 {
     public partial class ManagerForm : DevExpress.XtraEditors.XtraForm
     {
-        public List<string> arSchedule;
+        //public List<string> arSchedule;
+        
         public ManagerForm()
         {
             InitializeComponent();
@@ -99,18 +100,45 @@ namespace NDS20WinPlayer
         }
 
         private void AssignScheduleFileToTreeList()
-       {
+        {
+           List<clssScheduleFileList> dataSource = new List<clssScheduleFileList>();
+
             System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
+
             foreach (System.IO.FileInfo f in di.GetFiles())
             {
-                trlstSchedule.DataMember.Insert(1, f.Name);
+                clssScheduleFileList item = new clssScheduleFileList();
+                item.ctscName = f.Name;
+                dataSource.Add(item);
             }
+            
+            trlstSchedule.DataSource = dataSource;
 
-       }
+        }
+
+
+
 
         private void trlstSchedule_Load(object sender, EventArgs e)
         {
             AssignScheduleFileToTreeList();
+        }
+
+        private void trlstSchedule_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
+        {
+            string schedulename = e.Node.GetDisplayText("ctscName");
+            string scheduleFilePath = AppInfoStrc.DirOfSchedule + "\\" + schedulename;
+            string scheduleText = System.IO.File.ReadAllText(@scheduleFilePath);
+
+            string scheduleTexo = "[{'scheCatagory':'일반','scheType':'기본','ctscKey':'스케줄키02','ctscName':'Schedule20150801.sch','ctscStartdate':'2015-08-01T12:00Z','ctscEnddate':'2015-08-30T12:00Z'}]";
+
+            clssScheduleFileList[] shclist = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleText, new IsoDateTimeConverter());
+
+
+            memoEdit1.Text = shclist[0].scheCatagory;
+
+            //MessageBox.Show(scheduleFilePath);
+
         }
     }
 
