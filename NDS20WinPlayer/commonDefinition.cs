@@ -2,6 +2,11 @@
 
 namespace NDS20WinPlayer
 {
+    class AppInfoStrc
+    {
+        public static string DirOfSchedule;
+
+    }
     public struct frameInfoStrc
     {
         public int xPos;
@@ -20,6 +25,11 @@ namespace NDS20WinPlayer
         public DateTime tlclStartDateField { get; set; }
         public DateTime tlclEndDateField { get; set; }
         //added
+    }
+
+    public class clssScheduleFileList
+    {
+        public string 
     }
 
 }

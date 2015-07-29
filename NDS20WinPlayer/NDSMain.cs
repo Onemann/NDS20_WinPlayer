@@ -10,9 +10,9 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Net.Json;
 
-
 namespace NDS20WinPlayer
 {
+
     public partial class NDSMain : Form
     {
 
@@ -20,6 +20,7 @@ namespace NDS20WinPlayer
         public const int HT_CAPTION = 0x2;
         public List<Subframe> arrSubframe;
         public List<string> arrSchedule;
+
 
         [DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWind, int Msg, int wParam, int lParam);
@@ -30,8 +31,8 @@ namespace NDS20WinPlayer
         public NDSMain()
         {
             InitializeComponent();
+            LoadIniFile();
 
-            
             arrSubframe = new List<Subframe>();
             arrSchedule = new List<string>();
 
@@ -46,55 +47,6 @@ namespace NDS20WinPlayer
 //#endif
         }
 
-        
-        /*
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            if (Screen.AllScreens.Length > 1)
-            {
-
-                NDSMain frm = new NDSMain();
-
-                // Important !
-                frm.StartPosition = FormStartPosition.Manual;
-
-                // Get the second monitor screen
-                Screen screen = GetSecondaryScreen();
-
-                // set the location to the top left of the second screen
-                frm.Location = screen.WorkingArea.Location;
-                frm.Location = frm.Location.X - 100;
-                // set it full screen
-                frm.Size = new Size(screen.WorkingArea.Width+ 200, screen.WorkingArea.Height);
-
-                // Show the form
-                frm.Show();
-
-            }
-        }
-        
-
-        public Screen GetSecondaryScreen()
-        {
-            if (Screen.AllScreens.Length == 1)
-            {
-                return null;
-            }
-
-            foreach (Screen screen in Screen.AllScreens)
-            {
-                if (screen.Primary == false)
-                {
-                    return screen;
-                }
-            }
-
-            return null;
-        }
-        */
-
         // open new sub frame with JSON frame parameter 
         private void openSubframe(JsonObject jsonFrame)
         {
@@ -103,7 +55,6 @@ namespace NDS20WinPlayer
             newSubframe.Parent = this;
             newSubframe.BackColor = Color.Gold;
             newSubframe.Show();
-
 
         }
 
@@ -198,6 +149,7 @@ namespace NDS20WinPlayer
                 );
 
         }
+        #endregion
 
         private void drawSubFrame()
         {
@@ -237,6 +189,14 @@ namespace NDS20WinPlayer
             this.Location = new System.Drawing.Point(screenLeft, screenTop);
 
         }
+
+        private void LoadIniFile()
+        {
+            var AppIniFile = new IniFile();
+
+            AppInfoStrc.DirOfSchedule = AppIniFile.Read("DirOfSchedule", "PATH");
+            
+            
+        }
     }
-        #endregion
 }

@@ -97,5 +97,21 @@ namespace NDS20WinPlayer
 
             }
         }
+
+        private void AssignScheduleFileToTreeList()
+       {
+            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
+            foreach (System.IO.FileInfo f in di.GetFiles())
+            {
+                trlstSchedule.DataMember.Insert(1, f.Name);
+            }
+
+       }
+
+        private void trlstSchedule_Load(object sender, EventArgs e)
+        {
+            AssignScheduleFileToTreeList();
+        }
     }
+
 }
