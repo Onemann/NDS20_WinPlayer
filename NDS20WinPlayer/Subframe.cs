@@ -44,7 +44,7 @@ namespace NDS20WinPlayer
             this.Height = frameInfo.height;
             this.Location = new System.Drawing.Point(frameInfo.xPos, frameInfo.yPos);
 
-            # region Create Player
+            # region ==== Create Player ====
             m_factory = new MediaPlayerFactory(true);
             m_player = m_factory.CreatePlayer<IDiskPlayer>();
             m_player.AspectRatio = AspectRatioMode.Default;
@@ -53,9 +53,9 @@ namespace NDS20WinPlayer
             m_player.WindowHandle = this.pnlPlayerBack.Handle;
 
             UISync.Init(this);
-            #endregion
+            #endregion ======================
 
-            #region Contents play
+            #region ==== Contents play ====
             FileInfo contentsFileInfo = new FileInfo(@frameInfo.contentsFileName);
             m_media = m_factory.CreateMedia<IMediaFromFile>(contentsFileInfo.FullName);
             
@@ -63,7 +63,7 @@ namespace NDS20WinPlayer
             m_media.Parse(true);
 
             m_player.Play();
-            #endregion
+            #endregion =====================
         }
 
         private class UISync
