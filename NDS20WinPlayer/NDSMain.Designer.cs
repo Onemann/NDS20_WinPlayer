@@ -18,6 +18,8 @@
                 components.Dispose();
             }
             base.Dispose(disposing);
+            LogFile.threadWriteLog("====================NDS2.0 Player Closed!!====================", LogType.LOG_INFO);
+
         }
 
         #region Windows Form 디자이너에서 생성한 코드

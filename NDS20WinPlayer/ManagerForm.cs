@@ -14,6 +14,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace NDS20WinPlayer
 {
     public partial class ManagerForm : DevExpress.XtraEditors.XtraForm
@@ -116,6 +117,28 @@ namespace NDS20WinPlayer
 
         }
 
+        private void AssignLogFileToTreeList()
+        {
+            List<clssLogFileList> dataSource = new List<clssLogFileList>();
+
+            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfLog);
+
+            foreach (System.IO.FileInfo f in di.GetFiles())
+            {
+                clssLogFileList item = new clssLogFileList();
+                item.logFileName = f.Name;
+                dataSource.Add(item);
+            }
+
+            trlstLogFile.DataSource = dataSource;
+
+        }
+
+        private void loadLogFileAndConnectDataSource(string  prmLogFileName);
+        {
+            //string logFileFullPath = AppInfoStrc.DirOfLog + "\\" + prmLogFileName;
+
+        }
 
 
 
@@ -130,7 +153,7 @@ namespace NDS20WinPlayer
             string scheduleFilePath = AppInfoStrc.DirOfSchedule + "\\" + schedulename;
             string scheduleText = System.IO.File.ReadAllText(@scheduleFilePath);
 
-            string scheduleTexo = "[{'scheCatagory':'일반','scheType':'기본','ctscKey':'스케줄키02','ctscName':'Schedule20150801.sch','ctscStartdate':'2015-08-01T12:00Z','ctscEnddate':'2015-08-30T12:00Z'}]";
+            //string scheduleTexo = "[{'scheCatagory':'일반','scheType':'기본','ctscKey':'스케줄키02','ctscName':'Schedule20150801.sch','ctscStartdate':'2015-08-01T12:00Z','ctscEnddate':'2015-08-30T12:00Z'}]";
 
             clssScheduleFileList[] shclist = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleText, new IsoDateTimeConverter());
 
@@ -139,6 +162,16 @@ namespace NDS20WinPlayer
 
             //MessageBox.Show(scheduleFilePath);
 
+        }
+
+        private void trlstLogFile_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
+        {
+
+        }
+
+        private void trlstLogFile_Load(object sender, EventArgs e)
+        {
+            AssignLogFileToTreeList();
         }
     }
 

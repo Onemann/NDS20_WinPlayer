@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Net.Json;
+using System.IO;
+using System.Threading;
 
 namespace NDS20WinPlayer
 {
@@ -37,6 +39,7 @@ namespace NDS20WinPlayer
             arrSchedule = new List<string>();
 
             assignScheule();
+
         }
 
         private void NDSMain_MouseDown(object sender, MouseEventArgs e)
@@ -180,6 +183,7 @@ namespace NDS20WinPlayer
 
         private void NDSMain_Load(object sender, EventArgs e)
         {
+            LogFile.threadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
             int screenLeft = SystemInformation.VirtualScreen.Left;
             int screenTop = SystemInformation.VirtualScreen.Top;
             int screenWidth = SystemInformation.VirtualScreen.Width;
@@ -196,7 +200,7 @@ namespace NDS20WinPlayer
 
             AppInfoStrc.DirOfApplication = Environment.CurrentDirectory;
             AppInfoStrc.DirOfSchedule = AppIniFile.Read("DirOfSchedule", "PATH");
-            
+            AppInfoStrc.DirOfLog = AppIniFile.Read("DirOfLog", "PATH");           
             
         }
     }

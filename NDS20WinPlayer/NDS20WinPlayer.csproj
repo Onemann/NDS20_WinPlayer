@@ -159,6 +159,7 @@
   <ItemGroup>
     <Compile Include="commonDefinition.cs" />
     <Compile Include="IniFile.cs" />
+    <Compile Include="LogFile.cs" />
     <Compile Include="ManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>

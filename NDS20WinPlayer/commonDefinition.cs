@@ -6,7 +6,18 @@ namespace NDS20WinPlayer
     {
         public static string DirOfApplication;
         public static string DirOfSchedule;
+        public static string DirOfLog;
 
+    }
+
+    enum LogType
+    {
+        LOG_FATAL,
+        LOG_ERROR,
+        LOG_WARN,
+        LOG_INFO,
+        LOG_DEBUG,
+        LOG_TRACE
     }
     public struct frameInfoStrc
     {
@@ -36,6 +47,19 @@ namespace NDS20WinPlayer
         public string ctscName { get; set; }
         public string ctscStartdate { get; set; }
         public string ctscEnddate { get; set; }
+    }
+
+    //Log file class for log grid view with JSON
+    public class clssLogFileList
+    {
+        public string logFileName { get; set; }
+    }
+
+    public class clssLogList
+    {
+        public string logType { get; set; }
+        public string logDateTime { get; set; }
+        public string logMessage { get; set; }
     }
 
 }

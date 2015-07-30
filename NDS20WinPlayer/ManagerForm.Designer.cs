@@ -55,10 +55,21 @@
             this.repositoryItemDateEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.memoEdit1 = new DevExpress.XtraEditors.MemoEdit();
             this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
+            this.spctnctrlLog = new DevExpress.XtraEditors.SplitContainerControl();
+            this.trlstLogFile = new DevExpress.XtraTreeList.TreeList();
+            this.trlstcolLogFileName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemDateEdit5 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
+            this.repositoryItemDateEdit6 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.grdctrlLog = new DevExpress.XtraGrid.GridControl();
+            this.grdvLog = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.grdcLogType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.grdcLogDateTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.grdcLogMessage = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).BeginInit();
             this.xtabManager.SuspendLayout();
             this.xtabpg1PlayStatus.SuspendLayout();
@@ -80,8 +91,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.memoEdit1.Properties)).BeginInit();
+            this.xtabpg3Log.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spctnctrlLog)).BeginInit();
+            this.spctnctrlLog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trlstLogFile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit5.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit6.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdctrlLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdvLog)).BeginInit();
             this.SuspendLayout();
             // 
             // xtabManager
@@ -433,10 +455,94 @@
             // 
             // xtabpg3Log
             // 
+            this.xtabpg3Log.Controls.Add(this.spctnctrlLog);
             this.xtabpg3Log.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg3Log.Image")));
             this.xtabpg3Log.Name = "xtabpg3Log";
             this.xtabpg3Log.Size = new System.Drawing.Size(951, 474);
             this.xtabpg3Log.Text = "로그 확인";
+            // 
+            // spctnctrlLog
+            // 
+            this.spctnctrlLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spctnctrlLog.Location = new System.Drawing.Point(0, 0);
+            this.spctnctrlLog.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.spctnctrlLog.Name = "spctnctrlLog";
+            this.spctnctrlLog.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.spctnctrlLog.Panel1.Controls.Add(this.trlstLogFile);
+            this.spctnctrlLog.Panel1.ShowCaption = true;
+            this.spctnctrlLog.Panel1.Text = "로그 파일";
+            this.spctnctrlLog.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.spctnctrlLog.Panel2.Controls.Add(this.grdctrlLog);
+            this.spctnctrlLog.Panel2.ShowCaption = true;
+            this.spctnctrlLog.Panel2.Text = "로그 내용";
+            this.spctnctrlLog.Size = new System.Drawing.Size(951, 474);
+            this.spctnctrlLog.SplitterPosition = 188;
+            this.spctnctrlLog.TabIndex = 2;
+            this.spctnctrlLog.Text = "NDS2.0 Manager";
+            // 
+            // trlstLogFile
+            // 
+            this.trlstLogFile.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            this.trlstLogFile.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.trlstLogFile.Appearance.HeaderPanel.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.trlstLogFile.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.trlstcolLogFileName});
+            this.trlstLogFile.CustomizationFormBounds = new System.Drawing.Rectangle(478, 476, 206, 175);
+            this.trlstLogFile.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trlstLogFile.KeyFieldName = "schedule";
+            this.trlstLogFile.Location = new System.Drawing.Point(0, 0);
+            this.trlstLogFile.LookAndFeel.SkinName = "Dark Side";
+            this.trlstLogFile.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.trlstLogFile.Name = "trlstLogFile";
+            this.trlstLogFile.OptionsBehavior.PopulateServiceColumns = true;
+            this.trlstLogFile.OptionsView.AutoWidth = false;
+            this.trlstLogFile.OptionsView.EnableAppearanceEvenRow = true;
+            this.trlstLogFile.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFullFocus;
+            this.trlstLogFile.OptionsView.ShowSummaryFooter = true;
+            this.trlstLogFile.ParentFieldName = "Name";
+            this.trlstLogFile.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemTextEdit3,
+            this.repositoryItemDateEdit5,
+            this.repositoryItemDateEdit6});
+            this.trlstLogFile.Size = new System.Drawing.Size(184, 450);
+            this.trlstLogFile.TabIndex = 0;
+            this.trlstLogFile.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.trlstLogFile_FocusedNodeChanged);
+            this.trlstLogFile.Load += new System.EventHandler(this.trlstLogFile_Load);
+            // 
+            // trlstcolLogFileName
+            // 
+            this.trlstcolLogFileName.Caption = "로그파일명";
+            this.trlstcolLogFileName.FieldName = "logFileName";
+            this.trlstcolLogFileName.Name = "trlstcolLogFileName";
+            this.trlstcolLogFileName.OptionsColumn.AllowEdit = false;
+            this.trlstcolLogFileName.OptionsColumn.AllowFocus = false;
+            this.trlstcolLogFileName.OptionsColumn.ReadOnly = true;
+            this.trlstcolLogFileName.Visible = true;
+            this.trlstcolLogFileName.VisibleIndex = 0;
+            this.trlstcolLogFileName.Width = 145;
+            // 
+            // repositoryItemTextEdit3
+            // 
+            this.repositoryItemTextEdit3.AutoHeight = false;
+            this.repositoryItemTextEdit3.Name = "repositoryItemTextEdit3";
+            // 
+            // repositoryItemDateEdit5
+            // 
+            this.repositoryItemDateEdit5.AutoHeight = false;
+            this.repositoryItemDateEdit5.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit5.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit5.Name = "repositoryItemDateEdit5";
+            // 
+            // repositoryItemDateEdit6
+            // 
+            this.repositoryItemDateEdit6.AutoHeight = false;
+            this.repositoryItemDateEdit6.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit6.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit6.Name = "repositoryItemDateEdit6";
             // 
             // xtabpg4Setup
             // 
@@ -471,6 +577,64 @@
             this.statusStrip1.Size = new System.Drawing.Size(959, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // grdctrlLog
+            // 
+            this.grdctrlLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdctrlLog.Location = new System.Drawing.Point(0, 0);
+            this.grdctrlLog.MainView = this.grdvLog;
+            this.grdctrlLog.Name = "grdctrlLog";
+            this.grdctrlLog.Size = new System.Drawing.Size(754, 450);
+            this.grdctrlLog.TabIndex = 1;
+            this.grdctrlLog.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdvLog});
+            // 
+            // grdvLog
+            // 
+            this.grdvLog.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            this.grdvLog.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.grdvLog.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.grdcLogType,
+            this.grdcLogDateTime,
+            this.grdcLogMessage});
+            this.grdvLog.GridControl = this.grdctrlLog;
+            this.grdvLog.Name = "grdvLog";
+            // 
+            // grdcLogType
+            // 
+            this.grdcLogType.Caption = "분류";
+            this.grdcLogType.FieldNameSortGroup = "logType";
+            this.grdcLogType.Name = "grdcLogType";
+            this.grdcLogType.OptionsColumn.AllowEdit = false;
+            this.grdcLogType.OptionsColumn.AllowFocus = false;
+            this.grdcLogType.OptionsColumn.ReadOnly = true;
+            this.grdcLogType.Visible = true;
+            this.grdcLogType.VisibleIndex = 0;
+            this.grdcLogType.Width = 59;
+            // 
+            // grdcLogDateTime
+            // 
+            this.grdcLogDateTime.Caption = "일시";
+            this.grdcLogDateTime.FieldName = "logDateTime";
+            this.grdcLogDateTime.Name = "grdcLogDateTime";
+            this.grdcLogDateTime.OptionsColumn.AllowEdit = false;
+            this.grdcLogDateTime.OptionsColumn.AllowFocus = false;
+            this.grdcLogDateTime.OptionsColumn.ReadOnly = true;
+            this.grdcLogDateTime.Visible = true;
+            this.grdcLogDateTime.VisibleIndex = 1;
+            this.grdcLogDateTime.Width = 122;
+            // 
+            // grdcLogMessage
+            // 
+            this.grdcLogMessage.Caption = "내용";
+            this.grdcLogMessage.FieldName = "logMessage";
+            this.grdcLogMessage.Name = "grdcLogMessage";
+            this.grdcLogMessage.OptionsColumn.AllowEdit = false;
+            this.grdcLogMessage.OptionsColumn.AllowFocus = false;
+            this.grdcLogMessage.OptionsColumn.ReadOnly = true;
+            this.grdcLogMessage.Visible = true;
+            this.grdcLogMessage.VisibleIndex = 2;
+            this.grdcLogMessage.Width = 555;
             // 
             // ManagerForm
             // 
@@ -510,8 +674,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.memoEdit1.Properties)).EndInit();
+            this.xtabpg3Log.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spctnctrlLog)).EndInit();
+            this.spctnctrlLog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trlstLogFile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit5.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit6.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdctrlLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdvLog)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -548,6 +723,17 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit3;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit4;
         private DevExpress.XtraEditors.MemoEdit memoEdit1;
+        private DevExpress.XtraEditors.SplitContainerControl spctnctrlLog;
+        private DevExpress.XtraTreeList.TreeList trlstLogFile;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn trlstcolLogFileName;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit3;
+        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit5;
+        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit6;
+        private DevExpress.XtraGrid.GridControl grdctrlLog;
+        private DevExpress.XtraGrid.Views.Grid.GridView grdvLog;
+        private DevExpress.XtraGrid.Columns.GridColumn grdcLogType;
+        private DevExpress.XtraGrid.Columns.GridColumn grdcLogDateTime;
+        private DevExpress.XtraGrid.Columns.GridColumn grdcLogMessage;
 
 
     }
