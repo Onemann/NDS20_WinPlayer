@@ -174,10 +174,25 @@ namespace NDS20WinPlayer
             this.BackgroundImage = null;
         }
 
+        // 생성된 폼이 있는지 확인
+        private static Form IsFormAlreadyOpen(Type FormType)
+        {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.GetType() == FormType)
+                    return OpenForm;
+            }
+            return null;
+        }
         private void ShowManagerForm()
         {
-            ManagerForm managerForm = new ManagerForm();
+            ManagerForm managerForm = null;
+            if( (managerForm = (ManagerForm)IsFormAlreadyOpen(typeof(ManagerForm))) == null) //생성된 폼이 없다면
+            {
+                managerForm = new ManagerForm();
+            }
             managerForm.Show();
+            managerForm.BringToFront();
             //managerForm.TopLevel = true;
         }
 

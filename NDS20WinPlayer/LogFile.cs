@@ -28,6 +28,8 @@ namespace NDS20WinPlayer
             logFileInfo = new FileInfo(logFilePath);
             logDirInfo = new DirectoryInfo(logFileInfo.DirectoryName);
             if (!logDirInfo.Exists) logDirInfo.Create();
+
+            string areadyExists = "";
             if (!logFileInfo.Exists)
             {
                 fileStream = logFileInfo.Create();
@@ -35,6 +37,7 @@ namespace NDS20WinPlayer
             else
             {
                 fileStream = new FileStream(logFilePath, FileMode.Append);
+                areadyExists = ",";
             }
             log = new StreamWriter(fileStream);
 
@@ -62,7 +65,7 @@ namespace NDS20WinPlayer
                     break;
             }
             string strLogTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            log.WriteLine("{" +
+            log.WriteLine(areadyExists + "{" +
                            "\"logType\":\"" + strLogType + "\"," +
                            "\"logDateTime\":\"" + strLogTime + "\"," +
                             "\"logMessage\":" + "\"" + strLogMsg + "\"" +

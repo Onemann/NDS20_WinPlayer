@@ -79,16 +79,6 @@ namespace NDS20WinPlayer
 //treeList1.DataSource = new System.Collections.Generic.List<System.Net.Json.JsonArrayCollection>();
         }
 
-        private void panelControl1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void spltcontCntlManager_Paint(object sender, PaintEventArgs e)
-        {
-            
-        }
-
         private void ManagerForm_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -100,23 +90,80 @@ namespace NDS20WinPlayer
             }
         }
 
+        //스케줄 파일에서 Json 스케줄 텍스트를 읽어 grid에 넣기
         private void AssignScheduleFileToTreeList()
         {
-           List<clssScheduleFileList> dataSource = new List<clssScheduleFileList>();
+            List<clssScheduleFileList> dataSource = new List<clssScheduleFileList>();
+
+            clssScheduleFileList[] scheFileList;
+            //clssScheduleFileList scheFileOneRecord;
 
             System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
 
+            string scheFullPath = "";
+            string scheduleInfoJson = "";
+            string scheType = "";
+
             foreach (System.IO.FileInfo f in di.GetFiles())
             {
-                clssScheduleFileList item = new clssScheduleFileList();
-                item.ctscName = f.Name;
-                dataSource.Add(item);
-            }
-            
-            trlstSchedule.DataSource = dataSource;
+                scheFullPath = f.FullName;
 
+                #region 파일 JSON text 읽어서 grid에 채우기
+                scheduleInfoJson = System.IO.File.ReadAllText(@scheFullPath);
+
+                scheFileList = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleInfoJson, new IsoDateTimeConverter());
+
+                #region 파일에 포함된 Json 배열의 스케줄을 Datasource에 추가하기
+                foreach (clssScheduleFileList scheFileOneRecord in scheFileList)
+                {
+                    #region 스케줄 코드에 따라 분류와 종류 입력
+
+                    scheType = scheFileOneRecord.scheType;
+
+                    switch (scheType)
+                    {
+                        case "01":
+                            scheFileOneRecord.scheCategory = "일반";
+                            scheFileOneRecord.scheKind = "기본";
+                            break;
+                        case "02":
+                            scheFileOneRecord.scheCategory = "일반";
+                            scheFileOneRecord.scheKind = "이벤트";
+                            break;
+                        case "03":
+                            scheFileOneRecord.scheCategory = "동기화";
+                            scheFileOneRecord.scheKind = "기본";
+                            break;
+                        case "04":
+                            scheFileOneRecord.scheCategory = "동기화";
+                            scheFileOneRecord.scheKind = "이벤트";
+                            break;
+                        case "05":
+                            scheFileOneRecord.scheCategory = "사내방송";
+                            scheFileOneRecord.scheKind = "기본";
+                            break;
+                        case "06":
+                            scheFileOneRecord.scheCategory = "사내방송";
+                            scheFileOneRecord.scheKind = "이벤트";
+                            break;
+                    }
+                    #endregion
+
+                    // 파일을 읽기 위해 파일명을 저장함
+                    scheFileOneRecord.scheFileName = f.Name;
+
+                    dataSource.Add(scheFileOneRecord);
+                }
+                #endregion
+            }
+            scheFileList = null;
+
+            trlstSchedule.DataSource = dataSource;
+            
+            #endregion
         }
 
+        // 로그 폴더에 있는 모든 로그파일 이름을 Grid에 넣기
         private void AssignLogFileToTreeList()
         {
             List<clssLogFileList> dataSource = new List<clssLogFileList>();
@@ -131,16 +178,9 @@ namespace NDS20WinPlayer
             }
 
             trlstLogFile.DataSource = dataSource;
+            trlstLogFile.MoveFirst();
 
         }
-
-        private void loadLogFileAndConnectDataSource(string  prmLogFileName);
-        {
-            //string logFileFullPath = AppInfoStrc.DirOfLog + "\\" + prmLogFileName;
-
-        }
-
-
 
         private void trlstSchedule_Load(object sender, EventArgs e)
         {
@@ -149,30 +189,44 @@ namespace NDS20WinPlayer
 
         private void trlstSchedule_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
-            string schedulename = e.Node.GetDisplayText("ctscName");
-            string scheduleFilePath = AppInfoStrc.DirOfSchedule + "\\" + schedulename;
-            string scheduleText = System.IO.File.ReadAllText(@scheduleFilePath);
+            
+            string schedulename = e.Node.GetDisplayText("scheFileName");
+            if (schedulename != "")
+            {
+                string scheduleFilePath = AppInfoStrc.DirOfSchedule + "\\" + schedulename;
+                string scheduleText = System.IO.File.ReadAllText(@scheduleFilePath);
 
-            //string scheduleTexo = "[{'scheCatagory':'일반','scheType':'기본','ctscKey':'스케줄키02','ctscName':'Schedule20150801.sch','ctscStartdate':'2015-08-01T12:00Z','ctscEnddate':'2015-08-30T12:00Z'}]";
+                //string scheduleTexo = "[{'scheCatagory':'일반','scheType':'기본','ctscKey':'스케줄키02','ctscName':'Schedule20150801.sch','ctscStartdate':'2015-08-01T12:00Z','ctscEnddate':'2015-08-30T12:00Z'}]";
 
-            clssScheduleFileList[] shclist = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleText, new IsoDateTimeConverter());
+                clssScheduleFileList[] shclist = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleText, new IsoDateTimeConverter());
 
 
-            memoEdit1.Text = shclist[0].scheCatagory;
+                memoEdit1.Text = scheduleText;
+            }
 
             //MessageBox.Show(scheduleFilePath);
-
+            
         }
 
         private void trlstLogFile_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
+            string logFileName = e.Node.GetDisplayText("logFileName");
+            string logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
+            string logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";
 
+            clssLogList[] logList = JsonConvert.DeserializeObject<clssLogList[]>(logTextJson, new IsoDateTimeConverter());
+
+            grdctrlLog.DataSource = logList;
         }
 
         private void trlstLogFile_Load(object sender, EventArgs e)
         {
             AssignLogFileToTreeList();
         }
-    }
 
+        private void grdctrlLog_Load(object sender, EventArgs e)
+        {
+            grdvLog.GroupPanelText = "그룹을 지으시려면 컬럼 해더를 여기로 드래그하시요";
+        }
+    }
 }

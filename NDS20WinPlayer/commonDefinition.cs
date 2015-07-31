@@ -41,12 +41,14 @@ namespace NDS20WinPlayer
 
     public class clssScheduleFileList
     {
-        public string scheCatagory { get; set; }
-        public string scheType { get; set; }
-        public string ctscKey { get; set; }
+        public string scheType { get; set; }        // [숨김]스케쥴 코드 : 01-일반.기본, 02-일반.이밴트, 03-동기화.기본, 04-동기화.이벤트, 05-사내방송.기본, 06-사내방송.이벤트
+        public string scheCategory { get; set; }    // 스케줄 분류 : 일반, 동기화, 사내방송 
+        public string scheKind { get; set; }        // 스케줄 종류 : 기본, 이벤트
+        public string ctscKey { get; set; }         // [숨김] 스케줄 키
         public string ctscName { get; set; }
-        public string ctscStartdate { get; set; }
-        public string ctscEnddate { get; set; }
+        public DateTime ctscStartdate { get; set; }
+        public DateTime ctscEnddate { get; set; }
+        public string scheFileName { get; set; }    // [숨김] 다운받은 스케줄 파일 명
     }
 
     //Log file class for log grid view with JSON
