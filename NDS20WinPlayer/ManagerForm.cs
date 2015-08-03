@@ -163,6 +163,8 @@ namespace NDS20WinPlayer
             #endregion
         }
 
+
+
         // 로그 폴더에 있는 모든 로그파일 이름을 Grid에 넣기
         private void AssignLogFileToTreeList()
         {
@@ -227,6 +229,11 @@ namespace NDS20WinPlayer
         private void grdctrlLog_Load(object sender, EventArgs e)
         {
             grdvLog.GroupPanelText = "그룹을 지으시려면 컬럼 해더를 여기로 드래그하시요";
+        }
+
+        private void gridControl1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
