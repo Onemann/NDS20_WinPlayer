@@ -202,7 +202,7 @@ namespace NDS20WinPlayer
                 string startContentsDelemeter = "\"Contents\":[";
                 string contentsText = "";
 
-                if (scheduleText.IndexOf(startContentsDelemeter) > 0)
+                if (scheduleText.IndexOf(startContentsDelemeter) > 0) // if some contents were included in this schedule
                 {
                     int posStartContetnsDelemeter = scheduleText.IndexOf(startContentsDelemeter) + startContentsDelemeter.Length - 1;
                         int posEndOfContentsDelemeter = scheduleText.IndexOf("]");
@@ -240,6 +240,11 @@ namespace NDS20WinPlayer
         private void grdctrlLog_Load(object sender, EventArgs e)
         {
             grdvLog.GroupPanelText = "그룹을 지으시려면 컬럼 해더를 여기로 드래그하시요";
+        }
+
+        private void grdContents_Load(object sender, EventArgs e)
+        {
+            bgrdvContents.GroupPanelText = "그룹을 지으시려면 컬럼 해더를 여기로 드래그하시요";
         }
     }
 }

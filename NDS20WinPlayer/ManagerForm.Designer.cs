@@ -292,6 +292,7 @@
             this.grdContents.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.bgrdvContents,
             this.bandedGridView1});
+            this.grdContents.Load += new System.EventHandler(this.grdContents_Load);
             // 
             // bgrdvContents
             // 
@@ -325,7 +326,7 @@
             this.gridBand1.Columns.Add(this.grdcCntsPlayTime);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 190;
+            this.gridBand1.Width = 180;
             // 
             // grdcCntsKey
             // 
@@ -354,14 +355,16 @@
             // 
             // grdcCntsPlayTime
             // 
-            this.grdcCntsPlayTime.Caption = "재생(초)";
+            this.grdcCntsPlayTime.Caption = "재생";
+            this.grdcCntsPlayTime.DisplayFormat.FormatString = "{0}초";
+            this.grdcCntsPlayTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.grdcCntsPlayTime.FieldName = "cntsPlayTime";
             this.grdcCntsPlayTime.Name = "grdcCntsPlayTime";
             this.grdcCntsPlayTime.OptionsColumn.AllowEdit = false;
             this.grdcCntsPlayTime.OptionsColumn.AllowFocus = false;
             this.grdcCntsPlayTime.OptionsColumn.ReadOnly = true;
             this.grdcCntsPlayTime.Visible = true;
-            this.grdcCntsPlayTime.Width = 60;
+            this.grdcCntsPlayTime.Width = 50;
             // 
             // gridBand3
             // 
@@ -380,9 +383,7 @@
             // 
             this.grdcScheCntsStartDt.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.grdcScheCntsStartDt.AppearanceHeader.Options.UseForeColor = true;
-            this.grdcScheCntsStartDt.Caption = "시작일";
-            this.grdcScheCntsStartDt.DisplayFormat.FormatString = "d";
-            this.grdcScheCntsStartDt.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.grdcScheCntsStartDt.Caption = "시작";
             this.grdcScheCntsStartDt.FieldName = "scheCntsStartDt";
             this.grdcScheCntsStartDt.Name = "grdcScheCntsStartDt";
             this.grdcScheCntsStartDt.OptionsColumn.AllowEdit = false;
@@ -394,9 +395,7 @@
             // 
             this.grdcScheCntsEndDt.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.grdcScheCntsEndDt.AppearanceHeader.Options.UseForeColor = true;
-            this.grdcScheCntsEndDt.Caption = "종료일";
-            this.grdcScheCntsEndDt.DisplayFormat.FormatString = "d";
-            this.grdcScheCntsEndDt.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.grdcScheCntsEndDt.Caption = "종료";
             this.grdcScheCntsEndDt.FieldName = "scheCntsEndDt";
             this.grdcScheCntsEndDt.Name = "grdcScheCntsEndDt";
             this.grdcScheCntsEndDt.OptionsColumn.AllowEdit = false;
@@ -415,14 +414,14 @@
             this.gridBand4.Columns.Add(this.grdcScheCntsEndTime);
             this.gridBand4.Name = "gridBand4";
             this.gridBand4.VisibleIndex = 2;
-            this.gridBand4.Width = 150;
+            this.gridBand4.Width = 120;
             // 
             // grdcScheCntsStartTime
             // 
             this.grdcScheCntsStartTime.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.grdcScheCntsStartTime.AppearanceHeader.Options.UseForeColor = true;
-            this.grdcScheCntsStartTime.Caption = "시작시간";
-            this.grdcScheCntsStartTime.DisplayFormat.FormatString = "t";
+            this.grdcScheCntsStartTime.Caption = "시작";
+            this.grdcScheCntsStartTime.DisplayFormat.FormatString = "hh:mm:ss";
             this.grdcScheCntsStartTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.grdcScheCntsStartTime.FieldName = "scheCntsStartTime";
             this.grdcScheCntsStartTime.Name = "grdcScheCntsStartTime";
@@ -430,13 +429,14 @@
             this.grdcScheCntsStartTime.OptionsColumn.AllowFocus = false;
             this.grdcScheCntsStartTime.OptionsColumn.ReadOnly = true;
             this.grdcScheCntsStartTime.Visible = true;
+            this.grdcScheCntsStartTime.Width = 60;
             // 
             // grdcScheCntsEndTime
             // 
             this.grdcScheCntsEndTime.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.grdcScheCntsEndTime.AppearanceHeader.Options.UseForeColor = true;
-            this.grdcScheCntsEndTime.Caption = "종료시간";
-            this.grdcScheCntsEndTime.DisplayFormat.FormatString = "t";
+            this.grdcScheCntsEndTime.Caption = "종료";
+            this.grdcScheCntsEndTime.DisplayFormat.FormatString = "hh:mm:ss";
             this.grdcScheCntsEndTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.grdcScheCntsEndTime.FieldName = "scheCntsEndTime";
             this.grdcScheCntsEndTime.Name = "grdcScheCntsEndTime";
@@ -444,6 +444,7 @@
             this.grdcScheCntsEndTime.OptionsColumn.AllowFocus = false;
             this.grdcScheCntsEndTime.OptionsColumn.ReadOnly = true;
             this.grdcScheCntsEndTime.Visible = true;
+            this.grdcScheCntsEndTime.Width = 60;
             // 
             // gridBand5
             // 

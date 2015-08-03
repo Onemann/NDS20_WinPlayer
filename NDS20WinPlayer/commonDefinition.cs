@@ -48,7 +48,7 @@ namespace NDS20WinPlayer
         public DateTime scheCntsStartDt { get; set; }   //사용기간-시작일
         public DateTime scheCntsEndDt { get; set; }     //사용기간-종료일
         public DateTime scheCntsStartTime { get; set; } //사용시간-시작일
-        public DateTime scheCntsEndTime { get; set; }   //사용시간-종료일
+        public string scheCntsEndTime { get; set; }   //사용시간-종료일
     }
 
     public class clssScheduleFileList
