@@ -986,8 +986,8 @@
             // 
             // panelControl1
             // 
-            this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelControl1.Controls.Add(this.xtabManager);
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
@@ -1051,6 +1051,7 @@
             this.gridBand5.Caption = "구간";
             this.gridBand5.Name = "gridBand5";
             this.gridBand5.VisibleIndex = 3;
+            this.gridBand5.Width = 203;
             // 
             // ManagerForm
             // 
