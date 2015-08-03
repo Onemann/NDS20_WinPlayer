@@ -198,8 +198,21 @@ namespace NDS20WinPlayer
 
                 //string scheduleTexo = "[{'scheCatagory':'일반','scheType':'기본','ctscKey':'스케줄키02','ctscName':'Schedule20150801.sch','ctscStartdate':'2015-08-01T12:00Z','ctscEnddate':'2015-08-30T12:00Z'}]";
 
-                clssScheduleFileList[] shclist = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleText, new IsoDateTimeConverter());
+                //clssScheduleFileList[] shclist = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleText, new IsoDateTimeConverter());
+                string startContentsDelemeter = "\"Contents\":[";
+                string contentsText = "";
 
+                if (scheduleText.IndexOf(startContentsDelemeter) > 0)
+                {
+                    int posStartContetnsDelemeter = scheduleText.IndexOf(startContentsDelemeter) + startContentsDelemeter.Length - 1;
+                        int posEndOfContentsDelemeter = scheduleText.IndexOf("]");
+                    int contentsLength = posEndOfContentsDelemeter - posStartContetnsDelemeter;
+                    contentsText = scheduleText.Substring(posStartContetnsDelemeter, contentsLength + 1);
+                }
+
+                clssContents[] cntsList = JsonConvert.DeserializeObject<clssContents[]>(contentsText, new IsoDateTimeConverter());
+
+                grdContents.DataSource = cntsList;
 
                 memoEdit1.Text = scheduleText;
             }
