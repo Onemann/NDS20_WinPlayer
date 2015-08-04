@@ -13,7 +13,7 @@ using System.Xml;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
+using DevExpress.XtraGrid;
 
 namespace NDS20WinPlayer
 {
@@ -93,9 +93,9 @@ namespace NDS20WinPlayer
         //스케줄 파일에서 Json 스케줄 텍스트를 읽어 grid에 넣기
         private void AssignScheduleFileToTreeList()
         {
-            List<clssScheduleFileList> dataSource = new List<clssScheduleFileList>();
+            List<clssSchedule> dataSource = new List<clssSchedule>();
 
-            clssScheduleFileList[] scheFileList;
+            clssSchedule[] scheFileList;
             //clssScheduleFileList scheFileOneRecord;
 
             System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
@@ -111,10 +111,10 @@ namespace NDS20WinPlayer
                 #region 파일 JSON text 읽어서 grid에 채우기
                 scheduleInfoJson = System.IO.File.ReadAllText(@scheFullPath);
 
-                scheFileList = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleInfoJson, new IsoDateTimeConverter());
+                scheFileList = JsonConvert.DeserializeObject<clssSchedule[]>(scheduleInfoJson, new IsoDateTimeConverter());
 
                 #region 파일에 포함된 Json 배열의 스케줄을 Datasource에 추가하기
-                foreach (clssScheduleFileList scheFileOneRecord in scheFileList)
+                foreach (clssSchedule scheFileOneRecord in scheFileList)
                 {
                     #region 스케줄 코드에 따라 분류와 종류 입력
 
@@ -210,6 +210,31 @@ namespace NDS20WinPlayer
                     contentsText = scheduleText.Substring(posStartContetnsDelemeter, contentsLength + 1);
                 }
 
+
+                #region 구간 밴드 동적 생성
+                List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn> lstGoogan = new List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn>();
+
+                for (int idx = 0; idx < 10; idx++)
+                {
+                    lstGoogan.Add(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn());
+                    lstGoogan[idx].Caption = (idx + 1).ToString();
+                    lstGoogan[idx].Visible = true;
+                    lstGoogan[idx].OptionsColumn.AllowEdit = false;
+                    lstGoogan[idx].OptionsColumn.AllowFocus = false;
+                    lstGoogan[idx].OptionsColumn.ReadOnly = true;
+                    lstGoogan[idx].ColumnEdit = repositoryItemCheckEdit1;
+                    //lstGoogan[idx].FilterMode = ColumnFilterMode.DisplayText;
+                    lstGoogan[idx].FieldName = "googan" + (idx + 1).ToString();
+                    bgrdvContents.Bands[3].Columns.Add(lstGoogan[idx]);
+
+                }
+                for (int idx = 0; idx < 10; idx++)
+                {
+                    lstGoogan[idx].Width = 25;
+                }
+                #endregion
+
+
                 clssContents[] cntsList = JsonConvert.DeserializeObject<clssContents[]>(contentsText, new IsoDateTimeConverter());
 
                 grdContents.DataSource = cntsList;
@@ -246,5 +271,48 @@ namespace NDS20WinPlayer
         {
             bgrdvContents.GroupPanelText = "그룹을 지으시려면 컬럼 해더를 여기로 드래그하시요";
         }
+
+        private void grdContents_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bgrdvContents_RowLoaded(object sender, DevExpress.XtraGrid.Views.Base.RowEventArgs e)
+        {
+            /*
+                    object cellValue = Convert.ToBoolean(true);
+                    this.bgrdvContents.Columns[7].View.SetRowCellValue(e.RowHandle, "googan1", cellValue);
+      //      DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bgc as sender;
+                    this.bgrdvContents.RefreshData();
+
+            */
+        }
+
+        private void bgrdvContents_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            /*
+            try
+            {
+                if (e.Column.AbsoluteIndex == 7 && this.bgrdvContents.FocusedRowHandle >= 0)
+                {
+                    
+                    object cellValue = Convert.ToBoolean(true);
+                    //this.bgrdvContents.Columns.View.SetRowCellValue(this.bgrdvContents.FocusedRowHandle, "googan1", cellValue);
+                    //e.Column.View.SetRowCellValue(,"googan1", cellValue);
+                    
+                    //e.Value = cellValue;
+                    e.DisplayText = "true";
+                    e.Column.Width = 40;
+                    //e.Column.View.SetRowCellValue(1, "googan1", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                //Handle exception here
+            }
+            */
+
+        }
+
     }
 }

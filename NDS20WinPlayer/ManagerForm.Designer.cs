@@ -52,8 +52,7 @@
             this.grdcScheCntsStartTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcScheCntsEndTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.repositoryItemDateEdit8 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.repositoryItemTimeEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
+            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.xtabManager = new DevExpress.XtraTab.XtraTabControl();
             this.xtabpg1PlayStatus = new DevExpress.XtraTab.XtraTabPage();
             this.spltcontCntlManager = new DevExpress.XtraEditors.SplitContainerControl();
@@ -100,9 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgrdvContents)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit8.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).BeginInit();
             this.xtabManager.SuspendLayout();
             this.xtabpg1PlayStatus.SuspendLayout();
@@ -284,8 +281,7 @@
             this.grdContents.MainView = this.bgrdvContents;
             this.grdContents.Name = "grdContents";
             this.grdContents.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemDateEdit8,
-            this.repositoryItemTimeEdit1});
+            this.repositoryItemCheckEdit1});
             this.grdContents.Size = new System.Drawing.Size(520, 444);
             this.grdContents.TabIndex = 2;
             this.grdContents.UseEmbeddedNavigator = true;
@@ -293,6 +289,7 @@
             this.bgrdvContents,
             this.bandedGridView1});
             this.grdContents.Load += new System.EventHandler(this.grdContents_Load);
+            this.grdContents.Click += new System.EventHandler(this.grdContents_Click);
             // 
             // bgrdvContents
             // 
@@ -315,6 +312,8 @@
             this.bgrdvContents.GridControl = this.grdContents;
             this.bgrdvContents.Name = "bgrdvContents";
             this.bgrdvContents.OptionsView.ColumnAutoWidth = false;
+            this.bgrdvContents.RowLoaded += new DevExpress.XtraGrid.Views.Base.RowEventHandler(this.bgrdvContents_RowLoaded);
+            this.bgrdvContents.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.bgrdvContents_CustomColumnDisplayText);
             // 
             // gridBand1
             // 
@@ -453,23 +452,12 @@
             this.gridBand5.Caption = "구간";
             this.gridBand5.Name = "gridBand5";
             this.gridBand5.VisibleIndex = 3;
-            this.gridBand5.Width = 203;
+            this.gridBand5.Width = 42;
             // 
-            // repositoryItemDateEdit8
+            // repositoryItemCheckEdit1
             // 
-            this.repositoryItemDateEdit8.AutoHeight = false;
-            this.repositoryItemDateEdit8.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit8.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit8.Name = "repositoryItemDateEdit8";
-            // 
-            // repositoryItemTimeEdit1
-            // 
-            this.repositoryItemTimeEdit1.AutoHeight = false;
-            this.repositoryItemTimeEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemTimeEdit1.Name = "repositoryItemTimeEdit1";
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
             // 
             // xtabManager
             // 
@@ -1075,9 +1063,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgrdvContents)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit8.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).EndInit();
             this.xtabManager.ResumeLayout(false);
             this.xtabpg1PlayStatus.ResumeLayout(false);
@@ -1165,8 +1151,6 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheKind;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheFileName;
         private DevExpress.XtraGrid.GridControl grdContents;
-        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit8;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit repositoryItemTimeEdit1;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridView bgrdvContents;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn grdcCntsKey;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn grdcCntsName;
@@ -1188,6 +1172,7 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
 
 
     }
