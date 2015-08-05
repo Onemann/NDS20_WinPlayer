@@ -19,8 +19,6 @@ namespace NDS20WinPlayer
 {
     public partial class ManagerForm : DevExpress.XtraEditors.XtraForm
     {
-        //public List<string> arSchedule;
-        
         public ManagerForm()
         {
             InitializeComponent();
@@ -189,62 +187,101 @@ namespace NDS20WinPlayer
 
         private void trlstSchedule_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
+
+            string jsonScheduleFile = e.Node.GetDisplayText("scheFileName");
+            string scheduleName = e.Node.GetDisplayText("ctscName");
+
+            jsonScheduleToContentsGrid(jsonScheduleFile, scheduleName);
+
+            //MessageBox.Show(scheduleFilePath);
             
-            string schedulename = e.Node.GetDisplayText("scheFileName");
-            if (schedulename != "")
+        }
+
+        
+        #region Read JSON schedule files and fill in the contents grid
+        private void jsonScheduleToContentsGrid(string jsonScheduleFile, string scheduleName)
+        {
+            if (jsonScheduleFile == "")
+                return;
+
+            try
             {
-                string scheduleFilePath = AppInfoStrc.DirOfSchedule + "\\" + schedulename;
+                string scheduleFilePath = AppInfoStrc.DirOfSchedule + "\\" + jsonScheduleFile;
                 string scheduleText = System.IO.File.ReadAllText(@scheduleFilePath);
 
-                //string scheduleTexo = "[{'scheCatagory':'일반','scheType':'기본','ctscKey':'스케줄키02','ctscName':'Schedule20150801.sch','ctscStartdate':'2015-08-01T12:00Z','ctscEnddate':'2015-08-30T12:00Z'}]";
+                dynamic dynSchedule = JsonConvert.DeserializeObject(scheduleText);
 
-                //clssScheduleFileList[] shclist = JsonConvert.DeserializeObject<clssScheduleFileList[]>(scheduleText, new IsoDateTimeConverter());
-                string startContentsDelemeter = "\"Contents\":[";
+                string cn = dynSchedule[0].ctscName;
                 string contentsText = "";
+
+                for (int idx = 0; idx < dynSchedule.Count; idx++)
+                {
+                    if (dynSchedule[idx].ctscName == scheduleName)
+                    {
+                        contentsText = dynSchedule[idx].Contents.Base;
+                        break;
+                    }
+                }
+
+                return;
+
+                string startContentsDelemeter = "\"Contents\":[";
+                bgrdvContents.Bands[3].Columns.Clear();
 
                 if (scheduleText.IndexOf(startContentsDelemeter) > 0) // if some contents were included in this schedule
                 {
                     int posStartContetnsDelemeter = scheduleText.IndexOf(startContentsDelemeter) + startContentsDelemeter.Length - 1;
-                        int posEndOfContentsDelemeter = scheduleText.IndexOf("]");
+                    int posEndOfContentsDelemeter = scheduleText.IndexOf("]");
                     int contentsLength = posEndOfContentsDelemeter - posStartContetnsDelemeter;
                     contentsText = scheduleText.Substring(posStartContetnsDelemeter, contentsLength + 1);
+
+                    bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Visible = false;
+
+
+                    #region 구간 밴드 동적 생성
+                    List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn> lstsector = new List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn>();
+
+                    for (int idx = 0; idx < 10; idx++)
+                    {
+                        lstsector.Add(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn());
+                        lstsector[idx].Caption = (idx + 1).ToString();
+                        lstsector[idx].OptionsColumn.AllowEdit = false;
+                        lstsector[idx].OptionsColumn.AllowFocus = false;
+                        lstsector[idx].OptionsColumn.ReadOnly = true;
+                        lstsector[idx].ColumnEdit = repositoryItemCheckEdit1;
+                        //lstsector[idx].FilterMode = ColumnFilterMode.DisplayText;
+                        lstsector[idx].Width = 25;
+                        lstsector[idx].Visible = true;
+                        lstsector[idx].FieldName = "sector" + (idx + 1).ToString();
+
+                        bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Columns.Add(lstsector[idx]);
+
+                    }
+                    bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Visible = true;
+
+                    for (int idx = 0; idx < 10; idx++)
+                    {
+                        lstsector[idx].Width = 25;
+                    }
+
+                    lstsector.Clear();
+                    lstsector = null;
+                    #endregion
+
                 }
-
-
-                #region 구간 밴드 동적 생성
-                List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn> lstGoogan = new List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn>();
-
-                for (int idx = 0; idx < 10; idx++)
-                {
-                    lstGoogan.Add(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn());
-                    lstGoogan[idx].Caption = (idx + 1).ToString();
-                    lstGoogan[idx].Visible = true;
-                    lstGoogan[idx].OptionsColumn.AllowEdit = false;
-                    lstGoogan[idx].OptionsColumn.AllowFocus = false;
-                    lstGoogan[idx].OptionsColumn.ReadOnly = true;
-                    lstGoogan[idx].ColumnEdit = repositoryItemCheckEdit1;
-                    //lstGoogan[idx].FilterMode = ColumnFilterMode.DisplayText;
-                    lstGoogan[idx].FieldName = "googan" + (idx + 1).ToString();
-                    bgrdvContents.Bands[3].Columns.Add(lstGoogan[idx]);
-
-                }
-                for (int idx = 0; idx < 10; idx++)
-                {
-                    lstGoogan[idx].Width = 25;
-                }
-                #endregion
 
 
                 clssContents[] cntsList = JsonConvert.DeserializeObject<clssContents[]>(contentsText, new IsoDateTimeConverter());
 
                 grdContents.DataSource = cntsList;
 
-                memoEdit1.Text = scheduleText;
             }
+            catch (Exception ex)
+            {
 
-            //MessageBox.Show(scheduleFilePath);
-            
+            }
         }
+        #endregion
 
         private void trlstLogFile_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
@@ -281,7 +318,7 @@ namespace NDS20WinPlayer
         {
             /*
                     object cellValue = Convert.ToBoolean(true);
-                    this.bgrdvContents.Columns[7].View.SetRowCellValue(e.RowHandle, "googan1", cellValue);
+                    this.bgrdvContents.Columns[7].View.SetRowCellValue(e.RowHandle, "sector1", cellValue);
       //      DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bgc as sender;
                     this.bgrdvContents.RefreshData();
 
@@ -297,13 +334,13 @@ namespace NDS20WinPlayer
                 {
                     
                     object cellValue = Convert.ToBoolean(true);
-                    //this.bgrdvContents.Columns.View.SetRowCellValue(this.bgrdvContents.FocusedRowHandle, "googan1", cellValue);
-                    //e.Column.View.SetRowCellValue(,"googan1", cellValue);
+                    //this.bgrdvContents.Columns.View.SetRowCellValue(this.bgrdvContents.FocusedRowHandle, "sector1", cellValue);
+                    //e.Column.View.SetRowCellValue(,"sector1", cellValue);
                     
                     //e.Value = cellValue;
                     e.DisplayText = "true";
                     e.Column.Width = 40;
-                    //e.Column.View.SetRowCellValue(1, "googan1", true);
+                    //e.Column.View.SetRowCellValue(1, "sector1", true);
                 }
             }
             catch (Exception ex)
@@ -313,6 +350,5 @@ namespace NDS20WinPlayer
             */
 
         }
-
     }
 }

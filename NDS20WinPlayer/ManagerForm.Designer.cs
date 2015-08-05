@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
+            this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
             this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.bandedGridColumn1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -51,7 +53,7 @@
             this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.grdcScheCntsStartTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcScheCntsEndTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.grdbndSector = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.xtabManager = new DevExpress.XtraTab.XtraTabControl();
             this.xtabpg1PlayStatus = new DevExpress.XtraTab.XtraTabPage();
@@ -67,18 +69,13 @@
             this.xtabpg2Download = new DevExpress.XtraTab.XtraTabPage();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.trlstSchedule = new DevExpress.XtraTreeList.TreeList();
-            this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheCategory = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheKind = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheKey = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.tlcScheStartdate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheEnddate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheFileName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.repositoryItemDateEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.repositoryItemDateEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.memoEdit1 = new DevExpress.XtraEditors.MemoEdit();
             this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
             this.spctnctrlLog = new DevExpress.XtraEditors.SplitContainerControl();
             this.trlstLogFile = new DevExpress.XtraTreeList.TreeList();
@@ -96,6 +93,7 @@
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgrdvContents)).BeginInit();
@@ -115,12 +113,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trlstSchedule)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.memoEdit1.Properties)).BeginInit();
             this.xtabpg3Log.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spctnctrlLog)).BeginInit();
             this.spctnctrlLog.SuspendLayout();
@@ -137,6 +129,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // tlcScheType
+            // 
+            this.tlcScheType.Caption = "코드";
+            this.tlcScheType.FieldName = "scheType";
+            this.tlcScheType.Name = "tlcScheType";
+            this.tlcScheType.OptionsColumn.AllowEdit = false;
+            this.tlcScheType.OptionsColumn.AllowFocus = false;
+            this.tlcScheType.OptionsColumn.ReadOnly = true;
+            this.tlcScheType.Width = 34;
+            // 
+            // repositoryItemTextEdit2
+            // 
+            this.repositoryItemTextEdit2.AutoHeight = false;
+            this.repositoryItemTextEdit2.LookAndFeel.SkinName = "Office 2013";
+            this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
             // 
             // bandedGridView1
             // 
@@ -282,7 +290,8 @@
             this.grdContents.Name = "grdContents";
             this.grdContents.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1});
-            this.grdContents.Size = new System.Drawing.Size(520, 444);
+            this.grdContents.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.grdContents.Size = new System.Drawing.Size(536, 444);
             this.grdContents.TabIndex = 2;
             this.grdContents.UseEmbeddedNavigator = true;
             this.grdContents.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -299,7 +308,7 @@
             this.gridBand1,
             this.gridBand3,
             this.gridBand4,
-            this.gridBand5});
+            this.grdbndSector});
             this.bgrdvContents.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
             this.grdcCntsKey,
             this.grdcCntsName,
@@ -323,9 +332,10 @@
             this.gridBand1.Columns.Add(this.grdcCntsKey);
             this.gridBand1.Columns.Add(this.grdcCntsName);
             this.gridBand1.Columns.Add(this.grdcCntsPlayTime);
+            this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 180;
+            this.gridBand1.Width = 191;
             // 
             // grdcCntsKey
             // 
@@ -337,7 +347,7 @@
             this.grdcCntsKey.OptionsColumn.AllowEdit = false;
             this.grdcCntsKey.OptionsColumn.AllowFocus = false;
             this.grdcCntsKey.Visible = true;
-            this.grdcCntsKey.Width = 45;
+            this.grdcCntsKey.Width = 39;
             // 
             // grdcCntsName
             // 
@@ -350,7 +360,7 @@
             this.grdcCntsName.OptionsColumn.AllowFocus = false;
             this.grdcCntsName.OptionsColumn.ReadOnly = true;
             this.grdcCntsName.Visible = true;
-            this.grdcCntsName.Width = 85;
+            this.grdcCntsName.Width = 99;
             // 
             // grdcCntsPlayTime
             // 
@@ -363,7 +373,7 @@
             this.grdcCntsPlayTime.OptionsColumn.AllowFocus = false;
             this.grdcCntsPlayTime.OptionsColumn.ReadOnly = true;
             this.grdcCntsPlayTime.Visible = true;
-            this.grdcCntsPlayTime.Width = 50;
+            this.grdcCntsPlayTime.Width = 53;
             // 
             // gridBand3
             // 
@@ -371,6 +381,7 @@
             this.gridBand3.AppearanceHeader.Options.UseForeColor = true;
             this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
             this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand3.AutoFillDown = false;
             this.gridBand3.Caption = "콘텐츠 사용 기간";
             this.gridBand3.Columns.Add(this.grdcScheCntsStartDt);
             this.gridBand3.Columns.Add(this.grdcScheCntsEndDt);
@@ -408,6 +419,7 @@
             this.gridBand4.AppearanceHeader.Options.UseForeColor = true;
             this.gridBand4.AppearanceHeader.Options.UseTextOptions = true;
             this.gridBand4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand4.AutoFillDown = false;
             this.gridBand4.Caption = "콘텐츠 사용 시간";
             this.gridBand4.Columns.Add(this.grdcScheCntsStartTime);
             this.gridBand4.Columns.Add(this.grdcScheCntsEndTime);
@@ -445,14 +457,14 @@
             this.grdcScheCntsEndTime.Visible = true;
             this.grdcScheCntsEndTime.Width = 60;
             // 
-            // gridBand5
+            // grdbndSector
             // 
-            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand5.Caption = "구간";
-            this.gridBand5.Name = "gridBand5";
-            this.gridBand5.VisibleIndex = 3;
-            this.gridBand5.Width = 42;
+            this.grdbndSector.AppearanceHeader.Options.UseTextOptions = true;
+            this.grdbndSector.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.grdbndSector.Caption = "구간";
+            this.grdbndSector.Name = "grdbndSector";
+            this.grdbndSector.VisibleIndex = 3;
+            this.grdbndSector.Width = 250;
             // 
             // repositoryItemCheckEdit1
             // 
@@ -650,11 +662,10 @@
             this.splitContainerControl1.Panel1.Text = "재생 스케줄";
             this.splitContainerControl1.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.splitContainerControl1.Panel2.Controls.Add(this.grdContents);
-            this.splitContainerControl1.Panel2.Controls.Add(this.memoEdit1);
             this.splitContainerControl1.Panel2.ShowCaption = true;
             this.splitContainerControl1.Panel2.Text = "프레임별 재생 정보";
             this.splitContainerControl1.Size = new System.Drawing.Size(1000, 468);
-            this.splitContainerControl1.SplitterPosition = 471;
+            this.splitContainerControl1.SplitterPosition = 455;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "NDS2.0 Manager";
             // 
@@ -674,7 +685,7 @@
             this.tlcScheFileName});
             this.trlstSchedule.CustomizationFormBounds = new System.Drawing.Rectangle(478, 476, 206, 175);
             this.trlstSchedule.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trlstSchedule.KeyFieldName = "schedule";
+            this.trlstSchedule.KeyFieldName = "ctscKey";
             this.trlstSchedule.Location = new System.Drawing.Point(0, 0);
             this.trlstSchedule.LookAndFeel.SkinName = "Dark Side";
             this.trlstSchedule.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -685,24 +696,10 @@
             this.trlstSchedule.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFullFocus;
             this.trlstSchedule.OptionsView.ShowSummaryFooter = true;
             this.trlstSchedule.ParentFieldName = "Name";
-            this.trlstSchedule.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemTextEdit2,
-            this.repositoryItemDateEdit3,
-            this.repositoryItemDateEdit4});
-            this.trlstSchedule.Size = new System.Drawing.Size(467, 444);
+            this.trlstSchedule.Size = new System.Drawing.Size(451, 444);
             this.trlstSchedule.TabIndex = 0;
             this.trlstSchedule.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.trlstSchedule_FocusedNodeChanged);
             this.trlstSchedule.Load += new System.EventHandler(this.trlstSchedule_Load);
-            // 
-            // tlcScheType
-            // 
-            this.tlcScheType.Caption = "코드";
-            this.tlcScheType.FieldName = "scheType";
-            this.tlcScheType.Name = "tlcScheType";
-            this.tlcScheType.OptionsColumn.AllowEdit = false;
-            this.tlcScheType.OptionsColumn.AllowFocus = false;
-            this.tlcScheType.OptionsColumn.ReadOnly = true;
-            this.tlcScheType.Width = 34;
             // 
             // tlcScheCategory
             // 
@@ -710,6 +707,7 @@
             this.tlcScheCategory.AppearanceCell.Options.UseForeColor = true;
             this.tlcScheCategory.Caption = "분류";
             this.tlcScheCategory.FieldName = "scheCategory";
+            this.tlcScheCategory.MinWidth = 52;
             this.tlcScheCategory.Name = "tlcScheCategory";
             this.tlcScheCategory.OptionsColumn.AllowEdit = false;
             this.tlcScheCategory.OptionsColumn.AllowFocus = false;
@@ -757,12 +755,7 @@
             this.tlcScheName.SummaryFooterStrFormat = "{0}건";
             this.tlcScheName.Visible = true;
             this.tlcScheName.VisibleIndex = 2;
-            this.tlcScheName.Width = 162;
-            // 
-            // repositoryItemTextEdit2
-            // 
-            this.repositoryItemTextEdit2.AutoHeight = false;
-            this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
+            this.tlcScheName.Width = 128;
             // 
             // tlcScheStartdate
             // 
@@ -796,33 +789,6 @@
             this.tlcScheFileName.Caption = "파일명";
             this.tlcScheFileName.FieldName = "scheFileName";
             this.tlcScheFileName.Name = "tlcScheFileName";
-            // 
-            // repositoryItemDateEdit3
-            // 
-            this.repositoryItemDateEdit3.AutoHeight = false;
-            this.repositoryItemDateEdit3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit3.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit3.Name = "repositoryItemDateEdit3";
-            // 
-            // repositoryItemDateEdit4
-            // 
-            this.repositoryItemDateEdit4.AutoHeight = false;
-            this.repositoryItemDateEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit4.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit4.Name = "repositoryItemDateEdit4";
-            // 
-            // memoEdit1
-            // 
-            this.memoEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.memoEdit1.EditValue = "";
-            this.memoEdit1.Location = new System.Drawing.Point(0, 0);
-            this.memoEdit1.Name = "memoEdit1";
-            this.memoEdit1.Size = new System.Drawing.Size(520, 444);
-            this.memoEdit1.TabIndex = 0;
             // 
             // xtabpg3Log
             // 
@@ -1018,10 +984,6 @@
             this.xtabpg4Setup.Size = new System.Drawing.Size(1000, 468);
             this.xtabpg4Setup.Text = "설정";
             // 
-            // defaultLookAndFeel1
-            // 
-            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Office 2013";
-            // 
             // panelControl1
             // 
             this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1060,6 +1022,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NDS2.0 Player";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ManagerForm_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgrdvContents)).EndInit();
@@ -1079,12 +1042,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trlstSchedule)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.memoEdit1.Properties)).EndInit();
             this.xtabpg3Log.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spctnctrlLog)).EndInit();
             this.spctnctrlLog.ResumeLayout(false);
@@ -1130,12 +1087,8 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheType;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheKey;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheName;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheStartdate;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheEnddate;
-        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit3;
-        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit4;
-        private DevExpress.XtraEditors.MemoEdit memoEdit1;
         private DevExpress.XtraEditors.SplitContainerControl spctnctrlLog;
         private DevExpress.XtraTreeList.TreeList trlstLogFile;
         private DevExpress.XtraTreeList.Columns.TreeListColumn trlstcolLogFileName;
@@ -1168,11 +1121,12 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn5;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn6;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn7;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
-        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand grdbndSector;
 
 
     }

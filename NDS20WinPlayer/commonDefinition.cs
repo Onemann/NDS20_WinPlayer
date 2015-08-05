@@ -49,16 +49,44 @@ namespace NDS20WinPlayer
         public DateTime scheCntsEndDt { get; set; }     //사용기간-종료일
         public DateTime scheCntsStartTime { get; set; } //사용시간-시작일
         public string scheCntsEndTime { get; set; }   //사용시간-종료일
-        //        public bool googan0 { get; set; }         // [가칭] 총 구간
-        public bool googan1 { get; set; }         // [가칭] 총 구간
-        public bool googan2 { get; set; }         // [가칭] 총 구간
-        public bool googan3 { get; set; }         // [가칭] 총 구간
-        public bool googan4 { get; set; }         // [가칭] 총 구간
-        public bool googan5 { get; set; }         // [가칭] 총 구간
-        public bool googan6 { get; set; }         // [가칭] 총 구간
-        public bool googan7 { get; set; }         // [가칭] 총 구간
-        public bool googan8 { get; set; }         // [가칭] 총 구간
-    }
+
+        #region 구간 30 Sectors are more than enough
+        public bool sector1 { get; set; }         // [가칭] 1구간
+        public bool sector2 { get; set; }         
+        public bool sector3 { get; set; }         
+        public bool sector4 { get; set; }         
+        public bool sector5 { get; set; }         
+        public bool sector6 { get; set; }         
+        public bool sector7 { get; set; }         
+        public bool sector8 { get; set; }         
+        public bool sector9 { get; set; }         
+        public bool sector10 { get; set; }        
+
+        public bool sector11 { get; set; }        
+        public bool sector12 { get; set; }        
+        public bool sector13 { get; set; }        
+        public bool sector14 { get; set; }        
+        public bool sector15 { get; set; }        
+        public bool sector16 { get; set; }        
+        public bool sector17 { get; set; }        
+        public bool sector18 { get; set; }        
+        public bool sector19 { get; set; }        
+        public bool sector20 { get; set; }        
+
+        public bool sector21 { get; set; }        
+        public bool sector22 { get; set; }        
+        public bool sector23 { get; set; }        
+        public bool sector24 { get; set; }        
+        public bool sector25 { get; set; }        
+        public bool sector26 { get; set; }        
+        public bool sector27 { get; set; }        
+        public bool sector28 { get; set; }        
+        public bool sector29 { get; set; }        
+        public bool sector30 { get; set; }        
+
+
+        #endregion
+   }
 
     public class clssSchedule
     {
@@ -69,9 +97,8 @@ namespace NDS20WinPlayer
         public string ctscName { get; set; }
         public DateTime ctscStartdate { get; set; }
         public DateTime ctscEnddate { get; set; }
-        public int ctscGoogan { get; set; }         // [가칭] 총 구간
+        public int scheTotalSector { get; set; }         // [가칭] 총 구간
         public string scheFileName { get; set; }    // [생성, 숨김] 다운받은 스케줄 파일 명 - 파일명에서 가져옴
-        //public string googan1 { get; set; }         // [가칭] 총 구간
     }
 
     //Log file class for log grid view with JSON
@@ -86,5 +113,4 @@ namespace NDS20WinPlayer
         public string logDateTime { get; set; }
         public string logMessage { get; set; }
     }
-
 }
