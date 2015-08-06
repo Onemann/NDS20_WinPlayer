@@ -13,6 +13,10 @@ namespace NDS20WinPlayer
         public static void threadWriteLog(string strLogMsg, Enum logType)
         {
             new Thread(() => WriteLog(strLogMsg, logType)).Start();
+            if(NDSManager.ActiveForm.Visible)
+            {
+                
+            }
         }
 
         // Log file

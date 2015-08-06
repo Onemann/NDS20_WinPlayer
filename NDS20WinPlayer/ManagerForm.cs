@@ -91,84 +91,96 @@ namespace NDS20WinPlayer
         //스케줄 파일에서 Json 스케줄 텍스트를 읽어 grid에 넣기
         private void AssignScheduleFileToTreeList()
         {
-            List<clssSchedule> dataSource = new List<clssSchedule>();
-
-            clssSchedule[] scheFileList;
-            //clssScheduleFileList scheFileOneRecord;
-            DirectoryInfo dirIfo = null;
-
-            dirIfo = new DirectoryInfo(AppInfoStrc.DirOfSchedule);
-            if (!dirIfo.Exists) dirIfo.Create();
-
-            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
-
-            string scheFullPath = "";
-            string scheduleInfoJson = "";
-            string scheType = "";
-
-            foreach (System.IO.FileInfo f in di.GetFiles())
+            try
             {
-                scheFullPath = f.FullName;
+                List<clssSchedule> dataSource = new List<clssSchedule>();
 
-                #region 파일 JSON text 읽어서 grid에 채우기
-                scheduleInfoJson = System.IO.File.ReadAllText(@scheFullPath);
+                clssSchedule[] scheFileList;
+                //clssScheduleFileList scheFileOneRecord;
+                DirectoryInfo dirIfo = null;
 
-                scheFileList = JsonConvert.DeserializeObject<clssSchedule[]>(scheduleInfoJson, new IsoDateTimeConverter());
+                dirIfo = new DirectoryInfo(AppInfoStrc.DirOfSchedule);
+                if (!dirIfo.Exists) dirIfo.Create();
 
-                #region 파일에 포함된 Json 배열의 스케줄을 Datasource에 추가하기
-                foreach (clssSchedule scheFileOneRecord in scheFileList)
+                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
+
+                string scheFullPath = "";
+                string scheduleInfoJson = "";
+                string scheType = "";
+
+                foreach (System.IO.FileInfo f in di.GetFiles())
                 {
-                    #region 스케줄 코드에 따라 분류와 종류 입력
+                    scheFullPath = f.FullName;
 
-                    scheType = scheFileOneRecord.scheType;
+                    #region 파일 JSON text 읽어서 grid에 채우기
+                    scheduleInfoJson = System.IO.File.ReadAllText(@scheFullPath);
 
-                    switch (scheType)
+                    scheFileList = JsonConvert.DeserializeObject<clssSchedule[]>(scheduleInfoJson, new IsoDateTimeConverter());
+
+                    #region 파일에 포함된 Json 배열의 스케줄을 Datasource에 추가하기
+                    foreach (clssSchedule scheFileOneRecord in scheFileList)
                     {
-                        case "01":
-                            scheFileOneRecord.scheCategory = "일반";
-                            scheFileOneRecord.scheKind = "기본";
-                            break;
-                        case "02":
-                            scheFileOneRecord.scheCategory = "일반";
-                            scheFileOneRecord.scheKind = "이벤트";
-                            break;
-                        case "03":
-                            scheFileOneRecord.scheCategory = "동기화";
-                            scheFileOneRecord.scheKind = "기본";
-                            break;
-                        case "04":
-                            scheFileOneRecord.scheCategory = "동기화";
-                            scheFileOneRecord.scheKind = "이벤트";
-                            break;
-                        case "05":
-                            scheFileOneRecord.scheCategory = "사내방송";
-                            scheFileOneRecord.scheKind = "기본";
-                            break;
-                        case "06":
-                            scheFileOneRecord.scheCategory = "사내방송";
-                            scheFileOneRecord.scheKind = "이벤트";
-                            break;
+                        #region 스케줄 코드에 따라 분류와 종류 입력
+
+                        scheType = scheFileOneRecord.scheType;
+
+                        switch (scheType)
+                        {
+                            case "01":
+                                scheFileOneRecord.scheCategory = "일반";
+                                scheFileOneRecord.scheKind = "기본";
+                                break;
+                            case "02":
+                                scheFileOneRecord.scheCategory = "일반";
+                                scheFileOneRecord.scheKind = "이벤트";
+                                break;
+                            case "03":
+                                scheFileOneRecord.scheCategory = "동기화";
+                                scheFileOneRecord.scheKind = "기본";
+                                break;
+                            case "04":
+                                scheFileOneRecord.scheCategory = "동기화";
+                                scheFileOneRecord.scheKind = "이벤트";
+                                break;
+                            case "05":
+                                scheFileOneRecord.scheCategory = "사내방송";
+                                scheFileOneRecord.scheKind = "기본";
+                                break;
+                            case "06":
+                                scheFileOneRecord.scheCategory = "사내방송";
+                                scheFileOneRecord.scheKind = "이벤트";
+                                break;
+                        }
+                        #endregion
+
+                        // 파일을 읽기 위해 파일명을 저장함
+                        scheFileOneRecord.scheFileName = f.Name;
+
+                        dataSource.Add(scheFileOneRecord);
                     }
                     #endregion
-
-                    // 파일을 읽기 위해 파일명을 저장함
-                    scheFileOneRecord.scheFileName = f.Name;
-
-                    dataSource.Add(scheFileOneRecord);
                 }
-                #endregion
-            }
-            scheFileList = null;
+                scheFileList = null;
 
-            trlstSchedule.DataSource = dataSource;
-            
-            #endregion
+                trlstSchedule.DataSource = dataSource;
+
+                    #endregion
+            }
+            catch(Exception ex)
+            {
+                LogFile.threadWriteLog(ex.Message, LogType.LOG_ERROR);
+            }
         }
 
         // 로그 폴더에 있는 모든 로그파일 이름을 Grid에 넣기
         private void AssignLogFileToTreeList()
         {
             List<clssLogFileList> dataSource = new List<clssLogFileList>();
+
+            DirectoryInfo dirInfo;
+            
+            dirInfo = new DirectoryInfo(AppInfoStrc.DirOfLog);
+            if (!dirInfo.Exists) dirInfo.Create(); 
 
             System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfLog);
 
