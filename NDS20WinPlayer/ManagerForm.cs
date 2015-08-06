@@ -95,6 +95,10 @@ namespace NDS20WinPlayer
 
             clssSchedule[] scheFileList;
             //clssScheduleFileList scheFileOneRecord;
+            DirectoryInfo dirIfo = null;
+
+            dirIfo = new DirectoryInfo(AppInfoStrc.DirOfSchedule);
+            if (!dirIfo.Exists) dirIfo.Create();
 
             System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
 
@@ -350,5 +354,6 @@ namespace NDS20WinPlayer
             */
 
         }
+        
     }
 }
