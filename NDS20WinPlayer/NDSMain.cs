@@ -175,7 +175,7 @@ namespace NDS20WinPlayer
         }
 
         // 생성된 폼이 있는지 확인
-        private static Form IsFormAlreadyOpen(Type FormType)
+        public static Form IsFormAlreadyOpen(Type FormType)
         {
             foreach (Form OpenForm in Application.OpenForms)
             {

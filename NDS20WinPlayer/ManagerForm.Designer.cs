@@ -92,7 +92,9 @@
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.stslblMessage = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusMessage = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
@@ -128,6 +130,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlcScheType
@@ -997,21 +1000,37 @@
             this.panelControl1.Size = new System.Drawing.Size(1010, 503);
             this.panelControl1.TabIndex = 0;
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.statusStrip1.Location = new System.Drawing.Point(0, 500);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1008, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stslblMessage,
+            this.statusMessage});
+            this.statusStrip.Location = new System.Drawing.Point(0, 500);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1008, 22);
+            this.statusStrip.TabIndex = 1;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // stslblMessage
+            // 
+            this.stslblMessage.Name = "stslblMessage";
+            this.stslblMessage.Size = new System.Drawing.Size(50, 17);
+            this.stslblMessage.Text = "메시지: ";
+            // 
+            // statusMessage
+            // 
+            this.statusMessage.AutoSize = false;
+            this.statusMessage.Name = "statusMessage";
+            this.statusMessage.Size = new System.Drawing.Size(250, 17);
+            this.statusMessage.Text = "toolStripStatusLabel2";
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 522);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panelControl1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1057,6 +1076,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1072,7 +1093,7 @@
         private DevExpress.XtraTab.XtraTabPage xtabpg3Log;
         private DevExpress.XtraTab.XtraTabPage xtabpg4Setup;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private DevExpress.XtraTreeList.TreeList treeList1;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlclSchedule;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlclStartDate;
@@ -1127,6 +1148,8 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand grdbndSector;
+        private System.Windows.Forms.ToolStripStatusLabel stslblMessage;
+        private System.Windows.Forms.ToolStripStatusLabel statusMessage;
 
 
     }
