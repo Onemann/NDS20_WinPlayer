@@ -175,24 +175,31 @@ namespace NDS20WinPlayer
         // 로그 폴더에 있는 모든 로그파일 이름을 Grid에 넣기
         private void AssignLogFileToTreeList()
         {
-            List<clssLogFileList> dataSource = new List<clssLogFileList>();
-
-            DirectoryInfo dirInfo;
-            
-            dirInfo = new DirectoryInfo(AppInfoStrc.DirOfLog);
-            if (!dirInfo.Exists) dirInfo.Create(); 
-
-            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfLog);
-
-            foreach (System.IO.FileInfo f in di.GetFiles())
+            try
             {
-                clssLogFileList item = new clssLogFileList();
-                item.logFileName = f.Name;
-                dataSource.Add(item);
-            }
+                List<clssLogFileList> dataSource = new List<clssLogFileList>();
 
-            trlstLogFile.DataSource = dataSource;
-            trlstLogFile.MoveFirst();
+                DirectoryInfo dirInfo;
+
+                dirInfo = new DirectoryInfo(AppInfoStrc.DirOfLog);
+                if (!dirInfo.Exists) dirInfo.Create();
+
+                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfLog);
+
+                foreach (System.IO.FileInfo f in di.GetFiles())
+                {
+                    clssLogFileList item = new clssLogFileList();
+                    item.logFileName = f.Name;
+                    dataSource.Add(item);
+                }
+
+                trlstLogFile.DataSource = dataSource;
+                trlstLogFile.MoveFirst();
+            }
+            catch(Exception ex)
+            {
+                LogFile.threadWriteLog(ex.Message, LogType.LOG_ERROR);
+            }
 
         }
 
@@ -365,6 +372,10 @@ namespace NDS20WinPlayer
             }
             */
 
+        }
+        private void MessageOnStatusbar(string statusMessage)
+        {
+            statusStrip
         }
         
     }
