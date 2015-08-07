@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
             this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -54,7 +53,6 @@
             this.grdcScheCntsStartTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcScheCntsEndTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdbndSector = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.xtabManager = new DevExpress.XtraTab.XtraTabControl();
             this.xtabpg1PlayStatus = new DevExpress.XtraTab.XtraTabPage();
             this.spltcontCntlManager = new DevExpress.XtraEditors.SplitContainerControl();
@@ -90,16 +88,15 @@
             this.repositoryItemDateEdit7 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.grdcLogMessage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.stslblMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusMessage = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgrdvContents)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).BeginInit();
             this.xtabManager.SuspendLayout();
             this.xtabpg1PlayStatus.SuspendLayout();
@@ -291,10 +288,8 @@
             this.grdContents.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdContents.MainView = this.bgrdvContents;
             this.grdContents.Name = "grdContents";
-            this.grdContents.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemCheckEdit1});
             this.grdContents.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.grdContents.Size = new System.Drawing.Size(536, 444);
+            this.grdContents.Size = new System.Drawing.Size(536, 481);
             this.grdContents.TabIndex = 2;
             this.grdContents.UseEmbeddedNavigator = true;
             this.grdContents.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -469,16 +464,16 @@
             this.grdbndSector.VisibleIndex = 3;
             this.grdbndSector.Width = 250;
             // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            // 
             // xtabManager
             // 
+            this.xtabManager.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.xtabManager.Appearance.Options.UseFont = true;
+            this.xtabManager.AppearancePage.Header.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.xtabManager.AppearancePage.Header.Options.UseFont = true;
             this.xtabManager.AppearancePage.Header.Options.UseTextOptions = true;
             this.xtabManager.AppearancePage.Header.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.xtabManager.AppearancePage.HeaderActive.BackColor = System.Drawing.Color.Black;
+            this.xtabManager.AppearancePage.HeaderActive.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabManager.AppearancePage.HeaderActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.xtabManager.AppearancePage.HeaderActive.Options.UseBackColor = true;
             this.xtabManager.AppearancePage.HeaderActive.Options.UseFont = true;
@@ -488,7 +483,7 @@
             this.xtabManager.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.xtabManager.Name = "xtabManager";
             this.xtabManager.SelectedTabPage = this.xtabpg1PlayStatus;
-            this.xtabManager.Size = new System.Drawing.Size(1006, 499);
+            this.xtabManager.Size = new System.Drawing.Size(1006, 535);
             this.xtabManager.TabIndex = 0;
             this.xtabManager.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtabpg1PlayStatus,
@@ -507,23 +502,35 @@
             this.xtabpg1PlayStatus.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg1PlayStatus.Image")));
             this.xtabpg1PlayStatus.Name = "xtabpg1PlayStatus";
             this.xtabpg1PlayStatus.ShowCloseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.xtabpg1PlayStatus.Size = new System.Drawing.Size(1000, 468);
+            this.xtabpg1PlayStatus.Size = new System.Drawing.Size(1000, 504);
             this.xtabpg1PlayStatus.Text = "재생상태";
             // 
             // spltcontCntlManager
             // 
+            this.spltcontCntlManager.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spltcontCntlManager.Appearance.Options.UseFont = true;
+            this.spltcontCntlManager.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spltcontCntlManager.AppearanceCaption.Options.UseFont = true;
             this.spltcontCntlManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.spltcontCntlManager.Location = new System.Drawing.Point(0, 0);
             this.spltcontCntlManager.LookAndFeel.SkinName = "DevExpress Dark Style";
             this.spltcontCntlManager.Name = "spltcontCntlManager";
+            this.spltcontCntlManager.Panel1.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spltcontCntlManager.Panel1.Appearance.Options.UseFont = true;
+            this.spltcontCntlManager.Panel1.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spltcontCntlManager.Panel1.AppearanceCaption.Options.UseFont = true;
             this.spltcontCntlManager.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.spltcontCntlManager.Panel1.Controls.Add(this.treeList1);
             this.spltcontCntlManager.Panel1.ShowCaption = true;
             this.spltcontCntlManager.Panel1.Text = "재생 스케줄";
-            this.spltcontCntlManager.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.spltcontCntlManager.Panel2.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spltcontCntlManager.Panel2.Appearance.Options.UseFont = true;
+            this.spltcontCntlManager.Panel2.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spltcontCntlManager.Panel2.AppearanceCaption.Options.UseFont = true;
+            this.spltcontCntlManager.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
             this.spltcontCntlManager.Panel2.ShowCaption = true;
             this.spltcontCntlManager.Panel2.Text = "프레임별 재생 정보";
-            this.spltcontCntlManager.Size = new System.Drawing.Size(1000, 468);
+            this.spltcontCntlManager.Size = new System.Drawing.Size(1000, 504);
             this.spltcontCntlManager.SplitterPosition = 396;
             this.spltcontCntlManager.TabIndex = 0;
             this.spltcontCntlManager.Text = "NDS2.0 Manager";
@@ -555,11 +562,13 @@
             this.repositoryItemTextEdit1,
             this.repositoryItemDateEdit1,
             this.repositoryItemDateEdit2});
-            this.treeList1.Size = new System.Drawing.Size(392, 444);
+            this.treeList1.Size = new System.Drawing.Size(392, 480);
             this.treeList1.TabIndex = 0;
             // 
             // tlclSchedule
             // 
+            this.tlclSchedule.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.tlclSchedule.AppearanceHeader.Options.UseFont = true;
             this.tlclSchedule.AppearanceHeader.Options.UseTextOptions = true;
             this.tlclSchedule.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlclSchedule.Caption = "스케줄";
@@ -650,7 +659,7 @@
             this.xtabpg2Download.Controls.Add(this.splitContainerControl1);
             this.xtabpg2Download.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg2Download.Image")));
             this.xtabpg2Download.Name = "xtabpg2Download";
-            this.xtabpg2Download.Size = new System.Drawing.Size(1000, 468);
+            this.xtabpg2Download.Size = new System.Drawing.Size(1000, 504);
             this.xtabpg2Download.Text = "스케줄";
             // 
             // splitContainerControl1
@@ -659,6 +668,10 @@
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 0);
             this.splitContainerControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
             this.splitContainerControl1.Name = "splitContainerControl1";
+            this.splitContainerControl1.Panel1.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.splitContainerControl1.Panel1.Appearance.Options.UseFont = true;
+            this.splitContainerControl1.Panel1.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.splitContainerControl1.Panel1.AppearanceCaption.Options.UseFont = true;
             this.splitContainerControl1.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.splitContainerControl1.Panel1.Controls.Add(this.trlstSchedule);
             this.splitContainerControl1.Panel1.ShowCaption = true;
@@ -667,13 +680,15 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.grdContents);
             this.splitContainerControl1.Panel2.ShowCaption = true;
             this.splitContainerControl1.Panel2.Text = "프레임별 재생 정보";
-            this.splitContainerControl1.Size = new System.Drawing.Size(1000, 468);
+            this.splitContainerControl1.Size = new System.Drawing.Size(1000, 504);
             this.splitContainerControl1.SplitterPosition = 455;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "NDS2.0 Manager";
             // 
             // trlstSchedule
             // 
+            this.trlstSchedule.Appearance.Caption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.trlstSchedule.Appearance.Caption.Options.UseFont = true;
             this.trlstSchedule.Appearance.HeaderPanel.Options.UseTextOptions = true;
             this.trlstSchedule.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.trlstSchedule.Appearance.HeaderPanel.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -699,7 +714,7 @@
             this.trlstSchedule.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFullFocus;
             this.trlstSchedule.OptionsView.ShowSummaryFooter = true;
             this.trlstSchedule.ParentFieldName = "Name";
-            this.trlstSchedule.Size = new System.Drawing.Size(451, 444);
+            this.trlstSchedule.Size = new System.Drawing.Size(451, 480);
             this.trlstSchedule.TabIndex = 0;
             this.trlstSchedule.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.trlstSchedule_FocusedNodeChanged);
             this.trlstSchedule.Load += new System.EventHandler(this.trlstSchedule_Load);
@@ -795,18 +810,36 @@
             // 
             // xtabpg3Log
             // 
+            this.xtabpg3Log.Appearance.Header.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.xtabpg3Log.Appearance.Header.Options.UseFont = true;
+            this.xtabpg3Log.Appearance.HeaderActive.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.xtabpg3Log.Appearance.HeaderActive.Options.UseFont = true;
+            this.xtabpg3Log.Appearance.HeaderDisabled.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.xtabpg3Log.Appearance.HeaderDisabled.Options.UseFont = true;
+            this.xtabpg3Log.Appearance.HeaderHotTracked.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.xtabpg3Log.Appearance.HeaderHotTracked.Options.UseFont = true;
+            this.xtabpg3Log.Appearance.PageClient.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.xtabpg3Log.Appearance.PageClient.Options.UseFont = true;
             this.xtabpg3Log.Controls.Add(this.spctnctrlLog);
             this.xtabpg3Log.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg3Log.Image")));
             this.xtabpg3Log.Name = "xtabpg3Log";
-            this.xtabpg3Log.Size = new System.Drawing.Size(1000, 468);
+            this.xtabpg3Log.Size = new System.Drawing.Size(1000, 504);
             this.xtabpg3Log.Text = "로그 확인";
             // 
             // spctnctrlLog
             // 
+            this.spctnctrlLog.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spctnctrlLog.Appearance.Options.UseFont = true;
+            this.spctnctrlLog.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spctnctrlLog.AppearanceCaption.Options.UseFont = true;
             this.spctnctrlLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.spctnctrlLog.Location = new System.Drawing.Point(0, 0);
             this.spctnctrlLog.LookAndFeel.SkinName = "DevExpress Dark Style";
             this.spctnctrlLog.Name = "spctnctrlLog";
+            this.spctnctrlLog.Panel1.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spctnctrlLog.Panel1.Appearance.Options.UseFont = true;
+            this.spctnctrlLog.Panel1.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.spctnctrlLog.Panel1.AppearanceCaption.Options.UseFont = true;
             this.spctnctrlLog.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.spctnctrlLog.Panel1.Controls.Add(this.trlstLogFile);
             this.spctnctrlLog.Panel1.ShowCaption = true;
@@ -815,13 +848,15 @@
             this.spctnctrlLog.Panel2.Controls.Add(this.grdctrlLog);
             this.spctnctrlLog.Panel2.ShowCaption = true;
             this.spctnctrlLog.Panel2.Text = "로그 내용";
-            this.spctnctrlLog.Size = new System.Drawing.Size(1000, 468);
+            this.spctnctrlLog.Size = new System.Drawing.Size(1000, 504);
             this.spctnctrlLog.SplitterPosition = 188;
             this.spctnctrlLog.TabIndex = 2;
             this.spctnctrlLog.Text = "NDS2.0 Manager";
             // 
             // trlstLogFile
             // 
+            this.trlstLogFile.Appearance.HeaderPanel.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.trlstLogFile.Appearance.HeaderPanel.Options.UseFont = true;
             this.trlstLogFile.Appearance.HeaderPanel.Options.UseTextOptions = true;
             this.trlstLogFile.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.trlstLogFile.Appearance.HeaderPanel.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -844,7 +879,7 @@
             this.repositoryItemTextEdit3,
             this.repositoryItemDateEdit5,
             this.repositoryItemDateEdit6});
-            this.trlstLogFile.Size = new System.Drawing.Size(184, 444);
+            this.trlstLogFile.Size = new System.Drawing.Size(184, 480);
             this.trlstLogFile.TabIndex = 0;
             this.trlstLogFile.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.trlstLogFile_FocusedNodeChanged);
             this.trlstLogFile.Load += new System.EventHandler(this.trlstLogFile_Load);
@@ -901,6 +936,7 @@
             this.grdctrlLog.EmbeddedNavigator.Buttons.Remove.Visible = false;
             this.grdctrlLog.EmbeddedNavigator.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.grdctrlLog.EmbeddedNavigator.TextStringFormat = "{0} / {1}";
+            this.grdctrlLog.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdctrlLog.Location = new System.Drawing.Point(0, 0);
             this.grdctrlLog.LookAndFeel.SkinName = "Dark Side";
             this.grdctrlLog.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -908,7 +944,7 @@
             this.grdctrlLog.Name = "grdctrlLog";
             this.grdctrlLog.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemDateEdit7});
-            this.grdctrlLog.Size = new System.Drawing.Size(803, 444);
+            this.grdctrlLog.Size = new System.Drawing.Size(803, 481);
             this.grdctrlLog.TabIndex = 1;
             this.grdctrlLog.UseEmbeddedNavigator = true;
             this.grdctrlLog.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -917,19 +953,33 @@
             // 
             // grdvLog
             // 
+            this.grdvLog.Appearance.FooterPanel.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdvLog.Appearance.FooterPanel.Options.UseFont = true;
+            this.grdvLog.Appearance.GroupFooter.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdvLog.Appearance.GroupFooter.Options.UseFont = true;
+            this.grdvLog.Appearance.GroupPanel.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdvLog.Appearance.GroupPanel.Options.UseFont = true;
+            this.grdvLog.Appearance.GroupRow.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdvLog.Appearance.GroupRow.Options.UseFont = true;
+            this.grdvLog.Appearance.HeaderPanel.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdvLog.Appearance.HeaderPanel.Options.UseTextOptions = true;
             this.grdvLog.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.grdvLog.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.grdcLogType,
             this.grdcLogDateTime,
             this.grdcLogMessage});
+            this.grdvLog.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.None;
             this.grdvLog.GridControl = this.grdctrlLog;
             this.grdvLog.Name = "grdvLog";
             // 
             // grdcLogType
             // 
+            this.grdcLogType.AppearanceCell.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogType.AppearanceCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.grdcLogType.AppearanceCell.Options.UseFont = true;
             this.grdcLogType.AppearanceCell.Options.UseForeColor = true;
+            this.grdcLogType.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdcLogType.AppearanceHeader.Options.UseFont = true;
             this.grdcLogType.Caption = "분류";
             this.grdcLogType.FieldName = "logType";
             this.grdcLogType.Name = "grdcLogType";
@@ -942,8 +992,12 @@
             // 
             // grdcLogDateTime
             // 
+            this.grdcLogDateTime.AppearanceCell.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogDateTime.AppearanceCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.grdcLogDateTime.AppearanceCell.Options.UseFont = true;
             this.grdcLogDateTime.AppearanceCell.Options.UseForeColor = true;
+            this.grdcLogDateTime.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdcLogDateTime.AppearanceHeader.Options.UseFont = true;
             this.grdcLogDateTime.Caption = "일시";
             this.grdcLogDateTime.ColumnEdit = this.repositoryItemDateEdit7;
             this.grdcLogDateTime.DisplayFormat.FormatString = "d";
@@ -970,6 +1024,10 @@
             // 
             // grdcLogMessage
             // 
+            this.grdcLogMessage.AppearanceCell.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdcLogMessage.AppearanceCell.Options.UseFont = true;
+            this.grdcLogMessage.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdcLogMessage.AppearanceHeader.Options.UseFont = true;
             this.grdcLogMessage.Caption = "내용";
             this.grdcLogMessage.FieldName = "logMessage";
             this.grdcLogMessage.Name = "grdcLogMessage";
@@ -984,7 +1042,7 @@
             // 
             this.xtabpg4Setup.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg4Setup.Image")));
             this.xtabpg4Setup.Name = "xtabpg4Setup";
-            this.xtabpg4Setup.Size = new System.Drawing.Size(1000, 468);
+            this.xtabpg4Setup.Size = new System.Drawing.Size(1000, 504);
             this.xtabpg4Setup.Text = "설정";
             // 
             // panelControl1
@@ -992,13 +1050,27 @@
             this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControl1.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.panelControl1.Appearance.Options.UseFont = true;
             this.panelControl1.Controls.Add(this.xtabManager);
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1010, 503);
+            this.panelControl1.Size = new System.Drawing.Size(1010, 539);
             this.panelControl1.TabIndex = 0;
+            // 
+            // stslblMessage
+            // 
+            this.stslblMessage.Name = "stslblMessage";
+            this.stslblMessage.Size = new System.Drawing.Size(50, 19);
+            this.stslblMessage.Text = "메시지: ";
+            // 
+            // statusMessage
+            // 
+            this.statusMessage.AutoSize = false;
+            this.statusMessage.Name = "statusMessage";
+            this.statusMessage.Size = new System.Drawing.Size(250, 19);
             // 
             // statusStrip
             // 
@@ -1006,33 +1078,27 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stslblMessage,
             this.statusMessage});
-            this.statusStrip.Location = new System.Drawing.Point(0, 500);
+            this.statusStrip.Location = new System.Drawing.Point(0, 535);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1008, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1008, 24);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // stslblMessage
+            // defaultLookAndFeel1
             // 
-            this.stslblMessage.Name = "stslblMessage";
-            this.stslblMessage.Size = new System.Drawing.Size(50, 17);
-            this.stslblMessage.Text = "메시지: ";
-            // 
-            // statusMessage
-            // 
-            this.statusMessage.AutoSize = false;
-            this.statusMessage.Name = "statusMessage";
-            this.statusMessage.Size = new System.Drawing.Size(250, 17);
-            this.statusMessage.Text = "toolStripStatusLabel2";
+            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Dark Side";
+            this.defaultLookAndFeel1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
             // 
             // ManagerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.Appearance.Options.UseFont = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 522);
+            this.ClientSize = new System.Drawing.Size(1008, 559);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panelControl1);
             this.DoubleBuffered = true;
+            this.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.LookAndFeel.SkinName = "DevExpress Dark Style";
@@ -1045,7 +1111,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgrdvContents)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).EndInit();
             this.xtabManager.ResumeLayout(false);
             this.xtabpg1PlayStatus.ResumeLayout(false);
@@ -1088,12 +1153,10 @@
         private DevExpress.XtraTab.XtraTabControl xtabManager;
         private DevExpress.XtraTab.XtraTabPage xtabpg1PlayStatus;
         private DevExpress.XtraTab.XtraTabPage xtabpg2Download;
-        private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
         private DevExpress.XtraEditors.SplitContainerControl spltcontCntlManager;
         private DevExpress.XtraTab.XtraTabPage xtabpg3Log;
         private DevExpress.XtraTab.XtraTabPage xtabpg4Setup;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private System.Windows.Forms.StatusStrip statusStrip;
         private DevExpress.XtraTreeList.TreeList treeList1;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlclSchedule;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlclStartDate;
@@ -1142,7 +1205,6 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn5;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn6;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn7;
-        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
@@ -1150,6 +1212,8 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand grdbndSector;
         private System.Windows.Forms.ToolStripStatusLabel stslblMessage;
         private System.Windows.Forms.ToolStripStatusLabel statusMessage;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
 
 
     }
