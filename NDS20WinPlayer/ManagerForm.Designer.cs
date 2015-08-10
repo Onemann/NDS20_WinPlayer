@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
             this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -92,7 +93,7 @@
             this.stslblMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
@@ -1063,14 +1064,15 @@
             // stslblMessage
             // 
             this.stslblMessage.Name = "stslblMessage";
-            this.stslblMessage.Size = new System.Drawing.Size(50, 19);
+            this.stslblMessage.Size = new System.Drawing.Size(50, 17);
             this.stslblMessage.Text = "메시지: ";
             // 
             // statusMessage
             // 
-            this.statusMessage.AutoSize = false;
+            this.statusMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.statusMessage.Name = "statusMessage";
-            this.statusMessage.Size = new System.Drawing.Size(250, 19);
+            this.statusMessage.Size = new System.Drawing.Size(90, 17);
+            this.statusMessage.Text = "Status Message";
             // 
             // statusStrip
             // 
@@ -1078,9 +1080,9 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stslblMessage,
             this.statusMessage});
-            this.statusStrip.Location = new System.Drawing.Point(0, 535);
+            this.statusStrip.Location = new System.Drawing.Point(0, 537);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1008, 24);
+            this.statusStrip.Size = new System.Drawing.Size(1008, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -1106,6 +1108,7 @@
             this.Name = "ManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NDS2.0 Player";
+            this.Load += new System.EventHandler(this.ManagerForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ManagerForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();

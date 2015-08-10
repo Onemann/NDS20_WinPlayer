@@ -226,32 +226,62 @@ namespace NDS20WinPlayer
         private void jsonScheduleToContentsGrid(string jsonScheduleFile, string scheduleName)
         {
             if (jsonScheduleFile == "")
+            {
+                LogFile.threadWriteLog(scheduleName + ": 스케줄 정보가 잘못되었습니다.", LogType.LOG_FATAL);
                 return;
+            }
 
             try
             {
                 string scheduleFilePath = AppInfoStrc.DirOfSchedule + "\\" + jsonScheduleFile;
                 string scheduleText = System.IO.File.ReadAllText(@scheduleFilePath);
 
-                dynamic dynSchedule = JsonConvert.DeserializeObject(scheduleText);
-
-                string cn = dynSchedule[0].ctscName;
-                string contentsText = "";
-
-                for (int idx = 0; idx < dynSchedule.Count; idx++)
+                if (scheduleText == "")
                 {
-                    if (dynSchedule[idx].ctscName == scheduleName)
-                    {
-                        contentsText = dynSchedule[idx].Contents.Base;
-                        break;
-                    }
+                    LogFile.threadWriteLog(jsonScheduleFile + ": 스케줄 정보가 잘못되었습니다.", LogType.LOG_FATAL);
+                    return;
                 }
 
-                //return;
+                dynamic dynSchedule = JsonConvert.DeserializeObject(scheduleText);
 
-                string startContentsDelemeter = "\"Contents\":[";
+                string contentsText = "";
+
+                
+                #region 구간 밴드 동적 생성
                 bgrdvContents.Bands[3].Columns.Clear();
 
+                bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Visible = false;
+
+                List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn> lstsector = new List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn>();
+
+                for (int idx = 0; idx < 10; idx++)
+                {
+                    lstsector.Add(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn());
+                    lstsector[idx].Caption = (idx + 1).ToString();
+                    lstsector[idx].OptionsColumn.AllowEdit = false;
+                    lstsector[idx].OptionsColumn.AllowFocus = false;
+                    lstsector[idx].OptionsColumn.ReadOnly = true;
+                    //lstsector[idx].FilterMode = ColumnFilterMode.DisplayText;
+                    lstsector[idx].Width = 25;
+                    lstsector[idx].Visible = true;
+                    lstsector[idx].FieldName = "sector" + (idx + 1).ToString();
+
+                    bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Columns.Add(lstsector[idx]);
+
+                }
+                bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Visible = true;
+
+                for (int idx = 0; idx < 10; idx++)
+                {
+                    lstsector[idx].Width = 25;
+                }
+
+                lstsector.Clear();
+                lstsector = null;
+                #endregion
+
+
+                /*
                 if (scheduleText.IndexOf(startContentsDelemeter) > 0) // if some contents were included in this schedule
                 {
                     int posStartContetnsDelemeter = scheduleText.IndexOf(startContentsDelemeter) + startContentsDelemeter.Length - 1;
@@ -259,49 +289,34 @@ namespace NDS20WinPlayer
                     int contentsLength = posEndOfContentsDelemeter - posStartContetnsDelemeter;
                     contentsText = scheduleText.Substring(posStartContetnsDelemeter, contentsLength + 1);
 
-                    bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Visible = false;
-
-
-                    #region 구간 밴드 동적 생성
-                    List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn> lstsector = new List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn>();
-
-                    for (int idx = 0; idx < 10; idx++)
-                    {
-                        lstsector.Add(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn());
-                        lstsector[idx].Caption = (idx + 1).ToString();
-                        lstsector[idx].OptionsColumn.AllowEdit = false;
-                        lstsector[idx].OptionsColumn.AllowFocus = false;
-                        lstsector[idx].OptionsColumn.ReadOnly = true;
-                        //lstsector[idx].FilterMode = ColumnFilterMode.DisplayText;
-                        lstsector[idx].Width = 25;
-                        lstsector[idx].Visible = true;
-                        lstsector[idx].FieldName = "sector" + (idx + 1).ToString();
-
-                        bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Columns.Add(lstsector[idx]);
-
-                    }
-                    bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Visible = true;
-
-                    for (int idx = 0; idx < 10; idx++)
-                    {
-                        lstsector[idx].Width = 25;
-                    }
-
-                    lstsector.Clear();
-                    lstsector = null;
-                    #endregion
-
                 }
+                 */
 
+                #region Abstract contents JSON data
+                grdContents.DataSource = null;
+                for (int idx = 0; idx < dynSchedule.Count; idx++)
+                {
+                    if (dynSchedule[idx].ctscName == scheduleName)
+                    {
+                        if (dynSchedule[idx].Contents != null)
+                        {
+                            contentsText = dynSchedule[idx].Contents.ToString();
+                            clssContents[] cntsList = JsonConvert.DeserializeObject<clssContents[]>(contentsText, new IsoDateTimeConverter());
+                            grdContents.DataSource = cntsList;
+                        }
+                        else
+                        {
+                            LogFile.threadWriteLog(scheduleName + ": 콘텐츠 정보가 잘못되었습니다.", LogType.LOG_FATAL);
 
-                clssContents[] cntsList = JsonConvert.DeserializeObject<clssContents[]>(contentsText, new IsoDateTimeConverter());
-
-                grdContents.DataSource = cntsList;
-
+                        }
+                        break;
+                    }
+                }
+                #endregion
             }
             catch (Exception ex)
             {
-                LogFile.threadWriteLog(ex.Message, LogType.LOG_ERROR);
+                LogFile.threadWriteLog(ex.Message + "|" + ex.Source, LogType.LOG_ERROR);
             }
         }
         #endregion
@@ -373,9 +388,38 @@ namespace NDS20WinPlayer
             */
 
         }
-        public void MessageOnStatusbar(string message)
+        public void MessageOnStatusbar(string message, Enum logType)
         {
-            this.statusMessage.Text = message;
+            System.Drawing.Color messageColor = new System.Drawing.Color();
+
+            switch ((LogType)logType)
+            {
+                case LogType.LOG_FATAL:
+                    messageColor = Color.Red;
+                    break;
+                case LogType.LOG_ERROR:
+                    messageColor = Color.OrangeRed;
+                    break;
+                case LogType.LOG_WARN:
+                    messageColor = Color.Yellow;
+                    break;
+                case LogType.LOG_INFO:
+                    messageColor = Color.White;
+                    break;
+                case LogType.LOG_DEBUG:
+                    messageColor = Color.Purple;
+                    break;
+                case LogType.LOG_TRACE:
+                    messageColor = Color.Cyan;
+                    break;
+            }
+            statusMessage.ForeColor = messageColor;
+            statusMessage.Text = message;
+        }
+
+        private void ManagerForm_Load(object sender, EventArgs e)
+        {
+            statusMessage.Text = "";
         }
         
     }

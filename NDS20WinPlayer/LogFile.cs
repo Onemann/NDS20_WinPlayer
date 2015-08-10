@@ -14,9 +14,10 @@ namespace NDS20WinPlayer
         {
             new Thread(() => WriteLog(strLogMsg, logType)).Start();
             ManagerForm managerForm = null;
-            if ((managerForm = (ManagerForm) NDSMain.IsFormAlreadyOpen(typeof(ManagerForm))) != null) //생성된 폼이 없다면
+            if ((managerForm = (ManagerForm) NDSMain.IsFormAlreadyOpen(typeof(ManagerForm))) != null) //생성된 폼이 있다면
             {
-                managerForm.MessageOnStatusbar(strLogMsg);
+                managerForm.MessageOnStatusbar(strLogMsg, logType);
+
 
             }
         }
