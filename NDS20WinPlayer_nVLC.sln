@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40418.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nVLC.LibVlcWrapper", "LibVlcWrapper\nVLC.LibVlcWrapper.csproj", "{57F08087-B175-4C96-BE36-83FBC4A21065}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nVLC_Demo_MemoryInputOutput", "nVLC_Demo_MemoryInputOutput\nVLC_Demo_MemoryInputOutput.csproj", "{51371420-37D6-48A0-870F-8FB9985A2DD2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDS20WinPlayer", "NDS20WinPlayer\NDS20WinPlayer.csproj", "{6EAD5E8B-6696-431F-AC38-E66B7F80EA5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocket", "WebSocketLib\WebSocket.csproj", "{18413B76-A1FD-450D-989C-30B9F448F966}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -168,6 +170,22 @@ Global
 		{6EAD5E8B-6696-431F-AC38-E66B7F80EA5C}.Release|x64.Build.0 = Release|x64
 		{6EAD5E8B-6696-431F-AC38-E66B7F80EA5C}.Release|x86.ActiveCfg = Release|x86
 		{6EAD5E8B-6696-431F-AC38-E66B7F80EA5C}.Release|x86.Build.0 = Release|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Debug|Win32.ActiveCfg = Debug|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Debug|Win32.Build.0 = Debug|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Debug|x64.ActiveCfg = Debug|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Debug|x86.ActiveCfg = Debug|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Debug|x86.Build.0 = Debug|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Release|Any CPU.ActiveCfg = Release|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Release|Mixed Platforms.Build.0 = Release|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Release|Win32.ActiveCfg = Release|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Release|Win32.Build.0 = Release|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Release|x64.ActiveCfg = Release|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Release|x86.ActiveCfg = Release|x86
+		{18413B76-A1FD-450D-989C-30B9F448F966}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

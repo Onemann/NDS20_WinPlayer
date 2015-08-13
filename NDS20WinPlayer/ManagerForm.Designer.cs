@@ -47,6 +47,8 @@
             this.grdcCntsKey = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcCntsName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcCntsPlayTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.grdcCtscSector = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.grdcScheCntsStartDt = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcScheCntsEndDt = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -75,6 +77,7 @@
             this.tlcScheStartdate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheEnddate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheFileName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcScheTotalSector = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
             this.spctnctrlLog = new DevExpress.XtraEditors.SplitContainerControl();
             this.trlstLogFile = new DevExpress.XtraTreeList.TreeList();
@@ -297,7 +300,6 @@
             this.bgrdvContents,
             this.bandedGridView1});
             this.grdContents.Load += new System.EventHandler(this.grdContents_Load);
-            this.grdContents.Click += new System.EventHandler(this.grdContents_Click);
             // 
             // bgrdvContents
             // 
@@ -305,6 +307,7 @@
             this.bgrdvContents.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.bgrdvContents.Bands.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.GridBand[] {
             this.gridBand1,
+            this.gridBand5,
             this.gridBand3,
             this.gridBand4,
             this.grdbndSector});
@@ -312,6 +315,7 @@
             this.grdcCntsKey,
             this.grdcCntsName,
             this.grdcCntsPlayTime,
+            this.grdcCtscSector,
             this.grdcScheCntsStartDt,
             this.grdcScheCntsEndDt,
             this.grdcScheCntsStartTime,
@@ -320,8 +324,8 @@
             this.bgrdvContents.GridControl = this.grdContents;
             this.bgrdvContents.Name = "bgrdvContents";
             this.bgrdvContents.OptionsView.ColumnAutoWidth = false;
+            this.bgrdvContents.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.bgrdvContents_CustomUnboundColumnData);
             this.bgrdvContents.RowLoaded += new DevExpress.XtraGrid.Views.Base.RowEventHandler(this.bgrdvContents_RowLoaded);
-            this.bgrdvContents.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.bgrdvContents_CustomColumnDisplayText);
             // 
             // gridBand1
             // 
@@ -374,6 +378,26 @@
             this.grdcCntsPlayTime.Visible = true;
             this.grdcCntsPlayTime.Width = 53;
             // 
+            // gridBand5
+            // 
+            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand5.Caption = "Hidden";
+            this.gridBand5.Columns.Add(this.grdcCtscSector);
+            this.gridBand5.Name = "gridBand5";
+            this.gridBand5.VisibleIndex = 1;
+            this.gridBand5.Width = 75;
+            // 
+            // grdcCtscSector
+            // 
+            this.grdcCtscSector.Caption = "구간";
+            this.grdcCtscSector.FieldName = "ctscSector";
+            this.grdcCtscSector.Name = "grdcCtscSector";
+            this.grdcCtscSector.OptionsColumn.AllowEdit = false;
+            this.grdcCtscSector.OptionsColumn.AllowFocus = false;
+            this.grdcCtscSector.OptionsColumn.ReadOnly = true;
+            this.grdcCtscSector.Visible = true;
+            // 
             // gridBand3
             // 
             this.gridBand3.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -385,7 +409,7 @@
             this.gridBand3.Columns.Add(this.grdcScheCntsStartDt);
             this.gridBand3.Columns.Add(this.grdcScheCntsEndDt);
             this.gridBand3.Name = "gridBand3";
-            this.gridBand3.VisibleIndex = 1;
+            this.gridBand3.VisibleIndex = 2;
             this.gridBand3.Width = 150;
             // 
             // grdcScheCntsStartDt
@@ -423,7 +447,7 @@
             this.gridBand4.Columns.Add(this.grdcScheCntsStartTime);
             this.gridBand4.Columns.Add(this.grdcScheCntsEndTime);
             this.gridBand4.Name = "gridBand4";
-            this.gridBand4.VisibleIndex = 2;
+            this.gridBand4.VisibleIndex = 3;
             this.gridBand4.Width = 120;
             // 
             // grdcScheCntsStartTime
@@ -462,7 +486,7 @@
             this.grdbndSector.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.grdbndSector.Caption = "구간";
             this.grdbndSector.Name = "grdbndSector";
-            this.grdbndSector.VisibleIndex = 3;
+            this.grdbndSector.VisibleIndex = 4;
             this.grdbndSector.Width = 250;
             // 
             // xtabManager
@@ -669,10 +693,6 @@
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 0);
             this.splitContainerControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
             this.splitContainerControl1.Name = "splitContainerControl1";
-            this.splitContainerControl1.Panel1.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
-            this.splitContainerControl1.Panel1.Appearance.Options.UseFont = true;
-            this.splitContainerControl1.Panel1.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
-            this.splitContainerControl1.Panel1.AppearanceCaption.Options.UseFont = true;
             this.splitContainerControl1.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.splitContainerControl1.Panel1.Controls.Add(this.trlstSchedule);
             this.splitContainerControl1.Panel1.ShowCaption = true;
@@ -701,7 +721,8 @@
             this.tlcScheName,
             this.tlcScheStartdate,
             this.tlcScheEnddate,
-            this.tlcScheFileName});
+            this.tlcScheFileName,
+            this.tlcScheTotalSector});
             this.trlstSchedule.CustomizationFormBounds = new System.Drawing.Rectangle(478, 476, 206, 175);
             this.trlstSchedule.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trlstSchedule.KeyFieldName = "ctscKey";
@@ -715,7 +736,7 @@
             this.trlstSchedule.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFullFocus;
             this.trlstSchedule.OptionsView.ShowSummaryFooter = true;
             this.trlstSchedule.ParentFieldName = "Name";
-            this.trlstSchedule.Size = new System.Drawing.Size(451, 480);
+            this.trlstSchedule.Size = new System.Drawing.Size(451, 481);
             this.trlstSchedule.TabIndex = 0;
             this.trlstSchedule.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.trlstSchedule_FocusedNodeChanged);
             this.trlstSchedule.Load += new System.EventHandler(this.trlstSchedule_Load);
@@ -808,6 +829,12 @@
             this.tlcScheFileName.Caption = "파일명";
             this.tlcScheFileName.FieldName = "scheFileName";
             this.tlcScheFileName.Name = "tlcScheFileName";
+            // 
+            // tlcScheTotalSector
+            // 
+            this.tlcScheTotalSector.Caption = "총구간";
+            this.tlcScheTotalSector.FieldName = "scheTotalSector";
+            this.tlcScheTotalSector.Name = "tlcScheTotalSector";
             // 
             // xtabpg3Log
             // 
@@ -1209,14 +1236,17 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn6;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn7;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand grdbndSector;
         private System.Windows.Forms.ToolStripStatusLabel stslblMessage;
         private System.Windows.Forms.ToolStripStatusLabel statusMessage;
         private System.Windows.Forms.StatusStrip statusStrip;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn grdcCtscSector;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand grdbndSector;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheTotalSector;
 
 
     }

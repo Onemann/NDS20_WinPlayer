@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Net.Json;
 using System.IO;
 using System.Threading;
+using Bauglir.Ex;
 
 namespace NDS20WinPlayer
 {
@@ -20,6 +21,11 @@ namespace NDS20WinPlayer
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
+
+        static bool ServerConnected = false;
+
+        WebSocketClientConnection fConnection = new NDSWebSocketClientConnection(); //Create WebSocket client connection
+
         public List<Subframe> arrSubframe;
         public List<string> arrSchedule;
 
@@ -34,6 +40,9 @@ namespace NDS20WinPlayer
         {
             InitializeComponent();
             LoadIniFile();
+
+            assignWebSocket();
+            startNDSWebSocket();
 
             arrSubframe = new List<Subframe>();
             arrSchedule = new List<string>();
@@ -216,8 +225,239 @@ namespace NDS20WinPlayer
 
             AppInfoStrc.DirOfApplication = Environment.CurrentDirectory;
             AppInfoStrc.DirOfSchedule = AppIniFile.Read("DirOfSchedule", "PATH");
-            AppInfoStrc.DirOfLog = AppIniFile.Read("DirOfLog", "PATH");           
+            AppInfoStrc.DirOfLog = AppIniFile.Read("DirOfLog", "PATH");
+
+            AppInfoStrc.UrlOfServer = AppIniFile.Read("UrlOfServer", "SERVER");
+            AppInfoStrc.ExtentionOfServer = AppIniFile.Read("ExtentionOfServer", "SERVER");
+
+            AppInfoStrc.PortOfServer = AppIniFile.Read("PortOfServer", "SERVER");
+            AppInfoStrc.PlayerID = AppIniFile.Read("PlayerID", "PLAYER");
             
         }
+
+        private void startNDSWebSocket()
+        {
+            if (AppInfoStrc.UrlOfServer != "" && AppInfoStrc.ExtentionOfServer != "")
+            {
+                ServerConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
+            }
+            else
+            {
+                LogFile.threadWriteLog("[INI_ERROR:" + "설정 파일에 서버 접속 정보가 없습니다.", LogType.LOG_ERROR);
+            }
+        }
+
+        private void assignWebSocket()
+        {
+            fConnection.ConnectionClose += ConnectionClose;
+            fConnection.ConnectionRead += ConnectionRead;
+            fConnection.ConnectionWrite += ConnectionWrite;
+            fConnection.ConnectionOpen += ConnectionOpen;
+            ((NDSWebSocketClientConnection)fConnection).ConnectionPing += ConnectionPing;
+            ((NDSWebSocketClientConnection)fConnection).ConnectionPong += ConnectionPong;
+            ((NDSWebSocketClientConnection)fConnection).ConnectionFramedBinary += ConnectionFramedBinary;
+            ((NDSWebSocketClientConnection)fConnection).ConnectionFramedText += ConnectionFramedText;
+        }
+
+        void ConnectionClose(WebSocketConnection aConnection, int aCloseCode, string aCloseReason, bool aClosedByPeer)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new WebSocketConnection.ConnectionCloseEvent(ConnectionClose), new Object[] { aConnection, aCloseCode, aCloseReason, aClosedByPeer });
+            }
+            else
+            {
+                LogFile.threadWriteLog(String.Format("ConnectionClose {0}: {1}, {2}, {3} ", aConnection.Index, aCloseCode, aCloseReason, aClosedByPeer ? "closed by peer" : "closed by me"), LogType.LOG_TRACE);
+            }
+        }
+
+        void ConnectionRead(WebSocketConnection aConnection, bool aFinal, bool aRes1, bool aRes2, bool aRes3, int aCode, MemoryStream aData)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new WebSocketConnection.ConnectionDataEvent(ConnectionRead), new Object[] { aConnection, aFinal, aRes1, aRes2, aRes3, aCode, aData });
+            }
+            else
+            {
+                LogFile.threadWriteLog(String.Format("ConnectionRead {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
+                //lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray(), 0,  (int)aData.Length);
+                //-lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray());
+            }
+        }
+
+        void ConnectionWrite(WebSocketConnection aConnection, bool aFinal, bool aRes1, bool aRes2, bool aRes3, int aCode, MemoryStream aData)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new WebSocketConnection.ConnectionDataEvent(ConnectionWrite), new Object[] { aConnection, aFinal, aRes1, aRes2, aRes3, aCode, aData });
+            }
+            else
+            {
+                LogFile.threadWriteLog(String.Format("ConnectionWrite {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
+                //-lastSentMemo.Text = Encoding.UTF8.GetString(aData.ToArray(), 0, (int)aData.Length);
+            }
+        }
+
+        void ConnectionOpen(WebSocketConnection aConnection)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new WebSocketConnection.ConnectionEvent(ConnectionOpen), new Object[] { aConnection });
+            }
+            else
+            {
+                LogFile.threadWriteLog(String.Format("ConnectionOpen {0}", aConnection.Index), LogType.LOG_TRACE);
+            }
+        }
+
+        void ConnectionPing(WebSocketConnection aConnection, string aData)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new NDSWebSocketClientConnection.ConnectionPingPongEvent(ConnectionPing), new Object[] { aConnection, aData });
+            }
+            else
+            {
+                LogFile.threadWriteLog(String.Format("ConnectionPing {0}: {1}", aConnection.Index, aData), LogType.LOG_TRACE);
+            }
+        }
+
+        void ConnectionPong(WebSocketConnection aConnection, string aData)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new NDSWebSocketClientConnection.ConnectionPingPongEvent(ConnectionPong), new Object[] { aConnection, aData });
+            }
+            else
+            {
+                LogFile.threadWriteLog(String.Format("ConnectionPong {0}: {1}", aConnection.Index, aData), LogType.LOG_TRACE);
+            }
+        }
+
+        void ConnectionFramedText(WebSocketConnection aConnection, string aData)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new NDSWebSocketClientConnection.ConnectionFramedTextEvent(ConnectionFramedText), new Object[] { aConnection, aData });
+            }
+            else
+            {
+                //-sendFramesMemo.Text = aData;
+            }
+        }
+
+        void ConnectionFramedBinary(WebSocketConnection aConnection, MemoryStream aData)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new NDSWebSocketClientConnection.ConnectionFramedBinaryEvent(ConnectionFramedBinary), new Object[] { aConnection, aData });
+            }
+            else
+            {
+                Image image = Image.FromStream(aData);
+                //-pictureBox.Image = image;
+                //sendFramesMemo.Text = aData;
+            }
+        }
+
+        public class NDSWebSocketClientConnection : WebSocketClientConnection
+        {
+
+            string fCachedString = String.Empty;
+            MemoryStream fCachedBinary = new MemoryStream();
+
+            /// <summary>
+            /// Basic connection ping and pong event
+            /// </summary>
+            /// <param name="aConnection">connection instance</param>
+            /// <param name="aData">ping or pond data</param>
+            public delegate void ConnectionPingPongEvent(WebSocketConnection aConnection, string aData);
+
+            /// <summary>
+            /// Basic connection framed text
+            /// </summary>
+            /// <param name="aConnection">connection instance</param>
+            /// <param name="aData">text</param>
+            public delegate void ConnectionFramedTextEvent(WebSocketConnection aConnection, string aData);
+
+            /// <summary>
+            /// Basic connection framed binary
+            /// </summary>
+            /// <param name="aConnection">connection instance</param>
+            /// <param name="aData">minary stream</param>
+            public delegate void ConnectionFramedBinaryEvent(WebSocketConnection aConnection, MemoryStream aData);
+
+
+
+            /// <summary>
+            /// connection ping event
+            /// </summary>
+            public event ConnectionPingPongEvent ConnectionPing;
+
+            /// <summary>
+            /// connection pong event
+            /// </summary>
+            public event ConnectionPingPongEvent ConnectionPong;
+
+            /// <summary>
+            /// connection framed text fully received
+            /// </summary>
+            public event ConnectionFramedTextEvent ConnectionFramedText;
+
+            /// <summary>
+            /// connection framed binary fully received
+            /// </summary>
+            public event ConnectionFramedBinaryEvent ConnectionFramedBinary;
+
+
+            protected override void ProcessPing(string aData)
+            {
+                if (ConnectionPing != null) ConnectionPing(this, aData);
+            }
+
+            protected override void ProcessPong(string aData)
+            {
+                if (ConnectionPong != null) ConnectionPong(this, aData);
+            }
+
+            protected override void ProcessStream(bool aReadFinal, bool aRes1, bool aRes2, bool aRes3, MemoryStream aStream)
+            {
+                fCachedBinary.Write(aStream.ToArray(), 0, (int)aStream.Length);
+            }
+
+            protected override void ProcessStreamContinuation(bool aReadFinal, bool aRes1, bool aRes2, bool aRes3, MemoryStream aStream)
+            {
+                fCachedBinary.Write(aStream.ToArray(), 0, (int)aStream.Length);
+                if (aReadFinal)
+                {
+                    if (ConnectionFramedBinary != null)
+                    {
+                        ConnectionFramedBinary(this, fCachedBinary);
+                    }
+                    fCachedBinary.SetLength(0);
+                }
+            }
+
+            protected override void ProcessText(bool aReadFinal, bool aRes1, bool aRes2, bool aRes3, string aString)
+            {
+                fCachedString = aString;
+            }
+
+            protected override void ProcessTextContinuation(bool aReadFinal, bool aRes1, bool aRes2, bool aRes3, string aString)
+            {
+                fCachedString += aString;
+                if (aReadFinal)
+                {
+                    if (ConnectionFramedText != null)
+                    {
+                        ConnectionFramedText(this, fCachedString);
+                    }
+                    fCachedString = String.Empty;
+                }
+            }
+
+        }
+
+
     }
 }

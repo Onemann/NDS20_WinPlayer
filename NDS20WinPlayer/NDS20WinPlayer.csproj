@@ -106,7 +106,6 @@
     <Reference Include="DevExpress.BonusSkins.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.ExpressApp.Xpo.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -260,6 +259,10 @@
     <ProjectReference Include="..\Implementation\nVLC.Implementation.csproj">
       <Project>{6ba02cca-2e14-4a64-8ab6-594e600d80c9}</Project>
       <Name>nVLC.Implementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebSocketLib\WebSocket.csproj">
+      <Project>{18413b76-a1fd-450d-989c-30b9f448f966}</Project>
+      <Name>WebSocket</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

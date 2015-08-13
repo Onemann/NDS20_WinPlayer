@@ -214,8 +214,9 @@ namespace NDS20WinPlayer
 
             string jsonScheduleFile = e.Node.GetDisplayText("scheFileName");
             string scheduleName = e.Node.GetDisplayText("ctscName");
+            int scheduleTotalSector = (int)e.Node.GetValue(tlcScheTotalSector);// e.Node.GetDisplayText("scheTotalSector");
 
-            jsonScheduleToContentsGrid(jsonScheduleFile, scheduleName);
+            jsonScheduleToContentsGrid(jsonScheduleFile, scheduleName, scheduleTotalSector);
 
             //MessageBox.Show(scheduleFilePath);
             
@@ -223,7 +224,7 @@ namespace NDS20WinPlayer
 
         
         #region Read JSON schedule files and fill in the contents grid
-        private void jsonScheduleToContentsGrid(string jsonScheduleFile, string scheduleName)
+        private void jsonScheduleToContentsGrid(string jsonScheduleFile, string scheduleName, int scheduleTotalSector)
         {
             if (jsonScheduleFile == "")
             {
@@ -248,32 +249,34 @@ namespace NDS20WinPlayer
 
                 
                 #region 구간 밴드 동적 생성
-                bgrdvContents.Bands[3].Columns.Clear();
+                bgrdvContents.Bands[4].Columns.Clear();
 
                 bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Visible = false;
 
                 List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn> lstsector = new List<DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn>();
 
-                for (int idx = 0; idx < 10; idx++)
+
+                for (int idx = 1; idx <= scheduleTotalSector; idx++)
                 {
                     lstsector.Add(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn());
-                    lstsector[idx].Caption = (idx + 1).ToString();
-                    lstsector[idx].OptionsColumn.AllowEdit = false;
-                    lstsector[idx].OptionsColumn.AllowFocus = false;
-                    lstsector[idx].OptionsColumn.ReadOnly = true;
+                    lstsector[idx-1].Caption = (idx).ToString();
+                    lstsector[idx-1].OptionsColumn.AllowEdit = false;
+                    lstsector[idx-1].OptionsColumn.AllowFocus = false;
+                    lstsector[idx-1].OptionsColumn.ReadOnly = true;
                     //lstsector[idx].FilterMode = ColumnFilterMode.DisplayText;
-                    lstsector[idx].Width = 25;
-                    lstsector[idx].Visible = true;
-                    lstsector[idx].FieldName = "sector" + (idx + 1).ToString();
-
-                    bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Columns.Add(lstsector[idx]);
+                    lstsector[idx-1].Width = 25;
+                    lstsector[idx-1].Visible = true;
+                    lstsector[idx-1].Name = "grdcSector" + (idx).ToString();
+                    lstsector[idx-1].FieldName = "grdcSector" + (idx).ToString();
+                    lstsector[idx-1].UnboundType = DevExpress.Data.UnboundColumnType.Boolean;
+                    bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Columns.Add(lstsector[idx-1]);
 
                 }
                 bgrdvContents.Bands[bgrdvContents.Bands.IndexOf(grdbndSector)].Visible = true;
 
-                for (int idx = 0; idx < 10; idx++)
+                for (int idx = 1; idx <= scheduleTotalSector; idx++)
                 {
-                    lstsector[idx].Width = 25;
+                    lstsector[idx-1].Width = 25;
                 }
 
                 lstsector.Clear();
@@ -347,47 +350,6 @@ namespace NDS20WinPlayer
             bgrdvContents.GroupPanelText = "그룹을 지으시려면 컬럼 해더를 여기로 드래그하시요";
         }
 
-        private void grdContents_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bgrdvContents_RowLoaded(object sender, DevExpress.XtraGrid.Views.Base.RowEventArgs e)
-        {
-            /*
-                    object cellValue = Convert.ToBoolean(true);
-                    this.bgrdvContents.Columns[7].View.SetRowCellValue(e.RowHandle, "sector1", cellValue);
-      //      DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bgc as sender;
-                    this.bgrdvContents.RefreshData();
-
-            */
-        }
-
-        private void bgrdvContents_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
-        {
-            /*
-            try
-            {
-                if (e.Column.AbsoluteIndex == 7 && this.bgrdvContents.FocusedRowHandle >= 0)
-                {
-                    
-                    object cellValue = Convert.ToBoolean(true);
-                    //this.bgrdvContents.Columns.View.SetRowCellValue(this.bgrdvContents.FocusedRowHandle, "sector1", cellValue);
-                    //e.Column.View.SetRowCellValue(,"sector1", cellValue);
-                    
-                    //e.Value = cellValue;
-                    e.DisplayText = "true";
-                    e.Column.Width = 40;
-                    //e.Column.View.SetRowCellValue(1, "sector1", true);
-                }
-            }
-            catch (Exception ex)
-            {
-                //Handle exception here
-            }
-            */
-
-        }
         public void MessageOnStatusbar(string message, Enum logType)
         {
             System.Drawing.Color messageColor = new System.Drawing.Color();
@@ -421,6 +383,32 @@ namespace NDS20WinPlayer
         {
             statusMessage.Text = "";
         }
-        
+
+        private void bgrdvContents_RowLoaded(object sender, DevExpress.XtraGrid.Views.Base.RowEventArgs e)
+        {
+            string cellValue;
+            cellValue = bgrdvContents.GetRowCellDisplayText(e.RowHandle, bgrdvContents.Columns["구간"]);
+            bgrdvContents.SetRowCellValue(e.RowHandle, bgrdvContents.Columns["1"], true);
+            /*
+                    object cellValue = Convert.ToBoolean(true);
+                    this.bgrdvContents.Columns[7].View.SetRowCellValue(e.RowHandle, "sector1", cellValue);
+      //      DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bgc as sender;
+                    this.bgrdvContents.RefreshData();
+
+            */
+        }
+        private void bgrdvContents_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
+        {
+            string sectorCellValue = "";
+            if (e.Column.FieldName.Contains("grdcSector"))
+            {
+//                if (bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "ctscSector") == null) return;
+                sectorCellValue = bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "ctscSector").ToString();
+                var arrSectors = sectorCellValue.Split(',');
+                if (arrSectors.Contains(e.Column.Caption)) 
+                    e.Value = true;
+                
+            }
+        }
     }
 }

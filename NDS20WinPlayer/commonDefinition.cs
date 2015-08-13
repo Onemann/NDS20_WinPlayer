@@ -8,6 +8,11 @@ namespace NDS20WinPlayer
         public static string DirOfSchedule;
         public static string DirOfLog;
 
+        public static string UrlOfServer;       //REST Server URL : ex) 52.50.218.207
+        public static string ExtentionOfServer; //REST Server Extension : ex: /socket/json
+        public static string PortOfServer;      //REST Server Port : ex) 9090 
+        public static string PlayerID;          //Player ID that was registered and permitted by server 
+        public static string TextHandlerID;     //Assigned and given from server after connecting
     }
 
     enum LogType
@@ -48,7 +53,8 @@ namespace NDS20WinPlayer
         public DateTime scheCntsStartDt { get; set; }   //사용기간-시작일
         public DateTime scheCntsEndDt { get; set; }     //사용기간-종료일
         public DateTime scheCntsStartTime { get; set; } //사용시간-시작일
-        public string scheCntsEndTime { get; set; }   //사용시간-종료일
+        public string scheCntsEndTime { get; set; }     //사용시간-종료일
+        public string ctscSector { get; set; }          //구간 정보 ex) "1,4,7"
 
         #region 구간 30 Sectors are more than enough
         public bool sector1 { get; set; }         // [가칭] 1구간
