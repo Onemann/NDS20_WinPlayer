@@ -38,9 +38,9 @@ namespace NDS20WinPlayer
 
         public NDSMain()
         {
-            LogFile.threadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
             InitializeComponent();
             LoadIniFile();
+            LogFile.threadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
 
             assignWebSocket();
             startNDSWebSocket();
