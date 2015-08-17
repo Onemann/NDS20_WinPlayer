@@ -38,6 +38,7 @@ namespace NDS20WinPlayer
 
         public NDSMain()
         {
+            LogFile.threadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
             InitializeComponent();
             LoadIniFile();
 
@@ -86,7 +87,8 @@ namespace NDS20WinPlayer
                     break;
 
                 case Keys.Escape:
-                    Application.Exit();
+                    Close();
+                    //Application.Exit();
                     break;
             }
         }
@@ -208,7 +210,6 @@ namespace NDS20WinPlayer
 
         private void NDSMain_Load(object sender, EventArgs e)
         {
-            LogFile.threadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
             int screenLeft = SystemInformation.VirtualScreen.Left;
             int screenTop = SystemInformation.VirtualScreen.Top;
             int screenWidth = SystemInformation.VirtualScreen.Width;
@@ -237,13 +238,22 @@ namespace NDS20WinPlayer
 
         private void startNDSWebSocket()
         {
-            if (AppInfoStrc.UrlOfServer != "" && AppInfoStrc.ExtentionOfServer != "")
+            if (AppInfoStrc.UrlOfServer != "" && AppInfoStrc.PortOfServer != "")
             {
-                ServerConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
+//                ServerConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
+                ServerConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, "", false);
+                if (ServerConnected)
+                {
+                    LogFile.threadWriteLog("[NETWORK]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 성공", LogType.LOG_INFO);
+                }
+                else
+                {
+                    LogFile.threadWriteLog("[NETWORK ERROR]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 실패", LogType.LOG_ERROR);
+                }
             }
             else
             {
-                LogFile.threadWriteLog("[INI_ERROR:" + "설정 파일에 서버 접속 정보가 없습니다.", LogType.LOG_ERROR);
+                LogFile.threadWriteLog("[INI_ERROR]:" + "설정 파일에 서버 접속 정보가 없습니다.", LogType.LOG_ERROR);
             }
         }
 

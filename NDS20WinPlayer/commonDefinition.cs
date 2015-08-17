@@ -12,7 +12,7 @@ namespace NDS20WinPlayer
         public static string ExtentionOfServer; //REST Server Extension : ex: /socket/json
         public static string PortOfServer;      //REST Server Port : ex) 9090 
         public static string PlayerID;          //Player ID that was registered and permitted by server 
-        public static string TextHandlerID;     //Assigned and given from server after connecting
+        public static string TextHandlerID = null;     //Assigned and given from server after connecting
     }
 
     enum LogType

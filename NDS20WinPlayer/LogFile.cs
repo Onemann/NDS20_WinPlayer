@@ -12,6 +12,7 @@ namespace NDS20WinPlayer
     {
         public static void threadWriteLog(string strLogMsg, Enum logType)
         {
+            //WriteLog(strLogMsg, logType);
             new Thread(() => WriteLog(strLogMsg, logType)).Start();
             ManagerForm managerForm = null;
             if ((managerForm = (ManagerForm) NDSMain.IsFormAlreadyOpen(typeof(ManagerForm))) != null) //생성된 폼이 있다면
@@ -23,7 +24,7 @@ namespace NDS20WinPlayer
         }
 
         // Log file
-        private static void WriteLog(string strLogMsg, Enum logType)
+        public static void WriteLog(string strLogMsg, Enum logType)
         {
             StreamWriter log;
             FileStream fileStream = null;
