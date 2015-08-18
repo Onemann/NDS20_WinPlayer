@@ -92,6 +92,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "NDS20 Player";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NDSMain_FormClosing);
             this.Load += new System.EventHandler(this.NDSMain_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NDSMain_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pnlHeader)).EndInit();
