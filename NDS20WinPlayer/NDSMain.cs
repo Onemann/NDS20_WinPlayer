@@ -90,8 +90,11 @@ namespace NDS20WinPlayer
                 _nCountServerConnection++;
 
                 //get the physical mem usage
-                var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
-                var totalByteOfMemoryUsed = currentProcess.PrivateMemorySize64 / 1024;
+                var memStat = Win32MemApi.GlobalMemoryStatusEx();
+
+                var totalByteOfMemoryUsed = memStat.UllTotalPhys/1024/1024;
+                //var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                //var totalByteOfMemoryUsed = currentProcess.WorkingSet64 / 1024  +"KB";
                 lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + @" Memory: " + totalByteOfMemoryUsed;
                 //lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + " Memory: " + GC.GetTotalMemory(false);
             }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace NDS20WinPlayer
 {
@@ -159,4 +161,39 @@ namespace NDS20WinPlayer
         public string logDateTime { get; set; }
         public string logMessage { get; set; }
     }
+
+    #region System Monitoring
+    public struct Memorystatusex
+    {
+        public uint DwLength;
+        public uint DwMemoryLoad;
+        public ulong UllTotalPhys;
+        public ulong UllAvailPhys;
+        public ulong UllTotalPageFile;
+        public ulong UllAvailPageFile;
+        public ulong UllTotalVirtual;
+        public ulong UllAvailVirtual;
+        public ulong UllAvailExtendedVirtual;
+    }
+    public class Win32MemApi
+    {
+        [DllImport("kernel32", EntryPoint = "GetLastError")]
+        private extern static int __GetLastError();
+        [DllImport("Kernel32.dll", EntryPoint = "GlobalMemoryStatusEx", SetLastError = true)]
+        private extern static bool __GlobalMemoryStatusEx(ref Memorystatusex lpBuffer);
+
+        public static Memorystatusex GlobalMemoryStatusEx()
+        {
+            Memorystatusex memstat = new Memorystatusex();
+
+            memstat.DwLength = (uint)Marshal.SizeOf(memstat);
+            if (__GlobalMemoryStatusEx(ref memstat) == false)
+            {
+                int error = __GetLastError();
+                throw new Win32Exception(error);
+            }
+            return memstat;
+        }
+    }
+    #endregion
 }
