@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
+            DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
             this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
@@ -93,10 +93,28 @@
             this.grdcLogMessage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.stslblMessage = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusMessage = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
+            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.bar1 = new DevExpress.XtraBars.Bar();
+            this.bar2 = new DevExpress.XtraBars.Bar();
+            this.bar3 = new DevExpress.XtraBars.Bar();
+            this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
+            this.statusMessage = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemTextEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.barStaticItem2 = new DevExpress.XtraBars.BarStaticItem();
+            this.brItmCPU = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
+            this.barEditItem2 = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemProgressBar2 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.skinBarSubItem1 = new DevExpress.XtraBars.SkinBarSubItem();
+            this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
+            this.styleController1 = new DevExpress.XtraEditors.StyleController();
+            this.workspaceManager1 = new DevExpress.Utils.WorkspaceManager();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
@@ -131,7 +149,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.styleController1)).BeginInit();
             this.SuspendLayout();
             // 
             // tlcScheType
@@ -1056,7 +1079,9 @@
             // grdcLogMessage
             // 
             this.grdcLogMessage.AppearanceCell.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.grdcLogMessage.AppearanceCell.ForeColor = System.Drawing.Color.White;
             this.grdcLogMessage.AppearanceCell.Options.UseFont = true;
+            this.grdcLogMessage.AppearanceCell.Options.UseForeColor = true;
             this.grdcLogMessage.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogMessage.AppearanceHeader.Options.UseFont = true;
             this.grdcLogMessage.Caption = "내용";
@@ -1091,35 +1116,199 @@
             this.panelControl1.Size = new System.Drawing.Size(1010, 539);
             this.panelControl1.TabIndex = 0;
             // 
-            // stslblMessage
+            // defaultLookAndFeel1
             // 
-            this.stslblMessage.Name = "stslblMessage";
-            this.stslblMessage.Size = new System.Drawing.Size(50, 17);
-            this.stslblMessage.Text = "메시지: ";
+            this.defaultLookAndFeel1.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.defaultLookAndFeel1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
+            // 
+            // barManager1
+            // 
+            this.barManager1.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
+            this.bar1,
+            this.bar2,
+            this.bar3});
+            this.barManager1.Controller = this.barAndDockingController1;
+            this.barManager1.DockControls.Add(this.barDockControlTop);
+            this.barManager1.DockControls.Add(this.barDockControlBottom);
+            this.barManager1.DockControls.Add(this.barDockControlLeft);
+            this.barManager1.DockControls.Add(this.barDockControlRight);
+            this.barManager1.Form = this;
+            this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.barStaticItem1,
+            this.skinBarSubItem1,
+            this.statusMessage,
+            this.barHeaderItem1,
+            this.barStaticItem2,
+            this.brItmCPU,
+            this.barEditItem2});
+            this.barManager1.MainMenu = this.bar2;
+            this.barManager1.MaxItemId = 11;
+            this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemTextEdit4,
+            this.repositoryItemProgressBar1,
+            this.repositoryItemProgressBar2});
+            this.barManager1.StatusBar = this.bar3;
+            // 
+            // bar1
+            // 
+            this.bar1.BarName = "Tools";
+            this.bar1.DockCol = 0;
+            this.bar1.DockRow = 1;
+            this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.bar1.Text = "Tools";
+            // 
+            // bar2
+            // 
+            this.bar2.BarName = "Main menu";
+            this.bar2.DockCol = 0;
+            this.bar2.DockRow = 0;
+            this.bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.bar2.OptionsBar.MultiLine = true;
+            this.bar2.OptionsBar.UseWholeRow = true;
+            this.bar2.Text = "Main menu";
+            // 
+            // bar3
+            // 
+            this.bar3.BarName = "Status bar";
+            this.bar3.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Bottom;
+            this.bar3.DockCol = 0;
+            this.bar3.DockRow = 0;
+            this.bar3.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom;
+            this.bar3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.statusMessage),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem2),
+            new DevExpress.XtraBars.LinkPersistInfo(this.brItmCPU),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barEditItem2)});
+            this.bar3.OptionsBar.AllowQuickCustomization = false;
+            this.bar3.OptionsBar.DrawDragBorder = false;
+            this.bar3.OptionsBar.UseWholeRow = true;
+            this.bar3.Text = "Status bar";
+            // 
+            // barStaticItem1
+            // 
+            this.barStaticItem1.Caption = "메시지:";
+            this.barStaticItem1.Id = 0;
+            this.barStaticItem1.Name = "barStaticItem1";
+            this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // statusMessage
             // 
-            this.statusMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.statusMessage.CanOpenEdit = false;
+            this.statusMessage.Caption = "barEditItem1";
+            this.statusMessage.Edit = this.repositoryItemTextEdit4;
+            this.statusMessage.Id = 2;
             this.statusMessage.Name = "statusMessage";
-            this.statusMessage.Size = new System.Drawing.Size(90, 17);
-            this.statusMessage.Text = "Status Message";
+            this.statusMessage.Width = 240;
             // 
-            // statusStrip
+            // repositoryItemTextEdit4
             // 
-            this.statusStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.stslblMessage,
-            this.statusMessage});
-            this.statusStrip.Location = new System.Drawing.Point(0, 537);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1008, 22);
-            this.statusStrip.TabIndex = 1;
-            this.statusStrip.Text = "statusStrip1";
+            this.repositoryItemTextEdit4.AutoHeight = false;
+            this.repositoryItemTextEdit4.Name = "repositoryItemTextEdit4";
             // 
-            // defaultLookAndFeel1
+            // barStaticItem2
             // 
-            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Dark Side";
-            this.defaultLookAndFeel1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
+            this.barStaticItem2.Caption = "상태:";
+            this.barStaticItem2.Id = 8;
+            this.barStaticItem2.Name = "barStaticItem2";
+            this.barStaticItem2.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // brItmCPU
+            // 
+            this.brItmCPU.Caption = "CPU";
+            this.brItmCPU.CaptionAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.brItmCPU.Edit = this.repositoryItemProgressBar1;
+            this.brItmCPU.EditValue = "50";
+            this.brItmCPU.Id = 9;
+            this.brItmCPU.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Plum;
+            this.brItmCPU.ItemAppearance.Normal.Options.UseForeColor = true;
+            this.brItmCPU.Name = "brItmCPU";
+            this.brItmCPU.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
+            this.brItmCPU.Width = 70;
+            // 
+            // repositoryItemProgressBar1
+            // 
+            this.repositoryItemProgressBar1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.repositoryItemProgressBar1.EndColor = System.Drawing.Color.Empty;
+            this.repositoryItemProgressBar1.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
+            this.repositoryItemProgressBar1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.repositoryItemProgressBar1.Name = "repositoryItemProgressBar1";
+            this.repositoryItemProgressBar1.ReadOnly = true;
+            this.repositoryItemProgressBar1.ShowTitle = true;
+            this.repositoryItemProgressBar1.Step = 5;
+            // 
+            // barEditItem2
+            // 
+            this.barEditItem2.Caption = "barEditItem2";
+            this.barEditItem2.Edit = this.repositoryItemProgressBar2;
+            this.barEditItem2.Id = 10;
+            this.barEditItem2.Name = "barEditItem2";
+            // 
+            // repositoryItemProgressBar2
+            // 
+            this.repositoryItemProgressBar2.Name = "repositoryItemProgressBar2";
+            // 
+            // barAndDockingController1
+            // 
+            this.barAndDockingController1.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.barAndDockingController1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.barAndDockingController1.PaintStyleName = "Skin";
+            this.barAndDockingController1.PropertiesBar.AllowLinkLighting = false;
+            this.barAndDockingController1.PropertiesBar.DefaultGlyphSize = new System.Drawing.Size(16, 16);
+            this.barAndDockingController1.PropertiesBar.DefaultLargeGlyphSize = new System.Drawing.Size(32, 32);
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(1008, 51);
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 534);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1008, 25);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 51);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 483);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(1008, 51);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 483);
+            // 
+            // skinBarSubItem1
+            // 
+            this.skinBarSubItem1.Caption = "스킨변경";
+            this.skinBarSubItem1.Id = 1;
+            this.skinBarSubItem1.Name = "skinBarSubItem1";
+            // 
+            // barHeaderItem1
+            // 
+            this.barHeaderItem1.Caption = "barHeaderItem1";
+            this.barHeaderItem1.Id = 3;
+            this.barHeaderItem1.Name = "barHeaderItem1";
+            // 
+            // styleController1
+            // 
+            this.styleController1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.styleController1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.styleController1.LookAndFeel.SkinName = "Dark Side";
+            this.styleController1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
+            this.styleController1.LookAndFeel.UseDefaultLookAndFeel = false;
+            // 
+            // workspaceManager1
+            // 
+            this.workspaceManager1.TargetControl = this;
+            this.workspaceManager1.TransitionType = pushTransition1;
             // 
             // ManagerForm
             // 
@@ -1127,8 +1316,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 559);
-            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1174,10 +1366,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.styleController1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -1239,9 +1434,6 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn6;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn7;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
-        private System.Windows.Forms.ToolStripStatusLabel stslblMessage;
-        private System.Windows.Forms.ToolStripStatusLabel statusMessage;
-        private System.Windows.Forms.StatusStrip statusStrip;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn grdcCtscSector;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
@@ -1250,6 +1442,27 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand grdbndSector;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheTotalSector;
+        private DevExpress.XtraBars.BarManager barManager1;
+        private DevExpress.XtraBars.Bar bar1;
+        private DevExpress.XtraBars.Bar bar2;
+        private DevExpress.XtraBars.Bar bar3;
+        private DevExpress.XtraBars.BarStaticItem barStaticItem1;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarAndDockingController barAndDockingController1;
+        private DevExpress.XtraBars.SkinBarSubItem skinBarSubItem1;
+        private DevExpress.XtraBars.BarEditItem statusMessage;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit4;
+        private DevExpress.XtraEditors.StyleController styleController1;
+        private DevExpress.XtraBars.BarHeaderItem barHeaderItem1;
+        private DevExpress.Utils.WorkspaceManager workspaceManager1;
+        private DevExpress.XtraBars.BarStaticItem barStaticItem2;
+        private DevExpress.XtraBars.BarEditItem brItmCPU;
+        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
+        private DevExpress.XtraBars.BarEditItem barEditItem2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar2;
 
 
     }

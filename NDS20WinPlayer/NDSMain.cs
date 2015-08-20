@@ -13,6 +13,7 @@ using System.IO;
 using System.Threading;
 using Bauglir.Ex;
 using System.Net.NetworkInformation;
+using System.Diagnostics;
 
 namespace NDS20WinPlayer
 {
@@ -41,12 +42,15 @@ namespace NDS20WinPlayer
 
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
+        
+        //PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
         public NDSMain()
         {
             InitializeComponent();
+
             LoadIniFile();
-            LogFile.threadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
+            LogFile.ThreadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
 
 
             arrSubframe = new List<Subframe>();
@@ -90,12 +94,17 @@ namespace NDS20WinPlayer
                 _nCountServerConnection++;
 
                 //get the physical mem usage
-                var memStat = Win32MemApi.GlobalMemoryStatusEx();
+                //var memStat = Win32MemApi.GlobalMemoryStatusEx();
 
-                var totalByteOfMemoryUsed = memStat.UllTotalPageFile/1024/1024;
+                //var totalByteOfMemoryUsed = memStat.UllTotalPhys /1024;
                 //var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
-                //var totalByteOfMemoryUsed = currentProcess.WorkingSet64 / 1024  +"KB";
-                lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + @" Memory: " + totalByteOfMemoryUsed;
+                AppInfoStrc.PlyrMemUsage = System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 / 1024;
+
+                // calculate CPU Usage %
+                //AppInfoStrc.PlyrCpUusage = CurrentCpUusage;
+
+                lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + @" Memory: " +
+                                                 AppInfoStrc.PlyrMemUsage + "K"; // + " CPU:" + CurrentCPUusage;
                 //lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + " Memory: " + GC.GetTotalMemory(false);
             }
                 ));
@@ -330,7 +339,7 @@ namespace NDS20WinPlayer
 
                 if (reply.Status != IPStatus.Success)
                 {
-                    LogFile.threadWriteLog("[NETWORK ERROR]:" + AppInfoStrc.UrlOfServer + "로 접속할 수 없습니다.", LogType.LOG_ERROR);
+                    LogFile.ThreadWriteLog("[NETWORK ERROR]:" + AppInfoStrc.UrlOfServer + "로 접속할 수 없습니다.", LogType.LOG_ERROR);
                     _tryServerConnecting = false;
                     return;
                 }
@@ -357,16 +366,16 @@ namespace NDS20WinPlayer
                 _serverConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, "", false);
                 if (_serverConnected)
                 {
-                    LogFile.threadWriteLog("[NETWORK]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 성공", LogType.LOG_INFO);
+                    LogFile.ThreadWriteLog("[NETWORK]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 성공", LogType.LOG_INFO);
                 }
                 else
                 {
-                    LogFile.threadWriteLog("[NETWORK ERROR]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 실패", LogType.LOG_ERROR);
+                    LogFile.ThreadWriteLog("[NETWORK ERROR]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 실패", LogType.LOG_ERROR);
                 }
             }
             else
             {
-                LogFile.threadWriteLog("[INI_ERROR]:" + "설정 파일에 서버 접속 정보가 없습니다.", LogType.LOG_ERROR);
+                LogFile.ThreadWriteLog("[INI_ERROR]:" + "설정 파일에 서버 접속 정보가 없습니다.", LogType.LOG_ERROR);
             }
             _tryServerConnecting = false;
         }
@@ -407,7 +416,7 @@ namespace NDS20WinPlayer
                 //LogFile.threadWriteLog(String.Format("ConnectionRead {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
                 //lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray(), 0,  (int)aData.Length);
                 //-lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray());
-                LogFile.threadWriteLog("[READ]" + Encoding.UTF8.GetString(aData.ToArray()), LogType.LOG_INFO);
+                LogFile.ThreadWriteLog("[READ]" + Encoding.UTF8.GetString(aData.ToArray()), LogType.LOG_INFO);
             }
         }
 

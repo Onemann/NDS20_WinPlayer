@@ -1,6 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
+//using System.ComponentModel;
+//using System.Runtime.InteropServices;
 
 namespace NDS20WinPlayer
 {
@@ -36,18 +36,18 @@ namespace NDS20WinPlayer
         #endregion
 
         #region Player info.
-        public static int plyrSizeAuto;         //플레이어 화면 사이즈 자동여부 자동:1, 수동:0
-        public static int plyrStartposX;        //플레이어 실행시 모니터상의 첫 프레임 시작 포지션 X
-        public static int plyrStartposY;        //플레이어 실행시 모니터상의 첫 프레임 시작 포지션 Y
-        public static int plyrWidth;            //플레이어 가로 픽셀 px
-        public static int plyrHeight;           //플레이어 세로 픽셀 px
-        public static int plyrUsed;             //플레이어사용유무
-        public static string plyrStatus;        //001 : 정상 002 : 여러상태~~~ 공통코드?? 상태에 따른 칼러값?
-        public static int plyrAvailableHDD;     //단위 : MB
-        public static int plyrCPUusage;         //플레이어CPU사용량
-        public static int plyrMemUsage;         //플레이어Memory사용량
-        public static string macAddress;        //플레이어 MAC 주소
-        public static string ipAddress;         //플레이어 IP 주소
+        public static int PlyrSizeAuto;         //플레이어 화면 사이즈 자동여부 자동:1, 수동:0
+        public static int PlyrStartposX;        //플레이어 실행시 모니터상의 첫 프레임 시작 포지션 X
+        public static int PlyrStartposY;        //플레이어 실행시 모니터상의 첫 프레임 시작 포지션 Y
+        public static int PlyrWidth;            //플레이어 가로 픽셀 px
+        public static int PlyrHeight;           //플레이어 세로 픽셀 px
+        public static int PlyrUsed;             //플레이어사용유무
+        public static string PlyrStatus;        //001 : 정상 002 : 여러상태~~~ 공통코드?? 상태에 따른 칼러값?
+        public static int PlyrAvailableHdd;     //단위 : MB
+        public static int PlyrCpUusage;         //플레이어CPU사용량
+        public static long PlyrMemUsage;         //플레이어Memory사용량
+        public static string MacAddress;        //플레이어 MAC 주소
+        public static string IpAddress;         //플레이어 IP 주소
         #endregion
 
 
@@ -161,7 +161,7 @@ namespace NDS20WinPlayer
         public string logDateTime { get; set; }
         public string logMessage { get; set; }
     }
-
+/*
     #region System Monitoring
     public struct Memorystatusex
     {
@@ -196,4 +196,5 @@ namespace NDS20WinPlayer
         }
     }
     #endregion
+ */ 
 }

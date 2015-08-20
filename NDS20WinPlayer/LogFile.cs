@@ -10,7 +10,7 @@ namespace NDS20WinPlayer
 {
     class LogFile
     {
-        public static void threadWriteLog(string strLogMsg, Enum logType)
+        public static void ThreadWriteLog(string strLogMsg, Enum logType)
         {
 
             WriteLog(strLogMsg, logType);

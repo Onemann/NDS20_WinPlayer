@@ -170,7 +170,7 @@ namespace NDS20WinPlayer
             }
             catch(Exception ex)
             {
-                LogFile.threadWriteLog(ex.Message, LogType.LOG_ERROR);
+                LogFile.ThreadWriteLog(ex.Message, LogType.LOG_ERROR);
             }
         }
 
@@ -200,7 +200,7 @@ namespace NDS20WinPlayer
             }
             catch(Exception ex)
             {
-                LogFile.threadWriteLog(ex.Message, LogType.LOG_ERROR);
+                LogFile.ThreadWriteLog(ex.Message, LogType.LOG_ERROR);
             }
 
         }
@@ -229,7 +229,7 @@ namespace NDS20WinPlayer
         {
             if (jsonScheduleFile == "")
             {
-                LogFile.threadWriteLog(scheduleName + ": 스케줄 정보가 잘못되었습니다.", LogType.LOG_FATAL);
+                LogFile.ThreadWriteLog(scheduleName + ": 스케줄 정보가 잘못되었습니다.", LogType.LOG_FATAL);
                 return;
             }
 
@@ -240,7 +240,7 @@ namespace NDS20WinPlayer
 
                 if (scheduleText == "")
                 {
-                    LogFile.threadWriteLog(jsonScheduleFile + ": 스케줄 정보가 잘못되었습니다.", LogType.LOG_FATAL);
+                    LogFile.ThreadWriteLog(jsonScheduleFile + ": 스케줄 정보가 잘못되었습니다.", LogType.LOG_FATAL);
                     return;
                 }
 
@@ -310,7 +310,7 @@ namespace NDS20WinPlayer
                         }
                         else
                         {
-                            LogFile.threadWriteLog(scheduleName + ": 콘텐츠 정보가 잘못되었습니다.", LogType.LOG_FATAL);
+                            LogFile.ThreadWriteLog(scheduleName + ": 콘텐츠 정보가 잘못되었습니다.", LogType.LOG_FATAL);
 
                         }
                         break;
@@ -320,7 +320,7 @@ namespace NDS20WinPlayer
             }
             catch (Exception ex)
             {
-                LogFile.threadWriteLog(ex.Message + "|" + ex.Source, LogType.LOG_ERROR);
+                LogFile.ThreadWriteLog(ex.Message + "|" + ex.Source, LogType.LOG_ERROR);
             }
         }
         #endregion
@@ -388,23 +388,27 @@ namespace NDS20WinPlayer
             }
             else
             {
-                statusMessage.ForeColor = messageColor;
-                statusMessage.Text = message;
+                statusMessage.Appearance.ForeColor = messageColor;
+                statusMessage.EditValue = message;
 
-                if(trlstLogFile.FocusedNode != null)
-                { 
-                    var logFileName = trlstLogFile.FocusedNode.GetDisplayText("logFileName");
-                    var logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
-                    var logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";
-                    var logList = JsonConvert.DeserializeObject<clssLogList[]>(logTextJson, new IsoDateTimeConverter());
-                    this.grdctrlLog.DataSource = logList;
-                }
+                if (trlstLogFile.FocusedNode == null) return;
+                var logFileName = trlstLogFile.FocusedNode.GetDisplayText("logFileName");
+                var logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
+                var logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";
+                var logList = JsonConvert.DeserializeObject<clssLogList[]>(logTextJson, new IsoDateTimeConverter());
+                this.grdctrlLog.DataSource = logList;
             }
+        }
+
+        // Show CPU usage, available storage capacity, memory usage on status bar  
+        public void ShowNdsInfoOnStatusBar()
+        {
+            brItmCPU.EditValue = AppInfoStrc.PlyrCpUusage;
         }
 
         private void ManagerForm_Load(object sender, EventArgs e)
         {
-            statusMessage.Text = "";
+            statusMessage.EditValue = "";
         }
 
         private void bgrdvContents_RowLoaded(object sender, DevExpress.XtraGrid.Views.Base.RowEventArgs e)

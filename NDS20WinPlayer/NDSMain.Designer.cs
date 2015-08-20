@@ -18,7 +18,7 @@
                 components.Dispose();
             }
             base.Dispose(disposing);
-            LogFile.threadWriteLog("====================NDS2.0 Player Closed!!====================", LogType.LOG_INFO);
+            LogFile.ThreadWriteLog("====================NDS2.0 Player Closed!!====================", LogType.LOG_INFO);
 
         }
 
