@@ -8,31 +8,11 @@ namespace NDS20WinPlayer
         public static string DirOfSchedule;
         public static string DirOfLog;
 
-
-        #region Sever connection info.
         public static string UrlOfServer;       //REST Server URL : ex) 52.50.218.207
         public static string ExtentionOfServer; //REST Server Extension : ex: /socket/json
         public static string PortOfServer;      //REST Server Port : ex) 9090 
         public static string PlayerID;          //Player ID that was registered and permitted by server 
         public static string TextHandlerID = null;     //Assigned and given from server after connecting
-        #endregion
-
-        #region Player info.
-        public static int plyrSizeAuto;         //플레이어 화면 사이즈 자동여부 자동:1, 수동:0
-        public static int plyrStartposX;        //플레이어 실행시 모니터상의 첫 프레임 시작 포지션 X
-        public static int plyrStartposY;        //플레이어 실행시 모니터상의 첫 프레임 시작 포지션 Y
-        public static int plyrWidth;            //플레이어 가로 픽셀 px
-        public static int plyrHeight;           //플레이어 세로 픽셀 px
-        public static int plyrUsed;             //플레이어사용유무
-        public static string plyrStatus;        //001 : 정상 002 : 여러상태~~~ 공통코드?? 상태에 따른 칼러값?
-        public static int plyrAvailableHDD;     //단위 : MB
-        public static int plyrCPUusage;         //플레이어CPU사용량
-        public static int plyrMemUsage;         //플레이어Memory사용량
-        public static string macAddress;        //플레이어 MAC 주소
-        public static string ipAddress;         //플레이어 IP 주소
-        #endregion
-
-
     }
 
     enum LogType
@@ -52,10 +32,6 @@ namespace NDS20WinPlayer
         public int height;
         public string contentsFileName;
         public bool mute; //volumeS
-        public DateTime startDate;
-        public DateTime endDate;
-        public DateTime startTime;
-        public DateTime endTime;
 
     }
 

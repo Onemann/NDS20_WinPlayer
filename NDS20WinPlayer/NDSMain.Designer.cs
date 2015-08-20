@@ -32,7 +32,6 @@
         {
             this.pnlHeader = new DevExpress.XtraEditors.PanelControl();
             this.pnlBottom = new DevExpress.XtraEditors.PanelControl();
-            this.lblServerConnectionStatus = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.pnlHeader)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlBottom)).BeginInit();
             this.SuspendLayout();
@@ -73,14 +72,6 @@
             this.pnlBottom.Size = new System.Drawing.Size(1024, 39);
             this.pnlBottom.TabIndex = 1;
             // 
-            // lblServerConnectionStatus
-            // 
-            this.lblServerConnectionStatus.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblServerConnectionStatus.Location = new System.Drawing.Point(373, 309);
-            this.lblServerConnectionStatus.Name = "lblServerConnectionStatus";
-            this.lblServerConnectionStatus.Size = new System.Drawing.Size(282, 25);
-            this.lblServerConnectionStatus.TabIndex = 2;
-            // 
             // NDSMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -90,7 +81,6 @@
             this.BackgroundImage = global::NDS20WinPlayer.Properties.Resources.Logo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.lblServerConnectionStatus);
             this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.pnlHeader);
             this.DoubleBuffered = true;
@@ -115,7 +105,6 @@
 
         private DevExpress.XtraEditors.PanelControl pnlHeader;
         private DevExpress.XtraEditors.PanelControl pnlBottom;
-        private DevExpress.XtraEditors.LabelControl lblServerConnectionStatus;
 
 
 

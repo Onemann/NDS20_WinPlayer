@@ -19,7 +19,6 @@ namespace NDS20WinPlayer
 {
     public partial class ManagerForm : DevExpress.XtraEditors.XtraForm
     {
-        delegate void MessageOnStatusbarCallback(string msg, Enum logType);
         public ManagerForm()
         {
             InitializeComponent();
@@ -328,11 +327,6 @@ namespace NDS20WinPlayer
         private void trlstLogFile_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
             string logFileName = e.Node.GetDisplayText("logFileName");
-            displayLogContents(logFileName);
-        }
-
-        private void displayLogContents(string logFileName)
-        {
             string logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
             string logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";
 
@@ -381,26 +375,8 @@ namespace NDS20WinPlayer
                     messageColor = Color.Cyan;
                     break;
             }
-            if (this.InvokeRequired)
-            {
-                MessageOnStatusbarCallback d = new MessageOnStatusbarCallback(MessageOnStatusbar);
-                this.Invoke(d, new object[] { message, logType });
-            }
-            else
-            {
-                this.statusMessage.ForeColor = messageColor;
-                this.statusMessage.Text = message;
-
-                string logFileName = this.trlstLogFile.FocusedNode.GetDisplayText("logFileName");
-                string logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
-                string logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";
-
-                clssLogList[] logList = JsonConvert.DeserializeObject<clssLogList[]>(logTextJson, new IsoDateTimeConverter());
-                this.grdctrlLog.DataSource = logList;
-                //grdctrlLog.DataSource = logList;
-
-                //this.displayLogContents(logFileName);
-            }
+            statusMessage.ForeColor = messageColor;
+            statusMessage.Text = message;
         }
 
         private void ManagerForm_Load(object sender, EventArgs e)
@@ -432,39 +408,6 @@ namespace NDS20WinPlayer
                 if (arrSectors.Contains(e.Column.Caption)) 
                     e.Value = true;
                 
-            }
-        }
-
-        private void grdvLog_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
-        {
-            if(e.Column == grdcLogType)
-            {
-                var data = grdvLog.GetRowCellValue(e.RowHandle, grdcLogType) as String;
-                if (data == null) return;
-
-                System.Drawing.Color messageColor = new System.Drawing.Color();
-                switch (data.ToString())
-                {
-                    case "FATAL":
-                        messageColor = Color.Red;
-                        break;
-                    case "ERROR":
-                        messageColor = Color.OrangeRed;
-                        break;
-                    case "WARN":
-                        messageColor = Color.Yellow;
-                        break;
-                    case "INFO":
-                        messageColor = Color.White;
-                        break;
-                    case "DEBUG":
-                        messageColor = Color.Purple;
-                        break;
-                    case "TRACE":
-                        messageColor = Color.Cyan;
-                        break;
-                }
-                e.Appearance.ForeColor = messageColor;
             }
         }
     }

@@ -999,9 +999,6 @@
             this.grdvLog.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.None;
             this.grdvLog.GridControl = this.grdctrlLog;
             this.grdvLog.Name = "grdvLog";
-            this.grdvLog.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.grdcLogDateTime, DevExpress.Data.ColumnSortOrder.Descending)});
-            this.grdvLog.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.grdvLog_RowCellStyle);
             // 
             // grdcLogType
             // 
