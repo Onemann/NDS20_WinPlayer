@@ -24,11 +24,11 @@ namespace Implementation.Filters
 {
    internal class MarqueeFilter : IMarqueeFilter
    {
-      IntPtr m_hMediaPlayer;
+      IntPtr _mHMediaPlayer;
 
       public MarqueeFilter(IntPtr hMediaPlayer)
       {
-         m_hMediaPlayer = hMediaPlayer;
+         _mHMediaPlayer = hMediaPlayer;
       }
 
       #region IMarqueeFilter Members
@@ -37,11 +37,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Enable) == 1;
+            return GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeEnable) == 1;
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Enable, Convert.ToInt32(value));
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeEnable, Convert.ToInt32(value));
          }
       }
 
@@ -49,11 +49,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetMarqueeString(libvlc_video_marquee_option_t.libvlc_marquee_Text);
+            return GetMarqueeString(LibvlcVideoMarqueeOptionT.LibvlcMarqueeText);
          }
          set
          {
-            SetMarqueeString(libvlc_video_marquee_option_t.libvlc_marquee_Text,value);
+            SetMarqueeString(LibvlcVideoMarqueeOptionT.LibvlcMarqueeText,value);
          }
       }
 
@@ -61,11 +61,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return (VlcColor)GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Color);
+            return (VlcColor)GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeColor);
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Color, (int)value);
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeColor, (int)value);
          }
       }
 
@@ -73,11 +73,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return (Position)GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Position);
+            return (Position)GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueePosition);
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Position, (int)value);
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueePosition, (int)value);
          }
       }
 
@@ -85,11 +85,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Refresh);
+            return GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeRefresh);
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Refresh, value);
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeRefresh, value);
          }
       }
 
@@ -97,11 +97,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Size);
+            return GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeSize);
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Size, value);
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeSize, value);
          }
       }
 
@@ -109,11 +109,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Timeout);
+            return GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeTimeout);
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Timeout, value);
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeTimeout, value);
          }
       }
 
@@ -121,11 +121,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_X);
+            return GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeX);
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_X, value);
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeX, value);
          }
       }
 
@@ -133,11 +133,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Y);
+            return GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeY);
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Y, value);
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeY, value);
          }
       }
 
@@ -145,35 +145,35 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Opacity);
+            return GetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeOpacity);
          }
          set
          {
-            SetMarquee(libvlc_video_marquee_option_t.libvlc_marquee_Opacity, value);
+            SetMarquee(LibvlcVideoMarqueeOptionT.LibvlcMarqueeOpacity, value);
          }
       }
 
       #endregion
 
-      int GetMarquee(libvlc_video_marquee_option_t option)
+      int GetMarquee(LibvlcVideoMarqueeOptionT option)
       {
-         return LibVlcMethods.libvlc_video_get_marquee_int(m_hMediaPlayer, option);
+         return LibVlcMethods.libvlc_video_get_marquee_int(_mHMediaPlayer, option);
       }
 
-      void SetMarquee(libvlc_video_marquee_option_t option, int argument)
+      void SetMarquee(LibvlcVideoMarqueeOptionT option, int argument)
       {
-         LibVlcMethods.libvlc_video_set_marquee_int(m_hMediaPlayer, option, argument);
+         LibVlcMethods.libvlc_video_set_marquee_int(_mHMediaPlayer, option, argument);
       }
 
-      string GetMarqueeString(libvlc_video_marquee_option_t option)
+      string GetMarqueeString(LibvlcVideoMarqueeOptionT option)
       {
-         IntPtr pData = LibVlcMethods.libvlc_video_get_marquee_string(m_hMediaPlayer, option);
+         var pData = LibVlcMethods.libvlc_video_get_marquee_string(_mHMediaPlayer, option);
          return Marshal.PtrToStringAnsi(pData);
       }
 
-      void SetMarqueeString(libvlc_video_marquee_option_t option, string argument)
+      void SetMarqueeString(LibvlcVideoMarqueeOptionT option, string argument)
       {
-         LibVlcMethods.libvlc_video_set_marquee_string(m_hMediaPlayer, option, argument.ToUtf8());
+         LibVlcMethods.libvlc_video_set_marquee_string(_mHMediaPlayer, option, argument.ToUtf8());
       }    
    }
 }

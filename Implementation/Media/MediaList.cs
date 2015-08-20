@@ -26,20 +26,20 @@ namespace Implementation.Media
 {
    internal class MediaList : DisposableBase, IMediaList, INativePointer, IEventProvider, IReferenceCount
    {
-      protected IntPtr m_hMediaList;
-      protected IntPtr m_hMediaLib;
-      IntPtr m_hEventManager = IntPtr.Zero;
-      IMediaListEvents m_events = null;
+      protected IntPtr MHMediaList;
+      protected IntPtr MHMediaLib;
+      IntPtr _mHEventManager = IntPtr.Zero;
+      IMediaListEvents _mEvents = null;
 
       public MediaList(IntPtr hMediaLib)
       {
-         m_hMediaLib = hMediaLib;
-         m_hMediaList = LibVlcMethods.libvlc_media_list_new(hMediaLib);
+         MHMediaLib = hMediaLib;
+         MHMediaList = LibVlcMethods.libvlc_media_list_new(hMediaLib);
       }
 
       public MediaList(IntPtr hMediaList, ReferenceCountAction action)
       {
-         m_hMediaList = hMediaList;
+         MHMediaList = hMediaList;
 
          switch (action)
          {
@@ -54,19 +54,19 @@ namespace Implementation.Media
 
       protected struct MediaListLock : IDisposable
       {
-         IntPtr m_hMediaList;
+         IntPtr _mHMediaList;
 
          public MediaListLock(IntPtr hMediaList)
          {
-            m_hMediaList = hMediaList;
-            LibVlcMethods.libvlc_media_list_lock(m_hMediaList);
+            _mHMediaList = hMediaList;
+            LibVlcMethods.libvlc_media_list_lock(_mHMediaList);
          }
 
          #region IDisposable Members
 
          public void Dispose()
          {
-            LibVlcMethods.libvlc_media_list_unlock(m_hMediaList);
+            LibVlcMethods.libvlc_media_list_unlock(_mHMediaList);
          }
 
          #endregion
@@ -76,25 +76,25 @@ namespace Implementation.Media
 
       public int IndexOf(IMedia item)
       {
-         using (new MediaListLock(m_hMediaList))
+         using (new MediaListLock(MHMediaList))
          {
-            return LibVlcMethods.libvlc_media_list_index_of_item(m_hMediaList, ((INativePointer)item).Pointer);
+            return LibVlcMethods.libvlc_media_list_index_of_item(MHMediaList, ((INativePointer)item).Pointer);
          }
       }
 
       public void Insert(int index, IMedia item)
       {
-         using (new MediaListLock(m_hMediaList))
+         using (new MediaListLock(MHMediaList))
          {
-            LibVlcMethods.libvlc_media_list_insert_media(m_hMediaList, ((INativePointer)item).Pointer, index);
+            LibVlcMethods.libvlc_media_list_insert_media(MHMediaList, ((INativePointer)item).Pointer, index);
          }
       }
 
       public void RemoveAt(int index)
       {
-         using (new MediaListLock(m_hMediaList))
+         using (new MediaListLock(MHMediaList))
          {
-            LibVlcMethods.libvlc_media_list_remove_index(m_hMediaList, index);
+            LibVlcMethods.libvlc_media_list_remove_index(MHMediaList, index);
          }
       }
 
@@ -102,9 +102,9 @@ namespace Implementation.Media
       {
          get
          {
-            using (new MediaListLock(m_hMediaList))
+            using (new MediaListLock(MHMediaList))
             {
-               IntPtr hMedia = LibVlcMethods.libvlc_media_list_item_at_index(m_hMediaList, index);
+               var hMedia = LibVlcMethods.libvlc_media_list_item_at_index(MHMediaList, index);
                if (hMedia == IntPtr.Zero)
                {
                   throw new Exception(string.Format("Media at index {0} not found", index));
@@ -125,21 +125,21 @@ namespace Implementation.Media
 
       public void Add(IMedia item)
       {
-         using (new MediaListLock(m_hMediaList))
+         using (new MediaListLock(MHMediaList))
          {
-            LibVlcMethods.libvlc_media_list_add_media(m_hMediaList, ((INativePointer)item).Pointer);
+            LibVlcMethods.libvlc_media_list_add_media(MHMediaList, ((INativePointer)item).Pointer);
          }
       }
 
       public void Clear()
       {
-         using (new MediaListLock(m_hMediaList))
+         using (new MediaListLock(MHMediaList))
          {
-            int count = LibVlcMethods.libvlc_media_list_count(m_hMediaList);
+            var count = LibVlcMethods.libvlc_media_list_count(MHMediaList);
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-               LibVlcMethods.libvlc_media_list_remove_index(m_hMediaList, 0);
+               LibVlcMethods.libvlc_media_list_remove_index(MHMediaList, 0);
             }
          }
       }
@@ -158,9 +158,9 @@ namespace Implementation.Media
       {
          get
          {
-            using (new MediaListLock(m_hMediaList))
+            using (new MediaListLock(MHMediaList))
             {
-               return LibVlcMethods.libvlc_media_list_count(m_hMediaList);
+               return LibVlcMethods.libvlc_media_list_count(MHMediaList);
             }
          }
       }
@@ -169,13 +169,13 @@ namespace Implementation.Media
       {
          get 
          { 
-            return LibVlcMethods.libvlc_media_list_is_readonly(m_hMediaList) == 0; 
+            return LibVlcMethods.libvlc_media_list_is_readonly(MHMediaList) == 0; 
          }
       }
 
       public bool Remove(IMedia item)
       {
-         int index = this.IndexOf(item);
+         var index = this.IndexOf(item);
          if (index < 0)
          {
             return false;
@@ -216,7 +216,7 @@ namespace Implementation.Media
       {
          get 
          { 
-            return m_hMediaList; 
+            return MHMediaList; 
          }
       }
 
@@ -228,12 +228,12 @@ namespace Implementation.Media
       {
          get 
          {
-            if (m_hEventManager == IntPtr.Zero)
+            if (_mHEventManager == IntPtr.Zero)
             {
-               m_hEventManager = LibVlcMethods.libvlc_media_list_event_manager(m_hMediaList);
+               _mHEventManager = LibVlcMethods.libvlc_media_list_event_manager(MHMediaList);
             }
 
-            return m_hEventManager;
+            return _mHEventManager;
          }
       }
 
@@ -245,11 +245,11 @@ namespace Implementation.Media
       {
          get 
          {
-            if (m_events == null)
+            if (_mEvents == null)
             {
-               m_events = new MediaListEventManager(this);
+               _mEvents = new MediaListEventManager(this);
             }
-            return m_events;
+            return _mEvents;
          }
       }
 
@@ -259,14 +259,14 @@ namespace Implementation.Media
 
       public void AddRef()
       {
-         LibVlcMethods.libvlc_media_list_retain(m_hMediaList);
+         LibVlcMethods.libvlc_media_list_retain(MHMediaList);
       }
 
       public void Release()
       {
          try
          {
-            LibVlcMethods.libvlc_media_list_release(m_hMediaList);
+            LibVlcMethods.libvlc_media_list_release(MHMediaList);
          }
          catch (AccessViolationException)
          { }

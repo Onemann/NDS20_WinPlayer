@@ -27,53 +27,53 @@ namespace Implementation
 {
     internal sealed unsafe class MemoryRenderer : DisposableBase, IMemoryRenderer
     {
-        IntPtr m_hMediaPlayer;
-        NewFrameEventHandler m_callback = null;
-        BitmapFormat m_format;
-        Timer m_timer = new Timer();
-        volatile int m_frameRate = 0;
-        int m_latestFps;
-        object m_lock = new object();
-        List<Delegate> m_callbacks = new List<Delegate>();
+        IntPtr _mHMediaPlayer;
+        NewFrameEventHandler _mCallback = null;
+        BitmapFormat _mFormat;
+        Timer _mTimer = new Timer();
+        volatile int _mFrameRate = 0;
+        int _mLatestFps;
+        object _mLock = new object();
+        List<Delegate> _mCallbacks = new List<Delegate>();
 
-        IntPtr pLockCallback;
-        IntPtr pUnlockCallback;
-        IntPtr pDisplayCallback;
-        Action<Exception> m_excHandler = null;
-        GCHandle m_pixelDataPtr = default(GCHandle);
-        PixelData m_pixelData;
-        void* m_pBuffer = null;
+        IntPtr _pLockCallback;
+        IntPtr _pUnlockCallback;
+        IntPtr _pDisplayCallback;
+        Action<Exception> _mExcHandler = null;
+        GCHandle _mPixelDataPtr = default(GCHandle);
+        PixelData _mPixelData;
+        void* _mPBuffer = null;
 
         public MemoryRenderer(IntPtr hMediaPlayer)
         {
-            m_hMediaPlayer = hMediaPlayer;
+            _mHMediaPlayer = hMediaPlayer;
 
             LockEventHandler leh = OnpLock;
             UnlockEventHandler ueh = OnpUnlock;
             DisplayEventHandler deh = OnpDisplay;
 
-            pLockCallback = Marshal.GetFunctionPointerForDelegate(leh);
-            pUnlockCallback = Marshal.GetFunctionPointerForDelegate(ueh);
-            pDisplayCallback = Marshal.GetFunctionPointerForDelegate(deh);
+            _pLockCallback = Marshal.GetFunctionPointerForDelegate(leh);
+            _pUnlockCallback = Marshal.GetFunctionPointerForDelegate(ueh);
+            _pDisplayCallback = Marshal.GetFunctionPointerForDelegate(deh);
 
-            m_callbacks.Add(leh);
-            m_callbacks.Add(deh);
-            m_callbacks.Add(ueh);
+            _mCallbacks.Add(leh);
+            _mCallbacks.Add(deh);
+            _mCallbacks.Add(ueh);
 
-            m_timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-            m_timer.Interval = 1000;
+            _mTimer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+            _mTimer.Interval = 1000;
         }
 
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            m_latestFps = m_frameRate;
-            m_frameRate = 0;
+            _mLatestFps = _mFrameRate;
+            _mFrameRate = 0;
         }
 
         unsafe void* OnpLock(void* opaque, void** plane)
         {
-            PixelData* px = (PixelData*)opaque;
-            *plane = px->pPixelData;
+            var px = (PixelData*)opaque;
+            *plane = px->PPixelData;
             return null;
         }
 
@@ -84,27 +84,27 @@ namespace Implementation
 
         unsafe void OnpDisplay(void* opaque, void* picture)
         {
-            lock (m_lock)
+            lock (_mLock)
             {
                 try
                 {
-                    PixelData* px = (PixelData*)opaque;
-                    MemoryHeap.CopyMemory(m_pBuffer, px->pPixelData, px->size);
+                    var px = (PixelData*)opaque;
+                    MemoryHeap.CopyMemory(_mPBuffer, px->PPixelData, px->Size);
 
-                    m_frameRate++;
-                    if (m_callback != null)
+                    _mFrameRate++;
+                    if (_mCallback != null)
                     {
-                        using (Bitmap frame = GetBitmap())
+                        using (var frame = GetBitmap())
                         {
-                            m_callback(frame);
+                            _mCallback(frame);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    if (m_excHandler != null)
+                    if (_mExcHandler != null)
                     {
-                        m_excHandler(ex);
+                        _mExcHandler(ex);
                     }
                     else
                     {
@@ -116,38 +116,38 @@ namespace Implementation
 
         private Bitmap GetBitmap()
         {
-            return new Bitmap(m_format.Width, m_format.Height, m_format.Pitch, m_format.PixelFormat, new IntPtr(m_pBuffer));
+            return new Bitmap(_mFormat.Width, _mFormat.Height, _mFormat.Pitch, _mFormat.PixelFormat, new IntPtr(_mPBuffer));
         }
 
         #region IMemoryRenderer Members
 
         public void SetCallback(NewFrameEventHandler callback)
         {
-            m_callback = callback;
+            _mCallback = callback;
         }
 
         public void SetFormat(BitmapFormat format)
         {
-            m_format = format;
+            _mFormat = format;
 
-            LibVlcMethods.libvlc_video_set_format(m_hMediaPlayer, m_format.Chroma.ToUtf8(), m_format.Width, m_format.Height, m_format.Pitch);
-            m_pBuffer = MemoryHeap.Alloc(m_format.ImageSize);
+            LibVlcMethods.libvlc_video_set_format(_mHMediaPlayer, _mFormat.Chroma.ToUtf8(), _mFormat.Width, _mFormat.Height, _mFormat.Pitch);
+            _mPBuffer = MemoryHeap.Alloc(_mFormat.ImageSize);
 
-            m_pixelData = new PixelData(m_format.ImageSize);
-            m_pixelDataPtr = GCHandle.Alloc(m_pixelData, GCHandleType.Pinned);
-            LibVlcMethods.libvlc_video_set_callbacks(m_hMediaPlayer, pLockCallback, pUnlockCallback, pDisplayCallback, m_pixelDataPtr.AddrOfPinnedObject());
+            _mPixelData = new PixelData(_mFormat.ImageSize);
+            _mPixelDataPtr = GCHandle.Alloc(_mPixelData, GCHandleType.Pinned);
+            LibVlcMethods.libvlc_video_set_callbacks(_mHMediaPlayer, _pLockCallback, _pUnlockCallback, _pDisplayCallback, _mPixelDataPtr.AddrOfPinnedObject());
         }
 
         internal void StartTimer()
         {
-            m_timer.Start();
+            _mTimer.Start();
         }
 
         public int ActualFrameRate
         {
             get
             {
-                return m_latestFps;
+                return _mLatestFps;
             }
         }
 
@@ -155,7 +155,7 @@ namespace Implementation
         {
             get
             {
-                lock (m_lock)
+                lock (_mLock)
                 {
                     return GetBitmap();
                 }
@@ -164,26 +164,26 @@ namespace Implementation
 
         public void SetExceptionHandler(Action<Exception> handler)
         {
-            m_excHandler = handler;
+            _mExcHandler = handler;
         }
 
         #endregion
 
         protected override void Dispose(bool disposing)
         {
-            IntPtr zero = IntPtr.Zero;
-            LibVlcMethods.libvlc_video_set_callbacks(m_hMediaPlayer, zero, zero, zero, zero);
+            var zero = IntPtr.Zero;
+            LibVlcMethods.libvlc_video_set_callbacks(_mHMediaPlayer, zero, zero, zero, zero);
 
-            m_pixelDataPtr.Free();
-            m_pixelData.Dispose();
+            _mPixelDataPtr.Free();
+            _mPixelData.Dispose();
 
-            MemoryHeap.Free(m_pBuffer);
+            MemoryHeap.Free(_mPBuffer);
 
             if (disposing)
             {
-                m_timer.Dispose();
-                m_callback = null;
-                m_callbacks.Clear();
+                _mTimer.Dispose();
+                _mCallback = null;
+                _mCallbacks.Clear();
             }
         }
     }

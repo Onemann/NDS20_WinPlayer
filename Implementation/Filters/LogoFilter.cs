@@ -23,12 +23,12 @@ namespace Implementation.Filters
 {
    internal class LogoFilter : ILogoFilter
    {
-      IntPtr m_pMediaPlayer;
-      private string m_file;
+      IntPtr _mPMediaPlayer;
+      private string _mFile;
       
       public LogoFilter(IntPtr hMediaPlayer)
       {
-         m_pMediaPlayer = hMediaPlayer;
+         _mPMediaPlayer = hMediaPlayer;
       }
 
       #region ILogoFilter Members
@@ -37,11 +37,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return LibVlcMethods.libvlc_video_get_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_enable) == 1;
+            return LibVlcMethods.libvlc_video_get_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoEnable) == 1;
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_enable, Convert.ToInt32(value));
+            LibVlcMethods.libvlc_video_set_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoEnable, Convert.ToInt32(value));
          }
       }
 
@@ -49,12 +49,12 @@ namespace Implementation.Filters
       {
          get
          {
-            return m_file;
+            return _mFile;
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_logo_string(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_file, value.ToUtf8());
-            m_file = value;
+            LibVlcMethods.libvlc_video_set_logo_string(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoFile, value.ToUtf8());
+            _mFile = value;
          }
       }
 
@@ -62,11 +62,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return LibVlcMethods.libvlc_video_get_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_x);
+            return LibVlcMethods.libvlc_video_get_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoX);
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_x, value);
+            LibVlcMethods.libvlc_video_set_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoX, value);
          }
       }
 
@@ -74,11 +74,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return LibVlcMethods.libvlc_video_get_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_y);
+            return LibVlcMethods.libvlc_video_get_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoY);
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_y, value);
+            LibVlcMethods.libvlc_video_set_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoY, value);
          }
       }
 
@@ -86,11 +86,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return LibVlcMethods.libvlc_video_get_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_delay);
+            return LibVlcMethods.libvlc_video_get_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoDelay);
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_delay, value);
+            LibVlcMethods.libvlc_video_set_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoDelay, value);
          }
       }
 
@@ -98,11 +98,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return LibVlcMethods.libvlc_video_get_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_repeat);
+            return LibVlcMethods.libvlc_video_get_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoRepeat);
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_repeat, value);
+            LibVlcMethods.libvlc_video_set_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoRepeat, value);
          }
       }
 
@@ -110,11 +110,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return LibVlcMethods.libvlc_video_get_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_opacity);
+            return LibVlcMethods.libvlc_video_get_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoOpacity);
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_opacity, value);
+            LibVlcMethods.libvlc_video_set_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoOpacity, value);
          }
       }
 
@@ -122,11 +122,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return (Position)LibVlcMethods.libvlc_video_get_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_position);
+            return (Position)LibVlcMethods.libvlc_video_get_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoPosition);
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_logo_int(m_pMediaPlayer, libvlc_video_logo_option_t.libvlc_logo_position, (int)value);
+            LibVlcMethods.libvlc_video_set_logo_int(_mPMediaPlayer, LibvlcVideoLogoOptionT.LibvlcLogoPosition, (int)value);
          }
       }
 

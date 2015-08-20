@@ -24,10 +24,10 @@ namespace Implementation.Exceptions
     [Serializable]
     public class LibVlcInitException : LibVlcException
     {
-        const string msg = "Failed to initialize libVLC. Possible reasons : Some of the arguments may be incorrect. VLC dlls' version mismatch.";
+        const string Msg = "Failed to initialize libVLC. Possible reasons : Some of the arguments may be incorrect. VLC dlls' version mismatch.";
 
         public LibVlcInitException()
-            : base(msg)
+            : base(Msg)
         {
 
         }

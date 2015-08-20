@@ -20,7 +20,7 @@ namespace Implementation.Exceptions
         {
             LibVlcModuleName = libVlcModuleName;
             LastWorkingVersion = lastWorkingVersion;
-            this.nVlcModuleName = nVlcModuleName;
+            this.NVlcModuleName = nVlcModuleName;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Implementation.Exceptions
         /// <summary>
         /// Name of the nVLC object using removed module
         /// </summary>
-        public string nVlcModuleName { get; private set; }
+        public string NVlcModuleName { get; private set; }
 
         /// <summary>
         /// Gets a message that describes the current exception
@@ -45,7 +45,7 @@ namespace Implementation.Exceptions
         {
             get
             {
-                return string.Format("{0} module based on {1} supported up to libVLC version {2}", nVlcModuleName, LibVlcModuleName, LastWorkingVersion);
+                return string.Format("{0} module based on {1} supported up to libVLC version {2}", NVlcModuleName, LibVlcModuleName, LastWorkingVersion);
             }
         }
     }

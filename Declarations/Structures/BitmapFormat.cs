@@ -45,7 +45,7 @@ namespace Declarations
             Init();
 
             Chroma = ChromaType.ToString();
-            if (IsRGB)
+            if (IsRgb)
             {
                 Pitch = Width * BitsPerPixel / 8;
                 PlaneSizes[0] = ImageSize = Pitch * Height;
@@ -58,32 +58,32 @@ namespace Declarations
         {
             switch (ChromaType)
             {
-                case ChromaType.RV15:
+                case ChromaType.Rv15:
                     PixelFormat = PixelFormat.Format16bppRgb555;
                     BitsPerPixel = 16;
                     break;
 
-                case ChromaType.RV16:
+                case ChromaType.Rv16:
                     PixelFormat = PixelFormat.Format16bppRgb565;
                     BitsPerPixel = 16;
                     break;
 
-                case ChromaType.RV24:
+                case ChromaType.Rv24:
                     PixelFormat = PixelFormat.Format24bppRgb;
                     BitsPerPixel = 24;
                     break;
 
-                case ChromaType.RV32:
+                case ChromaType.Rv32:
                     PixelFormat = PixelFormat.Format32bppRgb;
                     BitsPerPixel = 32;
                     break;
 
-                case ChromaType.RGBA:
+                case ChromaType.Rgba:
                     PixelFormat = PixelFormat.Format32bppArgb;
                     BitsPerPixel = 32;
                     break;
 
-                case ChromaType.NV12:
+                case ChromaType.Nv12:
                     BitsPerPixel = 12;
                     Planes = 2;
                     PlaneSizes[0] = Width * Height;
@@ -94,7 +94,7 @@ namespace Declarations
                     break;
 
                 case ChromaType.I420:
-                case ChromaType.YV12:
+                case ChromaType.Yv12:
                 case ChromaType.J420:
                     BitsPerPixel = 12;
                     Planes = 3;
@@ -105,8 +105,8 @@ namespace Declarations
                     ImageSize = PlaneSizes[0] + PlaneSizes[1] + PlaneSizes[2];
                     break;
 
-                case ChromaType.YUY2:
-                case ChromaType.UYVY:
+                case ChromaType.Yuy2:
+                case ChromaType.Uyvy:
                 case ChromaType.J422:
                     BitsPerPixel = 16;
                     PlaneSizes[0] = Width * Height * 2;
@@ -163,8 +163,8 @@ namespace Declarations
             get
             {
                 return ChromaType == ChromaType.I420 ||
-                       ChromaType == ChromaType.NV12 ||
-                       ChromaType == ChromaType.YV12 ||
+                       ChromaType == ChromaType.Nv12 ||
+                       ChromaType == ChromaType.Yv12 ||
                        ChromaType == ChromaType.J420;
             }
         }
@@ -172,15 +172,15 @@ namespace Declarations
         /// <summary>
         /// Gets value indicating whether the format is packed RGB
         /// </summary>
-        public bool IsRGB
+        public bool IsRgb
         {
             get
             {
-                return ChromaType == ChromaType.RV15 ||
-                       ChromaType == ChromaType.RV16 ||
-                       ChromaType == ChromaType.RV24 ||
-                       ChromaType == ChromaType.RV32 ||
-                       ChromaType == ChromaType.RGBA;
+                return ChromaType == ChromaType.Rv15 ||
+                       ChromaType == ChromaType.Rv16 ||
+                       ChromaType == ChromaType.Rv24 ||
+                       ChromaType == ChromaType.Rv32 ||
+                       ChromaType == ChromaType.Rgba;
             }
         }
 

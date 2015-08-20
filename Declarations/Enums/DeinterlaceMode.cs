@@ -26,13 +26,13 @@ namespace Declarations
    /// </summary>
    public enum DeinterlaceMode
    {
-      discard,
-      blend,
-      mean,
-      bob,
-      linear,
-      x,
-      yadif,
-      yadif2x
+      Discard,
+      Blend,
+      Mean,
+      Bob,
+      Linear,
+      X,
+      Yadif,
+      Yadif2X
    }
 }

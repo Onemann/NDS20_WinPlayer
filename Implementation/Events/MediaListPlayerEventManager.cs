@@ -18,6 +18,7 @@ using System;
 using Declarations.Events;
 using Implementation.Media;
 using LibVlcWrapper;
+using MediaListPlayerNextItemSet = Declarations.Events.MediaListPlayerNextItemSet;
 
 namespace Implementation.Events
 {
@@ -29,28 +30,28 @@ namespace Implementation.Events
 
         }
 
-        protected override void MediaPlayerEventOccured(ref libvlc_event_t libvlc_event, IntPtr userData)
+        protected override void MediaPlayerEventOccured(ref LibvlcEventT libvlcEvent, IntPtr userData)
         {
-            switch (libvlc_event.type)
+            switch (libvlcEvent.type)
             {
-                case libvlc_event_e.libvlc_MediaListPlayerPlayed:
-                    if (m_mediaListPlayerPlayed != null)
+                case LibvlcEventE.LibvlcMediaListPlayerPlayed:
+                    if (MMediaListPlayerPlayed != null)
                     {
-                        m_mediaListPlayerPlayed(m_eventProvider, EventArgs.Empty);
+                        MMediaListPlayerPlayed(MEventProvider, EventArgs.Empty);
                     }
                     break;
-                case libvlc_event_e.libvlc_MediaListPlayerNextItemSet:
-                    if (m_mediaListPlayerNextItemSet != null)
+                case LibvlcEventE.LibvlcMediaListPlayerNextItemSet:
+                    if (MMediaListPlayerNextItemSet != null)
                     {
-                        BasicMedia media = new BasicMedia(libvlc_event.MediaDescriptor.media_list_player_next_item_set.item, ReferenceCountAction.AddRef);
-                        m_mediaListPlayerNextItemSet(m_eventProvider, new MediaListPlayerNextItemSet(media));
+                        var media = new BasicMedia(libvlcEvent.MediaDescriptor.media_list_player_next_item_set.item, ReferenceCountAction.AddRef);
+                        MMediaListPlayerNextItemSet(MEventProvider, new MediaListPlayerNextItemSet(media));
                         //media.Release();
                     }
                     break;
-                case libvlc_event_e.libvlc_MediaListPlayerStopped:
-                    if (m_mediaListPlayerStopped != null)
+                case LibvlcEventE.LibvlcMediaListPlayerStopped:
+                    if (MMediaListPlayerStopped != null)
                     {
-                        m_mediaListPlayerStopped(m_eventProvider, EventArgs.Empty);
+                        MMediaListPlayerStopped(MEventProvider, EventArgs.Empty);
                     }
                     break;
             }
@@ -58,73 +59,73 @@ namespace Implementation.Events
 
         #region IMediaListPlayerEvents Members
 
-        event EventHandler m_mediaListPlayerPlayed;
+        event EventHandler MMediaListPlayerPlayed;
         public event EventHandler MediaListPlayerPlayed
         {
             add
             {
-                if (m_mediaListPlayerPlayed == null)
+                if (MMediaListPlayerPlayed == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaListPlayerPlayed);
+                    Attach(LibvlcEventE.LibvlcMediaListPlayerPlayed);
                 }
-                m_mediaListPlayerPlayed += value;
+                MMediaListPlayerPlayed += value;
             }
             remove
             {
-                if (m_mediaListPlayerPlayed != null)
+                if (MMediaListPlayerPlayed != null)
                 {
-                    m_mediaListPlayerPlayed -= value;
-                    if (m_mediaListPlayerPlayed == null)
+                    MMediaListPlayerPlayed -= value;
+                    if (MMediaListPlayerPlayed == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaListPlayerPlayed);
+                        Dettach(LibvlcEventE.LibvlcMediaListPlayerPlayed);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaListPlayerNextItemSet> m_mediaListPlayerNextItemSet;
+        event EventHandler<MediaListPlayerNextItemSet> MMediaListPlayerNextItemSet;
         public event EventHandler<MediaListPlayerNextItemSet> MediaListPlayerNextItemSet
         {
             add
             {
-                if (m_mediaListPlayerNextItemSet == null)
+                if (MMediaListPlayerNextItemSet == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaListPlayerNextItemSet);
+                    Attach(LibvlcEventE.LibvlcMediaListPlayerNextItemSet);
                 }
-                m_mediaListPlayerNextItemSet += value;
+                MMediaListPlayerNextItemSet += value;
             }
             remove
             {
-                if (m_mediaListPlayerNextItemSet != null)
+                if (MMediaListPlayerNextItemSet != null)
                 {
-                    m_mediaListPlayerNextItemSet -= value;
-                    if (m_mediaListPlayerNextItemSet == null)
+                    MMediaListPlayerNextItemSet -= value;
+                    if (MMediaListPlayerNextItemSet == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaListPlayerNextItemSet);
+                        Dettach(LibvlcEventE.LibvlcMediaListPlayerNextItemSet);
                     }
                 }
             }
         }
 
-        event EventHandler m_mediaListPlayerStopped;
+        event EventHandler MMediaListPlayerStopped;
         public event EventHandler MediaListPlayerStopped
         {
             add
             {
-                if (m_mediaListPlayerStopped == null)
+                if (MMediaListPlayerStopped == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaListPlayerStopped);
+                    Attach(LibvlcEventE.LibvlcMediaListPlayerStopped);
                 }
-                m_mediaListPlayerStopped += value;
+                MMediaListPlayerStopped += value;
             }
             remove
             {
-                if (m_mediaListPlayerStopped != null)
+                if (MMediaListPlayerStopped != null)
                 {
-                    m_mediaListPlayerStopped -= value;
-                    if (m_mediaListPlayerStopped == null)
+                    MMediaListPlayerStopped -= value;
+                    if (MMediaListPlayerStopped == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaListPlayerStopped);
+                        Dettach(LibvlcEventE.LibvlcMediaListPlayerStopped);
                     }
                 }
             }

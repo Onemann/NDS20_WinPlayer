@@ -35,7 +35,7 @@ namespace Declarations.Media
       /// <summary>
       /// Gets or sets the frame rate of the capture.
       /// </summary>
-      int FPS { get; set; }
+      int Fps { get; set; }
 
       /// <summary>
       /// Gets or sets value indication whether to include the mouse cursor in the captured frame.

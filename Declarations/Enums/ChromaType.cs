@@ -29,32 +29,32 @@ namespace Declarations
         /// <summary>
         /// 5 bit for each RGB channel
         /// </summary>
-        RV15,
+        Rv15,
 
         /// <summary>
         /// 5 bit Red, 6 bit Green and 5 bit Blue
         /// </summary>
-        RV16,
+        Rv16,
 
         /// <summary>
         /// 8 bit per channel
         /// </summary>
-        RV24,
+        Rv24,
 
         /// <summary>
         /// 8 bit per RGB channel and 8 bit unused
         /// </summary>
-        RV32,
+        Rv32,
 
         /// <summary>
         /// 8 bit per each RGBA channel
         /// </summary>
-        RGBA,
+        Rgba,
 
         /// <summary>
         /// 12 bits per pixel planar format with Y plane followed by V and U planes
         /// </summary>
-        YV12,
+        Yv12,
 
         /// <summary>
         /// Same as YV12 but V and U are swapped
@@ -64,17 +64,17 @@ namespace Declarations
         /// <summary>
         /// 12 bits per pixel planar format with Y plane and interleaved UV plane
         /// </summary>
-        NV12,
+        Nv12,
 
         /// <summary>
         /// 16 bits per pixel packed YUYV array
         /// </summary>
-        YUY2,
+        Yuy2,
 
         /// <summary>
         /// 16 bits per pixel packed UYVY array 
         /// </summary>
-        UYVY,
+        Uyvy,
 
         /// <summary>
         /// Same as I420, mainly used with MJPG codecs

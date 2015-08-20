@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+//using System.ComponentModel;
+//using System.Data;
 using System.Drawing;
-using System.Text;
+//using System.Text;
 using System.Linq;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using System.Net.Json;
-using System.Xml;
+//using DevExpress.XtraEditors;
+//using System.Net.Json;
+//using System.Xml;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using DevExpress.XtraGrid;
+//using DevExpress.XtraGrid;
 
 namespace NDS20WinPlayer
 {
     public partial class ManagerForm : DevExpress.XtraEditors.XtraForm
     {
+        delegate void MessageOnStatusbarCallback(string msg, Enum logType);
         public ManagerForm()
         {
             InitializeComponent();
@@ -327,6 +328,11 @@ namespace NDS20WinPlayer
         private void trlstLogFile_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
             string logFileName = e.Node.GetDisplayText("logFileName");
+            displayLogContents(logFileName);
+        }
+
+        private void displayLogContents(string logFileName)
+        {
             string logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
             string logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";
 
@@ -375,8 +381,25 @@ namespace NDS20WinPlayer
                     messageColor = Color.Cyan;
                     break;
             }
-            statusMessage.ForeColor = messageColor;
-            statusMessage.Text = message;
+            if (this.InvokeRequired)
+            {
+                var d = new MessageOnStatusbarCallback(MessageOnStatusbar);
+                Invoke(d, new object[] { message, logType });
+            }
+            else
+            {
+                statusMessage.ForeColor = messageColor;
+                statusMessage.Text = message;
+
+                if(trlstLogFile.FocusedNode != null)
+                { 
+                    var logFileName = trlstLogFile.FocusedNode.GetDisplayText("logFileName");
+                    var logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
+                    var logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";
+                    var logList = JsonConvert.DeserializeObject<clssLogList[]>(logTextJson, new IsoDateTimeConverter());
+                    this.grdctrlLog.DataSource = logList;
+                }
+            }
         }
 
         private void ManagerForm_Load(object sender, EventArgs e)
@@ -399,16 +422,45 @@ namespace NDS20WinPlayer
         }
         private void bgrdvContents_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
         {
-            string sectorCellValue = "";
-            if (e.Column.FieldName.Contains("grdcSector"))
-            {
+            if (!e.Column.FieldName.Contains("grdcSector")) return;
 //                if (bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "ctscSector") == null) return;
-                sectorCellValue = bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "ctscSector").ToString();
-                var arrSectors = sectorCellValue.Split(',');
-                if (arrSectors.Contains(e.Column.Caption)) 
-                    e.Value = true;
-                
+            var sectorCellValue = bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "ctscSector").ToString();
+            var arrSectors = sectorCellValue.Split(',');
+            if (arrSectors.Contains(e.Column.Caption)) 
+                e.Value = true;
+        }
+
+        private void grdvLog_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.Column != grdcLogType) return;
+
+            var data = grdvLog.GetRowCellValue(e.RowHandle, grdcLogType) as string;
+            if (data == null) return;
+
+            var messageColor = new System.Drawing.Color();
+
+            switch (data)
+            {
+                case "FATAL":
+                    messageColor = Color.Red;
+                    break;
+                case "ERROR":
+                    messageColor = Color.OrangeRed;
+                    break;
+                case "WARN":
+                    messageColor = Color.Yellow;
+                    break;
+                case "INFO":
+                    messageColor = Color.White;
+                    break;
+                case "DEBUG":
+                    messageColor = Color.Purple;
+                    break;
+                case "TRACE":
+                    messageColor = Color.Cyan;
+                    break;
             }
+            e.Appearance.ForeColor = messageColor;
         }
     }
 }

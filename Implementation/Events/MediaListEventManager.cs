@@ -18,6 +18,10 @@ using System;
 using Declarations.Events;
 using Implementation.Media;
 using LibVlcWrapper;
+using MediaListItemAdded = Declarations.Events.MediaListItemAdded;
+using MediaListItemDeleted = Declarations.Events.MediaListItemDeleted;
+using MediaListWillAddItem = Declarations.Events.MediaListWillAddItem;
+using MediaListWillDeleteItem = Declarations.Events.MediaListWillDeleteItem;
 
 namespace Implementation.Events
 {
@@ -28,42 +32,42 @@ namespace Implementation.Events
         {
         }
 
-        protected override void MediaPlayerEventOccured(ref libvlc_event_t libvlc_event, IntPtr userData)
+        protected override void MediaPlayerEventOccured(ref LibvlcEventT libvlcEvent, IntPtr userData)
         {
-            switch (libvlc_event.type)
+            switch (libvlcEvent.type)
             {
-                case libvlc_event_e.libvlc_MediaListItemAdded:
-                    if (m_itemAdded != null)
+                case LibvlcEventE.LibvlcMediaListItemAdded:
+                    if (MItemAdded != null)
                     {
-                        BasicMedia media = new BasicMedia(libvlc_event.MediaDescriptor.media_list_item_added.item, ReferenceCountAction.AddRef);
-                        m_itemAdded(m_eventProvider, new MediaListItemAdded(media, libvlc_event.MediaDescriptor.media_list_item_added.index));
+                        var media = new BasicMedia(libvlcEvent.MediaDescriptor.media_list_item_added.item, ReferenceCountAction.AddRef);
+                        MItemAdded(MEventProvider, new MediaListItemAdded(media, libvlcEvent.MediaDescriptor.media_list_item_added.index));
                         media.Release();
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaListWillAddItem:
-                    if (m_willAddItem != null)
+                case LibvlcEventE.LibvlcMediaListWillAddItem:
+                    if (MWillAddItem != null)
                     {
-                        BasicMedia media2 = new BasicMedia(libvlc_event.MediaDescriptor.media_list_will_add_item.item, ReferenceCountAction.AddRef);
-                        m_willAddItem(m_eventProvider, new MediaListWillAddItem(media2, libvlc_event.MediaDescriptor.media_list_will_add_item.index));
+                        var media2 = new BasicMedia(libvlcEvent.MediaDescriptor.media_list_will_add_item.item, ReferenceCountAction.AddRef);
+                        MWillAddItem(MEventProvider, new MediaListWillAddItem(media2, libvlcEvent.MediaDescriptor.media_list_will_add_item.index));
                         media2.Release();
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaListItemDeleted:
-                    if (m_itemDeleted != null)
+                case LibvlcEventE.LibvlcMediaListItemDeleted:
+                    if (MItemDeleted != null)
                     {
-                        BasicMedia media3 = new BasicMedia(libvlc_event.MediaDescriptor.media_list_item_deleted.item, ReferenceCountAction.AddRef);
-                        m_itemDeleted(m_eventProvider, new MediaListItemDeleted(media3, libvlc_event.MediaDescriptor.media_list_item_deleted.index));
+                        var media3 = new BasicMedia(libvlcEvent.MediaDescriptor.media_list_item_deleted.item, ReferenceCountAction.AddRef);
+                        MItemDeleted(MEventProvider, new MediaListItemDeleted(media3, libvlcEvent.MediaDescriptor.media_list_item_deleted.index));
                         media3.Release();
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaListWillDeleteItem:
-                    if (m_willDeleteItem != null)
+                case LibvlcEventE.LibvlcMediaListWillDeleteItem:
+                    if (MWillDeleteItem != null)
                     {
-                        BasicMedia media4 = new BasicMedia(libvlc_event.MediaDescriptor.media_list_will_delete_item.item, ReferenceCountAction.AddRef);
-                        m_willDeleteItem(m_eventProvider, new MediaListWillDeleteItem(media4, libvlc_event.MediaDescriptor.media_list_will_delete_item.index));
+                        var media4 = new BasicMedia(libvlcEvent.MediaDescriptor.media_list_will_delete_item.item, ReferenceCountAction.AddRef);
+                        MWillDeleteItem(MEventProvider, new MediaListWillDeleteItem(media4, libvlcEvent.MediaDescriptor.media_list_will_delete_item.index));
                         media4.Release();
                     }
                     break;
@@ -72,97 +76,97 @@ namespace Implementation.Events
 
         #region IMediaListEvents Members
 
-        event EventHandler<MediaListItemAdded> m_itemAdded;
+        event EventHandler<MediaListItemAdded> MItemAdded;
         public event EventHandler<MediaListItemAdded> ItemAdded
         {
             add
             {
-                if (m_itemAdded == null)
+                if (MItemAdded == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaListItemAdded);
+                    Attach(LibvlcEventE.LibvlcMediaListItemAdded);
                 }
-                m_itemAdded += value;
+                MItemAdded += value;
             }
             remove
             {
-                if (m_itemAdded != null)
+                if (MItemAdded != null)
                 {
-                    m_itemAdded -= value;
-                    if (m_itemAdded == null)
+                    MItemAdded -= value;
+                    if (MItemAdded == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaListItemAdded);
+                        Dettach(LibvlcEventE.LibvlcMediaListItemAdded);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaListWillAddItem> m_willAddItem;
+        event EventHandler<MediaListWillAddItem> MWillAddItem;
         public event EventHandler<MediaListWillAddItem> WillAddItem
         {
             add
             {
-                if (m_willAddItem != null)
+                if (MWillAddItem != null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaListWillAddItem);
+                    Attach(LibvlcEventE.LibvlcMediaListWillAddItem);
                 }
-                m_willAddItem += value;
+                MWillAddItem += value;
             }
             remove
             {
-                if (m_willAddItem != null)
+                if (MWillAddItem != null)
                 {
-                    m_willAddItem -= value;
-                    if (m_willAddItem == null)
+                    MWillAddItem -= value;
+                    if (MWillAddItem == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaListWillAddItem);
+                        Dettach(LibvlcEventE.LibvlcMediaListWillAddItem);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaListItemDeleted> m_itemDeleted;
+        event EventHandler<MediaListItemDeleted> MItemDeleted;
         public event EventHandler<MediaListItemDeleted> ItemDeleted
         {
             add
             {
-                if (m_itemDeleted == null)
+                if (MItemDeleted == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaListItemDeleted);
+                    Attach(LibvlcEventE.LibvlcMediaListItemDeleted);
                 }
-                m_itemDeleted += value;
+                MItemDeleted += value;
             }
             remove
             {
-                if (m_itemDeleted != null)
+                if (MItemDeleted != null)
                 {
-                    m_itemDeleted -= value;
-                    if (m_itemDeleted == null)
+                    MItemDeleted -= value;
+                    if (MItemDeleted == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaListItemDeleted);
+                        Dettach(LibvlcEventE.LibvlcMediaListItemDeleted);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaListWillDeleteItem> m_willDeleteItem;
+        event EventHandler<MediaListWillDeleteItem> MWillDeleteItem;
         public event EventHandler<MediaListWillDeleteItem> WillDeleteItem
         {
             add
             {
-                if (m_willDeleteItem == null)
+                if (MWillDeleteItem == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaListWillDeleteItem);
+                    Attach(LibvlcEventE.LibvlcMediaListWillDeleteItem);
                 }
-                m_willDeleteItem += value;
+                MWillDeleteItem += value;
             }
             remove
             {
-                if (m_willDeleteItem != null)
+                if (MWillDeleteItem != null)
                 {
-                    m_willDeleteItem -= value;
-                    if (m_willDeleteItem == null)
+                    MWillDeleteItem -= value;
+                    if (MWillDeleteItem == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaListWillDeleteItem);
+                        Dettach(LibvlcEventE.LibvlcMediaListWillDeleteItem);
                     }
                 }
             }

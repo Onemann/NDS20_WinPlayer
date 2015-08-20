@@ -30,7 +30,7 @@ namespace Declarations
     {
         public StreamInfo()
         {
-            ID = 1;
+            Id = 1;
             Group = 1;
         }
         /// <summary>
@@ -41,7 +41,7 @@ namespace Declarations
         /// <summary>
         /// Set the ID of the elementary stream
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Set the group of the elementary stream
@@ -56,7 +56,7 @@ namespace Declarations
         /// <summary>
         /// Frame rate of a video elementary stream
         /// </summary>
-        public int FPS { get; set; }
+        public int Fps { get; set; }
 
         /// <summary>
         /// Width of video or subtitle elementary streams

@@ -36,36 +36,36 @@ namespace Implementation.Media
         {
             get
             {
-                return m_path;
+                return MPath;
             }
             set
             {
-                m_path = value;
-                m_hMedia = LibVlcMethods.libvlc_media_new_path(m_hMediaLib, m_path.ToUtf8());
+                MPath = value;
+                MHMedia = LibVlcMethods.libvlc_media_new_path(MHMediaLib, MPath.ToUtf8());
             }
         }
 
         public string GetMetaData(MetaDataType dataType)
         {
-            IntPtr pData = LibVlcMethods.libvlc_media_get_meta(m_hMedia, (libvlc_meta_t)dataType);
+            var pData = LibVlcMethods.libvlc_media_get_meta(MHMedia, (LibvlcMetaT)dataType);
             return Marshal.PtrToStringAnsi(pData);
         }
 
         public void SetMetaData(MetaDataType dataType, string argument)
         {
-            LibVlcMethods.libvlc_media_set_meta(m_hMedia, (libvlc_meta_t)dataType, argument.ToUtf8());
+            LibVlcMethods.libvlc_media_set_meta(MHMedia, (LibvlcMetaT)dataType, argument.ToUtf8());
         }
 
         public void SaveMetaData()
         {
-            LibVlcMethods.libvlc_media_save_meta(m_hMedia);
+            LibVlcMethods.libvlc_media_save_meta(MHMedia);
         }
 
         public long Duration
         {
             get
             {
-                return LibVlcMethods.libvlc_media_get_duration(m_hMedia);
+                return LibVlcMethods.libvlc_media_get_duration(MHMedia);
             }
         }
 
@@ -74,24 +74,24 @@ namespace Implementation.Media
         {
             get
             {
-                IntPtr pTr = IntPtr.Zero;
-                int num = LibVlcMethods.libvlc_media_get_tracks_info(m_hMedia, out pTr);
+                var pTr = IntPtr.Zero;
+                var num = LibVlcMethods.libvlc_media_get_tracks_info(MHMedia, out pTr);
 
                 if (num == 0 || pTr == IntPtr.Zero)
                 {
                     throw new LibVlcException();
                 }
 
-                int size = Marshal.SizeOf(typeof(libvlc_media_track_info_t));
-                libvlc_media_track_info_t[] tracks = new libvlc_media_track_info_t[num];
-                for (int i = 0; i < num; i++)
+                var size = Marshal.SizeOf(typeof(LibvlcMediaTrackInfoT));
+                var tracks = new LibvlcMediaTrackInfoT[num];
+                for (var i = 0; i < num; i++)
                 {
-                    tracks[i] = (libvlc_media_track_info_t)Marshal.PtrToStructure(pTr, typeof(libvlc_media_track_info_t));
+                    tracks[i] = (LibvlcMediaTrackInfoT)Marshal.PtrToStructure(pTr, typeof(LibvlcMediaTrackInfoT));
                     pTr = new IntPtr(pTr.ToInt64() + size);
                 }
 
-                MediaTrackInfo[] mtis = new MediaTrackInfo[num];
-                for (int i = 0; i < num; i++)
+                var mtis = new MediaTrackInfo[num];
+                for (var i = 0; i < num; i++)
                 {
                     mtis[i] = tracks[i].ToMediaInfo();
                 }

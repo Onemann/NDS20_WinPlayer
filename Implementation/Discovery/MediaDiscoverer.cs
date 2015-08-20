@@ -28,24 +28,24 @@ namespace Implementation.Discovery
 {
     internal class MediaDiscoverer : DisposableBase, IMediaDiscoverer, INativePointer, IEventProvider
     {
-        private IntPtr m_hDiscovery = IntPtr.Zero;
-        private IMediaDiscoveryEvents m_events;
+        private IntPtr _mHDiscovery = IntPtr.Zero;
+        private IMediaDiscoveryEvents _mEvents;
 
         public MediaDiscoverer(IntPtr hMediaLib, string name)
         {
-            m_hDiscovery = LibVlcMethods.libvlc_media_discoverer_new_from_name(hMediaLib, name.ToUtf8());
+            _mHDiscovery = LibVlcMethods.libvlc_media_discoverer_new_from_name(hMediaLib, name.ToUtf8());
         }
 
         protected override void Dispose(bool disposing)
         {
-            LibVlcMethods.libvlc_media_discoverer_release(m_hDiscovery);
+            LibVlcMethods.libvlc_media_discoverer_release(_mHDiscovery);
         }
 
         public bool IsRunning
         {
             get
             {
-                return (LibVlcMethods.libvlc_media_discoverer_is_running(m_hDiscovery) == 1);
+                return (LibVlcMethods.libvlc_media_discoverer_is_running(_mHDiscovery) == 1);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Implementation.Discovery
         {
             get
             {
-                IntPtr pData = LibVlcMethods.libvlc_media_discoverer_localized_name(m_hDiscovery);
+                var pData = LibVlcMethods.libvlc_media_discoverer_localized_name(_mHDiscovery);
                 return Marshal.PtrToStringAnsi(pData);
             }
         }
@@ -62,7 +62,7 @@ namespace Implementation.Discovery
         {
             get
             {
-                return new MediaList(LibVlcMethods.libvlc_media_discoverer_media_list(m_hDiscovery), ReferenceCountAction.None);
+                return new MediaList(LibVlcMethods.libvlc_media_discoverer_media_list(_mHDiscovery), ReferenceCountAction.None);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Implementation.Discovery
         {
             get 
             {
-                return LibVlcMethods.libvlc_media_discoverer_event_manager(m_hDiscovery);
+                return LibVlcMethods.libvlc_media_discoverer_event_manager(_mHDiscovery);
             }
         }
 
@@ -78,7 +78,7 @@ namespace Implementation.Discovery
         {
             get 
             {
-                return m_hDiscovery;
+                return _mHDiscovery;
             }
         }
 
@@ -86,12 +86,12 @@ namespace Implementation.Discovery
         {
             get
             {
-                if (m_events == null)
+                if (_mEvents == null)
                 {
-                    m_events = new MediaDiscoveryEventManager(this);
+                    _mEvents = new MediaDiscoveryEventManager(this);
                 }
 
-                return m_events;
+                return _mEvents;
             }
         }
     }

@@ -29,51 +29,51 @@ namespace Implementation.Events
         {
         }
 
-        protected override void MediaPlayerEventOccured(ref libvlc_event_t libvlc_event, IntPtr userData)
+        protected override void MediaPlayerEventOccured(ref LibvlcEventT libvlcEvent, IntPtr userData)
         {
-            switch (libvlc_event.type)
+            switch (libvlcEvent.type)
             {
-                case libvlc_event_e.libvlc_MediaMetaChanged:
+                case LibvlcEventE.LibvlcMediaMetaChanged:
                     if (metaDataChanged != null)
                     {
-                        metaDataChanged(m_eventProvider, new MediaMetaDataChange((MetaDataType)libvlc_event.MediaDescriptor.media_meta_changed.meta_type));
+                        metaDataChanged(MEventProvider, new MediaMetaDataChange((MetaDataType)libvlcEvent.MediaDescriptor.media_meta_changed.meta_type));
                     }
 
                     break;
-                case libvlc_event_e.libvlc_MediaSubItemAdded:
+                case LibvlcEventE.LibvlcMediaSubItemAdded:
                     if (subItemAdded != null)
                     {
-                        BasicMedia media = new BasicMedia(libvlc_event.MediaDescriptor.media_subitem_added.new_child, ReferenceCountAction.AddRef);
-                        subItemAdded(m_eventProvider, new MediaNewSubItem(media));
+                        var media = new BasicMedia(libvlcEvent.MediaDescriptor.media_subitem_added.new_child, ReferenceCountAction.AddRef);
+                        subItemAdded(MEventProvider, new MediaNewSubItem(media));
                         media.Release();
                     }
 
                     break;
-                case libvlc_event_e.libvlc_MediaDurationChanged:
+                case LibvlcEventE.LibvlcMediaDurationChanged:
                     if (durationChanged != null)
                     {
-                        durationChanged(m_eventProvider, new MediaDurationChange(libvlc_event.MediaDescriptor.media_duration_changed.new_duration));
+                        durationChanged(MEventProvider, new MediaDurationChange(libvlcEvent.MediaDescriptor.media_duration_changed.new_duration));
                     }
 
                     break;
-                case libvlc_event_e.libvlc_MediaParsedChanged:
+                case LibvlcEventE.LibvlcMediaParsedChanged:
                     if (parsedChanged != null)
                     {
-                        parsedChanged(m_eventProvider, new MediaParseChange(Convert.ToBoolean(libvlc_event.MediaDescriptor.media_parsed_changed.new_status)));
+                        parsedChanged(MEventProvider, new MediaParseChange(Convert.ToBoolean(libvlcEvent.MediaDescriptor.media_parsed_changed.new_status)));
                     }
 
                     break;
-                case libvlc_event_e.libvlc_MediaFreed:
+                case LibvlcEventE.LibvlcMediaFreed:
                     if (mediaFreed != null)
                     {
-                        mediaFreed(m_eventProvider, new MediaFree(libvlc_event.MediaDescriptor.media_freed.md));
+                        mediaFreed(MEventProvider, new MediaFree(libvlcEvent.MediaDescriptor.media_freed.md));
                     }
 
                     break;
-                case libvlc_event_e.libvlc_MediaStateChanged:
+                case LibvlcEventE.LibvlcMediaStateChanged:
                     if (stateChanged != null)
                     {
-                        stateChanged(m_eventProvider, new MediaStateChange((MediaState)libvlc_event.MediaDescriptor.media_state_changed.new_state));
+                        stateChanged(MEventProvider, new MediaStateChange((MediaState)libvlcEvent.MediaDescriptor.media_state_changed.new_state));
                     }
 
                     break;
@@ -92,7 +92,7 @@ namespace Implementation.Events
             {
                 if (metaDataChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaMetaChanged);
+                    Attach(LibvlcEventE.LibvlcMediaMetaChanged);
                 }
                 metaDataChanged += value;
             }
@@ -103,7 +103,7 @@ namespace Implementation.Events
                     metaDataChanged -= value;
                     if (metaDataChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaMetaChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaMetaChanged);
                     }
                 }
             }
@@ -116,7 +116,7 @@ namespace Implementation.Events
             {
                 if (subItemAdded == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaSubItemAdded);
+                    Attach(LibvlcEventE.LibvlcMediaSubItemAdded);
                 }
                 subItemAdded += value;
             }
@@ -127,7 +127,7 @@ namespace Implementation.Events
                     subItemAdded -= value;
                     if (subItemAdded == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaSubItemAdded);
+                        Dettach(LibvlcEventE.LibvlcMediaSubItemAdded);
                     }
                 }
             }
@@ -140,7 +140,7 @@ namespace Implementation.Events
             {
                 if (durationChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaDurationChanged);
+                    Attach(LibvlcEventE.LibvlcMediaDurationChanged);
                 }
                 durationChanged += value;
             }
@@ -151,7 +151,7 @@ namespace Implementation.Events
                     durationChanged -= value;
                     if (durationChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaDurationChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaDurationChanged);
                     }
                 }
             }
@@ -164,7 +164,7 @@ namespace Implementation.Events
             {
                 if (parsedChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaParsedChanged);
+                    Attach(LibvlcEventE.LibvlcMediaParsedChanged);
                 }
                 parsedChanged += value;
             }
@@ -175,7 +175,7 @@ namespace Implementation.Events
                     parsedChanged -= value;
                     if (parsedChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaParsedChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaParsedChanged);
                     }
                 }
             }
@@ -188,7 +188,7 @@ namespace Implementation.Events
             {
                 if (mediaFreed == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaFreed);
+                    Attach(LibvlcEventE.LibvlcMediaFreed);
                 }
                 mediaFreed += value;
             }
@@ -199,7 +199,7 @@ namespace Implementation.Events
                     mediaFreed -= value;
                     if (mediaFreed == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaFreed);
+                        Dettach(LibvlcEventE.LibvlcMediaFreed);
                     }
                 }
             }
@@ -212,7 +212,7 @@ namespace Implementation.Events
             {
                 if (stateChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaStateChanged);
+                    Attach(LibvlcEventE.LibvlcMediaStateChanged);
                 }
                 stateChanged += value;
             }
@@ -223,7 +223,7 @@ namespace Implementation.Events
                     stateChanged -= value;
                     if (stateChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaStateChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaStateChanged);
                     }
                 }
             }

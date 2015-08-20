@@ -31,23 +31,23 @@ namespace Implementation.Media
 {
     internal class BasicMedia : DisposableBase, IMedia, INativePointer, IReferenceCount, IEventProvider
     {
-        protected readonly IntPtr m_hMediaLib;
-        protected IntPtr m_hMedia;
-        protected string m_path;
-        IntPtr m_hEventManager = IntPtr.Zero;
-        IMediaEvents m_events;
+        protected readonly IntPtr MHMediaLib;
+        protected IntPtr MHMedia;
+        protected string MPath;
+        IntPtr _mHEventManager = IntPtr.Zero;
+        IMediaEvents _mEvents;
         private SlaveMedia _slaveMedia;
 
         public BasicMedia(IntPtr hMediaLib)
         {
-            m_hMediaLib = hMediaLib;
+            MHMediaLib = hMediaLib;
         }
 
         public BasicMedia(IntPtr hMedia, ReferenceCountAction refCountAction)
         {
-            m_hMedia = hMedia;
-            IntPtr pData = LibVlcMethods.libvlc_media_get_mrl(m_hMedia);
-            m_path = Marshal.PtrToStringAnsi(pData);
+            MHMedia = hMedia;
+            var pData = LibVlcMethods.libvlc_media_get_mrl(MHMedia);
+            MPath = Marshal.PtrToStringAnsi(pData);
             switch (refCountAction)
             {
                 case ReferenceCountAction.AddRef:
@@ -71,12 +71,12 @@ namespace Implementation.Media
         {
             get
             {
-                return m_path;
+                return MPath;
             }
             set
             {
-                m_path = value;
-                m_hMedia = LibVlcMethods.libvlc_media_new_location(m_hMediaLib, m_path.ToUtf8());
+                MPath = value;
+                MHMedia = LibVlcMethods.libvlc_media_new_location(MHMediaLib, MPath.ToUtf8());
             }
         }
 
@@ -84,7 +84,7 @@ namespace Implementation.Media
         {
             get
             {
-                return (MediaState)LibVlcMethods.libvlc_media_get_state(m_hMedia);
+                return (MediaState)LibVlcMethods.libvlc_media_get_state(MHMedia);
             }
         }
 
@@ -94,19 +94,19 @@ namespace Implementation.Media
             {
                 if (!string.IsNullOrEmpty(item))
                 {
-                    LibVlcMethods.libvlc_media_add_option(m_hMedia, item.ToUtf8());
+                    LibVlcMethods.libvlc_media_add_option(MHMedia, item.ToUtf8());
                 }
             }
         }
 
         public void AddOptionFlag(string option, int flag)
         {
-            LibVlcMethods.libvlc_media_add_option_flag(m_hMedia, option.ToUtf8(), flag);
+            LibVlcMethods.libvlc_media_add_option_flag(MHMedia, option.ToUtf8(), flag);
         }
 
         public IMedia Duplicate()
         {
-            IntPtr clone = LibVlcMethods.libvlc_media_duplicate(m_hMedia);
+            var clone = LibVlcMethods.libvlc_media_duplicate(MHMedia);
             return new BasicMedia(clone, ReferenceCountAction.None);
         }
 
@@ -114,11 +114,11 @@ namespace Implementation.Media
         {
             if (aSync)
             {
-                LibVlcMethods.libvlc_media_parse_async(m_hMedia);
+                LibVlcMethods.libvlc_media_parse_async(MHMedia);
             }
             else
             {
-                LibVlcMethods.libvlc_media_parse(m_hMedia);
+                LibVlcMethods.libvlc_media_parse(MHMedia);
             }
         }
 
@@ -126,7 +126,7 @@ namespace Implementation.Media
         {
             get
             {
-                return LibVlcMethods.libvlc_media_is_parsed(m_hMedia);
+                return LibVlcMethods.libvlc_media_is_parsed(MHMedia);
             }
         }
 
@@ -134,11 +134,11 @@ namespace Implementation.Media
         {
             get
             {
-                return LibVlcMethods.libvlc_media_get_user_data(m_hMedia);
+                return LibVlcMethods.libvlc_media_get_user_data(MHMedia);
             }
             set
             {
-                LibVlcMethods.libvlc_media_set_user_data(m_hMedia, value);
+                LibVlcMethods.libvlc_media_set_user_data(MHMedia, value);
             }
         }
 
@@ -146,12 +146,12 @@ namespace Implementation.Media
         {
             get
             {
-                if (m_events == null)
+                if (_mEvents == null)
                 {
-                    m_events = new MediaEventManager(this);
+                    _mEvents = new MediaEventManager(this);
                 }
 
-                return m_events;
+                return _mEvents;
             }
         }
 
@@ -159,9 +159,9 @@ namespace Implementation.Media
         {
             get
             {
-                libvlc_media_stats_t t;
+                LibvlcMediaStatsT t;
 
-                int num = LibVlcMethods.libvlc_media_get_stats(m_hMedia, out t);
+                var num = LibVlcMethods.libvlc_media_get_stats(MHMedia, out t);
 
                 return t.ToMediaStatistics();
             }
@@ -171,7 +171,7 @@ namespace Implementation.Media
         {
             get
             {
-                IntPtr hMediaList = LibVlcMethods.libvlc_media_subitems(m_hMedia);
+                var hMediaList = LibVlcMethods.libvlc_media_subitems(MHMedia);
                 if (hMediaList == IntPtr.Zero)
                 {
                     return null;
@@ -187,57 +187,57 @@ namespace Implementation.Media
             {
                 unsafe
                 {
-                    libvlc_media_track_t** ppTracks;
-                    int num = LibVlcMethods.libvlc_media_tracks_get(m_hMedia, &ppTracks);
+                    LibvlcMediaTrackT** ppTracks;
+                    var num = LibVlcMethods.libvlc_media_tracks_get(MHMedia, &ppTracks);
                     if (num == 0 || ppTracks == null)
                     {
                         throw new LibVlcException();
                     }
 
-                    List<MediaTrack> list = new List<MediaTrack>(num);
-                    for (int i = 0; i < num; i++)
+                    var list = new List<MediaTrack>(num);
+                    for (var i = 0; i < num; i++)
                     {
                         MediaTrack track = null;
-                        libvlc_media_track_t* pTrackInfo = ppTracks[i];
+                        var pTrackInfo = ppTracks[i];
                         switch (pTrackInfo->i_type)
                         {
-                            case libvlc_track_type_t.libvlc_track_audio:
-                                AudioTrack audio = new AudioTrack();
-                                libvlc_audio_track_t* audioTrack = (libvlc_audio_track_t*)pTrackInfo->media.ToPointer();
+                            case LibvlcTrackTypeT.LibvlcTrackAudio:
+                                var audio = new AudioTrack();
+                                var audioTrack = (LibvlcAudioTrackT*)pTrackInfo->media.ToPointer();
                                 audio.Channels = audioTrack->i_channels;
                                 audio.Rate = audioTrack->i_rate;
                                 track = audio;
                                 break;
 
-                            case libvlc_track_type_t.libvlc_track_video:
-                                VideoTrack video = new VideoTrack();
-                                libvlc_video_track_t* videoTrack = (libvlc_video_track_t*)pTrackInfo->media.ToPointer();
+                            case LibvlcTrackTypeT.LibvlcTrackVideo:
+                                var video = new VideoTrack();
+                                var videoTrack = (LibvlcVideoTrackT*)pTrackInfo->media.ToPointer();
                                 video.Width = videoTrack->i_width;
                                 video.Height = videoTrack->i_height;
-                                video.Sar_den = videoTrack->i_sar_den;
-                                video.Sar_num = videoTrack->i_sar_num;
-                                video.Frame_rate_den = videoTrack->i_frame_rate_den;
-                                video.Frame_rate_num = videoTrack->i_frame_rate_num;
+                                video.SarDen = videoTrack->i_sar_den;
+                                video.SarNum = videoTrack->i_sar_num;
+                                video.FrameRateDen = videoTrack->i_frame_rate_den;
+                                video.FrameRateNum = videoTrack->i_frame_rate_num;
                                 track = video;
                                 break;
 
-                            case libvlc_track_type_t.libvlc_track_text:
-                                SubtitlesTrack sub = new SubtitlesTrack();
-                                libvlc_subtitle_track_t* subtitleTrack = (libvlc_subtitle_track_t*)pTrackInfo->media.ToPointer();
+                            case LibvlcTrackTypeT.LibvlcTrackText:
+                                var sub = new SubtitlesTrack();
+                                var subtitleTrack = (LibvlcSubtitleTrackT*)pTrackInfo->media.ToPointer();
                                 sub.Encoding = subtitleTrack->psz_encoding == null ? null : Marshal.PtrToStringAnsi(subtitleTrack->psz_encoding);
                                 track = sub;
                                 break;
 
-                            case libvlc_track_type_t.libvlc_track_unknown:
+                            case LibvlcTrackTypeT.LibvlcTrackUnknown:
                             default:
                                 track = new MediaTrack();
                                 break;
                         }
 
                         track.Bitrate = pTrackInfo->i_bitrate;
-                        track.Codec = MiscUtils.DwordToFourCC(pTrackInfo->i_codec);
+                        track.Codec = MiscUtils.DwordToFourCc(pTrackInfo->i_codec);
                         track.Id = pTrackInfo->i_id;
-                        track.OriginalFourCC = MiscUtils.DwordToFourCC(pTrackInfo->i_original_fourcc);
+                        track.OriginalFourCc = MiscUtils.DwordToFourCc(pTrackInfo->i_original_fourcc);
                         track.Language = pTrackInfo->psz_language == null ? null : Marshal.PtrToStringAnsi(pTrackInfo->psz_language);
                         track.Description = pTrackInfo->psz_description == null ? null : Marshal.PtrToStringAnsi(pTrackInfo->psz_description);
                         list.Add(track);
@@ -257,7 +257,7 @@ namespace Implementation.Media
         {
             get
             {
-                return m_hMedia;
+                return MHMedia;
             }
         }
 
@@ -267,14 +267,14 @@ namespace Implementation.Media
 
         public void AddRef()
         {
-            LibVlcMethods.libvlc_media_retain(m_hMedia);
+            LibVlcMethods.libvlc_media_retain(MHMedia);
         }
 
         public void Release()
         {
             try
             {
-                LibVlcMethods.libvlc_media_release(m_hMedia);
+                LibVlcMethods.libvlc_media_release(MHMedia);
             }
             catch (Exception)
             { }
@@ -288,12 +288,12 @@ namespace Implementation.Media
         {
             get
             {
-                if (m_hEventManager == IntPtr.Zero)
+                if (_mHEventManager == IntPtr.Zero)
                 {
-                    m_hEventManager = LibVlcMethods.libvlc_media_event_manager(m_hMedia);
+                    _mHEventManager = LibVlcMethods.libvlc_media_event_manager(MHMedia);
                 }
 
-                return m_hEventManager;
+                return _mHEventManager;
             }
         }
 
@@ -303,8 +303,8 @@ namespace Implementation.Media
 
         public bool Equals(IMedia x, IMedia y)
         {
-            INativePointer x1 = (INativePointer)x;
-            INativePointer y1 = (INativePointer)y;
+            var x1 = (INativePointer)x;
+            var y1 = (INativePointer)y;
 
             return x1.Pointer == y1.Pointer;
         }
@@ -323,7 +323,7 @@ namespace Implementation.Media
 
         public override int GetHashCode()
         {
-            return m_hMedia.GetHashCode();
+            return MHMedia.GetHashCode();
         }
 
         public SlaveMedia SlaveMedia

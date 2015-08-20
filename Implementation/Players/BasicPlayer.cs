@@ -26,52 +26,52 @@ namespace Implementation.Players
 {
     internal class BasicPlayer : DisposableBase, IPlayer, IEventProvider, IReferenceCount, INativePointer
     {
-        protected IntPtr m_hMediaPlayer;
-        protected IntPtr m_hMediaLib;
-        private readonly EventBroker m_events;
-        IntPtr m_hEventManager = IntPtr.Zero;
-        protected IMedia m_currentMedia;
+        protected IntPtr MHMediaPlayer;
+        protected IntPtr MHMediaLib;
+        private readonly EventBroker _mEvents;
+        IntPtr _mHEventManager = IntPtr.Zero;
+        protected IMedia MCurrentMedia;
 
         public BasicPlayer(IntPtr hMediaLib)
         {
-            m_hMediaLib = hMediaLib;
-            m_hMediaPlayer = LibVlcMethods.libvlc_media_player_new(m_hMediaLib);
+            MHMediaLib = hMediaLib;
+            MHMediaPlayer = LibVlcMethods.libvlc_media_player_new(MHMediaLib);
             AddRef();
-            m_events = new EventBroker(this);
+            _mEvents = new EventBroker(this);
         }
 
         #region IPlayer Members
 
         public virtual void Open(IMedia media)
         {
-            m_currentMedia = media;
-            LibVlcMethods.libvlc_media_player_set_media(m_hMediaPlayer, ((INativePointer)media).Pointer);
+            MCurrentMedia = media;
+            LibVlcMethods.libvlc_media_player_set_media(MHMediaPlayer, ((INativePointer)media).Pointer);
         }
 
         public virtual void Play()
         {
-            LibVlcMethods.libvlc_media_player_play(m_hMediaPlayer);
+            LibVlcMethods.libvlc_media_player_play(MHMediaPlayer);
         }
 
         public void Pause()
         {
-            LibVlcMethods.libvlc_media_player_pause(m_hMediaPlayer);
+            LibVlcMethods.libvlc_media_player_pause(MHMediaPlayer);
         }
 
         public void Stop()
         {
-            LibVlcMethods.libvlc_media_player_stop(m_hMediaPlayer);
+            LibVlcMethods.libvlc_media_player_stop(MHMediaPlayer);
         }
 
         public long Time
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_time(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_time(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_media_player_set_time(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_media_player_set_time(MHMediaPlayer, value);
             }
         }
 
@@ -79,11 +79,11 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_position(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_position(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_media_player_set_position(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_media_player_set_position(MHMediaPlayer, value);
             }
         }
 
@@ -91,7 +91,7 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_length(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_length(MHMediaPlayer);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Implementation.Players
         {
             get
             {
-                return m_events;
+                return _mEvents;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_is_playing(m_hMediaPlayer) == 1;
+                return LibVlcMethods.libvlc_media_player_is_playing(MHMediaPlayer) == 1;
             }
         }
 
@@ -115,7 +115,7 @@ namespace Implementation.Players
         {
             get
             {
-                return m_currentMedia;
+                return MCurrentMedia;
             }
         }
 
@@ -132,12 +132,12 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_hEventManager == IntPtr.Zero)
+                if (_mHEventManager == IntPtr.Zero)
                 {
-                    m_hEventManager = LibVlcMethods.libvlc_media_player_event_manager(m_hMediaPlayer);
+                    _mHEventManager = LibVlcMethods.libvlc_media_player_event_manager(MHMediaPlayer);
                 }
 
-                return m_hEventManager;
+                return _mHEventManager;
             }
         }
 
@@ -147,14 +147,14 @@ namespace Implementation.Players
 
         public void AddRef()
         {
-            LibVlcMethods.libvlc_media_player_retain(m_hMediaPlayer);
+            LibVlcMethods.libvlc_media_player_retain(MHMediaPlayer);
         }
 
         public void Release()
         {
             try
             {
-                LibVlcMethods.libvlc_media_player_release(m_hMediaPlayer);
+                LibVlcMethods.libvlc_media_player_release(MHMediaPlayer);
             }
             catch (Exception)
             { }
@@ -166,8 +166,8 @@ namespace Implementation.Players
 
         public bool Equals(IPlayer x, IPlayer y)
         {
-            INativePointer x1 = (INativePointer)x;
-            INativePointer y1 = (INativePointer)y;
+            var x1 = (INativePointer)x;
+            var y1 = (INativePointer)y;
 
             return x1.Pointer == y1.Pointer;
         }
@@ -183,7 +183,7 @@ namespace Implementation.Players
 
         public IntPtr Pointer
         {
-            get { return m_hMediaPlayer; }
+            get { return MHMediaPlayer; }
         }
 
         #endregion
@@ -195,7 +195,7 @@ namespace Implementation.Players
 
         public override int GetHashCode()
         {
-            return m_hMediaPlayer.GetHashCode();
+            return MHMediaPlayer.GetHashCode();
         } 
     }
 }

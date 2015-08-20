@@ -31,35 +31,35 @@ namespace Implementation.Players
 {
     internal class VideoPlayer : AudioPlayer, IVideoPlayer
     {
-        MemoryRenderer m_memRender = null;
-        MemoryRendererEx m_memRenderEx = null;
-        IAdjustFilter m_adjust = null;
-        ILogoFilter m_logo = null;
-        IMarqueeFilter m_marquee = null;
-        ICropFilter m_crop = null;
-        IDeinterlaceFilter m_deinterlace = null;
+        MemoryRenderer _mMemRender = null;
+        MemoryRendererEx _mMemRenderEx = null;
+        IAdjustFilter _mAdjust = null;
+        ILogoFilter _mLogo = null;
+        IMarqueeFilter _mMarquee = null;
+        ICropFilter _mCrop = null;
+        IDeinterlaceFilter _mDeinterlace = null;
 
-        bool m_keyInputEnabled = true;
-        bool m_mouseInputEnabled = true;
-        Dictionary<string, Enum> m_aspectMapper;
+        bool _mKeyInputEnabled = true;
+        bool _mMouseInputEnabled = true;
+        Dictionary<string, Enum> _mAspectMapper;
 
         public VideoPlayer(IntPtr hMediaLib)
             : base(hMediaLib)
         {
-            m_aspectMapper = EnumUtils.GetEnumMapping(typeof(AspectRatioMode));
+            _mAspectMapper = EnumUtils.GetEnumMapping(typeof(AspectRatioMode));
         }
 
         public override void Play()
         {
             base.Play();
-            if (m_memRender != null)
+            if (_mMemRender != null)
             {
-                m_memRender.StartTimer();
+                _mMemRender.StartTimer();
             }
 
-            if (m_memRenderEx != null)
+            if (_mMemRenderEx != null)
             {
-                m_memRenderEx.StartTimer();
+                _mMemRenderEx.StartTimer();
             }
         }
 
@@ -69,28 +69,28 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_hwnd(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_hwnd(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_media_player_set_hwnd(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_media_player_set_hwnd(MHMediaPlayer, value);
             }
         }
 
         public void TakeSnapShot(uint stream, string path)
         {
-            LibVlcMethods.libvlc_video_take_snapshot(m_hMediaPlayer, stream, path.ToUtf8(), 0, 0);
+            LibVlcMethods.libvlc_video_take_snapshot(MHMediaPlayer, stream, path.ToUtf8(), 0, 0);
         }
 
         public float PlaybackRate
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_rate(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_rate(MHMediaPlayer);
             }
             set
             {
-                int res = LibVlcMethods.libvlc_media_player_set_rate(m_hMediaPlayer, value);
+                var res = LibVlcMethods.libvlc_media_player_set_rate(MHMediaPlayer, value);
                 if (res == -1)
                 {
                     throw new LibVlcException();
@@ -98,30 +98,30 @@ namespace Implementation.Players
             }
         }
 
-        public float FPS
+        public float Fps
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_fps(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_fps(MHMediaPlayer);
             }
         }
 
         public void NextFrame()
         {
-            LibVlcMethods.libvlc_media_player_next_frame(m_hMediaPlayer);
+            LibVlcMethods.libvlc_media_player_next_frame(MHMediaPlayer);
         }
 
         public Size GetVideoSize(uint stream)
         {
             uint width = 0, height = 0;
-            LibVlcMethods.libvlc_video_get_size(m_hMediaPlayer, stream, out width, out height);
+            LibVlcMethods.libvlc_video_get_size(MHMediaPlayer, stream, out width, out height);
             return new Size((int)width, (int)height);
         }
 
         public Point GetCursorPosition(uint stream)
         {
             int px = 0, py = 0;
-            LibVlcMethods.libvlc_video_get_cursor(m_hMediaPlayer, stream, out px, out py);
+            LibVlcMethods.libvlc_video_get_cursor(MHMediaPlayer, stream, out px, out py);
             return new Point(px, py);
         }
 
@@ -129,12 +129,12 @@ namespace Implementation.Players
         {
             get
             {
-                return m_keyInputEnabled;
+                return _mKeyInputEnabled;
             }
             set
             {
-                LibVlcMethods.libvlc_video_set_key_input(m_hMediaPlayer, value);
-                m_keyInputEnabled = value;
+                LibVlcMethods.libvlc_video_set_key_input(MHMediaPlayer, value);
+                _mKeyInputEnabled = value;
             }
         }
 
@@ -142,12 +142,12 @@ namespace Implementation.Players
         {
             get
             {
-                return m_mouseInputEnabled;
+                return _mMouseInputEnabled;
             }
             set
             {
-                LibVlcMethods.libvlc_video_set_mouse_input(m_hMediaPlayer, value);
-                m_mouseInputEnabled = value;
+                LibVlcMethods.libvlc_video_set_mouse_input(MHMediaPlayer, value);
+                _mMouseInputEnabled = value;
             }
         }
 
@@ -155,11 +155,11 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_video_get_scale(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_video_get_scale(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_video_set_scale(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_video_set_scale(MHMediaPlayer, value);
             }
         }
 
@@ -167,44 +167,44 @@ namespace Implementation.Players
         {
             get
             {
-                IntPtr pData = LibVlcMethods.libvlc_video_get_aspect_ratio(m_hMediaPlayer);
-                string str = Marshal.PtrToStringAnsi(pData);
-                return (AspectRatioMode)m_aspectMapper[str];
+                var pData = LibVlcMethods.libvlc_video_get_aspect_ratio(MHMediaPlayer);
+                var str = Marshal.PtrToStringAnsi(pData);
+                return (AspectRatioMode)_mAspectMapper[str];
             }
             set
             {
-                string val = EnumUtils.GetEnumDescription(value);
-                LibVlcMethods.libvlc_video_set_aspect_ratio(m_hMediaPlayer, val.ToUtf8());
+                var val = EnumUtils.GetEnumDescription(value);
+                LibVlcMethods.libvlc_video_set_aspect_ratio(MHMediaPlayer, val.ToUtf8());
             }
         }
 
         public void SetSubtitleFile(string path)
         {
-            LibVlcMethods.libvlc_video_set_subtitle_file(m_hMediaPlayer, path.ToUtf8());
+            LibVlcMethods.libvlc_video_set_subtitle_file(MHMediaPlayer, path.ToUtf8());
         }
 
         public int Teletext
         {
             get
             {
-                return LibVlcMethods.libvlc_video_get_teletext(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_video_get_teletext(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_video_set_teletext(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_video_set_teletext(MHMediaPlayer, value);
             }
         }
 
         public void ToggleTeletext()
         {
-            LibVlcMethods.libvlc_toggle_teletext(m_hMediaPlayer);
+            LibVlcMethods.libvlc_toggle_teletext(MHMediaPlayer);
         }
 
         public bool PlayerWillPlay
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_will_play(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_will_play(MHMediaPlayer);
             }
         }
 
@@ -212,7 +212,7 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_has_vout(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_has_vout(MHMediaPlayer);
             }
         }
 
@@ -220,7 +220,7 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_is_seekable(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_is_seekable(MHMediaPlayer);
             }
         }
 
@@ -228,7 +228,7 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_can_pause(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_can_pause(MHMediaPlayer);
             }
         }
 
@@ -236,12 +236,12 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_crop == null)
+                if (_mCrop == null)
                 {
-                    m_crop = new CropFilter(m_hMediaPlayer);
+                    _mCrop = new CropFilter(MHMediaPlayer);
                 }
 
-                return m_crop;
+                return _mCrop;
             }
         }
 
@@ -249,12 +249,12 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_adjust == null)
+                if (_mAdjust == null)
                 {
-                    m_adjust = new AdjustFilter(m_hMediaPlayer);
+                    _mAdjust = new AdjustFilter(MHMediaPlayer);
                 }
 
-                return m_adjust;
+                return _mAdjust;
             }
         }
 
@@ -262,16 +262,16 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_memRenderEx != null)
+                if (_mMemRenderEx != null)
                 {
                     throw new InvalidOperationException("CustomRenderer is mutually exclusive with CustomRendererEx");
                 }
 
-                if (m_memRender == null)
+                if (_mMemRender == null)
                 {
-                    m_memRender = new MemoryRenderer(m_hMediaPlayer);                 
+                    _mMemRender = new MemoryRenderer(MHMediaPlayer);                 
                 }
-                return m_memRender;
+                return _mMemRender;
             }
         }
 
@@ -279,10 +279,10 @@ namespace Implementation.Players
         {
             try
             {
-                var tracksInfo = m_currentMedia.TracksInfoEx;
+                var tracksInfo = MCurrentMedia.TracksInfoEx;
                 var video = tracksInfo.FirstOrDefault(t => t.TrackType == TrackType.Video) as VideoTrack;
-                if (video != null && m_memRenderEx != null)
-                    m_memRenderEx.SAR = new AspectRatio((int)video.Sar_num, (int)video.Sar_den);
+                if (video != null && _mMemRenderEx != null)
+                    _mMemRenderEx.Sar = new AspectRatio((int)video.SarNum, (int)video.SarDen);
             }
             catch (EntryPointNotFoundException)
             {
@@ -294,17 +294,17 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_memRender != null)
+                if (_mMemRender != null)
                 {
                     throw new InvalidOperationException("CustomRendererEx is mutually exclusive with CustomRenderer");
                 }
 
-                if (m_memRenderEx == null)
+                if (_mMemRenderEx == null)
                 {
-                    m_memRenderEx = new MemoryRendererEx(m_hMediaPlayer);
+                    _mMemRenderEx = new MemoryRendererEx(MHMediaPlayer);
                     Events.PlayerPlaying += Events_PlayerPlaying;
                 }
-                return m_memRenderEx;
+                return _mMemRenderEx;
             }
         }
 
@@ -312,11 +312,11 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_logo == null)
+                if (_mLogo == null)
                 {
-                    m_logo = new LogoFilter(m_hMediaPlayer);
+                    _mLogo = new LogoFilter(MHMediaPlayer);
                 }
-                return m_logo;
+                return _mLogo;
             }
         }
 
@@ -324,11 +324,11 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_marquee == null)
+                if (_mMarquee == null)
                 {
-                    m_marquee = new MarqueeFilter(m_hMediaPlayer);
+                    _mMarquee = new MarqueeFilter(MHMediaPlayer);
                 }
-                return m_marquee;
+                return _mMarquee;
             }
         }
 
@@ -336,11 +336,11 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_deinterlace == null)
+                if (_mDeinterlace == null)
                 {
-                    m_deinterlace = new DeinterlaceFilter(m_hMediaPlayer);
+                    _mDeinterlace = new DeinterlaceFilter(MHMediaPlayer);
                 }
-                return m_deinterlace;
+                return _mDeinterlace;
             }
         }
 
@@ -348,16 +348,16 @@ namespace Implementation.Players
 
         protected override void Dispose(bool disposing)
         {
-            if (m_memRender != null)
+            if (_mMemRender != null)
             {
-                m_memRender.Dispose();
-                m_memRender = null;
+                _mMemRender.Dispose();
+                _mMemRender = null;
             }
 
-            if (m_memRenderEx != null)
+            if (_mMemRenderEx != null)
             {
-                m_memRenderEx.Dispose();
-                m_memRenderEx = null;
+                _mMemRenderEx.Dispose();
+                _mMemRenderEx = null;
                 Events.PlayerPlaying -= Events_PlayerPlaying;
             }
 

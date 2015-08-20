@@ -32,31 +32,31 @@ namespace nVLC_Demo_WPF
     /// </summary>
     public partial class Window1 : Window
     {
-        IMediaPlayerFactory m_factory;
-        IVideoPlayer m_player;
-        IMediaFromFile m_media;
-        private volatile bool m_isDrag;
+        IMediaPlayerFactory _mFactory;
+        IVideoPlayer _mPlayer;
+        IMediaFromFile _mMedia;
+        private volatile bool _mIsDrag;
 
         public Window1()
         {
             InitializeComponent();
 
-            System.Windows.Forms.Panel p = new System.Windows.Forms.Panel();
+            var p = new System.Windows.Forms.Panel();
             p.BackColor = System.Drawing.Color.Black;
-            windowsFormsHost1.Child = p;
+            WindowsFormsHost1.Child = p;
 
-            m_factory = new MediaPlayerFactory(true);
-            m_player = m_factory.CreatePlayer<IVideoPlayer>();
+            _mFactory = new MediaPlayerFactory(true);
+            _mPlayer = _mFactory.CreatePlayer<IVideoPlayer>();
 
-            this.DataContext = m_player;
+            this.DataContext = _mPlayer;
 
-            m_player.Events.PlayerPositionChanged += new EventHandler<MediaPlayerPositionChanged>(Events_PlayerPositionChanged);
-            m_player.Events.TimeChanged += new EventHandler<MediaPlayerTimeChanged>(Events_TimeChanged);
-            m_player.Events.MediaEnded += new EventHandler(Events_MediaEnded);
-            m_player.Events.PlayerStopped += new EventHandler(Events_PlayerStopped);
+            _mPlayer.Events.PlayerPositionChanged += new EventHandler<MediaPlayerPositionChanged>(Events_PlayerPositionChanged);
+            _mPlayer.Events.TimeChanged += new EventHandler<MediaPlayerTimeChanged>(Events_TimeChanged);
+            _mPlayer.Events.MediaEnded += new EventHandler(Events_MediaEnded);
+            _mPlayer.Events.PlayerStopped += new EventHandler(Events_PlayerStopped);
 
-            m_player.WindowHandle = p.Handle;
-            slider2.Value = m_player.Volume;
+            _mPlayer.WindowHandle = p.Handle;
+            Slider2.Value = _mPlayer.Volume;
         }
 
         void Events_PlayerStopped(object sender, EventArgs e)
@@ -77,16 +77,16 @@ namespace nVLC_Demo_WPF
 
         private void InitControls()
         {
-            slider1.Value = 0;
-            label1.Content = "00:00:00";
-            label3.Content = "00:00:00";
+            Slider1.Value = 0;
+            Label1.Content = "00:00:00";
+            Label3.Content = "00:00:00";
         }
 
         void Events_TimeChanged(object sender, MediaPlayerTimeChanged e)
         {
             this.Dispatcher.BeginInvoke(new Action(delegate
             {
-                label1.Content = TimeSpan.FromMilliseconds(e.NewTime).ToString().Substring(0, 8);
+                Label1.Content = TimeSpan.FromMilliseconds(e.NewTime).ToString().Substring(0, 8);
             }));
         }
 
@@ -94,31 +94,31 @@ namespace nVLC_Demo_WPF
         {
             this.Dispatcher.BeginInvoke(new Action(delegate
             {
-                if (!m_isDrag)
+                if (!_mIsDrag)
                 {
-                    slider1.Value = (double)e.NewPosition;
+                    Slider1.Value = (double)e.NewPosition;
                 }
             }));
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                textBlock1.Text = ofd.FileName;
-                m_media = m_factory.CreateMedia<IMediaFromFile>(ofd.FileName);
-                m_media.Events.DurationChanged += new EventHandler<MediaDurationChange>(Events_DurationChanged);
-                m_media.Events.StateChanged += new EventHandler<MediaStateChange>(Events_StateChanged);
+                TextBlock1.Text = ofd.FileName;
+                _mMedia = _mFactory.CreateMedia<IMediaFromFile>(ofd.FileName);
+                _mMedia.Events.DurationChanged += new EventHandler<MediaDurationChange>(Events_DurationChanged);
+                _mMedia.Events.StateChanged += new EventHandler<MediaStateChange>(Events_StateChanged);
 
-                m_player.Open(m_media);
-                m_media.Parse(true);
+                _mPlayer.Open(_mMedia);
+                _mMedia.Parse(true);
             }
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            m_player.Play();
+            _mPlayer.Play();
         }
 
         void Events_StateChanged(object sender, MediaStateChange e)
@@ -133,42 +133,42 @@ namespace nVLC_Demo_WPF
         {
             this.Dispatcher.BeginInvoke(new Action(delegate
             {
-                label3.Content = TimeSpan.FromMilliseconds(e.NewDuration).ToString().Substring(0, 8);
+                Label3.Content = TimeSpan.FromMilliseconds(e.NewDuration).ToString().Substring(0, 8);
             }));
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            m_player.Pause();
+            _mPlayer.Pause();
         }
 
         private void button4_Click(object sender, RoutedEventArgs e)
         {
-            m_player.Stop();
+            _mPlayer.Stop();
         }
 
         private void button5_Click(object sender, RoutedEventArgs e)
         {
-            m_player.ToggleMute();
+            _mPlayer.ToggleMute();
         }
 
         private void slider2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (m_player != null)
+            if (_mPlayer != null)
             {
-                m_player.Volume = (int)e.NewValue;
+                _mPlayer.Volume = (int)e.NewValue;
             }
         }
 
         private void slider1_DragCompleted(object sender, DragCompletedEventArgs e)
         {
-            m_player.Position = (float)slider1.Value;
-            m_isDrag = false;
+            _mPlayer.Position = (float)Slider1.Value;
+            _mIsDrag = false;
         }
 
         private void slider1_DragStarted(object sender, DragStartedEventArgs e)
         {
-            m_isDrag = true;
+            _mIsDrag = true;
         }
     }
 }

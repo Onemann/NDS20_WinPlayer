@@ -19,75 +19,75 @@ namespace Implementation
 
         }
 
-        protected override void MediaPlayerEventOccured(ref libvlc_event_t libvlc_event, IntPtr userData)
+        protected override void MediaPlayerEventOccured(ref LibvlcEventT libvlcEvent, IntPtr userData)
         {
-            switch (libvlc_event.type)
+            switch (libvlcEvent.type)
             {
 
-                case libvlc_event_e.libvlc_VlmMediaAdded:
-                    if (m_MediaAdded != null)
+                case LibvlcEventE.LibvlcVlmMediaAdded:
+                    if (MMediaAdded != null)
                     {
-                        m_MediaAdded(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaAdded(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaRemoved:
-                    if (m_MediaRemoved != null)
+                case LibvlcEventE.LibvlcVlmMediaRemoved:
+                    if (MMediaRemoved != null)
                     {
-                        m_MediaRemoved(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaRemoved(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaChanged:
-                    if (m_MediaChanged != null)
+                case LibvlcEventE.LibvlcVlmMediaChanged:
+                    if (MMediaChanged != null)
                     {
-                        m_MediaChanged(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaChanged(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaInstanceStarted:
-                    if (m_MediaInstanceStarted != null)
+                case LibvlcEventE.LibvlcVlmMediaInstanceStarted:
+                    if (MMediaInstanceStarted != null)
                     {
-                        m_MediaInstanceStarted(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaInstanceStarted(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaInstanceStopped:
-                    if (m_MediaInstanceStopped != null)
+                case LibvlcEventE.LibvlcVlmMediaInstanceStopped:
+                    if (MMediaInstanceStopped != null)
                     {
-                        m_MediaInstanceStopped(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaInstanceStopped(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaInstanceStatusInit:
-                    if (m_MediaInstanceInit != null)
+                case LibvlcEventE.LibvlcVlmMediaInstanceStatusInit:
+                    if (MMediaInstanceInit != null)
                     {
-                        m_MediaInstanceInit(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaInstanceInit(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaInstanceStatusOpening:
-                    if (m_MediaInstanceOpening != null)
+                case LibvlcEventE.LibvlcVlmMediaInstanceStatusOpening:
+                    if (MMediaInstanceOpening != null)
                     {
-                        m_MediaInstanceOpening(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaInstanceOpening(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaInstanceStatusPlaying:
-                    if (m_MediaInstancePlaying != null)
+                case LibvlcEventE.LibvlcVlmMediaInstanceStatusPlaying:
+                    if (MMediaInstancePlaying != null)
                     {
-                        m_MediaInstancePlaying(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaInstancePlaying(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaInstanceStatusPause:
-                    if (m_MediaInstancePause != null)
+                case LibvlcEventE.LibvlcVlmMediaInstanceStatusPause:
+                    if (MMediaInstancePause != null)
                     {
-                        m_MediaInstancePause(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaInstancePause(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaInstanceStatusEnd:
-                    if (m_MediaInstanceEnd != null)
+                case LibvlcEventE.LibvlcVlmMediaInstanceStatusEnd:
+                    if (MMediaInstanceEnd != null)
                     {
-                        m_MediaInstanceEnd(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaInstanceEnd(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
-                case libvlc_event_e.libvlc_VlmMediaInstanceStatusError:
-                    if (m_MediaInstanceError != null)
+                case LibvlcEventE.LibvlcVlmMediaInstanceStatusError:
+                    if (MMediaInstanceError != null)
                     {
-                        m_MediaInstanceError(m_eventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.vlm_media_event.psz_media_name)));
+                        MMediaInstanceError(MEventProvider, new VlmEvent(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_instance_name), Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.vlm_media_event.psz_media_name)));
                     }
                     break;
                 default:
@@ -96,282 +96,282 @@ namespace Implementation
         }
 
 
-        private event EventHandler<VlmEvent> m_MediaAdded;
+        private event EventHandler<VlmEvent> MMediaAdded;
 
         public event EventHandler<VlmEvent> MediaAdded
         {
             add
             {
-                if (m_MediaAdded == null)
+                if (MMediaAdded == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaAdded);
+                    Attach(LibvlcEventE.LibvlcVlmMediaAdded);
                 }
-                m_MediaAdded += value;
+                MMediaAdded += value;
             }
             remove
             {
-                if (m_MediaAdded != null)
+                if (MMediaAdded != null)
                 {
-                    m_MediaAdded -= value;
-                    if (m_MediaAdded == null)
+                    MMediaAdded -= value;
+                    if (MMediaAdded == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaAdded);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaAdded);
                     }
                 }
             }
         }
 
 
-        private event EventHandler<VlmEvent> m_MediaRemoved;
+        private event EventHandler<VlmEvent> MMediaRemoved;
 
         public event EventHandler<VlmEvent> MediaRemoved
         {
             add
             {
-                if (m_MediaRemoved == null)
+                if (MMediaRemoved == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaRemoved);
+                    Attach(LibvlcEventE.LibvlcVlmMediaRemoved);
                 }
-                m_MediaRemoved += value;
+                MMediaRemoved += value;
             }
             remove
             {
-                if (m_MediaRemoved != null)
+                if (MMediaRemoved != null)
                 {
-                    m_MediaRemoved -= value;
-                    if (m_MediaRemoved == null)
+                    MMediaRemoved -= value;
+                    if (MMediaRemoved == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaRemoved);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaRemoved);
                     }
                 }
             }
         }
 
-        private event EventHandler<VlmEvent> m_MediaChanged;
+        private event EventHandler<VlmEvent> MMediaChanged;
 
         public event EventHandler<VlmEvent> MediaChanged
         {
             add
             {
-                if (m_MediaChanged == null)
+                if (MMediaChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaChanged);
+                    Attach(LibvlcEventE.LibvlcVlmMediaChanged);
                 }
-                m_MediaChanged += value;
+                MMediaChanged += value;
             }
             remove
             {
-                if (m_MediaChanged != null)
+                if (MMediaChanged != null)
                 {
-                    m_MediaChanged -= value;
-                    if (m_MediaChanged == null)
+                    MMediaChanged -= value;
+                    if (MMediaChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaChanged);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaChanged);
                     }
                 }
             }
         }
 
-        private event EventHandler<VlmEvent> m_MediaInstanceStarted;
+        private event EventHandler<VlmEvent> MMediaInstanceStarted;
 
         public event EventHandler<VlmEvent> MediaInstanceStarted
         {
             add
             {
-                if (m_MediaInstanceStarted == null)
+                if (MMediaInstanceStarted == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaInstanceStarted);
+                    Attach(LibvlcEventE.LibvlcVlmMediaInstanceStarted);
                 }
-                m_MediaInstanceStarted += value;
+                MMediaInstanceStarted += value;
             }
             remove
             {
-                if (m_MediaInstanceStarted != null)
+                if (MMediaInstanceStarted != null)
                 {
-                    m_MediaInstanceStarted -= value;
-                    if (m_MediaInstanceStarted == null)
+                    MMediaInstanceStarted -= value;
+                    if (MMediaInstanceStarted == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaInstanceStarted);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaInstanceStarted);
                     }
                 }
             }
         }
 
 
-        private event EventHandler<VlmEvent> m_MediaInstanceStopped;
+        private event EventHandler<VlmEvent> MMediaInstanceStopped;
 
         public event EventHandler<VlmEvent> MediaInstanceStopped
         {
             add
             {
-                if (m_MediaInstanceStopped == null)
+                if (MMediaInstanceStopped == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaInstanceStopped);
+                    Attach(LibvlcEventE.LibvlcVlmMediaInstanceStopped);
                 }
-                m_MediaInstanceStopped += value;
+                MMediaInstanceStopped += value;
             }
             remove
             {
-                if (m_MediaInstanceStopped != null)
+                if (MMediaInstanceStopped != null)
                 {
-                    m_MediaInstanceStopped -= value;
-                    if (m_MediaInstanceStopped == null)
+                    MMediaInstanceStopped -= value;
+                    if (MMediaInstanceStopped == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaInstanceStopped);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaInstanceStopped);
                     }
                 }
             }
         }
 
 
-        private event EventHandler<VlmEvent> m_MediaInstanceInit;
+        private event EventHandler<VlmEvent> MMediaInstanceInit;
 
         public event EventHandler<VlmEvent> MediaInstanceInit
         {
             add
             {
-                if (m_MediaInstanceInit == null)
+                if (MMediaInstanceInit == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaInstanceStatusInit);
+                    Attach(LibvlcEventE.LibvlcVlmMediaInstanceStatusInit);
                 }
-                m_MediaInstanceInit += value;
+                MMediaInstanceInit += value;
             }
             remove
             {
-                if (m_MediaInstanceInit != null)
+                if (MMediaInstanceInit != null)
                 {
-                    m_MediaInstanceInit -= value;
-                    if (m_MediaInstanceInit == null)
+                    MMediaInstanceInit -= value;
+                    if (MMediaInstanceInit == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaInstanceStatusInit);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaInstanceStatusInit);
                     }
                 }
             }
         }
 
 
-        private event EventHandler<VlmEvent> m_MediaInstanceOpening;
+        private event EventHandler<VlmEvent> MMediaInstanceOpening;
 
         public event EventHandler<VlmEvent> MediaInstanceOpening
         {
             add
             {
-                if (m_MediaInstanceOpening == null)
+                if (MMediaInstanceOpening == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaInstanceStatusOpening);
+                    Attach(LibvlcEventE.LibvlcVlmMediaInstanceStatusOpening);
                 }
-                m_MediaInstanceOpening += value;
+                MMediaInstanceOpening += value;
             }
             remove
             {
-                if (m_MediaInstanceOpening != null)
+                if (MMediaInstanceOpening != null)
                 {
-                    m_MediaInstanceOpening -= value;
-                    if (m_MediaInstanceOpening == null)
+                    MMediaInstanceOpening -= value;
+                    if (MMediaInstanceOpening == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaInstanceStatusOpening);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaInstanceStatusOpening);
                     }
                 }
             }
         }
 
 
-        private event EventHandler<VlmEvent> m_MediaInstancePlaying;
+        private event EventHandler<VlmEvent> MMediaInstancePlaying;
 
         public event EventHandler<VlmEvent> MediaInstancePlaying
         {
             add
             {
-                if (m_MediaInstancePlaying == null)
+                if (MMediaInstancePlaying == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaInstanceStatusPlaying);
+                    Attach(LibvlcEventE.LibvlcVlmMediaInstanceStatusPlaying);
                 }
-                m_MediaInstancePlaying += value;
+                MMediaInstancePlaying += value;
             }
             remove
             {
-                if (m_MediaInstancePlaying != null)
+                if (MMediaInstancePlaying != null)
                 {
-                    m_MediaInstancePlaying -= value;
-                    if (m_MediaInstancePlaying == null)
+                    MMediaInstancePlaying -= value;
+                    if (MMediaInstancePlaying == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaInstanceStatusPlaying);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaInstanceStatusPlaying);
                     }
                 }
             }
         }
 
 
-        private event EventHandler<VlmEvent> m_MediaInstancePause;
+        private event EventHandler<VlmEvent> MMediaInstancePause;
 
         public event EventHandler<VlmEvent> MediaInstancePause
         {
             add
             {
-                if (m_MediaInstancePause == null)
+                if (MMediaInstancePause == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaInstanceStatusPause);
+                    Attach(LibvlcEventE.LibvlcVlmMediaInstanceStatusPause);
                 }
-                m_MediaInstancePause += value;
+                MMediaInstancePause += value;
             }
             remove
             {
-                if (m_MediaInstancePause != null)
+                if (MMediaInstancePause != null)
                 {
-                    m_MediaInstancePause -= value;
-                    if (m_MediaInstancePause == null)
+                    MMediaInstancePause -= value;
+                    if (MMediaInstancePause == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaInstanceStatusPause);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaInstanceStatusPause);
                     }
                 }
             }
         }
 
-        private event EventHandler<VlmEvent> m_MediaInstanceEnd;
+        private event EventHandler<VlmEvent> MMediaInstanceEnd;
 
         public event EventHandler<VlmEvent> MediaInstanceEnd
         {
             add
             {
-                if (m_MediaInstanceEnd == null)
+                if (MMediaInstanceEnd == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaInstanceStatusEnd);
+                    Attach(LibvlcEventE.LibvlcVlmMediaInstanceStatusEnd);
                 }
-                m_MediaInstanceEnd += value;
+                MMediaInstanceEnd += value;
             }
             remove
             {
-                if (m_MediaInstanceEnd != null)
+                if (MMediaInstanceEnd != null)
                 {
-                    m_MediaInstanceEnd -= value;
-                    if (m_MediaInstanceEnd == null)
+                    MMediaInstanceEnd -= value;
+                    if (MMediaInstanceEnd == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaInstanceStatusEnd);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaInstanceStatusEnd);
                     }
                 }
             }
         }
 
-        private event EventHandler<VlmEvent> m_MediaInstanceError;
+        private event EventHandler<VlmEvent> MMediaInstanceError;
 
         public event EventHandler<VlmEvent> MediaInstanceError
         {
             add
             {
-                if (m_MediaInstanceError == null)
+                if (MMediaInstanceError == null)
                 {
-                    Attach(libvlc_event_e.libvlc_VlmMediaInstanceStatusError);
+                    Attach(LibvlcEventE.LibvlcVlmMediaInstanceStatusError);
                 }
-                m_MediaInstanceError += value;
+                MMediaInstanceError += value;
             }
             remove
             {
-                if (m_MediaInstanceError != null)
+                if (MMediaInstanceError != null)
                 {
-                    m_MediaInstanceError -= value;
-                    if (m_MediaInstanceError == null)
+                    MMediaInstanceError -= value;
+                    if (MMediaInstanceError == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_VlmMediaInstanceStatusError);
+                        Dettach(LibvlcEventE.LibvlcVlmMediaInstanceStatusError);
                     }
                 }
             }

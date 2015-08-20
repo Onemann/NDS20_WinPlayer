@@ -43,11 +43,11 @@ namespace Implementation
     /// </summary>
     public class MediaPlayerFactory : DisposableBase, IMediaPlayerFactory, IReferenceCount, INativePointer
     {
-        IntPtr m_hMediaLib = IntPtr.Zero;
-        IVideoLanManager m_vlm = null;
-        NLogger m_logger = new NLogger();
-        LogSubscriber m_log;
-        string m_currentDir;
+        IntPtr _mHMediaLib = IntPtr.Zero;
+        IVideoLanManager _mVlm = null;
+        NLogger _mLogger = new NLogger();
+        LogSubscriber _mLog;
+        string _mCurrentDir;
 
         /// <summary>
         /// Initializes media library with default arguments
@@ -99,23 +99,23 @@ namespace Implementation
             try
             {
                 if (useCustomStringMarshaller)
-                    m_hMediaLib = LibVlcMethods.libvlc_new_custom_marshaller(args.Length, args);
+                    _mHMediaLib = LibVlcMethods.libvlc_new_custom_marshaller(args.Length, args);
                 else
-                    m_hMediaLib = LibVlcMethods.libvlc_new(args.Length, args);
+                    _mHMediaLib = LibVlcMethods.libvlc_new(args.Length, args);
             }
             catch (DllNotFoundException ex)
             {
                 throw new LibVlcNotFoundException(ex);
             }
 
-            if (m_hMediaLib == IntPtr.Zero)
+            if (_mHMediaLib == IntPtr.Zero)
             {
                 throw new LibVlcInitException();
             }
 
             if (findLibvlc)
             {
-                Directory.SetCurrentDirectory(m_currentDir);
+                Directory.SetCurrentDirectory(_mCurrentDir);
             }
 
             TrySetupLogging();
@@ -127,8 +127,8 @@ namespace Implementation
             try
             {
                 const string pattern = @"\d+(\.\d+)+"; // numbers separated by dots
-                Match versionMatch = Regex.Match(Version, pattern);
-                Version libVlcVersion = new Version(versionMatch.Value);
+                var versionMatch = Regex.Match(Version, pattern);
+                var libVlcVersion = new Version(versionMatch.Value);
                 ObjectFactory.FilterRemovedModules(libVlcVersion);
             }
             catch (Exception)
@@ -137,25 +137,25 @@ namespace Implementation
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception exc = e.ExceptionObject as Exception;
+            var exc = e.ExceptionObject as Exception;
             if (exc != null)
             {
                 var error = MiscUtils.FindNestedException<EntryPointNotFoundException>(exc);
                 if (error != null)
                 {
-                    string ver = MiscUtils.GetMinimalSupportedVersion(error);
-                    m_logger.Error(string.Format("Method {0} supported starting libVLC version {1}", error.TargetSite.Name, ver));
+                    var ver = MiscUtils.GetMinimalSupportedVersion(error);
+                    _mLogger.Error(string.Format("Method {0} supported starting libVLC version {1}", error.TargetSite.Name, ver));
                 }
                 else
                 {
-                    string msg = MiscUtils.LogNestedException(exc);
-                    m_logger.Error("Unhandled exception: " + msg);
+                    var msg = MiscUtils.LogNestedException(exc);
+                    _mLogger.Error("Unhandled exception: " + msg);
                 }
             }
 
             if (e.IsTerminating)
             {
-                m_logger.Error("Due to unhandled exception the application will terminate");
+                _mLogger.Error("Due to unhandled exception the application will terminate");
             }
         }
 
@@ -163,26 +163,26 @@ namespace Implementation
         {
             try
             {
-                m_log = new LogSubscriber(m_logger, m_hMediaLib);
+                _mLog = new LogSubscriber(_mLogger, _mHMediaLib);
             }
             catch (EntryPointNotFoundException ex)
             {
-                string name = ex.TargetSite.Name;
-                string minVersion = MiscUtils.GetMinimalSupportedVersion(ex);
+                var name = ex.TargetSite.Name;
+                var minVersion = MiscUtils.GetMinimalSupportedVersion(ex);
                 if (!string.IsNullOrEmpty(minVersion))
                 {
-                    string msg = string.Format("libVLC logging functinality enabled staring libVLC version {0} while you are using version {1}", minVersion, Version);
-                    m_logger.Warning(msg);
+                    var msg = string.Format("libVLC logging functinality enabled staring libVLC version {0} while you are using version {1}", minVersion, Version);
+                    _mLogger.Warning(msg);
                 }
                 else
                 {
-                    m_logger.Warning(ex.Message);
+                    _mLogger.Warning(ex.Message);
                 }
             }
             catch (Exception ex)
             {
-                string msg = string.Format("Failed to setup logging, reason : {0}", ex.Message);
-                m_logger.Error(msg);
+                var msg = string.Format("Failed to setup logging, reason : {0}", ex.Message);
+                _mLogger.Error(msg);
             }
         }
 
@@ -193,7 +193,7 @@ namespace Implementation
         /// <returns>Newly created player</returns>
         public T CreatePlayer<T>() where T : IPlayer
         {
-            return ObjectFactory.Build<T>(m_hMediaLib);
+            return ObjectFactory.Build<T>(_mHMediaLib);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace Implementation
         /// <returns>Newly created media list player</returns>
         public T CreateMediaListPlayer<T>(IMediaList mediaList) where T : IMediaListPlayer
         {
-            return ObjectFactory.Build<T>(m_hMediaLib, mediaList);
+            return ObjectFactory.Build<T>(_mHMediaLib, mediaList);
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace Implementation
         /// <returns>Newly created media</returns>
         public T CreateMedia<T>(string input, params string[] options) where T : IMedia
         {
-            T media = ObjectFactory.Build<T>(m_hMediaLib);
+            var media = ObjectFactory.Build<T>(_mHMediaLib);
             media.Input = input;
             media.AddOptions(options);
 
@@ -232,7 +232,7 @@ namespace Implementation
         /// <returns>Newly created media list</returns>
         public T CreateMediaList<T>(IEnumerable<string> mediaItems, params string[] options) where T : IMediaList
         {
-            T mediaList = ObjectFactory.Build<T>(m_hMediaLib);
+            var mediaList = ObjectFactory.Build<T>(_mHMediaLib);
             foreach (var file in mediaItems)
             {
                 mediaList.Add(this.CreateMedia<IMedia>(file, options));
@@ -248,7 +248,7 @@ namespace Implementation
         /// <returns></returns>
         public T CreateMediaList<T>() where T : IMediaList
         {
-            return ObjectFactory.Build<T>(m_hMediaLib);
+            return ObjectFactory.Build<T>(_mHMediaLib);
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace Implementation
         /// <returns></returns>
         public IMediaDiscoverer CreateMediaDiscoverer(string name)
         {
-            return ObjectFactory.Build<IMediaDiscoverer>(m_hMediaLib, name);
+            return ObjectFactory.Build<IMediaDiscoverer>(_mHMediaLib, name);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace Implementation
         /// <returns></returns>
         public IMediaLibrary CreateMediaLibrary()
         {
-            return ObjectFactory.Build<IMediaLibrary>(m_hMediaLib);
+            return ObjectFactory.Build<IMediaLibrary>(_mHMediaLib);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace Implementation
         {
             get
             {
-                IntPtr pStr = LibVlcMethods.libvlc_get_version();
+                var pStr = LibVlcMethods.libvlc_get_version();
                 return Marshal.PtrToStringAnsi(pStr);
             }               
         }
@@ -293,57 +293,57 @@ namespace Implementation
 
         private static class ObjectFactory
         {
-            static Dictionary<Type, Type> objectMap = new Dictionary<Type, Type>();
-            static Dictionary<Type, LibVlcRemovedModuleException> removedModules = new Dictionary<Type, LibVlcRemovedModuleException>();
+            static Dictionary<Type, Type> _objectMap = new Dictionary<Type, Type>();
+            static Dictionary<Type, LibVlcRemovedModuleException> _removedModules = new Dictionary<Type, LibVlcRemovedModuleException>();
             
             static ObjectFactory()
             {
-                objectMap.Add(typeof(IMedia), typeof(BasicMedia));
-                objectMap.Add(typeof(IMediaFromFile), typeof(MediaFromFile));
-                objectMap.Add(typeof(IVideoInputMedia), typeof(VideoInputMedia));
-                objectMap.Add(typeof(IScreenCaptureMedia), typeof(ScreenCaptureMedia));
-                objectMap.Add(typeof(IPlayer), typeof(BasicPlayer));
-                objectMap.Add(typeof(IAudioPlayer), typeof(AudioPlayer));
-                objectMap.Add(typeof(IVideoPlayer), typeof(VideoPlayer));
-                objectMap.Add(typeof(IDiskPlayer), typeof(DiskPlayer));
-                objectMap.Add(typeof(IMediaList), typeof(MediaList));
-                objectMap.Add(typeof(IMediaListPlayer), typeof(MediaListPlayer));
-                objectMap.Add(typeof(IVideoLanManager), typeof(VideoLanManager));
-                objectMap.Add(typeof(IMediaDiscoverer), typeof(MediaDiscoverer));
-                objectMap.Add(typeof(IMediaLibrary), typeof(MediaLibraryImpl));
-                objectMap.Add(typeof(IMemoryInputMedia), typeof(MemoryInputMedia));
-                objectMap.Add(typeof(ICompositeMemoryInputMedia), typeof(CompositeMemoryInputMedia));
+                _objectMap.Add(typeof(IMedia), typeof(BasicMedia));
+                _objectMap.Add(typeof(IMediaFromFile), typeof(MediaFromFile));
+                _objectMap.Add(typeof(IVideoInputMedia), typeof(VideoInputMedia));
+                _objectMap.Add(typeof(IScreenCaptureMedia), typeof(ScreenCaptureMedia));
+                _objectMap.Add(typeof(IPlayer), typeof(BasicPlayer));
+                _objectMap.Add(typeof(IAudioPlayer), typeof(AudioPlayer));
+                _objectMap.Add(typeof(IVideoPlayer), typeof(VideoPlayer));
+                _objectMap.Add(typeof(IDiskPlayer), typeof(DiskPlayer));
+                _objectMap.Add(typeof(IMediaList), typeof(MediaList));
+                _objectMap.Add(typeof(IMediaListPlayer), typeof(MediaListPlayer));
+                _objectMap.Add(typeof(IVideoLanManager), typeof(VideoLanManager));
+                _objectMap.Add(typeof(IMediaDiscoverer), typeof(MediaDiscoverer));
+                _objectMap.Add(typeof(IMediaLibrary), typeof(MediaLibraryImpl));
+                _objectMap.Add(typeof(IMemoryInputMedia), typeof(MemoryInputMedia));
+                _objectMap.Add(typeof(ICompositeMemoryInputMedia), typeof(CompositeMemoryInputMedia));
             }
 
             public static T Build<T>(params object[] args)
             {
-                Type t = typeof(T);
-                if (removedModules.ContainsKey(t))
+                var t = typeof(T);
+                if (_removedModules.ContainsKey(t))
                 {
-                    throw removedModules[t];
+                    throw _removedModules[t];
                 }
-                if (!objectMap.ContainsKey(t))
+                if (!_objectMap.ContainsKey(t))
                 {
                     throw new ArgumentException("Unregistered type", t.FullName);                  
                 }
 
-                return (T)Activator.CreateInstance(objectMap[t], args);
+                return (T)Activator.CreateInstance(_objectMap[t], args);
             }
 
             public static void FilterRemovedModules(Version currentVersion)
             {
-                foreach (var item in objectMap)
+                foreach (var item in _objectMap)
                 {
-                    MaxLibVlcVersion maxVer = (MaxLibVlcVersion)Attribute.GetCustomAttribute(item.Value, typeof(MaxLibVlcVersion));
+                    var maxVer = (MaxLibVlcVersion)Attribute.GetCustomAttribute(item.Value, typeof(MaxLibVlcVersion));
                     if (maxVer == null)
                     {
                         continue;
                     }
                     
-                    Version lastSupported = new Version(maxVer.MaxVersion);
+                    var lastSupported = new Version(maxVer.MaxVersion);
                     if (currentVersion > lastSupported)
                     {
-                        removedModules[item.Key] = new LibVlcRemovedModuleException(maxVer.LibVlcModuleName, item.Key.Name, maxVer.MaxVersion);
+                        _removedModules[item.Key] = new LibVlcRemovedModuleException(maxVer.LibVlcModuleName, item.Key.Name, maxVer.MaxVersion);
                     }
                 }
             }
@@ -353,14 +353,14 @@ namespace Implementation
 
         public void AddRef()
         {
-            LibVlcMethods.libvlc_retain(m_hMediaLib);
+            LibVlcMethods.libvlc_retain(_mHMediaLib);
         }
 
         public void Release()
         {
             try
             {
-                LibVlcMethods.libvlc_release(m_hMediaLib);
+                LibVlcMethods.libvlc_release(_mHMediaLib);
             }
             catch (AccessViolationException)
             { }
@@ -374,7 +374,7 @@ namespace Implementation
         {
             get
             {
-                return m_hMediaLib;
+                return _mHMediaLib;
             }
         }
 
@@ -408,15 +408,15 @@ namespace Implementation
         {
             get
             {
-                IntPtr pList = LibVlcMethods.libvlc_audio_filter_list_get(m_hMediaLib);
-                libvlc_module_description_t item = (libvlc_module_description_t)Marshal.PtrToStructure(pList, typeof(libvlc_module_description_t));
+                var pList = LibVlcMethods.libvlc_audio_filter_list_get(_mHMediaLib);
+                var item = (LibvlcModuleDescriptionT)Marshal.PtrToStructure(pList, typeof(LibvlcModuleDescriptionT));
 
                 do
                 {
                     yield return GetFilterInfo(item);
                     if (item.p_next != IntPtr.Zero)
                     {
-                        item = (libvlc_module_description_t)Marshal.PtrToStructure(item.p_next, typeof(libvlc_module_description_t));
+                        item = (LibvlcModuleDescriptionT)Marshal.PtrToStructure(item.p_next, typeof(LibvlcModuleDescriptionT));
                     }
                     else
                     {
@@ -437,20 +437,20 @@ namespace Implementation
         {
             get
             {
-                IntPtr pList = LibVlcMethods.libvlc_video_filter_list_get(m_hMediaLib);
+                var pList = LibVlcMethods.libvlc_video_filter_list_get(_mHMediaLib);
                 if (pList == IntPtr.Zero)
                 {
                     yield break;
                 }
 
-                libvlc_module_description_t item = (libvlc_module_description_t)Marshal.PtrToStructure(pList, typeof(libvlc_module_description_t));
+                var item = (LibvlcModuleDescriptionT)Marshal.PtrToStructure(pList, typeof(LibvlcModuleDescriptionT));
 
                 do
                 {
                     yield return GetFilterInfo(item);
                     if (item.p_next != IntPtr.Zero)
                     {
-                        item = (libvlc_module_description_t)Marshal.PtrToStructure(item.p_next, typeof(libvlc_module_description_t));
+                        item = (LibvlcModuleDescriptionT)Marshal.PtrToStructure(item.p_next, typeof(LibvlcModuleDescriptionT));
                     }
                     else
                     {
@@ -463,7 +463,7 @@ namespace Implementation
             }
         }
 
-        private FilterInfo GetFilterInfo(libvlc_module_description_t item)
+        private FilterInfo GetFilterInfo(LibvlcModuleDescriptionT item)
         {
             return new FilterInfo()
             {
@@ -481,12 +481,12 @@ namespace Implementation
         {
             get
             {
-                if (m_vlm == null)
+                if (_mVlm == null)
                 {
-                    m_vlm = ObjectFactory.Build<IVideoLanManager>(m_hMediaLib);
+                    _mVlm = ObjectFactory.Build<IVideoLanManager>(_mHMediaLib);
                 }
 
-                return m_vlm;
+                return _mVlm;
             }
         } 
 
@@ -497,17 +497,17 @@ namespace Implementation
         {
             get
             {
-                IntPtr pList = LibVlcMethods.libvlc_audio_output_list_get(m_hMediaLib);
-                libvlc_audio_output_t pDevice = (libvlc_audio_output_t)Marshal.PtrToStructure(pList, typeof(libvlc_audio_output_t));
+                var pList = LibVlcMethods.libvlc_audio_output_list_get(_mHMediaLib);
+                var pDevice = (LibvlcAudioOutputT)Marshal.PtrToStructure(pList, typeof(LibvlcAudioOutputT));
 
                 do
                 {
-                    AudioOutputModuleInfo info = GetDeviceInfo(pDevice);
+                    var info = GetDeviceInfo(pDevice);
 
                     yield return info;
                     if (pDevice.p_next != IntPtr.Zero)
                     {
-                        pDevice = (libvlc_audio_output_t)Marshal.PtrToStructure(pDevice.p_next, typeof(libvlc_audio_output_t));
+                        pDevice = (LibvlcAudioOutputT)Marshal.PtrToStructure(pDevice.p_next, typeof(LibvlcAudioOutputT));
                     }
                     else
                     {
@@ -525,20 +525,20 @@ namespace Implementation
         /// </summary>
         public IEnumerable<AudioOutputDeviceInfo> GetAudioOutputDevices(AudioOutputModuleInfo audioOutputModule)
         {
-            int i = LibVlcMethods.libvlc_audio_output_device_count(m_hMediaLib, audioOutputModule.Name.ToUtf8());
-            for (int j = 0; j < i; j++)
+            var i = LibVlcMethods.libvlc_audio_output_device_count(_mHMediaLib, audioOutputModule.Name.ToUtf8());
+            for (var j = 0; j < i; j++)
             {
-                AudioOutputDeviceInfo d = new AudioOutputDeviceInfo();
-                IntPtr pName = LibVlcMethods.libvlc_audio_output_device_longname(m_hMediaLib, audioOutputModule.Name.ToUtf8(), j);
+                var d = new AudioOutputDeviceInfo();
+                var pName = LibVlcMethods.libvlc_audio_output_device_longname(_mHMediaLib, audioOutputModule.Name.ToUtf8(), j);
                 d.Longname = Marshal.PtrToStringAnsi(pName);
-                IntPtr pId = LibVlcMethods.libvlc_audio_output_device_id(m_hMediaLib, audioOutputModule.Name.ToUtf8(), j);
+                var pId = LibVlcMethods.libvlc_audio_output_device_id(_mHMediaLib, audioOutputModule.Name.ToUtf8(), j);
                 d.Id = Marshal.PtrToStringAnsi(pId);
 
                 yield return d;
             }
         }
 
-        private AudioOutputModuleInfo GetDeviceInfo(libvlc_audio_output_t pDevice)
+        private AudioOutputModuleInfo GetDeviceInfo(LibvlcAudioOutputT pDevice)
         {
             return new AudioOutputModuleInfo()
             {
@@ -551,7 +551,7 @@ namespace Implementation
         {
             try
             {
-                m_currentDir = Directory.GetCurrentDirectory();
+                _mCurrentDir = Directory.GetCurrentDirectory();
                 if (Environment.Is64BitProcess)
                 {
                     TrySet64BitPath();
@@ -563,15 +563,15 @@ namespace Implementation
             }
             catch (Exception ex)
             {
-                m_logger.Error("Failed to set VLC path: " + ex.Message);
+                _mLogger.Error("Failed to set VLC path: " + ex.Message);
             }
         }
 
         private void TrySet64BitPath()
         {
-            using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\VideoLAN\VLC"))
+            using (var rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\VideoLAN\VLC"))
             {
-                object vlcDir = rk.GetValue("InstallDir");
+                var vlcDir = rk.GetValue("InstallDir");
                 if (vlcDir != null)
                 {
                     Directory.SetCurrentDirectory(vlcDir.ToString());
@@ -581,18 +581,18 @@ namespace Implementation
 
         private void TrySetVLCPath(string vlcRegistryKey)
         {
-            using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"))
+            using (var rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"))
             {
-                foreach (string skName in rk.GetSubKeyNames())
+                foreach (var skName in rk.GetSubKeyNames())
                 {
-                    using (RegistryKey sk = rk.OpenSubKey(skName))
+                    using (var sk = rk.OpenSubKey(skName))
                     {
-                        object DisplayName = sk.GetValue("DisplayName");
-                        if (DisplayName != null)
+                        var displayName = sk.GetValue("DisplayName");
+                        if (displayName != null)
                         {
-                            if (DisplayName.ToString().ToLower().IndexOf(vlcRegistryKey.ToLower()) > -1)
+                            if (displayName.ToString().ToLower().IndexOf(vlcRegistryKey.ToLower()) > -1)
                             {
-                                object vlcDir = sk.GetValue("InstallLocation");
+                                var vlcDir = sk.GetValue("InstallLocation");
 
                                 if (vlcDir != null)
                                 {
@@ -613,7 +613,7 @@ namespace Implementation
         {
             get 
             {
-                IntPtr pError = LibVlcMethods.libvlc_errmsg();
+                var pError = LibVlcMethods.libvlc_errmsg();
                 return Marshal.PtrToStringAnsi(pError);
             }
         }

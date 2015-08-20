@@ -38,11 +38,11 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_audio_get_track(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_audio_get_track(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_audio_set_track(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_audio_set_track(MHMediaPlayer, value);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_audio_get_track_count(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_audio_get_track_count(MHMediaPlayer);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Implementation.Players
         {
             get
             {
-                IntPtr trackInfo = LibVlcMethods.libvlc_audio_get_track_description(m_hMediaPlayer);
+                var trackInfo = LibVlcMethods.libvlc_audio_get_track_description(MHMediaPlayer);
                 return GetDescription(trackInfo);
             }
         }
@@ -67,7 +67,7 @@ namespace Implementation.Players
         {
             get
             {
-                IntPtr trackInfo = LibVlcMethods.libvlc_video_get_track_description(m_hMediaPlayer);
+                var trackInfo = LibVlcMethods.libvlc_video_get_track_description(MHMediaPlayer);
                 return GetDescription(trackInfo);
             }
         }
@@ -76,7 +76,7 @@ namespace Implementation.Players
         {
             get
             {
-                IntPtr trackInfo = LibVlcMethods.libvlc_video_get_spu_description(m_hMediaPlayer);
+                var trackInfo = LibVlcMethods.libvlc_video_get_spu_description(MHMediaPlayer);
                 return GetDescription(trackInfo);
             }
         }
@@ -85,14 +85,14 @@ namespace Implementation.Players
         {
             get
             {
-                IntPtr trackInfo = LibVlcMethods.libvlc_video_get_title_description(m_hMediaPlayer);
+                var trackInfo = LibVlcMethods.libvlc_video_get_title_description(MHMediaPlayer);
                 return GetDescription(trackInfo);
             }
         }
 
         public IEnumerable<TrackDescription> GetChapterDescription(int title)
         {
-            IntPtr trackInfo = LibVlcMethods.libvlc_video_get_chapter_description(m_hMediaPlayer, title);
+            var trackInfo = LibVlcMethods.libvlc_video_get_chapter_description(MHMediaPlayer, title);
             return GetDescription(trackInfo);
         }
 
@@ -103,7 +103,7 @@ namespace Implementation.Players
                 yield break;
             }
                 
-            libvlc_track_description_t trackDesc = (libvlc_track_description_t)Marshal.PtrToStructure(trackInfo, typeof(libvlc_track_description_t));
+            var trackDesc = (LibvlcTrackDescriptionT)Marshal.PtrToStructure(trackInfo, typeof(LibvlcTrackDescriptionT));
             do
             {
                 yield return new TrackDescription()
@@ -114,7 +114,7 @@ namespace Implementation.Players
 
                 if (trackDesc.p_next != IntPtr.Zero)
                 {
-                    trackDesc = (libvlc_track_description_t)Marshal.PtrToStructure(trackDesc.p_next, typeof(libvlc_track_description_t));
+                    trackDesc = (LibvlcTrackDescriptionT)Marshal.PtrToStructure(trackDesc.p_next, typeof(LibvlcTrackDescriptionT));
                 }
                 else
                 {
@@ -129,11 +129,11 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_video_get_spu(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_video_get_spu(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_video_set_spu(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_video_set_spu(MHMediaPlayer, value);
             }
         }
 
@@ -141,29 +141,29 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_video_get_spu_count(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_video_get_spu_count(MHMediaPlayer);
             }
         }
 
         public void NextChapter()
         {
-            LibVlcMethods.libvlc_media_player_next_chapter(m_hMediaPlayer);
+            LibVlcMethods.libvlc_media_player_next_chapter(MHMediaPlayer);
         }
 
         public void PreviousChapter()
         {
-            LibVlcMethods.libvlc_media_player_previous_chapter(m_hMediaPlayer);
+            LibVlcMethods.libvlc_media_player_previous_chapter(MHMediaPlayer);
         }
 
         public int Title
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_title(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_title(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_media_player_set_title(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_media_player_set_title(MHMediaPlayer, value);
             }
         }
 
@@ -171,20 +171,20 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_title_count(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_title_count(MHMediaPlayer);
             }
         }
 
         public int GetChapterCountForTitle(int title)
         {
-            return LibVlcMethods.libvlc_media_player_get_chapter_count_for_title(m_hMediaPlayer, Title);
+            return LibVlcMethods.libvlc_media_player_get_chapter_count_for_title(MHMediaPlayer, Title);
         }
 
         public int ChapterCount
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_chapter_count(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_chapter_count(MHMediaPlayer);
             }
         }
 
@@ -192,11 +192,11 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_media_player_get_chapter(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_media_player_get_chapter(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_media_player_set_chapter(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_media_player_set_chapter(MHMediaPlayer, value);
             }
         }
 
@@ -204,7 +204,7 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_video_get_track_count(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_video_get_track_count(MHMediaPlayer);
             }
         }
 
@@ -212,17 +212,17 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_video_get_track(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_video_get_track(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_video_set_track(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_video_set_track(MHMediaPlayer, value);
             }
         }
 
         public void Navigate(NavigationMode mode)
         {
-            LibVlcMethods.libvlc_media_player_navigate(m_hMediaPlayer, (libvlc_navigate_mode_t)mode);
+            LibVlcMethods.libvlc_media_player_navigate(MHMediaPlayer, (LibvlcNavigateModeT)mode);
         }
     }
 }

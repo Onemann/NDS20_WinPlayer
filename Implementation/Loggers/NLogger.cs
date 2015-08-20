@@ -20,33 +20,33 @@ namespace Implementation
 {
    internal class NLogger : ILogger
    {
-      NLog.Logger m_logImpl;
+      NLog.Logger _mLogImpl;
 
       public NLogger()
       {
-         m_logImpl = NLog.LogManager.GetCurrentClassLogger();
+         _mLogImpl = NLog.LogManager.GetCurrentClassLogger();
       }
 
       #region ILogger Members
 
       public void Debug(string debug)
       {
-         m_logImpl.Debug(debug);
+         _mLogImpl.Debug(debug);
       }
 
       public void Info(string info)
       {
-         m_logImpl.Info(info);
+         _mLogImpl.Info(info);
       }
 
       public void Warning(string warn)
       {
-         m_logImpl.Warn(warn);
+         _mLogImpl.Warn(warn);
       }
 
       public void Error(string error)
       {
-         m_logImpl.Error(error);
+         _mLogImpl.Error(error);
       }
 
       #endregion

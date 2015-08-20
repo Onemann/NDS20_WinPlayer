@@ -22,11 +22,11 @@ namespace Implementation.Filters
 {
    internal class AdjustFilter : IAdjustFilter
    {
-      IntPtr m_hMediaPlayer;
+      IntPtr _mHMediaPlayer;
 
       public AdjustFilter(IntPtr hMediaPlayer)
       {
-         m_hMediaPlayer = hMediaPlayer;
+         _mHMediaPlayer = hMediaPlayer;
       }
 
       #region IAdjustFilter Members
@@ -35,11 +35,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetVideoAdjustType<int>(libvlc_video_adjust_option_t.libvlc_adjust_Enable) == 1;
+            return GetVideoAdjustType<int>(LibvlcVideoAdjustOptionT.LibvlcAdjustEnable) == 1;
          }
          set
          {
-            SetVideoAdjustType<int>(libvlc_video_adjust_option_t.libvlc_adjust_Enable, Convert.ToInt32(value));
+            SetVideoAdjustType<int>(LibvlcVideoAdjustOptionT.LibvlcAdjustEnable, Convert.ToInt32(value));
          }
       }
 
@@ -47,11 +47,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetVideoAdjustType<float>(libvlc_video_adjust_option_t.libvlc_adjust_Contrast);
+            return GetVideoAdjustType<float>(LibvlcVideoAdjustOptionT.LibvlcAdjustContrast);
          }
          set
          {
-            SetVideoAdjustType<float>(libvlc_video_adjust_option_t.libvlc_adjust_Contrast, value);
+            SetVideoAdjustType<float>(LibvlcVideoAdjustOptionT.LibvlcAdjustContrast, value);
          }
       }
 
@@ -59,11 +59,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetVideoAdjustType<float>(libvlc_video_adjust_option_t.libvlc_adjust_Brightness);
+            return GetVideoAdjustType<float>(LibvlcVideoAdjustOptionT.LibvlcAdjustBrightness);
          }
          set
          {
-            SetVideoAdjustType<float>(libvlc_video_adjust_option_t.libvlc_adjust_Brightness, value);
+            SetVideoAdjustType<float>(LibvlcVideoAdjustOptionT.LibvlcAdjustBrightness, value);
          }
       }
 
@@ -71,11 +71,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetVideoAdjustType<int>(libvlc_video_adjust_option_t.libvlc_adjust_Enable);
+            return GetVideoAdjustType<int>(LibvlcVideoAdjustOptionT.LibvlcAdjustEnable);
          }
          set
          {
-            SetVideoAdjustType<int>(libvlc_video_adjust_option_t.libvlc_adjust_Enable, value);
+            SetVideoAdjustType<int>(LibvlcVideoAdjustOptionT.LibvlcAdjustEnable, value);
          }
       }
 
@@ -83,11 +83,11 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetVideoAdjustType<float>(libvlc_video_adjust_option_t.libvlc_adjust_Saturation);
+            return GetVideoAdjustType<float>(LibvlcVideoAdjustOptionT.LibvlcAdjustSaturation);
          }
          set
          {
-            SetVideoAdjustType<float>(libvlc_video_adjust_option_t.libvlc_adjust_Saturation, value);
+            SetVideoAdjustType<float>(LibvlcVideoAdjustOptionT.LibvlcAdjustSaturation, value);
          }
       }
 
@@ -95,37 +95,37 @@ namespace Implementation.Filters
       {
          get
          {
-            return GetVideoAdjustType<float>(libvlc_video_adjust_option_t.libvlc_adjust_Gamma);
+            return GetVideoAdjustType<float>(LibvlcVideoAdjustOptionT.LibvlcAdjustGamma);
          }
          set
          {
-            SetVideoAdjustType<float>(libvlc_video_adjust_option_t.libvlc_adjust_Gamma, value);
+            SetVideoAdjustType<float>(LibvlcVideoAdjustOptionT.LibvlcAdjustGamma, value);
          }
       }
 
       #endregion
 
-      private void SetVideoAdjustType<T>(libvlc_video_adjust_option_t adjustType, T value)
+      private void SetVideoAdjustType<T>(LibvlcVideoAdjustOptionT adjustType, T value)
       {
          if (typeof(int) == typeof(T))
          {
-            LibVlcMethods.libvlc_video_set_adjust_int(m_hMediaPlayer, adjustType, (int)(object)value);
+            LibVlcMethods.libvlc_video_set_adjust_int(_mHMediaPlayer, adjustType, (int)(object)value);
          }
          else
          {
-            LibVlcMethods.libvlc_video_set_adjust_float(m_hMediaPlayer, adjustType, (float)(object)value);
+            LibVlcMethods.libvlc_video_set_adjust_float(_mHMediaPlayer, adjustType, (float)(object)value);
          }
       }
 
-      private T GetVideoAdjustType<T>(libvlc_video_adjust_option_t adjustType)
+      private T GetVideoAdjustType<T>(LibvlcVideoAdjustOptionT adjustType)
       {
          if (typeof(int) == typeof(T))
          {
-            return (T)(object)LibVlcMethods.libvlc_video_get_adjust_int(m_hMediaPlayer, adjustType);
+            return (T)(object)LibVlcMethods.libvlc_video_get_adjust_int(_mHMediaPlayer, adjustType);
          }
          else
          {
-            return (T)(object)LibVlcMethods.libvlc_video_get_adjust_float(m_hMediaPlayer, adjustType);
+            return (T)(object)LibVlcMethods.libvlc_video_get_adjust_float(_mHMediaPlayer, adjustType);
          }
       }
    }

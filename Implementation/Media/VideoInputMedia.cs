@@ -30,12 +30,12 @@ namespace Implementation.Media
     [MaxLibVlcVersion("1.1.50", "invmem (fake input)")]
     internal sealed unsafe class VideoInputMedia : BasicMedia, IVideoInputMedia
     {
-        BitmapFormat m_format;
-        PixelData m_data = default(PixelData);
-        object m_lock = new object();
-        IntPtr m_pLock, m_pUnlock;
-        GCHandle m_pData;
-        List<Delegate> m_callbacks = new List<Delegate>();
+        BitmapFormat _mFormat;
+        PixelData _mData = default(PixelData);
+        object _mLock = new object();
+        IntPtr _mPLock, _mPUnlock;
+        GCHandle _mPData;
+        List<Delegate> _mCallbacks = new List<Delegate>();
 
         public VideoInputMedia(IntPtr hMediaLib)
             : base(hMediaLib)
@@ -43,42 +43,42 @@ namespace Implementation.Media
             CallbackEventHandler pLock = LockCallback;
             CallbackEventHandler pUnlock = UnlockCallback;
 
-            m_pLock = Marshal.GetFunctionPointerForDelegate(pLock);
-            m_pUnlock = Marshal.GetFunctionPointerForDelegate(pUnlock);
+            _mPLock = Marshal.GetFunctionPointerForDelegate(pLock);
+            _mPUnlock = Marshal.GetFunctionPointerForDelegate(pUnlock);
 
-            m_callbacks.Add(pLock);
-            m_callbacks.Add(pUnlock);
+            _mCallbacks.Add(pLock);
+            _mCallbacks.Add(pUnlock);
         }
 
         #region IVideoInputMedia Members
 
         public void AddFrame(Bitmap frame)
         {
-            Monitor.Enter(m_lock);
+            Monitor.Enter(_mLock);
 
             try
             {
-                Rectangle rect = new Rectangle(0, 0, frame.Width, frame.Height);
-                BitmapData bmpData = frame.LockBits(rect, ImageLockMode.ReadOnly, frame.PixelFormat);
+                var rect = new Rectangle(0, 0, frame.Width, frame.Height);
+                var bmpData = frame.LockBits(rect, ImageLockMode.ReadOnly, frame.PixelFormat);
 
-                void* pData = bmpData.Scan0.ToPointer();
-                MemoryHeap.CopyMemory(m_data.pPixelData, pData, m_data.size);
+                var pData = bmpData.Scan0.ToPointer();
+                MemoryHeap.CopyMemory(_mData.PPixelData, pData, _mData.Size);
 
                 frame.UnlockBits(bmpData);
             }
             finally
             {
-                Monitor.Exit(m_lock);
+                Monitor.Exit(_mLock);
             }
         }
 
         public void SetFormat(BitmapFormat format)
         {
-            if (m_data == default(PixelData))
+            if (_mData == default(PixelData))
             {
-                m_format = format;
-                m_data = new PixelData(m_format.ImageSize);
-                m_pData = GCHandle.Alloc(m_data, GCHandleType.Pinned);
+                _mFormat = format;
+                _mData = new PixelData(_mFormat.ImageSize);
+                _mPData = GCHandle.Alloc(_mData, GCHandleType.Pinned);
                 InitMedia();
             }
             else
@@ -91,15 +91,15 @@ namespace Implementation.Media
 
         private void InitMedia()
         {
-            List<string> options = new List<string>()
+            var options = new List<string>()
             {
                ":codec=invmem",
-               string.Format(":invmem-width={0}", m_format.Width),
-               string.Format(":invmem-height={0}", m_format.Height),
-               string.Format(":invmem-lock={0}", m_pLock.ToInt64()),
-               string.Format(":invmem-unlock={0}", m_pUnlock.ToInt64()),
-               string.Format(":invmem-chroma={0}", m_format.Chroma),
-               string.Format(":invmem-data={0}", m_pData.AddrOfPinnedObject().ToInt64())
+               string.Format(":invmem-width={0}", _mFormat.Width),
+               string.Format(":invmem-height={0}", _mFormat.Height),
+               string.Format(":invmem-lock={0}", _mPLock.ToInt64()),
+               string.Format(":invmem-unlock={0}", _mPUnlock.ToInt64()),
+               string.Format(":invmem-chroma={0}", _mFormat.Chroma),
+               string.Format(":invmem-data={0}", _mPData.AddrOfPinnedObject().ToInt64())
             };
 
             AddOptions(options);
@@ -107,26 +107,26 @@ namespace Implementation.Media
 
         void* LockCallback(void* data)
         {
-            Monitor.Enter(m_lock);
-            PixelData* pd = (PixelData*)data;
-            return pd->pPixelData;
+            Monitor.Enter(_mLock);
+            var pd = (PixelData*)data;
+            return pd->PPixelData;
         }
 
         void* UnlockCallback(void* data)
         {
-            Monitor.Exit(m_lock);
-            PixelData* pd = (PixelData*)data;
-            return pd->pPixelData;
+            Monitor.Exit(_mLock);
+            var pd = (PixelData*)data;
+            return pd->PPixelData;
         }
 
         protected override void Dispose(bool disposing)
         {
-            m_data.Dispose();
-            m_pData.Free();
+            _mData.Dispose();
+            _mPData.Free();
 
             if (disposing)
             {
-                m_callbacks = null;
+                _mCallbacks = null;
             }
 
             base.Dispose(disposing);

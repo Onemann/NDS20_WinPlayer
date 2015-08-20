@@ -25,7 +25,7 @@ namespace Implementation.Players
 {
     internal class AudioPlayer : BasicPlayer, IAudioPlayer
     {
-        private AudioRenderer m_render = null;
+        private AudioRenderer _mRender = null;
 
         public AudioPlayer(IntPtr hMediaLib)
             : base(hMediaLib)
@@ -39,11 +39,11 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_audio_get_volume(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_audio_get_volume(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_audio_set_volume(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_audio_set_volume(MHMediaPlayer, value);
             }
         }
 
@@ -51,11 +51,11 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_audio_get_mute(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_audio_get_mute(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_audio_set_mute(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_audio_set_mute(MHMediaPlayer, value);
             }
         }
 
@@ -63,11 +63,11 @@ namespace Implementation.Players
         {
             get
             {
-                return LibVlcMethods.libvlc_audio_get_delay(m_hMediaPlayer);
+                return LibVlcMethods.libvlc_audio_get_delay(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_audio_set_delay(m_hMediaPlayer, value);
+                LibVlcMethods.libvlc_audio_set_delay(MHMediaPlayer, value);
             }
         }
 
@@ -75,28 +75,28 @@ namespace Implementation.Players
         {
             get
             {
-                return (AudioChannelType)LibVlcMethods.libvlc_audio_get_channel(m_hMediaPlayer);
+                return (AudioChannelType)LibVlcMethods.libvlc_audio_get_channel(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_audio_set_channel(m_hMediaPlayer, (libvlc_audio_output_channel_t)value);
+                LibVlcMethods.libvlc_audio_set_channel(MHMediaPlayer, (LibvlcAudioOutputChannelT)value);
             }
         }
 
         public void ToggleMute()
         {
-            LibVlcMethods.libvlc_audio_toggle_mute(m_hMediaPlayer);
+            LibVlcMethods.libvlc_audio_toggle_mute(MHMediaPlayer);
         }
 
         public IAudioRenderer CustomAudioRenderer
         {
             get 
             {
-                if (m_render == null)
+                if (_mRender == null)
                 {
-                    m_render = new AudioRenderer(m_hMediaPlayer);
+                    _mRender = new AudioRenderer(MHMediaPlayer);
                 }
-                return m_render; 
+                return _mRender; 
             }
         }
 
@@ -104,11 +104,11 @@ namespace Implementation.Players
         {
             get
             {
-                return (AudioOutputDeviceType)LibVlcMethods.libvlc_audio_output_get_device_type(m_hMediaPlayer);
+                return (AudioOutputDeviceType)LibVlcMethods.libvlc_audio_output_get_device_type(MHMediaPlayer);
             }
             set
             {
-                LibVlcMethods.libvlc_audio_output_set_device_type(m_hMediaPlayer, (libvlc_audio_output_device_types_t)value);
+                LibVlcMethods.libvlc_audio_output_set_device_type(MHMediaPlayer, (LibvlcAudioOutputDeviceTypesT)value);
             }
         }
 
@@ -121,10 +121,10 @@ namespace Implementation.Players
 
             if (device != null)
             {
-                LibVlcMethods.libvlc_audio_output_device_set(m_hMediaPlayer, module.Name.ToUtf8(), device.Id.ToUtf8());
+                LibVlcMethods.libvlc_audio_output_device_set(MHMediaPlayer, module.Name.ToUtf8(), device.Id.ToUtf8());
             }
 
-            int res = LibVlcMethods.libvlc_audio_output_set(m_hMediaPlayer, module.Name.ToUtf8());
+            var res = LibVlcMethods.libvlc_audio_output_set(MHMediaPlayer, module.Name.ToUtf8());
             if (res < 0)
             {
                 throw new LibVlcException();
@@ -136,18 +136,18 @@ namespace Implementation.Players
         public override void Play()
         {
             base.Play();
-            if (m_render != null)
+            if (_mRender != null)
             {
-                m_render.StartTimer();
+                _mRender.StartTimer();
             }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (m_render != null)
+            if (_mRender != null)
             {
-                m_render.Dispose();
-                m_render = null;
+                _mRender.Dispose();
+                _mRender = null;
             }
 
             base.Dispose(disposing);
@@ -157,11 +157,11 @@ namespace Implementation.Players
         {
             if (equalizer == null)
             {
-                LibVlcMethods.libvlc_media_player_set_equalizer(m_hMediaPlayer, IntPtr.Zero);
+                LibVlcMethods.libvlc_media_player_set_equalizer(MHMediaPlayer, IntPtr.Zero);
                 return;
             }
 
-            LibVlcMethods.libvlc_media_player_set_equalizer(m_hMediaPlayer, equalizer.Handle);
+            LibVlcMethods.libvlc_media_player_set_equalizer(MHMediaPlayer, equalizer.Handle);
         }
     }
 }

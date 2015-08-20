@@ -26,46 +26,46 @@ namespace nVLC_Demo_MemoryInputOutput
 {
     public partial class Form1 : Form
     {
-        IMediaPlayerFactory m_factory;
-        IVideoPlayer m_sourcePlayer;
-        IVideoPlayer m_renderPlayer;
-        IMemoryInputMedia m_inputMedia;
+        IMediaPlayerFactory _mFactory;
+        IVideoPlayer _mSourcePlayer;
+        IVideoPlayer _mRenderPlayer;
+        IMemoryInputMedia _mInputMedia;
         const long MicroSecondsInSecomd = 1000 * 1000;
-        long MicroSecondsBetweenFrame;
-        long frameCounter;
-        FrameData data = new FrameData() { DTS = -1 };
+        long _microSecondsBetweenFrame;
+        long _frameCounter;
+        FrameData _data = new FrameData() { Dts = -1 };
         const int DefaultFps = 24;
-        Timer timer = new Timer();
+        Timer _timer = new Timer();
 
         public Form1()
         {
             InitializeComponent();
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 1000;
+            _timer.Tick += new EventHandler(timer_Tick);
+            _timer.Interval = 1000;
         }
 
         void timer_Tick(object sender, EventArgs e)
         {
-            this.Text = m_inputMedia.PendingFramesCount.ToString();
+            this.Text = _mInputMedia.PendingFramesCount.ToString();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            m_factory = new MediaPlayerFactory(true);
-            m_sourcePlayer = m_factory.CreatePlayer<IVideoPlayer>();
-            m_sourcePlayer.Events.PlayerPlaying += new EventHandler(Events_PlayerPlaying);
-            m_sourcePlayer.Mute = true;
-            m_renderPlayer = m_factory.CreatePlayer<IVideoPlayer>();
-            m_renderPlayer.WindowHandle = panel1.Handle;
-            m_inputMedia = m_factory.CreateMedia<IMemoryInputMedia>(MediaStrings.IMEM);
-            SetupOutput(m_sourcePlayer.CustomRendererEx);
+            _mFactory = new MediaPlayerFactory(true);
+            _mSourcePlayer = _mFactory.CreatePlayer<IVideoPlayer>();
+            _mSourcePlayer.Events.PlayerPlaying += new EventHandler(Events_PlayerPlaying);
+            _mSourcePlayer.Mute = true;
+            _mRenderPlayer = _mFactory.CreatePlayer<IVideoPlayer>();
+            _mRenderPlayer.WindowHandle = panel1.Handle;
+            _mInputMedia = _mFactory.CreateMedia<IMemoryInputMedia>(MediaStrings.Imem);
+            SetupOutput(_mSourcePlayer.CustomRendererEx);
         }
 
         void Events_PlayerPlaying(object sender, EventArgs e)
         {
-            MicroSecondsBetweenFrame = (long)(MicroSecondsInSecomd / (m_sourcePlayer.FPS != 0 ? m_sourcePlayer.FPS : DefaultFps));
+            _microSecondsBetweenFrame = (long)(MicroSecondsInSecomd / (_mSourcePlayer.Fps != 0 ? _mSourcePlayer.Fps : DefaultFps));
         }
 
         private void SetupOutput(IMemoryRendererEx iMemoryRenderer)
@@ -78,7 +78,7 @@ namespace nVLC_Demo_MemoryInputOutput
         private BitmapFormat OnSetupCallback(BitmapFormat format)
         {
             SetupInput(format);
-            return new BitmapFormat(format.Width, format.Height, ChromaType.RV24);
+            return new BitmapFormat(format.Width, format.Height, ChromaType.Rv24);
         }
 
         private void OnErrorCallback(Exception error)
@@ -88,14 +88,14 @@ namespace nVLC_Demo_MemoryInputOutput
 
         private void OnNewFrameCallback(PlanarFrame frame)
         {          
-            data.Data = frame.Planes[0];
-            data.DataSize = frame.Lenghts[0];
-            data.PTS = frameCounter++ * MicroSecondsBetweenFrame;
-            m_inputMedia.AddFrame(data);
+            _data.Data = frame.Planes[0];
+            _data.DataSize = frame.Lenghts[0];
+            _data.Pts = _frameCounter++ * _microSecondsBetweenFrame;
+            _mInputMedia.AddFrame(_data);
 
-            if (/*m_inputMedia.PendingFramesCount == 10 && */!m_renderPlayer.IsPlaying)
+            if (/*m_inputMedia.PendingFramesCount == 10 && */!_mRenderPlayer.IsPlaying)
             {
-                m_renderPlayer.Play();
+                _mRenderPlayer.Play();
             }
         }
 
@@ -103,27 +103,27 @@ namespace nVLC_Demo_MemoryInputOutput
         {
             var streamInfo = new StreamInfo();
             streamInfo.Category = StreamCategory.Video;
-            streamInfo.Codec = VideoCodecs.BGR24;
+            streamInfo.Codec = VideoCodecs.Bgr24;
             streamInfo.Width = format.Width;
             streamInfo.Height = format.Height;
             streamInfo.Size = format.ImageSize;
 
-            m_inputMedia.Initialize(streamInfo);
-            m_inputMedia.SetExceptionHandler(OnErrorCallback);
-            m_renderPlayer.Open(m_inputMedia);           
+            _mInputMedia.Initialize(streamInfo);
+            _mInputMedia.SetExceptionHandler(OnErrorCallback);
+            _mRenderPlayer.Open(_mInputMedia);           
         }
 
         private void OpenSourceMedia(string path)
         {
-            IMediaFromFile media = m_factory.CreateMedia<IMediaFromFile>(path);
-            m_sourcePlayer.Open(media);                    
-            m_sourcePlayer.Play();
-            timer.Start();
+            var media = _mFactory.CreateMedia<IMediaFromFile>(path);
+            _mSourcePlayer.Open(media);                    
+            _mSourcePlayer.Play();
+            _timer.Start();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 OpenSourceMedia(ofd.FileName);

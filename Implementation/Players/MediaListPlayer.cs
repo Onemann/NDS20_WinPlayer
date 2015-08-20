@@ -26,70 +26,70 @@ namespace Implementation.Players
 {
     internal class MediaListPlayer : DisposableBase, IMediaListPlayer, IEventProvider
     {
-        private IntPtr m_hMediaListPlayer = IntPtr.Zero;
-        private IDiskPlayer m_videoPlayer;
-        private IMediaList m_mediaList;
-        private PlaybackMode m_playbackMode = PlaybackMode.Default;
-        IntPtr m_hEventManager = IntPtr.Zero;
-        IMediaListPlayerEvents m_mediaListEvents = null;
+        private IntPtr _mHMediaListPlayer = IntPtr.Zero;
+        private IDiskPlayer _mVideoPlayer;
+        private IMediaList _mMediaList;
+        private PlaybackMode _mPlaybackMode = PlaybackMode.Default;
+        IntPtr _mHEventManager = IntPtr.Zero;
+        IMediaListPlayerEvents _mMediaListEvents = null;
 
         public MediaListPlayer(IntPtr hMediaLib, IMediaList mediaList)
         {
-            m_mediaList = mediaList;
-            m_hMediaListPlayer = LibVlcMethods.libvlc_media_list_player_new(hMediaLib);
-            LibVlcMethods.libvlc_media_list_player_set_media_list(m_hMediaListPlayer, ((INativePointer)m_mediaList).Pointer);
-            m_mediaList.Dispose();
+            _mMediaList = mediaList;
+            _mHMediaListPlayer = LibVlcMethods.libvlc_media_list_player_new(hMediaLib);
+            LibVlcMethods.libvlc_media_list_player_set_media_list(_mHMediaListPlayer, ((INativePointer)_mMediaList).Pointer);
+            _mMediaList.Dispose();
 
-            m_videoPlayer = new DiskPlayer(hMediaLib);
-            LibVlcMethods.libvlc_media_list_player_set_media_player(m_hMediaListPlayer, ((INativePointer)m_videoPlayer).Pointer);
-            m_videoPlayer.Dispose();
+            _mVideoPlayer = new DiskPlayer(hMediaLib);
+            LibVlcMethods.libvlc_media_list_player_set_media_player(_mHMediaListPlayer, ((INativePointer)_mVideoPlayer).Pointer);
+            _mVideoPlayer.Dispose();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (m_videoPlayer != null)
+            if (_mVideoPlayer != null)
             {
-                m_videoPlayer.Dispose();
-                m_videoPlayer = null;
+                _mVideoPlayer.Dispose();
+                _mVideoPlayer = null;
             }
-            LibVlcMethods.libvlc_media_list_player_release(m_hMediaListPlayer);
+            LibVlcMethods.libvlc_media_list_player_release(_mHMediaListPlayer);
         }
 
         #region IMediaListPlayer Members
 
         public void PlayNext()
         {
-            LibVlcMethods.libvlc_media_list_player_next(m_hMediaListPlayer);
+            LibVlcMethods.libvlc_media_list_player_next(_mHMediaListPlayer);
         }
 
         public void PlayPrevios()
         {
-            LibVlcMethods.libvlc_media_list_player_previous(m_hMediaListPlayer);
+            LibVlcMethods.libvlc_media_list_player_previous(_mHMediaListPlayer);
         }
 
         public PlaybackMode PlaybackMode
         {
             get
             {
-                return m_playbackMode;
+                return _mPlaybackMode;
             }
             set
             {
-                LibVlcMethods.libvlc_media_list_player_set_playback_mode(m_hMediaListPlayer, (libvlc_playback_mode_t)value);
-                m_playbackMode = value;
+                LibVlcMethods.libvlc_media_list_player_set_playback_mode(_mHMediaListPlayer, (LibvlcPlaybackModeT)value);
+                _mPlaybackMode = value;
             }
         }
 
         public void PlayItemAt(int index)
         {
-            LibVlcMethods.libvlc_media_list_player_play_item_at_index(m_hMediaListPlayer, index);
+            LibVlcMethods.libvlc_media_list_player_play_item_at_index(_mHMediaListPlayer, index);
         }
 
         public MediaState PlayerState
         {
             get
             {
-                return (MediaState)LibVlcMethods.libvlc_media_list_player_get_state(m_hMediaListPlayer);
+                return (MediaState)LibVlcMethods.libvlc_media_list_player_get_state(_mHMediaListPlayer);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Implementation.Players
         {
             get
             {
-                return m_videoPlayer;
+                return _mVideoPlayer;
             }
         }
 
@@ -109,7 +109,7 @@ namespace Implementation.Players
         {
             get
             {
-                return m_hMediaListPlayer;
+                return _mHMediaListPlayer;
             }
         }
 
@@ -119,33 +119,33 @@ namespace Implementation.Players
 
         public void Play()
         {
-            LibVlcMethods.libvlc_media_list_player_play(m_hMediaListPlayer);
+            LibVlcMethods.libvlc_media_list_player_play(_mHMediaListPlayer);
         }
 
         public void Pause()
         {
-            LibVlcMethods.libvlc_media_list_player_pause(m_hMediaListPlayer);
+            LibVlcMethods.libvlc_media_list_player_pause(_mHMediaListPlayer);
         }
 
         public void Stop()
         {
-            LibVlcMethods.libvlc_media_list_player_stop(m_hMediaListPlayer);
+            LibVlcMethods.libvlc_media_list_player_stop(_mHMediaListPlayer);
         }
 
         public void Open(IMedia media)
         {
-            m_videoPlayer.Open(media);
+            _mVideoPlayer.Open(media);
         }
 
         public long Time
         {
             get
             {
-                return m_videoPlayer.Time;
+                return _mVideoPlayer.Time;
             }
             set
             {
-                m_videoPlayer.Time = value;
+                _mVideoPlayer.Time = value;
             }
         }
 
@@ -153,11 +153,11 @@ namespace Implementation.Players
         {
             get
             {
-                return m_videoPlayer.Position;
+                return _mVideoPlayer.Position;
             }
             set
             {
-                m_videoPlayer.Position = value;
+                _mVideoPlayer.Position = value;
             }
         }
 
@@ -165,7 +165,7 @@ namespace Implementation.Players
         {
             get
             {
-                return m_videoPlayer.Length;
+                return _mVideoPlayer.Length;
             }
         }
 
@@ -173,7 +173,7 @@ namespace Implementation.Players
         {
             get
             {
-                return m_videoPlayer.Events;
+                return _mVideoPlayer.Events;
             }
         }
 
@@ -181,7 +181,7 @@ namespace Implementation.Players
         {
             get
             {
-                return m_videoPlayer.IsPlaying;
+                return _mVideoPlayer.IsPlaying;
             }
         }
 
@@ -189,7 +189,7 @@ namespace Implementation.Players
         {
             get
             {
-                return m_videoPlayer.CurrentMedia;
+                return _mVideoPlayer.CurrentMedia;
             }
         }
 
@@ -201,12 +201,12 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_hEventManager == IntPtr.Zero)
+                if (_mHEventManager == IntPtr.Zero)
                 {
-                    m_hEventManager = LibVlcMethods.libvlc_media_list_player_event_manager(m_hMediaListPlayer);
+                    _mHEventManager = LibVlcMethods.libvlc_media_list_player_event_manager(_mHMediaListPlayer);
                 }
 
-                return m_hEventManager;
+                return _mHEventManager;
             }
         }
 
@@ -218,11 +218,11 @@ namespace Implementation.Players
         {
             get
             {
-                if (m_mediaListEvents == null)
+                if (_mMediaListEvents == null)
                 {
-                    m_mediaListEvents = new MediaListPlayerEventManager(this);
+                    _mMediaListEvents = new MediaListPlayerEventManager(this);
                 }
-                return m_mediaListEvents;
+                return _mMediaListEvents;
             }
         }
 
@@ -232,8 +232,8 @@ namespace Implementation.Players
 
         public bool Equals(IPlayer x, IPlayer y)
         {
-            INativePointer x1 = (INativePointer)x;
-            INativePointer y1 = (INativePointer)y;
+            var x1 = (INativePointer)x;
+            var y1 = (INativePointer)y;
 
             return x1.Pointer == y1.Pointer;
         }

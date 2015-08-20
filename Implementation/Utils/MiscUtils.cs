@@ -22,19 +22,19 @@ namespace Implementation.Utils
 {
     internal class MiscUtils
     {
-        public static string DwordToFourCC(uint fourCC)
+        public static string DwordToFourCc(uint fourCc)
         {
-            char[] chars = new char[4];
-            chars[0] = (char)(fourCC & 0xFF);
-            chars[1] = (char)((fourCC >> 8) & 0xFF);
-            chars[2] = (char)((fourCC >> 16) & 0xFF);
-            chars[3] = (char)((fourCC >> 24) & 0xFF);
+            var chars = new char[4];
+            chars[0] = (char)(fourCc & 0xFF);
+            chars[1] = (char)((fourCc >> 8) & 0xFF);
+            chars[2] = (char)((fourCc >> 16) & 0xFF);
+            chars[3] = (char)((fourCc >> 24) & 0xFF);
             return new string(chars);
         }
 
         public static string GetMinimalSupportedVersion(EntryPointNotFoundException ex)
         {
-            MinimalLibVlcVersion minVersion = (MinimalLibVlcVersion)Attribute.GetCustomAttribute(ex.TargetSite, typeof(MinimalLibVlcVersion));
+            var minVersion = (MinimalLibVlcVersion)Attribute.GetCustomAttribute(ex.TargetSite, typeof(MinimalLibVlcVersion));
             if (minVersion != null)
             {
                 return minVersion.MinimalVersion;
@@ -60,8 +60,8 @@ namespace Implementation.Utils
 
         public static string LogNestedException(Exception ex)
         {
-            StringBuilder sb = new StringBuilder();
-            Exception error = ex;
+            var sb = new StringBuilder();
+            var error = ex;
             do
             {
                 sb.AppendLine(error.Message);

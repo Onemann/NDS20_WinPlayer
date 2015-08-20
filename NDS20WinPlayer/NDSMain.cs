@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+//using System.ComponentModel;
+//using System.Data;
 using System.Drawing;
-using System.Linq;
+//using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Net.Json;
@@ -20,10 +20,15 @@ namespace NDS20WinPlayer
     public partial class NDSMain : Form
     {
 
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
+        public const int WmNclbuttondown = 0xA1;
+        public const int HtCaption = 0x2;
 
-        static bool ServerConnected = false;
+        int _nCountServerConnection = 0;
+
+        System.Threading.Timer _tmrSeverConnection; // Try connect with server if not connected
+
+        static bool _serverConnected = false;
+        static bool _tryServerConnecting = false;
 
         WebSocketClientConnection fConnection = new NDSWebSocketClientConnection(); //Create WebSocket client connection
 
@@ -50,14 +55,55 @@ namespace NDS20WinPlayer
             assignScheule();
 
             assignWebSocket();
-            startNDSWebSocket();
+            
+            tmrSeverConnectionStart();
+            //startNDSWebSocket();
         }
+
+        #region Start server connection thread
+        private void tmrSeverConnectionStart()
+        {
+
+            if (_tmrSeverConnection != null) _tmrSeverConnection.Dispose(); // Stop Timer
+            _nCountServerConnection = 0;
+            System.Threading.TimerCallback callback = TmrSeverConnectionEvent;
+            Object data = (Object)200;
+
+            _tmrSeverConnection = new System.Threading.Timer(callback, data, 1000, 5000);
+        }
+        #endregion
+
+        #region try to connect with server
+
+        protected virtual void TmrSeverConnectionEvent(Object obj)
+        {
+            // try to connect with server by web socket
+            this.Invoke(new MethodInvoker(delegate()
+            {
+                if (!_serverConnected && !_tryServerConnecting)
+                {
+                    _tryServerConnecting = true;
+                    new Thread(StartNdsWebSocket).Start(); 
+                }
+
+                //long totalByteOfMemoryUsed = currentProcess.WorkingSet64 / 1024;
+                _nCountServerConnection++;
+
+                //get the physical mem usage
+                var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                var totalByteOfMemoryUsed = currentProcess.PrivateMemorySize64 / 1024;
+                lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + @" Memory: " + totalByteOfMemoryUsed;
+                //lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + " Memory: " + GC.GetTotalMemory(false);
+            }
+                ));
+        }
+        #endregion
 
         private void NDSMain_MouseDown(object sender, MouseEventArgs e)
         {
 //#if DEBUG
             ReleaseCapture();
-            SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            SendMessage(this.Handle, WmNclbuttondown, HtCaption, 0);
 //#endif
         }
 
@@ -223,31 +269,66 @@ namespace NDS20WinPlayer
 
         private void LoadIniFile()
         {
-            var AppIniFile = new IniFile();
+            var appIniFile = new IniFile();
 
+            #region Dir Path
             AppInfoStrc.DirOfApplication = Environment.CurrentDirectory;
-            AppInfoStrc.DirOfSchedule = AppIniFile.Read("DirOfSchedule", "PATH");
-            AppInfoStrc.DirOfLog = AppIniFile.Read("DirOfLog", "PATH");
 
-            AppInfoStrc.UrlOfServer = AppIniFile.Read("UrlOfServer", "SERVER");
-            AppInfoStrc.ExtentionOfServer = AppIniFile.Read("ExtentionOfServer", "SERVER");
+            AppInfoStrc.DirOfSchedule = appIniFile.Read("DirOfSchedule", "PATH");
+            if (AppInfoStrc.DirOfSchedule == "")
+            {
+                appIniFile.Write(Key: InitValue.InitDirOfSchedule, Value: "[Path]");
+                AppInfoStrc.DirOfSchedule = InitValue.InitDirOfSchedule;
+            }
 
-            AppInfoStrc.PortOfServer = AppIniFile.Read("PortOfServer", "SERVER");
-            AppInfoStrc.PlayerID = AppIniFile.Read("PlayerID", "PLAYER");
+            AppInfoStrc.DirOfLog = appIniFile.Read("DirOfLog", "PATH");
+            if (AppInfoStrc.DirOfLog == "")
+            {
+                appIniFile.Write(Key: InitValue.InitDirOfLog, Value: "PATH");
+                AppInfoStrc.DirOfLog = InitValue.InitDirOfLog;
+            }
+            #endregion
+
+            #region Server connectoion Info
+            AppInfoStrc.UrlOfServer = appIniFile.Read("UrlOfServer", "SERVER");
+            if (AppInfoStrc.UrlOfServer == "")
+            {
+                appIniFile.Write(Key: InitValue.InitUrlOfServer, Value: "SERVER");
+                AppInfoStrc.UrlOfServer = InitValue.InitUrlOfServer;
+            }
+
+            AppInfoStrc.ExtentionOfServer = appIniFile.Read("ExtentionOfServer", "SERVER");
+            if (AppInfoStrc.ExtentionOfServer == "")
+            {
+                appIniFile.Write(Key: InitValue.InitExtensionOfServer, Value: "SERVER");
+                AppInfoStrc.ExtentionOfServer = InitValue.InitExtensionOfServer;
+            }
+
+            AppInfoStrc.PortOfServer = appIniFile.Read("PortOfServer", "SERVER");
+            if (AppInfoStrc.PortOfServer == "")
+            {
+                appIniFile.Write(Key: InitValue.InitPortOfServer, Value: "SERVER");
+                AppInfoStrc.PortOfServer = InitValue.InitPortOfServer;
+            }
+            #endregion
+
+            AppInfoStrc.PlayerId = appIniFile.Read("PlayerID", "PLAYER");
             
         }
 
-        private void startNDSWebSocket()
+        private void StartNdsWebSocket()
         {
             if (AppInfoStrc.UrlOfServer != "" && AppInfoStrc.PortOfServer != "")
             {
                 #region ping test
+
                 Ping x = new Ping();
                 PingReply reply = x.Send(AppInfoStrc.UrlOfServer);
 
                 if (reply.Status != IPStatus.Success)
                 {
                     LogFile.threadWriteLog("[NETWORK ERROR]:" + AppInfoStrc.UrlOfServer + "로 접속할 수 없습니다.", LogType.LOG_ERROR);
+                    _tryServerConnecting = false;
                     return;
                 }
                 #endregion
@@ -270,8 +351,8 @@ namespace NDS20WinPlayer
                 */
 
                 //ServerConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
-                ServerConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, "", false);
-                if (ServerConnected)
+                _serverConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, "", false);
+                if (_serverConnected)
                 {
                     LogFile.threadWriteLog("[NETWORK]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 성공", LogType.LOG_INFO);
                 }
@@ -284,6 +365,7 @@ namespace NDS20WinPlayer
             {
                 LogFile.threadWriteLog("[INI_ERROR]:" + "설정 파일에 서버 접속 정보가 없습니다.", LogType.LOG_ERROR);
             }
+            _tryServerConnecting = false;
         }
 
         private void assignWebSocket()
@@ -306,7 +388,8 @@ namespace NDS20WinPlayer
             }
             else
             {
-                LogFile.threadWriteLog(String.Format("ConnectionClose {0}: {1}, {2}, {3} ", aConnection.Index, aCloseCode, aCloseReason, aClosedByPeer ? "closed by peer" : "closed by me"), LogType.LOG_TRACE);
+                //LogFile.threadWriteLog(String.Format("ConnectionClose {0}: {1}, {2}, {3} ", aConnection.Index, aCloseCode, aCloseReason, aClosedByPeer ? "closed by peer" : "closed by me"), LogType.LOG_TRACE);
+                _serverConnected = false;
             }
         }
 
@@ -318,7 +401,7 @@ namespace NDS20WinPlayer
             }
             else
             {
-                LogFile.threadWriteLog(String.Format("ConnectionRead {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
+                //LogFile.threadWriteLog(String.Format("ConnectionRead {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
                 //lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray(), 0,  (int)aData.Length);
                 //-lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray());
                 LogFile.threadWriteLog("[READ]" + Encoding.UTF8.GetString(aData.ToArray()), LogType.LOG_INFO);
@@ -333,7 +416,7 @@ namespace NDS20WinPlayer
             }
             else
             {
-                LogFile.threadWriteLog(String.Format("ConnectionWrite {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
+                //LogFile.threadWriteLog(String.Format("ConnectionWrite {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
                 //-lastSentMemo.Text = Encoding.UTF8.GetString(aData.ToArray(), 0, (int)aData.Length);
             }
         }
@@ -346,7 +429,7 @@ namespace NDS20WinPlayer
             }
             else
             {
-                LogFile.threadWriteLog(String.Format("ConnectionOpen {0}", aConnection.Index), LogType.LOG_TRACE);
+                //LogFile.threadWriteLog(String.Format("ConnectionOpen {0}", aConnection.Index), LogType.LOG_TRACE);
             }
         }
 
@@ -358,7 +441,7 @@ namespace NDS20WinPlayer
             }
             else
             {
-                LogFile.threadWriteLog(String.Format("ConnectionPing {0}: {1}", aConnection.Index, aData), LogType.LOG_TRACE);
+                //LogFile.threadWriteLog(String.Format("ConnectionPing {0}: {1}", aConnection.Index, aData), LogType.LOG_TRACE);
             }
         }
 
@@ -370,7 +453,7 @@ namespace NDS20WinPlayer
             }
             else
             {
-                LogFile.threadWriteLog(String.Format("ConnectionPong {0}: {1}", aConnection.Index, aData), LogType.LOG_TRACE);
+                //LogFile.threadWriteLog(String.Format("ConnectionPong {0}: {1}", aConnection.Index, aData), LogType.LOG_TRACE);
             }
         }
 
@@ -500,7 +583,7 @@ namespace NDS20WinPlayer
 
         private void NDSMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (ServerConnected) fConnection.Close(WebSocketCloseCode.Normal);
+            if (_serverConnected) fConnection.Close(WebSocketCloseCode.Normal);
         }
 
 

@@ -48,7 +48,7 @@ namespace Declarations
         }
 
         public string Codec;
-        public string OriginalFourCC;
+        public string OriginalFourCc;
         public int Id;
         public TrackType TrackType;
         public uint Bitrate;
@@ -78,10 +78,10 @@ namespace Declarations
 
         public uint Height;
         public uint Width;
-        public uint Sar_num;
-        public uint Sar_den;
-        public uint Frame_rate_num;
-        public uint Frame_rate_den;
+        public uint SarNum;
+        public uint SarDen;
+        public uint FrameRateNum;
+        public uint FrameRateDen;
     }
 
     [Serializable]

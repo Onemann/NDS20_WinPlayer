@@ -24,16 +24,16 @@ namespace Implementation.Exceptions
     [Serializable]
     public class LibVlcNotFoundException : DllNotFoundException
     {
-        const string msg = "Failed to load VLC modules. Make sure libvlc.dll, libvlccore.dll and plugins directory located in the executable path.";
+        const string Msg = "Failed to load VLC modules. Make sure libvlc.dll, libvlccore.dll and plugins directory located in the executable path.";
 
         public LibVlcNotFoundException()
-            : base(msg)
+            : base(Msg)
         {
 
         }
 
         public LibVlcNotFoundException(Exception ex)
-            : base(msg, ex)
+            : base(Msg, ex)
         {
         }
     }

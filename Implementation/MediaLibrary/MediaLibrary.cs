@@ -9,11 +9,11 @@ namespace Implementation.MediaLibrary
 {
     internal class MediaLibraryImpl : DisposableBase, IReferenceCount, INativePointer, IMediaLibrary
     {
-        private IntPtr m_hMediaLib = IntPtr.Zero;
+        private IntPtr _mHMediaLib = IntPtr.Zero;
 
         public MediaLibraryImpl(IntPtr mediaLib)
         {
-            m_hMediaLib = LibVlcMethods.libvlc_media_library_new(mediaLib);
+            _mHMediaLib = LibVlcMethods.libvlc_media_library_new(mediaLib);
         }
 
         protected override void Dispose(bool disposing)
@@ -23,32 +23,32 @@ namespace Implementation.MediaLibrary
 
         public void Load()
         {
-            int result = LibVlcMethods.libvlc_media_library_load(m_hMediaLib);
+            var result = LibVlcMethods.libvlc_media_library_load(_mHMediaLib);
         }
 
         public IMediaList MediaList
         {
             get
             {
-                return new MediaList(LibVlcMethods.libvlc_media_library_media_list(m_hMediaLib));
+                return new MediaList(LibVlcMethods.libvlc_media_library_media_list(_mHMediaLib));
             }
         }
 
         public void AddRef()
         {
-            LibVlcMethods.libvlc_media_library_retain(m_hMediaLib);
+            LibVlcMethods.libvlc_media_library_retain(_mHMediaLib);
         }
 
         public void Release()
         {
-            LibVlcMethods.libvlc_media_library_release(m_hMediaLib);
+            LibVlcMethods.libvlc_media_library_release(_mHMediaLib);
         }
 
         public IntPtr Pointer
         {
             get 
             {
-                return m_hMediaLib;
+                return _mHMediaLib;
             }
         }
     }

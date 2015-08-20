@@ -44,27 +44,27 @@ namespace Bauglir.Ex
   {
 
     #region protected properties
-    protected TcpClient fClient = null;
-    protected int fIndex = WebSocketIndexer.GetIndex();
+    protected TcpClient FClient = null;
+    protected int FIndex = WebSocketIndexer.GetIndex();
 
-    protected internal string fCookie = "-";
-    protected internal string fExtension = "-";
-    protected internal string fOrigin = "-";
-    protected internal string fProtocol = "-";
-    protected internal string fHost = "";
-    protected internal string fPort = "";
-    protected internal string fResourceName = "";
-    protected internal int fVersion = 0;
-    protected internal WebSocketHeaders fHeaders;
-    protected internal bool fSsl;
-    protected internal SslStream fSslStream;
+    protected internal string FCookie = "-";
+    protected internal string FExtension = "-";
+    protected internal string FOrigin = "-";
+    protected internal string FProtocol = "-";
+    protected internal string FHost = "";
+    protected internal string FPort = "";
+    protected internal string FResourceName = "";
+    protected internal int FVersion = 0;
+    protected internal WebSocketHeaders FHeaders;
+    protected internal bool FSsl;
+    protected internal SslStream FSslStream;
 
 
-    protected bool fRequireMask = false;
-    protected bool fMasking = false;
+    protected bool FRequireMask = false;
+    protected bool FMasking = false;
 
-    protected bool fClosedByMe = false;
-    protected bool fClosedByPeer = false;
+    protected bool FClosedByMe = false;
+    protected bool FClosedByPeer = false;
 
     #endregion protected properties
 
@@ -79,7 +79,7 @@ namespace Bauglir.Ex
     /// </summary>
     public TcpClient Client
     {
-      get { return fClient; }
+      get { return FClient; }
     }
 
 
@@ -89,7 +89,7 @@ namespace Bauglir.Ex
     /// </summary>
     public bool Closed
     {
-      get { return (fClosedByMe && fClosedByPeer) || (fClient == null) || !fClient.Connected; }
+      get { return (FClosedByMe && FClosedByPeer) || (FClient == null) || !FClient.Connected; }
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ namespace Bauglir.Ex
     /// </summary>
     public bool Closing
     {
-      get { return (fClosedByMe || fClosedByPeer) && !Closed; }
+      get { return (FClosedByMe || FClosedByPeer) && !Closed; }
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ namespace Bauglir.Ex
     /// </summary>
     public string Cookie
     {
-      get { return fCookie; }
+      get { return FCookie; }
     }
 
 
@@ -128,7 +128,7 @@ namespace Bauglir.Ex
     /// </summary>
     public string Extension
     {
-      get { return fExtension; }
+      get { return FExtension; }
     }
 
     /// <summary>
@@ -139,7 +139,7 @@ namespace Bauglir.Ex
     /// </summary>
     public string Host
     {
-      get { return fHost; }
+      get { return FHost; }
     }
 
     /// <summary>
@@ -147,7 +147,7 @@ namespace Bauglir.Ex
     /// </summary>
     public int Index
     {
-      get { return fIndex;  }
+      get { return FIndex;  }
     }
 
     /// <summary>
@@ -158,7 +158,7 @@ namespace Bauglir.Ex
     /// </summary>
     public string Origin
     {
-      get { return fOrigin; }
+      get { return FOrigin; }
     }
 
     /// <summary>
@@ -166,7 +166,7 @@ namespace Bauglir.Ex
     /// </summary>
     public string Port
     {
-      get { return fPort; }
+      get { return FPort; }
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ namespace Bauglir.Ex
     /// </summary>
     public string Protocol
     {
-      get { return fProtocol; }
+      get { return FProtocol; }
     }
 
     /// <summary>
@@ -192,7 +192,7 @@ namespace Bauglir.Ex
     /// </summary>
     public string ResourceName
     {
-      get { return fResourceName; }
+      get { return FResourceName; }
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ namespace Bauglir.Ex
     /// </summary>
     public bool Ssl
     {
-      get { return fSsl; }
+      get { return FSsl; }
     }
 
     /// <summary>
@@ -208,7 +208,7 @@ namespace Bauglir.Ex
     /// </summary>
     public int Version
     {
-      get { return fVersion; }
+      get { return FVersion; }
     }
 
     #region delegates & events
@@ -279,7 +279,7 @@ namespace Bauglir.Ex
     
     public WebSocketConnection(TcpClient aClient)
     {
-      fClient = aClient;
+      FClient = aClient;
     }
 
     /// <summary>
@@ -290,12 +290,12 @@ namespace Bauglir.Ex
     public virtual void Close(int aCloseCode, string aCloseReason)
     {
       byte[] bytes;
-      MemoryStream ms = new MemoryStream();
-      string s = aCloseReason;
+      var ms = new MemoryStream();
+      var s = aCloseReason;
       if (!Closed)
       {
-        fClosedByMe = true;
-        if (!fClosedByPeer)
+        FClosedByMe = true;
+        if (!FClosedByPeer)
         {
           bytes = new byte[2];
           bytes[0] = (byte)((int)aCloseCode / 256);
@@ -472,10 +472,10 @@ namespace Bauglir.Ex
 
     protected virtual void Close()
     {
-      if (fClient.Connected)
+      if (FClient.Connected)
       {
         
-        fClient.Close();
+        FClient.Close();
         
       }
     }
@@ -518,9 +518,9 @@ namespace Bauglir.Ex
     protected static byte[] ReverseBytes(byte[] inArray)
     {
       byte temp;
-      int highCtr = inArray.Length - 1;
+      var highCtr = inArray.Length - 1;
 
-      for (int ctr = 0; ctr < inArray.Length / 2; ctr++)
+      for (var ctr = 0; ctr < inArray.Length / 2; ctr++)
       {
         temp = inArray[ctr];
         inArray[ctr] = inArray[highCtr];
@@ -533,21 +533,21 @@ namespace Bauglir.Ex
 
     protected virtual bool SendData(bool aWriteFinal, bool aRes1, bool aRes2, bool aRes3, int aWriteCode, MemoryStream aStream)
     {
-      bool result = !Closed && ((aWriteCode == WebSocketFrame.Close) || !fClosedByMe);
-      int bt = 0;
-      int sendLen = 0;
+      var result = !Closed && ((aWriteCode == WebSocketFrame.Close) || !FClosedByMe);
+      var bt = 0;
+      var sendLen = 0;
       int i;
       long len = 0;
       Stream stream;
       byte[] bytes;
-      byte[] masks = new byte[4];
-      byte[] send = new byte[65536];
-      Random rand = new Random();
+      var masks = new byte[4];
+      var send = new byte[65536];
+      var rand = new Random();
       if (result)
       {
         try
         {
-          stream = getStream(fClient);
+          stream = GetStream(FClient);
 
           //send basics
           bt = (aWriteFinal ? 1 : 0) * 0x80;
@@ -558,7 +558,7 @@ namespace Bauglir.Ex
           stream.WriteByte((byte)bt);
 
           //length & mask
-          len = (fMasking ? 1 : 0) * 0x80;
+          len = (FMasking ? 1 : 0) * 0x80;
           if (aStream.Length < 126) len += aStream.Length;
           else if (aStream.Length < 65536) len += 126;
           else len += 127;
@@ -579,7 +579,7 @@ namespace Bauglir.Ex
           }
 
           //masking
-          if (fMasking)
+          if (FMasking)
           {
             masks[0] = (byte)rand.Next(256);
             masks[1] = (byte)rand.Next(256);
@@ -593,7 +593,7 @@ namespace Bauglir.Ex
           aStream.Position = 0;
           while ((sendLen = aStream.Read(send, 0, send.Length)) > 0)
           {
-            if (fMasking)
+            if (FMasking)
             {
               for (i = 0; i < send.Length; i++)
               {
@@ -615,8 +615,8 @@ namespace Bauglir.Ex
 
     protected bool SendData(bool aWriteFinal, bool aRes1, bool aRes2, bool aRes3, int aWriteCode, String aData)
     {
-      MemoryStream ms = new MemoryStream();
-      StreamWriter sw = new StreamWriter(ms);
+      var ms = new MemoryStream();
+      var sw = new StreamWriter(ms);
       sw.Write(aData);
       sw.Flush();
       return SendData(aWriteFinal, aRes1, aRes2, aRes3, aWriteCode, ms);
@@ -631,9 +631,9 @@ namespace Bauglir.Ex
       byte[] closeReasonB;
       string closeReason;
       bool readRes;
-      int lastCode = -1;
-      int errorCode = -1;
-      MemoryStream ms = new MemoryStream();
+      var lastCode = -1;
+      var errorCode = -1;
+      var ms = new MemoryStream();
       if (ConnectionOpen != null) ConnectionOpen(this);
 
       while (true)
@@ -691,10 +691,10 @@ namespace Bauglir.Ex
                   closeReason = Encoding.UTF8.GetString(closeReasonB);
                 }
               }
-              fClosedByPeer = true;
+              FClosedByPeer = true;
               ProcessClose(closeCode, closeReason, true);
               if (ConnectionClose != null) ConnectionClose(this, closeCode, closeReason, true);
-              if ((closeCode == WebSocketCloseCode.Normal) && (!fClosedByMe))
+              if ((closeCode == WebSocketCloseCode.Normal) && (!FClosedByMe))
               {
                 Close(WebSocketCloseCode.Normal);
               }
@@ -739,11 +739,11 @@ namespace Bauglir.Ex
 
     protected bool ReadData(out bool aReadFinal, out bool aRes1, out bool aRes2, out bool aRes3, out int aReadCode, MemoryStream aStream)
     {
-      bool result = true;
-      bool mask = false;
+      var result = true;
+      var mask = false;
       int bt, j, k;
       long len, i;
-      int[] masks = new int[4];
+      var masks = new int[4];
       byte[] buffer;
       Stream ns;
 
@@ -756,7 +756,7 @@ namespace Bauglir.Ex
       if (result)
       {
 
-        ns = getStream(fClient);
+        ns = GetStream(FClient);
 
 
 
@@ -839,7 +839,7 @@ namespace Bauglir.Ex
                 }
               }
 
-              if ((result) && (fRequireMask) && (!mask))
+              if ((result) && (FRequireMask) && (!mask))
               {
                 Close(WebSocketCloseCode.ProtocolError);
                 result = false;
@@ -895,11 +895,11 @@ namespace Bauglir.Ex
       t.Start();
     }
 
-    protected Stream getStream(TcpClient aClient)
+    protected Stream GetStream(TcpClient aClient)
     {
-      if (fSsl)
+      if (FSsl)
       {
-        return fSslStream;
+        return FSslStream;
       }
       else
       {
@@ -919,7 +919,7 @@ namespace Bauglir.Ex
   {
 
     #region protected properties
-    WebSocketServer fParent;
+    WebSocketServer _fParent;
     #endregion
 
     #region public properties
@@ -928,23 +928,23 @@ namespace Bauglir.Ex
     /// </summary>
     public WebSocketHeaders Headers
     {
-      get { return fHeaders; }
+      get { return FHeaders; }
     }
     #endregion public properties
 
 
     public WebSocketServerConnection(TcpClient aClient, WebSocketServer aParent): base(aClient)
     {
-      fRequireMask = true;
-      fParent = aParent;
+      FRequireMask = true;
+      _fParent = aParent;
     }
 
     protected override void Close()
     {
-      if (fParent != null)
+      if (_fParent != null)
       {
-        fParent.SafeRemoveConnection(this);
-        fParent = null;
+        _fParent.SafeRemoveConnection(this);
+        _fParent = null;
         base.Close();
       }
     }
@@ -961,7 +961,7 @@ namespace Bauglir.Ex
   {
     public WebSocketClientConnection()
     {
-      fMasking = true;
+      FMasking = true;
     }
 
     /// <summary>
@@ -982,36 +982,36 @@ namespace Bauglir.Ex
       string aCookie, int aVersion)
     {
 
-      fHost = aHost;
-      fPort = aPort;
-      fResourceName = aResourceName;
-      fSsl = aSsl;
-      fOrigin = aOrigin;
-      fProtocol = aProtocol;
-      fExtension = aExtension;
-      fCookie = aCookie;
-      fVersion = aVersion;
-      fHeaders = new WebSocketHeaders();
+      FHost = aHost;
+      FPort = aPort;
+      FResourceName = aResourceName;
+      FSsl = aSsl;
+      FOrigin = aOrigin;
+      FProtocol = aProtocol;
+      FExtension = aExtension;
+      FCookie = aCookie;
+      FVersion = aVersion;
+      FHeaders = new WebSocketHeaders();
 
 
       try
       {
-        fClient = new TcpClient(aHost, int.Parse(aPort));
-        if (fSsl)
+        FClient = new TcpClient(aHost, int.Parse(aPort));
+        if (FSsl)
         {
-          fSslStream = new SslStream(fClient.GetStream(), false, new RemoteCertificateValidationCallback (validateServerCertificate), null);
-          fSslStream.AuthenticateAsClient(fHost);
+          FSslStream = new SslStream(FClient.GetStream(), false, new RemoteCertificateValidationCallback (ValidateServerCertificate), null);
+          FSslStream.AuthenticateAsClient(FHost);
         }
 
-        Stream stream = getStream(fClient);
-        StreamReader sr = new StreamReader(stream);
-        StreamWriter sw = new StreamWriter(stream);
-        string key = "";
-        Random rand = new Random();
+        var stream = GetStream(FClient);
+        var sr = new StreamReader(stream);
+        var sw = new StreamWriter(stream);
+        var key = "";
+        var rand = new Random();
         String get;
         String line;
-        Char[] separator = new char[] { ':' };
-        Char[] separator2 = new char[] { ' ' };
+        var separator = new char[] { ':' };
+        var separator2 = new char[] { ' ' };
         string[] parts;
         SHA1 sha = new SHA1CryptoServiceProvider();
         /*
@@ -1022,22 +1022,22 @@ namespace Bauglir.Ex
         string protocol = "-";
         */
 
-        sw.Write(String.Format("GET {0} HTTP/1.1\r\n", fResourceName));
+        sw.Write(String.Format("GET {0} HTTP/1.1\r\n", FResourceName));
         sw.Write(String.Format("Upgrade: websocket\r\n"));
         sw.Write(String.Format("Connection: Upgrade\r\n"));
-        sw.Write(String.Format("Host: {0}:{1}\r\n", fHost, fPort));
+        sw.Write(String.Format("Host: {0}:{1}\r\n", FHost, FPort));
         while (key.Length < 16) key += (char)(rand.Next(85) + 32);
         key = Convert.ToBase64String(Encoding.ASCII.GetBytes(key));
         sw.Write(String.Format("Sec-WebSocket-Key: {0}\r\n", key));
-        sw.Write(String.Format("Sec-WebSocket-Version: {0}\r\n", fVersion));
-        if (fProtocol != "-")
-          sw.Write(String.Format("Sec-WebSocket-Protocol: {0}\r\n", fProtocol));
-        if (fOrigin != "-")
-          sw.Write(String.Format("Sec-WebSocket-Origin: {0}\r\n", fOrigin));
-        if (fExtension != "-")
-          sw.Write(String.Format("Sec-WebSocket-Extensions: {0}\r\n", fExtension));
-        if (fCookie != "-")
-          sw.Write(String.Format("Cookie: {0}\r\n", fCookie));
+        sw.Write(String.Format("Sec-WebSocket-Version: {0}\r\n", FVersion));
+        if (FProtocol != "-")
+          sw.Write(String.Format("Sec-WebSocket-Protocol: {0}\r\n", FProtocol));
+        if (FOrigin != "-")
+          sw.Write(String.Format("Sec-WebSocket-Origin: {0}\r\n", FOrigin));
+        if (FExtension != "-")
+          sw.Write(String.Format("Sec-WebSocket-Extensions: {0}\r\n", FExtension));
+        if (FCookie != "-")
+          sw.Write(String.Format("Cookie: {0}\r\n", FCookie));
         sw.Write("\r\n");
         sw.Flush();
 
@@ -1051,19 +1051,19 @@ namespace Bauglir.Ex
             if (!String.IsNullOrEmpty(line))
             {
               parts = line.Split(separator, 2);
-              fHeaders.Append(parts[0].ToLower(), parts.Length == 2 ? parts[1] : "");
+              FHeaders.Append(parts[0].ToLower(), parts.Length == 2 ? parts[1] : "");
             }
           } while (!String.IsNullOrEmpty(line));
 
-          if ((fHeaders.Contains("upgrade")) && (fHeaders["upgrade"].Trim().ToLower() == "websocket".ToLower()) && (fHeaders.Contains("connection")) && (fHeaders["connection"].Trim().ToLower().IndexOf("upgrade") > -1))
+          if ((FHeaders.Contains("upgrade")) && (FHeaders["upgrade"].Trim().ToLower() == "websocket".ToLower()) && (FHeaders.Contains("connection")) && (FHeaders["connection"].Trim().ToLower().IndexOf("upgrade") > -1))
           {
-            fProtocol = "-";
-            fExtension = "-";
-            if (fHeaders.Contains("sec-websocket-protocol")) fProtocol = fHeaders["sec-websocket-protocol"].Trim();
-            if (fHeaders.Contains("sec-websocket-extensions")) fExtension = fHeaders["sec-websocket-extensions"].Trim();
-            if (fHeaders.Contains("sec-websocket-accept"))
+            FProtocol = "-";
+            FExtension = "-";
+            if (FHeaders.Contains("sec-websocket-protocol")) FProtocol = FHeaders["sec-websocket-protocol"].Trim();
+            if (FHeaders.Contains("sec-websocket-extensions")) FExtension = FHeaders["sec-websocket-extensions"].Trim();
+            if (FHeaders.Contains("sec-websocket-accept"))
             {
-              get = fHeaders["sec-websocket-accept"].Trim();
+              get = FHeaders["sec-websocket-accept"].Trim();
               key = Convert.ToBase64String(sha.ComputeHash(Encoding.ASCII.GetBytes(key + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11")));
               if (get == key)
               {
@@ -1077,7 +1077,7 @@ namespace Bauglir.Ex
       catch 
       {
       }
-      try { fClient.Close(); }
+      try { FClient.Close(); }
       catch { }
       return false;
     }
@@ -1107,7 +1107,7 @@ namespace Bauglir.Ex
     }
 
 
-    protected virtual bool validateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+    protected virtual bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
     {
       //if (sslPolicyErrors == SslPolicyErrors.None)
         return true;
@@ -1129,16 +1129,16 @@ namespace Bauglir.Ex
   public class WebSocketServer
   {
     #region protected properties
-    protected IPAddress fAddress;
-    protected int fPort;
-    protected volatile bool fTerminated;
-    protected TcpListener listener;
-    protected bool fIsRunning = false;
-    protected int fIndex = WebSocketIndexer.GetIndex();
-    protected List<WebSocketServerConnection> fConnections = new List<WebSocketServerConnection>();
-    protected Object connLock = new Object();
-    protected bool fSsl = false;
-    protected string fSslCertificate = String.Empty;
+    protected IPAddress FAddress;
+    protected int FPort;
+    protected volatile bool FTerminated;
+    protected TcpListener Listener;
+    protected bool FIsRunning = false;
+    protected int FIndex = WebSocketIndexer.GetIndex();
+    protected List<WebSocketServerConnection> FConnections = new List<WebSocketServerConnection>();
+    protected Object ConnLock = new Object();
+    protected bool FSsl = false;
+    protected string FSslCertificate = String.Empty;
     #endregion protected properties
 
 
@@ -1150,7 +1150,7 @@ namespace Bauglir.Ex
     /// </summary>
     public int ConnectionCount
     {
-      get { return fConnections.Count; }
+      get { return FConnections.Count; }
     }
 
 
@@ -1160,7 +1160,7 @@ namespace Bauglir.Ex
     /// </summary>
     public int Index {
       get {
-        return fIndex;
+        return FIndex;
       }
     }
     
@@ -1169,7 +1169,7 @@ namespace Bauglir.Ex
     /// </summary>
     public bool IsRunning {
       get {
-        return fIsRunning;
+        return FIsRunning;
       }
     }
 
@@ -1178,8 +1178,8 @@ namespace Bauglir.Ex
     /// </summary>
     public bool Ssl
     {
-      get { return fSsl; }
-      set { if (!IsRunning) fSsl = value; }
+      get { return FSsl; }
+      set { if (!IsRunning) FSsl = value; }
     }
 
     /// <summary>
@@ -1187,8 +1187,8 @@ namespace Bauglir.Ex
     /// </summary>
     public string SslCertificate
     {
-      get { return fSslCertificate; }
-      set { if (!IsRunning) fSslCertificate = value; }
+      get { return FSslCertificate; }
+      set { if (!IsRunning) FSslCertificate = value; }
     }
 
 
@@ -1270,7 +1270,7 @@ namespace Bauglir.Ex
     /// <returns>WebSocketServerConnection</returns>
     public WebSocketServerConnection GetConnection(int index)
     {
-      return fConnections[index];
+      return FConnections[index];
     }
 
     /// <summary>
@@ -1282,11 +1282,11 @@ namespace Bauglir.Ex
     {
       LockConnections();
       int i;
-      int j = fConnections.Count;
+      var j = FConnections.Count;
       for (i = 0; i < j ; i++)
       {
-        if (fConnections[i].Index == index)
-          return fConnections[i];
+        if (FConnections[i].Index == index)
+          return FConnections[i];
       }
       return null;
     }
@@ -1338,7 +1338,7 @@ namespace Bauglir.Ex
     /// </summary>
     public void LockConnections()
     {
-      Monitor.Enter(connLock);
+      Monitor.Enter(ConnLock);
     }
 
 
@@ -1348,14 +1348,14 @@ namespace Bauglir.Ex
     /// </summary>
     public bool Start(IPAddress aAddress, int aPort)
     {
-      if (fIsRunning) return false;
-      fTerminated = false;
-      fAddress = aAddress;
-      fPort = aPort;
-      listener = new TcpListener(fAddress, fPort);
+      if (FIsRunning) return false;
+      FTerminated = false;
+      FAddress = aAddress;
+      FPort = aPort;
+      Listener = new TcpListener(FAddress, FPort);
       try
       {
-        listener.Start();
+        Listener.Start();
         var t = new Thread(Execute);
         t.Start();
         return true;
@@ -1377,7 +1377,7 @@ namespace Bauglir.Ex
     /// </summary>
     public void Stop()
     {
-      fTerminated = true;
+      FTerminated = true;
     }
 
     /// <summary>
@@ -1388,7 +1388,7 @@ namespace Bauglir.Ex
     /// </summary>
     public void UnlockConnections()
     {
-      Monitor.Exit(connLock);
+      Monitor.Exit(ConnLock);
     }
 
 
@@ -1405,10 +1405,10 @@ namespace Bauglir.Ex
 
     protected void RemoveConnection(WebSocketServerConnection aConnection)
     {
-      if (fConnections.IndexOf(aConnection) > -1)
+      if (FConnections.IndexOf(aConnection) > -1)
       {
         if (BeforeRemoveConnection != null) BeforeRemoveConnection(this, aConnection);
-        fConnections.Remove(aConnection);
+        FConnections.Remove(aConnection);
         
         if (AfterRemoveConnection != null) AfterRemoveConnection(this, aConnection);
       }
@@ -1416,7 +1416,7 @@ namespace Bauglir.Ex
 
     protected internal void SafeRemoveConnection(WebSocketServerConnection aConnection)
     {
-      if (fConnections.IndexOf(aConnection) > -1)
+      if (FConnections.IndexOf(aConnection) > -1)
       {
         LockConnections();
         RemoveConnection(aConnection);
@@ -1439,35 +1439,35 @@ namespace Bauglir.Ex
     protected WebSocketServerConnection AddConnection(TcpClient aClient, Stream aStream)
     {
       
-      WebSocketHeaders headers = new WebSocketHeaders();
+      var headers = new WebSocketHeaders();
       //NetworkStream stream = aClient.GetStream();
 
-      Stream stream = aStream == null ? aClient.GetStream() : aStream; //getStream(aClient);
+      var stream = aStream == null ? aClient.GetStream() : aStream; //getStream(aClient);
 
 
-      StreamReader sr = new StreamReader(stream);
-      StreamWriter sw = new StreamWriter(stream);
-      string line = String.Empty;
-      string get = String.Empty;
+      var sr = new StreamReader(stream);
+      var sw = new StreamWriter(stream);
+      var line = String.Empty;
+      var get = String.Empty;
       string[] parts;
-      string cookie = "-";
-      string extension = "-";
-      string origin = "-";
-      string protocol = "-";
-      string host = "";
-      string port = "";
-      string resourceName = "";
-      string version = "";      
-      Char[] separator = new char[] {':'};
-      Char[] separator2 = new char[] {' '};
-      bool doCreate = true;
+      var cookie = "-";
+      var extension = "-";
+      var origin = "-";
+      var protocol = "-";
+      var host = "";
+      var port = "";
+      var resourceName = "";
+      var version = "";      
+      var separator = new char[] {':'};
+      var separator2 = new char[] {' '};
+      var doCreate = true;
       WebSocketServerConnection result = null;
-      string key = String.Empty;
+      var key = String.Empty;
       string tmpS;
       byte[] tmpB;
-      int resultHTTP = 101;
+      var resultHttp = 101;
       SHA1 sha = new SHA1CryptoServiceProvider();
-      bool canAdd = true;
+      var canAdd = true;
       //int tmpI;
       
       stream.ReadTimeout = 60 * 1000;
@@ -1587,10 +1587,10 @@ namespace Bauglir.Ex
       }
 
       
-      result = GetConnectionInstance(aClient, headers, host, port, resourceName, origin, cookie, version, ref protocol, ref extension, ref resultHTTP);
+      result = GetConnectionInstance(aClient, headers, host, port, resourceName, origin, cookie, version, ref protocol, ref extension, ref resultHttp);
       if (result == null)
       {
-        if (resultHTTP == 101) resultHTTP = 404;
+        if (resultHttp == 101) resultHttp = 404;
       }
 
       try
@@ -1598,10 +1598,10 @@ namespace Bauglir.Ex
         doCreate = doCreate && stream.CanWrite;
         if (doCreate)
         {
-          if (resultHTTP != 101)
+          if (resultHttp != 101)
           {
-            sw.Write(String.Format("HTTP/1.1 {0} {1}\r\n", resultHTTP, this.httpCode(resultHTTP)));
-            sw.Write(String.Format("{0} {1}\r\n", resultHTTP, this.httpCode(resultHTTP)));
+            sw.Write(String.Format("HTTP/1.1 {0} {1}\r\n", resultHttp, this.HttpCode(resultHttp)));
+            sw.Write(String.Format("{0} {1}\r\n", resultHttp, this.HttpCode(resultHttp)));
             sw.Write("\r\n");
             sw.Flush();
             doCreate = false;
@@ -1616,19 +1616,19 @@ namespace Bauglir.Ex
         else
         {
           //result = new WebSocketServerConnection(aClient);
-          result.fCookie = cookie;
-          result.fExtension = extension;
-          result.fOrigin = origin;
-          result.fProtocol = protocol;
-          result.fHost = host;
-          result.fPort = port;
-          result.fResourceName = resourceName;
-          result.fVersion = int.Parse(version);
-          result.fHeaders = headers;
-          result.fSsl = fSsl;
-          if (fSsl)
+          result.FCookie = cookie;
+          result.FExtension = extension;
+          result.FOrigin = origin;
+          result.FProtocol = protocol;
+          result.FHost = host;
+          result.FPort = port;
+          result.FResourceName = resourceName;
+          result.FVersion = int.Parse(version);
+          result.FHeaders = headers;
+          result.FSsl = FSsl;
+          if (FSsl)
           {
-            result.fSslStream = (SslStream)aStream;
+            result.FSslStream = (SslStream)aStream;
           }
 
           
@@ -1680,9 +1680,9 @@ namespace Bauglir.Ex
       }
     }
 
-    protected string httpCode(int aCode)
+    protected string HttpCode(int aCode)
     {
-      string result = "unknown code: " + aCode.ToString();
+      var result = "unknown code: " + aCode.ToString();
       switch (aCode) 
       {
         case 100: result = "Continue"; break;
@@ -1740,25 +1740,25 @@ namespace Bauglir.Ex
       TcpClient client;
       SslStream sslStream;
 
-      if (fSsl)
+      if (FSsl)
       {
-        serverCertificate = new X509Certificate2(fSslCertificate);
+        serverCertificate = new X509Certificate2(FSslCertificate);
       }
-      fIsRunning = true;
-      while (! fTerminated)
+      FIsRunning = true;
+      while (! FTerminated)
       {
         try
         {
 
-          if (listener.Pending())
+          if (Listener.Pending())
           {
 
-            client = listener.AcceptTcpClient();
+            client = Listener.AcceptTcpClient();
             sslStream = null;
             try
             {
               
-              if (fSsl)
+              if (FSsl)
               {
                 sslStream = new SslStream(client.GetStream(), false);
                 sslStream.AuthenticateAsServer(serverCertificate, false, SslProtocols.Tls | SslProtocols.Ssl3 | SslProtocols.Ssl2, true);
@@ -1775,7 +1775,7 @@ namespace Bauglir.Ex
               if (c != null)
               {
                 LockConnections();
-                fConnections.Add(c);
+                FConnections.Add(c);
                 UnlockConnections();
                 if (AfterAddConnection != null) AfterAddConnection(this, c);
                 c.StartRead();
@@ -1794,15 +1794,15 @@ namespace Bauglir.Ex
         }
       }
       LockConnections();
-      for (int i = fConnections.Count - 1; i >= 0; i--)
+      for (var i = FConnections.Count - 1; i >= 0; i--)
       {
-        c = fConnections[i];
-        fConnections.Remove(c);
+        c = FConnections[i];
+        FConnections.Remove(c);
         c.Close(WebSocketCloseCode.Shutdown);
       }
       UnlockConnections();
-      listener.Stop();
-      fIsRunning = false;
+      Listener.Stop();
+      FIsRunning = false;
     }
   }
 }

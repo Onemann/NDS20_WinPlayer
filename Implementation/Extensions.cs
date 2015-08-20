@@ -48,14 +48,14 @@ namespace Implementation
 
         public static Rectangle ToRectangle(this string str)
         {
-            string[] items = str.Split(new char[] { 'x', '+' }, 4);
+            var items = str.Split(new char[] { 'x', '+' }, 4);
 
             return new Rectangle(int.Parse(items[3]), int.Parse(items[2]), int.Parse(items[1]), int.Parse(items[0]));
         }
 
-        public static MediaStatistics ToMediaStatistics(this libvlc_media_stats_t stats)
+        public static MediaStatistics ToMediaStatistics(this LibvlcMediaStatsT stats)
         {
-            MediaStatistics ms = new MediaStatistics();
+            var ms = new MediaStatistics();
             ms.DecodedAudio = stats.i_decoded_audio;
             ms.DecodedVideo = stats.i_decoded_video;
             ms.DemuxBitrate = stats.f_demux_bitrate;
@@ -75,9 +75,9 @@ namespace Implementation
             return ms;
         }
 
-        public static MediaTrackInfo ToMediaInfo(this libvlc_media_track_info_t tInfo)
+        public static MediaTrackInfo ToMediaInfo(this LibvlcMediaTrackInfoT tInfo)
         {
-            MediaTrackInfo mti = new MediaTrackInfo();
+            var mti = new MediaTrackInfo();
             mti.Channels = tInfo.audio_video.audio.i_channels;
             mti.Codec = tInfo.i_codec;
             mti.Height = tInfo.audio_video.video.i_height;

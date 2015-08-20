@@ -39,11 +39,11 @@ namespace Declarations
         /// <summary>
         /// Decoding time stamp in microseconds. -1 means unknown
         /// </summary>
-        public long DTS { get; set; }
+        public long Dts { get; set; }
 
         /// <summary>
         /// Presentation time stamp in microseconds.
         /// </summary>
-        public long PTS { get; set; }
+        public long Pts { get; set; }
     }
 }

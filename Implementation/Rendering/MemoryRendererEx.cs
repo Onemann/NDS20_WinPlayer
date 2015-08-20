@@ -26,58 +26,58 @@ namespace Implementation
 {
     internal sealed unsafe class MemoryRendererEx : DisposableBase, IMemoryRendererEx
     {
-        IntPtr m_hMediaPlayer;
-        NewFrameDataEventHandler m_callback = null;
-        Timer m_timer = new Timer();
-        volatile int m_frameRate = 0;
-        int m_latestFps;
-        object m_lock = new object();
-        List<Delegate> m_callbacks = new List<Delegate>();
-        Func<BitmapFormat, BitmapFormat> m_formatSetupCB = null;
-        IntPtr[] m_planes = new IntPtr[3];
-        BitmapFormat m_format;
-        Action<Exception> m_excHandler = null;
-        IntPtr pLockCallback;
-        IntPtr pDisplayCallback;
-        IntPtr pFormatCallback;
+        IntPtr _mHMediaPlayer;
+        NewFrameDataEventHandler _mCallback = null;
+        Timer _mTimer = new Timer();
+        volatile int _mFrameRate = 0;
+        int _mLatestFps;
+        object _mLock = new object();
+        List<Delegate> _mCallbacks = new List<Delegate>();
+        Func<BitmapFormat, BitmapFormat> _mFormatSetupCb = null;
+        IntPtr[] _mPlanes = new IntPtr[3];
+        BitmapFormat _mFormat;
+        Action<Exception> _mExcHandler = null;
+        IntPtr _pLockCallback;
+        IntPtr _pDisplayCallback;
+        IntPtr _pFormatCallback;
         
-        PlanarPixelData m_pixelData = default(PlanarPixelData);
+        PlanarPixelData _mPixelData = default(PlanarPixelData);
 
         public MemoryRendererEx(IntPtr hMediaPlayer)
         {
-            m_hMediaPlayer = hMediaPlayer;
+            _mHMediaPlayer = hMediaPlayer;
 
             LockEventHandler leh = OnpLock;
             DisplayEventHandler deh = OnpDisplay;
             VideoFormatCallback formatCallback = OnFormatCallback;
             
-            pFormatCallback = Marshal.GetFunctionPointerForDelegate(formatCallback);
-            pLockCallback = Marshal.GetFunctionPointerForDelegate(leh);
-            pDisplayCallback = Marshal.GetFunctionPointerForDelegate(deh);
+            _pFormatCallback = Marshal.GetFunctionPointerForDelegate(formatCallback);
+            _pLockCallback = Marshal.GetFunctionPointerForDelegate(leh);
+            _pDisplayCallback = Marshal.GetFunctionPointerForDelegate(deh);
 
-            m_callbacks.Add(leh);
-            m_callbacks.Add(deh);
-            m_callbacks.Add(formatCallback);
+            _mCallbacks.Add(leh);
+            _mCallbacks.Add(deh);
+            _mCallbacks.Add(formatCallback);
            
-            m_timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-            m_timer.Interval = 1000;
-            SAR = AspectRatio.Default;
-            LibVlcMethods.libvlc_video_set_format_callbacks(m_hMediaPlayer, pFormatCallback, IntPtr.Zero);        
-            LibVlcMethods.libvlc_video_set_callbacks(m_hMediaPlayer, pLockCallback, IntPtr.Zero, pDisplayCallback, IntPtr.Zero);
+            _mTimer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+            _mTimer.Interval = 1000;
+            Sar = AspectRatio.Default;
+            LibVlcMethods.libvlc_video_set_format_callbacks(_mHMediaPlayer, _pFormatCallback, IntPtr.Zero);        
+            LibVlcMethods.libvlc_video_set_callbacks(_mHMediaPlayer, _pLockCallback, IntPtr.Zero, _pDisplayCallback, IntPtr.Zero);
         }
 
         private unsafe int OnFormatCallback(void** opaque, char* chroma, int* width, int* height, int* pitches, int* lines)
         {
-            IntPtr pChroma = new IntPtr(chroma);
-            string chromaStr = Marshal.PtrToStringAnsi(pChroma);
+            var pChroma = new IntPtr(chroma);
+            var chromaStr = Marshal.PtrToStringAnsi(pChroma);
 
             ChromaType type;
             if (!Enum.TryParse<ChromaType>(chromaStr, out type))
             {
-                ArgumentException exc = new ArgumentException("Unsupported chroma type " + chromaStr);
-                if (m_excHandler != null)
+                var exc = new ArgumentException("Unsupported chroma type " + chromaStr);
+                if (_mExcHandler != null)
                 {
-                    m_excHandler(exc);
+                    _mExcHandler(exc);
                     return 0;
                 }
                 else
@@ -86,38 +86,38 @@ namespace Implementation
                 }
             }
 
-            m_format = new BitmapFormat(*width, *height, type);
-            if (m_formatSetupCB != null)
+            _mFormat = new BitmapFormat(*width, *height, type);
+            if (_mFormatSetupCb != null)
             {
-                m_format = m_formatSetupCB(m_format);
+                _mFormat = _mFormatSetupCb(_mFormat);
             }
 
-            Marshal.Copy(m_format.Chroma.ToUtf8(), 0, pChroma, 4);
-            *width = m_format.Width;
-            *height = m_format.Height;
+            Marshal.Copy(_mFormat.Chroma.ToUtf8(), 0, pChroma, 4);
+            *width = _mFormat.Width;
+            *height = _mFormat.Height;
 
-            for (int i = 0; i < m_format.Planes; i++)
+            for (var i = 0; i < _mFormat.Planes; i++)
             {
-                pitches[i] = m_format.Pitches[i];
-                lines[i] = m_format.Lines[i];
+                pitches[i] = _mFormat.Pitches[i];
+                lines[i] = _mFormat.Lines[i];
             }
 
-            m_pixelData = new PlanarPixelData(m_format.PlaneSizes);
+            _mPixelData = new PlanarPixelData(_mFormat.PlaneSizes);
 
-            return m_format.Planes;
+            return _mFormat.Planes;
         }
 
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            m_latestFps = m_frameRate;
-            m_frameRate = 0;
+            _mLatestFps = _mFrameRate;
+            _mFrameRate = 0;
         }
 
         unsafe void* OnpLock(void* opaque, void** plane)
         {
-            for (int i = 0; i < m_pixelData.Sizes.Length; i++)
+            for (var i = 0; i < _mPixelData.Sizes.Length; i++)
             {
-                plane[i] = m_pixelData.Data[i];
+                plane[i] = _mPixelData.Data[i];
             }
 
             return null;
@@ -125,27 +125,27 @@ namespace Implementation
 
         unsafe void OnpDisplay(void* opaque, void* picture)
         {
-            lock (m_lock)
+            lock (_mLock)
             {
                 try
                 {
-                    m_frameRate++;
-                    for (int i = 0; i < m_pixelData.Sizes.Length; i++)
+                    _mFrameRate++;
+                    for (var i = 0; i < _mPixelData.Sizes.Length; i++)
                     {
-                        m_planes[i] = new IntPtr(m_pixelData.Data[i]);
+                        _mPlanes[i] = new IntPtr(_mPixelData.Data[i]);
                     }
 
-                    if (m_callback != null)
+                    if (_mCallback != null)
                     {
-                        PlanarFrame pf = GetFrame();
-                        m_callback(pf);
+                        var pf = GetFrame();
+                        _mCallback(pf);
                     }
                 }
                 catch (Exception ex)
                 {
-                    if (m_excHandler != null)
+                    if (_mExcHandler != null)
                     {
-                        m_excHandler(ex);
+                        _mExcHandler(ex);
                     }
                     else
                     {
@@ -157,26 +157,26 @@ namespace Implementation
 
         internal void StartTimer()
         {
-            m_timer.Start();
+            _mTimer.Start();
         }
 
         private PlanarFrame GetFrame()
         {
-            return new PlanarFrame(m_planes, m_format.PlaneSizes);
+            return new PlanarFrame(_mPlanes, _mFormat.PlaneSizes);
         }
 
         #region IMemoryRendererEx Members
 
         public void SetCallback(NewFrameDataEventHandler callback)
         {
-            m_callback = callback;
+            _mCallback = callback;
         }
 
         public PlanarFrame CurrentFrame
         {
             get
             {
-                lock (m_lock)
+                lock (_mLock)
                 {
                     return GetFrame();
                 }
@@ -185,43 +185,43 @@ namespace Implementation
 
         public void SetFormatSetupCallback(Func<BitmapFormat, BitmapFormat> setupCallback)
         {
-            m_formatSetupCB = setupCallback;
+            _mFormatSetupCb = setupCallback;
         }
 
         public int ActualFrameRate
         {
             get
             {
-                return m_latestFps;
+                return _mLatestFps;
             }
         }
 
         public void SetExceptionHandler(Action<Exception> handler)
         {
-            m_excHandler = handler;
+            _mExcHandler = handler;
         }
 
-        public AspectRatio SAR { get; set; }
+        public AspectRatio Sar { get; set; }
 
         #endregion
 
         protected override void Dispose(bool disposing)
         {
-            IntPtr zero = IntPtr.Zero;
-            LibVlcMethods.libvlc_video_set_callbacks(m_hMediaPlayer, zero, zero, zero, zero);
+            var zero = IntPtr.Zero;
+            LibVlcMethods.libvlc_video_set_callbacks(_mHMediaPlayer, zero, zero, zero, zero);
 
-            if (m_pixelData != default(PlanarPixelData))
+            if (_mPixelData != default(PlanarPixelData))
             {
-                m_pixelData.Dispose();
+                _mPixelData.Dispose();
             }
 
             if (disposing)
             {
-                m_timer.Dispose();
-                m_formatSetupCB = null;
-                m_excHandler = null;
-                m_callback = null;
-                m_callbacks.Clear();
+                _mTimer.Dispose();
+                _mFormatSetupCb = null;
+                _mExcHandler = null;
+                _mCallback = null;
+                _mCallbacks.Clear();
             }         
         }
     }

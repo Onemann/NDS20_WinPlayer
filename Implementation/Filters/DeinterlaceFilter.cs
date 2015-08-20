@@ -23,13 +23,13 @@ namespace Implementation.Filters
 {
    internal class DeinterlaceFilter : IDeinterlaceFilter
    {
-      IntPtr m_hMediaPlayer;
-      bool m_enabled = false;
-      private DeinterlaceMode m_mode;
+      IntPtr _mHMediaPlayer;
+      bool _mEnabled = false;
+      private DeinterlaceMode _mMode;
 
       public DeinterlaceFilter(IntPtr hMediaPlayer)
       {
-         m_hMediaPlayer = hMediaPlayer;
+         _mHMediaPlayer = hMediaPlayer;
       }
 
       #region IDeinterlaceFilter Members
@@ -38,18 +38,18 @@ namespace Implementation.Filters
       {
           get
           {
-              return m_enabled;
+              return _mEnabled;
           }
           set
           {
-              m_enabled = value;
-              if (m_enabled)
+              _mEnabled = value;
+              if (_mEnabled)
               {
-                  LibVlcMethods.libvlc_video_set_deinterlace(m_hMediaPlayer, Mode.ToString().ToUtf8());
+                  LibVlcMethods.libvlc_video_set_deinterlace(_mHMediaPlayer, Mode.ToString().ToUtf8());
               }
               else
               {
-                  LibVlcMethods.libvlc_video_set_deinterlace(m_hMediaPlayer, null);
+                  LibVlcMethods.libvlc_video_set_deinterlace(_mHMediaPlayer, null);
               }
           }
       }
@@ -58,12 +58,12 @@ namespace Implementation.Filters
       {
           get
           {
-              return m_mode;
+              return _mMode;
           }
           set
           {
-              m_mode = value;
-              LibVlcMethods.libvlc_video_set_deinterlace(m_hMediaPlayer, m_mode.ToString().ToUtf8());
+              _mMode = value;
+              LibVlcMethods.libvlc_video_set_deinterlace(_mHMediaPlayer, _mMode.ToString().ToUtf8());
           }
       }
 

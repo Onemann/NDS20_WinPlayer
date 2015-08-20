@@ -21,131 +21,131 @@ using System.Text;
 
 namespace LibVlcWrapper
 {
-   public enum libvlc_state_t
+   public enum LibvlcStateT
    {
-      libvlc_NothingSpecial = 0,
-      libvlc_Opening,
-      libvlc_Buffering,
-      libvlc_Playing,
-      libvlc_Paused,
-      libvlc_Stopped,
-      libvlc_Ended,
-      libvlc_Error
+      LibvlcNothingSpecial = 0,
+      LibvlcOpening,
+      LibvlcBuffering,
+      LibvlcPlaying,
+      LibvlcPaused,
+      LibvlcStopped,
+      LibvlcEnded,
+      LibvlcError
    }
 
-   public enum libvlc_log_messate_t_severity
+   public enum LibvlcLogMessateTSeverity
    {
-      INFO = 0,
-      ERR = 1,
-      WARN = 2,
-      DBG = 3
+      Info = 0,
+      Err = 1,
+      Warn = 2,
+      Dbg = 3
    }
 
-   public enum libvlc_log_level
+   public enum LibvlcLogLevel
    {
-       LIBVLC_DEBUG = 0,   /* *< Debug message */
-       LIBVLC_NOTICE = 2,  /* *< Important informational message */
-       LIBVLC_WARNING = 3, /* *< Warning (potential error) message */
-       LIBVLC_ERROR = 4    /* *< Error message */
+       LibvlcDebug = 0,   /* *< Debug message */
+       LibvlcNotice = 2,  /* *< Important informational message */
+       LibvlcWarning = 3, /* *< Warning (potential error) message */
+       LibvlcError = 4    /* *< Error message */
    }
 
-   public enum libvlc_event_e
+   public enum LibvlcEventE
    {
-      libvlc_MediaMetaChanged = 0,
-      libvlc_MediaSubItemAdded,
-      libvlc_MediaDurationChanged,
-      libvlc_MediaParsedChanged,
-      libvlc_MediaFreed,
-      libvlc_MediaStateChanged,
+      LibvlcMediaMetaChanged = 0,
+      LibvlcMediaSubItemAdded,
+      LibvlcMediaDurationChanged,
+      LibvlcMediaParsedChanged,
+      LibvlcMediaFreed,
+      LibvlcMediaStateChanged,
 
-      libvlc_MediaPlayerMediaChanged = 0x100,
-      libvlc_MediaPlayerNothingSpecial,
-      libvlc_MediaPlayerOpening,
-      libvlc_MediaPlayerBuffering,
-      libvlc_MediaPlayerPlaying,
-      libvlc_MediaPlayerPaused,
-      libvlc_MediaPlayerStopped,
-      libvlc_MediaPlayerForward,
-      libvlc_MediaPlayerBackward,
-      libvlc_MediaPlayerEndReached,
-      libvlc_MediaPlayerEncounteredError,
-      libvlc_MediaPlayerTimeChanged,
-      libvlc_MediaPlayerPositionChanged,
-      libvlc_MediaPlayerSeekableChanged,
-      libvlc_MediaPlayerPausableChanged,
-      libvlc_MediaPlayerTitleChanged,
-      libvlc_MediaPlayerSnapshotTaken,
-      libvlc_MediaPlayerLengthChanged,
+      LibvlcMediaPlayerMediaChanged = 0x100,
+      LibvlcMediaPlayerNothingSpecial,
+      LibvlcMediaPlayerOpening,
+      LibvlcMediaPlayerBuffering,
+      LibvlcMediaPlayerPlaying,
+      LibvlcMediaPlayerPaused,
+      LibvlcMediaPlayerStopped,
+      LibvlcMediaPlayerForward,
+      LibvlcMediaPlayerBackward,
+      LibvlcMediaPlayerEndReached,
+      LibvlcMediaPlayerEncounteredError,
+      LibvlcMediaPlayerTimeChanged,
+      LibvlcMediaPlayerPositionChanged,
+      LibvlcMediaPlayerSeekableChanged,
+      LibvlcMediaPlayerPausableChanged,
+      LibvlcMediaPlayerTitleChanged,
+      LibvlcMediaPlayerSnapshotTaken,
+      LibvlcMediaPlayerLengthChanged,
 
-      libvlc_MediaListItemAdded = 0x200,
-      libvlc_MediaListWillAddItem,
-      libvlc_MediaListItemDeleted,
-      libvlc_MediaListWillDeleteItem,
+      LibvlcMediaListItemAdded = 0x200,
+      LibvlcMediaListWillAddItem,
+      LibvlcMediaListItemDeleted,
+      LibvlcMediaListWillDeleteItem,
 
-      libvlc_MediaListViewItemAdded = 0x300,
-      libvlc_MediaListViewWillAddItem,
-      libvlc_MediaListViewItemDeleted,
-      libvlc_MediaListViewWillDeleteItem,
+      LibvlcMediaListViewItemAdded = 0x300,
+      LibvlcMediaListViewWillAddItem,
+      LibvlcMediaListViewItemDeleted,
+      LibvlcMediaListViewWillDeleteItem,
 
-      libvlc_MediaListPlayerPlayed = 0x400,
-      libvlc_MediaListPlayerNextItemSet,
-      libvlc_MediaListPlayerStopped,
+      LibvlcMediaListPlayerPlayed = 0x400,
+      LibvlcMediaListPlayerNextItemSet,
+      LibvlcMediaListPlayerStopped,
 
-      libvlc_MediaDiscovererStarted = 0x500,
-      libvlc_MediaDiscovererEnded,
+      LibvlcMediaDiscovererStarted = 0x500,
+      LibvlcMediaDiscovererEnded,
 
-      libvlc_VlmMediaAdded = 0x600,
-      libvlc_VlmMediaRemoved,
-      libvlc_VlmMediaChanged,
-      libvlc_VlmMediaInstanceStarted,
-      libvlc_VlmMediaInstanceStopped,
-      libvlc_VlmMediaInstanceStatusInit,
-      libvlc_VlmMediaInstanceStatusOpening,
-      libvlc_VlmMediaInstanceStatusPlaying,
-      libvlc_VlmMediaInstanceStatusPause,
-      libvlc_VlmMediaInstanceStatusEnd,
-      libvlc_VlmMediaInstanceStatusError,
+      LibvlcVlmMediaAdded = 0x600,
+      LibvlcVlmMediaRemoved,
+      LibvlcVlmMediaChanged,
+      LibvlcVlmMediaInstanceStarted,
+      LibvlcVlmMediaInstanceStopped,
+      LibvlcVlmMediaInstanceStatusInit,
+      LibvlcVlmMediaInstanceStatusOpening,
+      LibvlcVlmMediaInstanceStatusPlaying,
+      LibvlcVlmMediaInstanceStatusPause,
+      LibvlcVlmMediaInstanceStatusEnd,
+      LibvlcVlmMediaInstanceStatusError,
    }
 
-   public enum libvlc_playback_mode_t
+   public enum LibvlcPlaybackModeT
    {
-      libvlc_playback_mode_default,
-      libvlc_playback_mode_loop,
-      libvlc_playback_mode_repeat
+      LibvlcPlaybackModeDefault,
+      LibvlcPlaybackModeLoop,
+      LibvlcPlaybackModeRepeat
    }
 
-   public enum libvlc_meta_t
+   public enum LibvlcMetaT
    {
-      libvlc_meta_Title,
-      libvlc_meta_Artist,
-      libvlc_meta_Genre,
-      libvlc_meta_Copyright,
-      libvlc_meta_Album,
-      libvlc_meta_TrackNumber,
-      libvlc_meta_Description,
-      libvlc_meta_Rating,
-      libvlc_meta_Date,
-      libvlc_meta_Setting,
-      libvlc_meta_URL,
-      libvlc_meta_Language,
-      libvlc_meta_NowPlaying,
-      libvlc_meta_Publisher,
-      libvlc_meta_EncodedBy,
-      libvlc_meta_ArtworkURL,
-      libvlc_meta_TrackID
+      LibvlcMetaTitle,
+      LibvlcMetaArtist,
+      LibvlcMetaGenre,
+      LibvlcMetaCopyright,
+      LibvlcMetaAlbum,
+      LibvlcMetaTrackNumber,
+      LibvlcMetaDescription,
+      LibvlcMetaRating,
+      LibvlcMetaDate,
+      LibvlcMetaSetting,
+      LibvlcMetaUrl,
+      LibvlcMetaLanguage,
+      LibvlcMetaNowPlaying,
+      LibvlcMetaPublisher,
+      LibvlcMetaEncodedBy,
+      LibvlcMetaArtworkUrl,
+      LibvlcMetaTrackId
    }
 
-   public enum libvlc_track_type_t
+   public enum LibvlcTrackTypeT
    {
-      libvlc_track_unknown = -1,
-      libvlc_track_audio = 0,
-      libvlc_track_video = 1,
-      libvlc_track_text = 2,
+      LibvlcTrackUnknown = -1,
+      LibvlcTrackAudio = 0,
+      LibvlcTrackVideo = 1,
+      LibvlcTrackText = 2,
    }
 
-   public enum libvlc_video_marquee_option_t
+   public enum LibvlcVideoMarqueeOptionT
    {
-      libvlc_marquee_Enable = 0,
+      LibvlcMarqueeEnable = 0,
 
       /// <summary>
       /// Marquee text to display.
@@ -164,7 +164,7 @@ namespace LibVlcWrapper
       /// $S = audio sample rate (in kHz),
       /// $T = time, $U = publisher, $V = volume, $_ = new line) 
       /// </summary>
-      libvlc_marquee_Text,
+      LibvlcMarqueeText,
 
       /// <summary>
       /// Color of the text that will be rendered on 
@@ -172,123 +172,123 @@ namespace LibVlcWrapper
       /// chars are for red, then green, then blue. #000000 = black, #FF0000 = red,
       ///  #00FF00 = green, #FFFF00 = yellow (red + green), #FFFFFF = white
       /// </summary>
-      libvlc_marquee_Color,
+      LibvlcMarqueeColor,
 
       /// <summary>
       /// Opacity (inverse of transparency) of overlayed text. 0 = transparent, 255 = totally opaque. 
       /// </summary>
-      libvlc_marquee_Opacity,
+      LibvlcMarqueeOpacity,
 
       /// <summary>
       /// You can enforce the marquee position on the video.
       /// </summary>
-      libvlc_marquee_Position,
+      LibvlcMarqueePosition,
 
       /// <summary>
       /// Number of milliseconds between string updates. This is mainly useful when using meta data or time format string sequences.
       /// </summary>
-      libvlc_marquee_Refresh,
+      LibvlcMarqueeRefresh,
 
       /// <summary>
       /// Font size, in pixels. Default is -1 (use default font size).
       /// </summary>
-      libvlc_marquee_Size,
+      LibvlcMarqueeSize,
 
       /// <summary>
       /// Number of milliseconds the marquee must remain displayed. Default value is 0 (remains forever).
       /// </summary>
-      libvlc_marquee_Timeout,
+      LibvlcMarqueeTimeout,
 
       /// <summary>
       /// X offset, from the left screen edge.
       /// </summary>
-      libvlc_marquee_X,
+      LibvlcMarqueeX,
 
       /// <summary>
       /// Y offset, down from the top.
       /// </summary>
-      libvlc_marquee_Y
+      LibvlcMarqueeY
    }
 
-   public enum libvlc_video_logo_option_t
+   public enum LibvlcVideoLogoOptionT
    {
-      libvlc_logo_enable,
+      LibvlcLogoEnable,
 
       /// <summary>
       /// Full path of the image files to use.
       /// </summary>
-      libvlc_logo_file,
+      LibvlcLogoFile,
 
       /// <summary>
       /// X coordinate of the logo. You can move the logo by left-clicking it.
       /// </summary>
-      libvlc_logo_x,
+      LibvlcLogoX,
 
       /// <summary>
       /// Y coordinate of the logo. You can move the logo by left-clicking it.
       /// </summary>
-      libvlc_logo_y,
+      LibvlcLogoY,
 
       /// <summary>
       /// Individual image display time of 0 - 60000 ms.
       /// </summary>
-      libvlc_logo_delay,
+      LibvlcLogoDelay,
 
       /// <summary>
       /// Number of loops for the logo animation. -1 = continuous, 0 = disabled.
       /// </summary>
-      libvlc_logo_repeat,
+      LibvlcLogoRepeat,
 
       /// <summary>
       /// Logo opacity value (from 0 for full transparency to 255 for full opacity).
       /// </summary>
-      libvlc_logo_opacity,
+      LibvlcLogoOpacity,
 
       /// <summary>
       /// Logo position
       /// </summary>
-      libvlc_logo_position,
+      LibvlcLogoPosition,
    }
 
-   public enum libvlc_video_adjust_option_t
+   public enum LibvlcVideoAdjustOptionT
    {
-      libvlc_adjust_Enable = 0,
-      libvlc_adjust_Contrast,
-      libvlc_adjust_Brightness,
-      libvlc_adjust_Hue,
-      libvlc_adjust_Saturation,
-      libvlc_adjust_Gamma,
+      LibvlcAdjustEnable = 0,
+      LibvlcAdjustContrast,
+      LibvlcAdjustBrightness,
+      LibvlcAdjustHue,
+      LibvlcAdjustSaturation,
+      LibvlcAdjustGamma,
    }
 
-   public enum libvlc_audio_output_device_types_t
+   public enum LibvlcAudioOutputDeviceTypesT
    {
-      libvlc_AudioOutputDevice_Error = -1,
-      libvlc_AudioOutputDevice_Mono = 1,
-      libvlc_AudioOutputDevice_Stereo = 2,
-      libvlc_AudioOutputDevice_2F2R = 4,
-      libvlc_AudioOutputDevice_3F2R = 5,
-      libvlc_AudioOutputDevice_5_1 = 6,
-      libvlc_AudioOutputDevice_6_1 = 7,
-      libvlc_AudioOutputDevice_7_1 = 8,
-      libvlc_AudioOutputDevice_SPDIF = 10
+      LibvlcAudioOutputDeviceError = -1,
+      LibvlcAudioOutputDeviceMono = 1,
+      LibvlcAudioOutputDeviceStereo = 2,
+      LibvlcAudioOutputDevice_2F2R = 4,
+      LibvlcAudioOutputDevice_3F2R = 5,
+      LibvlcAudioOutputDevice51 = 6,
+      LibvlcAudioOutputDevice61 = 7,
+      LibvlcAudioOutputDevice71 = 8,
+      LibvlcAudioOutputDeviceSpdif = 10
    }
 
-   public enum libvlc_audio_output_channel_t
+   public enum LibvlcAudioOutputChannelT
    {
-      libvlc_AudioChannel_Error = -1,
-      libvlc_AudioChannel_Stereo = 1,
-      libvlc_AudioChannel_RStereo = 2,
-      libvlc_AudioChannel_Left = 3,
-      libvlc_AudioChannel_Right = 4,
-      libvlc_AudioChannel_Dolbys = 5
+      LibvlcAudioChannelError = -1,
+      LibvlcAudioChannelStereo = 1,
+      LibvlcAudioChannelRStereo = 2,
+      LibvlcAudioChannelLeft = 3,
+      LibvlcAudioChannelRight = 4,
+      LibvlcAudioChannelDolbys = 5
    }
 
-   public enum libvlc_navigate_mode_t
+   public enum LibvlcNavigateModeT
    {
-       libvlc_navigate_activate = 0,
-       libvlc_navigate_up,
-       libvlc_navigate_down,
-       libvlc_navigate_left,
-       libvlc_navigate_right
+       LibvlcNavigateActivate = 0,
+       LibvlcNavigateUp,
+       LibvlcNavigateDown,
+       LibvlcNavigateLeft,
+       LibvlcNavigateRight
    }
 }

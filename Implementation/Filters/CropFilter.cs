@@ -24,12 +24,12 @@ namespace Implementation.Filters
 {
    internal class CropFilter : ICropFilter
    {
-      IntPtr m_hMediaPlayer;
-      bool m_enabled = false;
+      IntPtr _mHMediaPlayer;
+      bool _mEnabled = false;
       
       public CropFilter(IntPtr hMediaPlayer)
       {
-         m_hMediaPlayer = hMediaPlayer;
+         _mHMediaPlayer = hMediaPlayer;
       }
 
       #region ICropFilter Members
@@ -38,12 +38,12 @@ namespace Implementation.Filters
       {
          get
          {
-            return m_enabled;
+            return _mEnabled;
          }
          set
          {
-            m_enabled = value;
-            if (m_enabled)
+            _mEnabled = value;
+            if (_mEnabled)
             {
                CropGeometry = CropArea.ToCropFilterString();
             }
@@ -62,12 +62,12 @@ namespace Implementation.Filters
       {
          get
          {
-            IntPtr pData = LibVlcMethods.libvlc_video_get_crop_geometry(m_hMediaPlayer);
+            var pData = LibVlcMethods.libvlc_video_get_crop_geometry(_mHMediaPlayer);
             return Marshal.PtrToStringAnsi(pData);
          }
          set
          {
-            LibVlcMethods.libvlc_video_set_crop_geometry(m_hMediaPlayer, value.ToUtf8());
+            LibVlcMethods.libvlc_video_set_crop_geometry(_mHMediaPlayer, value.ToUtf8());
          }
       }
    }

@@ -48,7 +48,7 @@ namespace Declarations.Players
         /// <summary>
         /// Gets number of frames  per second.
         /// </summary>
-        float FPS { get; }
+        float Fps { get; }
 
         /// <summary>
         /// Shows next frame

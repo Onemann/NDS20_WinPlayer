@@ -19,6 +19,14 @@ using System.Runtime.InteropServices;
 using Declarations.Events;
 using Implementation.Media;
 using LibVlcWrapper;
+using MediaPlayerLengthChanged = Declarations.Events.MediaPlayerLengthChanged;
+using MediaPlayerMediaChanged = Declarations.Events.MediaPlayerMediaChanged;
+using MediaPlayerPausableChanged = Declarations.Events.MediaPlayerPausableChanged;
+using MediaPlayerPositionChanged = Declarations.Events.MediaPlayerPositionChanged;
+using MediaPlayerSeekableChanged = Declarations.Events.MediaPlayerSeekableChanged;
+using MediaPlayerSnapshotTaken = Declarations.Events.MediaPlayerSnapshotTaken;
+using MediaPlayerTimeChanged = Declarations.Events.MediaPlayerTimeChanged;
+using MediaPlayerTitleChanged = Declarations.Events.MediaPlayerTitleChanged;
 
 namespace Implementation.Events
 {
@@ -30,129 +38,129 @@ namespace Implementation.Events
 
         }
 
-        protected override void MediaPlayerEventOccured(ref libvlc_event_t libvlc_event, IntPtr userData)
+        protected override void MediaPlayerEventOccured(ref LibvlcEventT libvlcEvent, IntPtr userData)
         {
-            switch (libvlc_event.type)
+            switch (libvlcEvent.type)
             {
-                case libvlc_event_e.libvlc_MediaPlayerTimeChanged:
-                    RaiseTimeChanged(libvlc_event.MediaDescriptor.media_player_time_changed.new_time);
+                case LibvlcEventE.LibvlcMediaPlayerTimeChanged:
+                    RaiseTimeChanged(libvlcEvent.MediaDescriptor.media_player_time_changed.new_time);
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerEndReached:
+                case LibvlcEventE.LibvlcMediaPlayerEndReached:
                     RaiseMediaEnded();
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerMediaChanged:
-                    if (m_mediaChanged != null)
+                case LibvlcEventE.LibvlcMediaPlayerMediaChanged:
+                    if (MMediaChanged != null)
                     {
-                        BasicMedia media = new BasicMedia(libvlc_event.MediaDescriptor.media_player_media_changed.new_media, ReferenceCountAction.AddRef);
-                        m_mediaChanged(m_eventProvider, new MediaPlayerMediaChanged(media));
+                        var media = new BasicMedia(libvlcEvent.MediaDescriptor.media_player_media_changed.new_media, ReferenceCountAction.AddRef);
+                        MMediaChanged(MEventProvider, new MediaPlayerMediaChanged(media));
                         //media.Release();
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerNothingSpecial:
-                    if (m_nothingSpecial != null)
+                case LibvlcEventE.LibvlcMediaPlayerNothingSpecial:
+                    if (MNothingSpecial != null)
                     {
-                        m_nothingSpecial(m_eventProvider, EventArgs.Empty);
+                        MNothingSpecial(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerOpening:
-                    if (m_playerOpening != null)
+                case LibvlcEventE.LibvlcMediaPlayerOpening:
+                    if (MPlayerOpening != null)
                     {
-                        m_playerOpening(m_eventProvider, EventArgs.Empty);
+                        MPlayerOpening(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerBuffering:
-                    if (m_playerBuffering != null)
+                case LibvlcEventE.LibvlcMediaPlayerBuffering:
+                    if (MPlayerBuffering != null)
                     {
-                        m_playerBuffering(m_eventProvider, EventArgs.Empty);
+                        MPlayerBuffering(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerPlaying:
-                    if (m_playerPlaying != null)
+                case LibvlcEventE.LibvlcMediaPlayerPlaying:
+                    if (MPlayerPlaying != null)
                     {
-                        m_playerPlaying(m_eventProvider, EventArgs.Empty);
+                        MPlayerPlaying(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerPaused:
-                    if (m_playerPaused != null)
+                case LibvlcEventE.LibvlcMediaPlayerPaused:
+                    if (MPlayerPaused != null)
                     {
-                        m_playerPaused(m_eventProvider, EventArgs.Empty);
+                        MPlayerPaused(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerStopped:
-                    if (m_playerStopped != null)
+                case LibvlcEventE.LibvlcMediaPlayerStopped:
+                    if (MPlayerStopped != null)
                     {
-                        m_playerStopped(m_eventProvider, EventArgs.Empty);
+                        MPlayerStopped(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerForward:
-                    if (m_playerForward != null)
+                case LibvlcEventE.LibvlcMediaPlayerForward:
+                    if (MPlayerForward != null)
                     {
-                        m_playerForward(m_eventProvider, EventArgs.Empty);
+                        MPlayerForward(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerBackward:
-                    if (m_playerPaused != null)
+                case LibvlcEventE.LibvlcMediaPlayerBackward:
+                    if (MPlayerPaused != null)
                     {
-                        m_playerPaused(m_eventProvider, EventArgs.Empty);
+                        MPlayerPaused(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerEncounteredError:
-                    if (m_playerEncounteredError != null)
+                case LibvlcEventE.LibvlcMediaPlayerEncounteredError:
+                    if (MPlayerEncounteredError != null)
                     {
-                        m_playerEncounteredError(m_eventProvider, EventArgs.Empty);
+                        MPlayerEncounteredError(MEventProvider, EventArgs.Empty);
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerPositionChanged:
-                    if (m_playerPositionChanged != null)
+                case LibvlcEventE.LibvlcMediaPlayerPositionChanged:
+                    if (MPlayerPositionChanged != null)
                     {
-                        m_playerPositionChanged(m_eventProvider, new MediaPlayerPositionChanged(libvlc_event.MediaDescriptor.media_player_position_changed.new_position));
+                        MPlayerPositionChanged(MEventProvider, new MediaPlayerPositionChanged(libvlcEvent.MediaDescriptor.media_player_position_changed.new_position));
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerSeekableChanged:
-                    if (m_playerSeekableChanged != null)
+                case LibvlcEventE.LibvlcMediaPlayerSeekableChanged:
+                    if (MPlayerSeekableChanged != null)
                     {
-                        m_playerSeekableChanged(m_eventProvider, new MediaPlayerSeekableChanged(libvlc_event.MediaDescriptor.media_player_seekable_changed.new_seekable));
+                        MPlayerSeekableChanged(MEventProvider, new MediaPlayerSeekableChanged(libvlcEvent.MediaDescriptor.media_player_seekable_changed.new_seekable));
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerPausableChanged:
-                    if (m_playerPausableChanged != null)
+                case LibvlcEventE.LibvlcMediaPlayerPausableChanged:
+                    if (MPlayerPausableChanged != null)
                     {
-                        m_playerPausableChanged(m_eventProvider, new MediaPlayerPausableChanged(libvlc_event.MediaDescriptor.media_player_pausable_changed.new_pausable));
+                        MPlayerPausableChanged(MEventProvider, new MediaPlayerPausableChanged(libvlcEvent.MediaDescriptor.media_player_pausable_changed.new_pausable));
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerTitleChanged:
-                    if (m_playerTitleChanged != null)
+                case LibvlcEventE.LibvlcMediaPlayerTitleChanged:
+                    if (MPlayerTitleChanged != null)
                     {
-                        m_playerTitleChanged(m_eventProvider, new MediaPlayerTitleChanged(libvlc_event.MediaDescriptor.media_player_title_changed.new_title));
+                        MPlayerTitleChanged(MEventProvider, new MediaPlayerTitleChanged(libvlcEvent.MediaDescriptor.media_player_title_changed.new_title));
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerSnapshotTaken:
-                    if (m_playerSnapshotTaken != null)
+                case LibvlcEventE.LibvlcMediaPlayerSnapshotTaken:
+                    if (MPlayerSnapshotTaken != null)
                     {
-                        m_playerSnapshotTaken(m_eventProvider, new MediaPlayerSnapshotTaken(Marshal.PtrToStringAuto(libvlc_event.MediaDescriptor.media_player_snapshot_taken.psz_filename)));
+                        MPlayerSnapshotTaken(MEventProvider, new MediaPlayerSnapshotTaken(Marshal.PtrToStringAuto(libvlcEvent.MediaDescriptor.media_player_snapshot_taken.psz_filename)));
                     }
                     break;
 
-                case libvlc_event_e.libvlc_MediaPlayerLengthChanged:
-                    if (m_playerLengthChanged != null)
+                case LibvlcEventE.LibvlcMediaPlayerLengthChanged:
+                    if (MPlayerLengthChanged != null)
                     {
-                        m_playerLengthChanged(m_eventProvider, new MediaPlayerLengthChanged(libvlc_event.MediaDescriptor.media_player_length_changed.new_length));
+                        MPlayerLengthChanged(MEventProvider, new MediaPlayerLengthChanged(libvlcEvent.MediaDescriptor.media_player_length_changed.new_length));
                     }
                     break;
             }
@@ -160,63 +168,63 @@ namespace Implementation.Events
 
         private void RaiseTimeChanged(long p)
         {
-            if (m_timeChanged != null)
+            if (MTimeChanged != null)
             {
-                m_timeChanged(m_eventProvider, new MediaPlayerTimeChanged(p));
+                MTimeChanged(MEventProvider, new MediaPlayerTimeChanged(p));
             }
         }
 
         internal void RaiseMediaEnded()
         {
-            if (m_mediaEnded != null)
+            if (MMediaEnded != null)
             {
-                m_mediaEnded.BeginInvoke(m_eventProvider, EventArgs.Empty, null, null);
+                MMediaEnded.BeginInvoke(MEventProvider, EventArgs.Empty, null, null);
             }
         }
 
-        private event EventHandler<MediaPlayerTimeChanged> m_timeChanged;
+        private event EventHandler<MediaPlayerTimeChanged> MTimeChanged;
         public event EventHandler<MediaPlayerTimeChanged> TimeChanged
         {
             add
             {
-                if (m_timeChanged == null)
+                if (MTimeChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerTimeChanged);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerTimeChanged);
                 }
-                m_timeChanged += value;
+                MTimeChanged += value;
             }
             remove
             {
-                if (m_timeChanged != null)
+                if (MTimeChanged != null)
                 {
-                    m_timeChanged -= value;
-                    if (m_timeChanged == null)
+                    MTimeChanged -= value;
+                    if (MTimeChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerTimeChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerTimeChanged);
                     }
                 }
             }
         }
 
-        private event EventHandler m_mediaEnded;
+        private event EventHandler MMediaEnded;
         public event EventHandler MediaEnded
         {
             add
             {
-                if (m_mediaEnded == null)
+                if (MMediaEnded == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerEndReached);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerEndReached);
                 }
-                m_mediaEnded += value;
+                MMediaEnded += value;
             }
             remove
             {
-                if (m_mediaEnded != null)
+                if (MMediaEnded != null)
                 {
-                    m_mediaEnded -= value;
-                    if (m_mediaEnded == null)
+                    MMediaEnded -= value;
+                    if (MMediaEnded == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerEndReached);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerEndReached);
                     }
                 }
             }
@@ -224,385 +232,385 @@ namespace Implementation.Events
 
         #region IEventBroker Members
 
-        event EventHandler<MediaPlayerMediaChanged> m_mediaChanged;
+        event EventHandler<MediaPlayerMediaChanged> MMediaChanged;
         public event EventHandler<MediaPlayerMediaChanged> MediaChanged
         {
             add
             {
-                if (m_mediaChanged == null)
+                if (MMediaChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerMediaChanged);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerMediaChanged);
                 }
-                m_mediaChanged += value;
+                MMediaChanged += value;
             }
             remove
             {
-                if (m_mediaChanged != null)
+                if (MMediaChanged != null)
                 {
-                    m_mediaChanged -= value;
-                    if (m_mediaChanged == null)
+                    MMediaChanged -= value;
+                    if (MMediaChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerMediaChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerMediaChanged);
                     }
                 }
             }
         }
 
-        event EventHandler m_nothingSpecial;
+        event EventHandler MNothingSpecial;
         public event EventHandler NothingSpecial
         {
             add
             {
-                if (m_nothingSpecial == null)
+                if (MNothingSpecial == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerNothingSpecial);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerNothingSpecial);
                 }
-                m_nothingSpecial += value;
+                MNothingSpecial += value;
             }
             remove
             {
-                if (m_nothingSpecial != null)
+                if (MNothingSpecial != null)
                 {
-                    m_nothingSpecial -= value;
-                    if (m_nothingSpecial == null)
+                    MNothingSpecial -= value;
+                    if (MNothingSpecial == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerNothingSpecial);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerNothingSpecial);
                     }
                 }
             }
         }
 
-        event EventHandler m_playerOpening;
+        event EventHandler MPlayerOpening;
         public event EventHandler PlayerOpening
         {
             add
             {
-                if (m_playerOpening == null)
+                if (MPlayerOpening == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerOpening);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerOpening);
                 }
-                m_playerOpening += value;
+                MPlayerOpening += value;
             }
             remove
             {
-                if (m_playerOpening != null)
+                if (MPlayerOpening != null)
                 {
-                    m_playerOpening -= value;
-                    if (m_playerOpening == null)
+                    MPlayerOpening -= value;
+                    if (MPlayerOpening == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerOpening);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerOpening);
                     }
                 }
             }
         }
 
-        event EventHandler m_playerBuffering;
+        event EventHandler MPlayerBuffering;
         public event EventHandler PlayerBuffering
         {
             add
             {
-                if (m_playerBuffering == null)
+                if (MPlayerBuffering == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerBuffering);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerBuffering);
                 }
-                m_playerBuffering += value;
+                MPlayerBuffering += value;
             }
             remove
             {
-                if (m_playerBuffering != null)
+                if (MPlayerBuffering != null)
                 {
-                    m_playerBuffering -= value;
-                    if (m_playerBuffering == null)
+                    MPlayerBuffering -= value;
+                    if (MPlayerBuffering == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerBuffering);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerBuffering);
                     }
                 }
             }
         }
 
-        event EventHandler m_playerPlaying;
+        event EventHandler MPlayerPlaying;
         public event EventHandler PlayerPlaying
         {
             add
             {
-                if (m_playerPlaying == null)
+                if (MPlayerPlaying == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerPlaying);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerPlaying);
                 }
-                m_playerPlaying += value;
+                MPlayerPlaying += value;
             }
             remove
             {
-                if (m_playerPlaying != null)
+                if (MPlayerPlaying != null)
                 {
-                    m_playerPlaying -= value;
-                    if (m_playerPlaying == null)
+                    MPlayerPlaying -= value;
+                    if (MPlayerPlaying == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerPlaying);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerPlaying);
                     }
                 }
             }
         }
 
-        event EventHandler m_playerPaused;
+        event EventHandler MPlayerPaused;
         public event EventHandler PlayerPaused
         {
             add
             {
-                if (m_playerPaused == null)
+                if (MPlayerPaused == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerPaused);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerPaused);
                 }
-                m_playerPaused += value;
+                MPlayerPaused += value;
             }
             remove
             {
-                if (m_playerPaused != null)
+                if (MPlayerPaused != null)
                 {
-                    m_playerPaused -= value;
-                    if (m_playerPaused == null)
+                    MPlayerPaused -= value;
+                    if (MPlayerPaused == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerPaused);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerPaused);
                     }
                 }
             }
         }
 
-        event EventHandler m_playerStopped;
+        event EventHandler MPlayerStopped;
         public event EventHandler PlayerStopped
         {
             add
             {
-                if (m_playerStopped == null)
+                if (MPlayerStopped == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerStopped);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerStopped);
                 }
-                m_playerStopped += value;
+                MPlayerStopped += value;
             }
             remove
             {
-                if (m_playerStopped != null)
+                if (MPlayerStopped != null)
                 {
-                    m_playerStopped -= value;
-                    if (m_playerStopped == null)
+                    MPlayerStopped -= value;
+                    if (MPlayerStopped == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerStopped);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerStopped);
                     }
                 }
             }
         }
 
-        event EventHandler m_playerForward;
+        event EventHandler MPlayerForward;
         public event EventHandler PlayerForward
         {
             add
             {
-                if (m_playerForward == null)
+                if (MPlayerForward == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerForward);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerForward);
                 }
-                m_playerForward += value;
+                MPlayerForward += value;
             }
             remove
             {
-                if (m_playerForward != null)
+                if (MPlayerForward != null)
                 {
-                    m_playerForward -= value;
-                    if (m_playerForward == null)
+                    MPlayerForward -= value;
+                    if (MPlayerForward == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerForward);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerForward);
                     }
                 }
             }
         }
 
-        event EventHandler m_playerBackward;
+        event EventHandler MPlayerBackward;
         public event EventHandler PlayerBackward
         {
             add
             {
-                if (m_playerBackward == null)
+                if (MPlayerBackward == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerBackward);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerBackward);
                 }
-                m_playerBackward += value;
+                MPlayerBackward += value;
             }
             remove
             {
-                if (m_playerBackward != null)
+                if (MPlayerBackward != null)
                 {
-                    m_playerBackward -= value;
-                    if (m_playerBackward == null)
+                    MPlayerBackward -= value;
+                    if (MPlayerBackward == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerBackward);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerBackward);
                     }
                 }
             }
         }
 
-        event EventHandler m_playerEncounteredError;
+        event EventHandler MPlayerEncounteredError;
         public event EventHandler PlayerEncounteredError
         {
             add
             {
-                if (m_playerEncounteredError == null)
+                if (MPlayerEncounteredError == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerEncounteredError);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerEncounteredError);
                 }
-                m_playerEncounteredError += value;
+                MPlayerEncounteredError += value;
             }
             remove
             {
-                if (m_playerEncounteredError != null)
+                if (MPlayerEncounteredError != null)
                 {
-                    m_playerEncounteredError -= value;
-                    if (m_playerEncounteredError == null)
+                    MPlayerEncounteredError -= value;
+                    if (MPlayerEncounteredError == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerEncounteredError);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerEncounteredError);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaPlayerPositionChanged> m_playerPositionChanged;
+        event EventHandler<MediaPlayerPositionChanged> MPlayerPositionChanged;
         public event EventHandler<MediaPlayerPositionChanged> PlayerPositionChanged
         {
             add
             {
-                if (m_playerPositionChanged == null)
+                if (MPlayerPositionChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerPositionChanged);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerPositionChanged);
                 }
-                m_playerPositionChanged += value;
+                MPlayerPositionChanged += value;
             }
             remove
             {
-                if (m_playerPositionChanged != null)
+                if (MPlayerPositionChanged != null)
                 {
-                    m_playerPositionChanged -= value;
-                    if (m_playerPositionChanged == null)
+                    MPlayerPositionChanged -= value;
+                    if (MPlayerPositionChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerPositionChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerPositionChanged);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaPlayerSeekableChanged> m_playerSeekableChanged;
+        event EventHandler<MediaPlayerSeekableChanged> MPlayerSeekableChanged;
         public event EventHandler<MediaPlayerSeekableChanged> PlayerSeekableChanged
         {
             add
             {
-                if (m_playerSeekableChanged == null)
+                if (MPlayerSeekableChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerSeekableChanged);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerSeekableChanged);
                 }
-                m_playerSeekableChanged += value;
+                MPlayerSeekableChanged += value;
             }
             remove
             {
-                if (m_playerSeekableChanged != null)
+                if (MPlayerSeekableChanged != null)
                 {
-                    m_playerSeekableChanged -= value;
-                    if (m_playerSeekableChanged == null)
+                    MPlayerSeekableChanged -= value;
+                    if (MPlayerSeekableChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerSeekableChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerSeekableChanged);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaPlayerPausableChanged> m_playerPausableChanged;
+        event EventHandler<MediaPlayerPausableChanged> MPlayerPausableChanged;
         public event EventHandler<MediaPlayerPausableChanged> PlayerPausableChanged
         {
             add
             {
-                if (m_playerPausableChanged == null)
+                if (MPlayerPausableChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerPausableChanged);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerPausableChanged);
                 }
-                m_playerPausableChanged += value;
+                MPlayerPausableChanged += value;
             }
             remove
             {
-                if (m_playerPausableChanged != null)
+                if (MPlayerPausableChanged != null)
                 {
-                    m_playerPausableChanged -= value;
-                    if (m_playerPausableChanged == null)
+                    MPlayerPausableChanged -= value;
+                    if (MPlayerPausableChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerPausableChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerPausableChanged);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaPlayerTitleChanged> m_playerTitleChanged;
+        event EventHandler<MediaPlayerTitleChanged> MPlayerTitleChanged;
         public event EventHandler<MediaPlayerTitleChanged> PlayerTitleChanged
         {
             add
             {
-                if (m_playerTitleChanged == null)
+                if (MPlayerTitleChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerTitleChanged);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerTitleChanged);
                 }
-                m_playerTitleChanged += value;
+                MPlayerTitleChanged += value;
             }
             remove
             {
-                if (m_playerTitleChanged != null)
+                if (MPlayerTitleChanged != null)
                 {
-                    m_playerTitleChanged -= value;
-                    if (m_playerTitleChanged == null)
+                    MPlayerTitleChanged -= value;
+                    if (MPlayerTitleChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerTitleChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerTitleChanged);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaPlayerSnapshotTaken> m_playerSnapshotTaken;
+        event EventHandler<MediaPlayerSnapshotTaken> MPlayerSnapshotTaken;
         public event EventHandler<MediaPlayerSnapshotTaken> PlayerSnapshotTaken
         {
             add
             {
-                if (m_playerSnapshotTaken == null)
+                if (MPlayerSnapshotTaken == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerSnapshotTaken);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerSnapshotTaken);
                 }
-                m_playerSnapshotTaken += value;
+                MPlayerSnapshotTaken += value;
             }
             remove
             {
-                if (m_playerSnapshotTaken != null)
+                if (MPlayerSnapshotTaken != null)
                 {
-                    m_playerSnapshotTaken -= value;
-                    if (m_playerSnapshotTaken == null)
+                    MPlayerSnapshotTaken -= value;
+                    if (MPlayerSnapshotTaken == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerSnapshotTaken);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerSnapshotTaken);
                     }
                 }
             }
         }
 
-        event EventHandler<MediaPlayerLengthChanged> m_playerLengthChanged;
+        event EventHandler<MediaPlayerLengthChanged> MPlayerLengthChanged;
         public event EventHandler<MediaPlayerLengthChanged> PlayerLengthChanged
         {
             add
             {
-                if (m_playerLengthChanged == null)
+                if (MPlayerLengthChanged == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaPlayerLengthChanged);
+                    Attach(LibvlcEventE.LibvlcMediaPlayerLengthChanged);
                 }
-                m_playerLengthChanged += value;
+                MPlayerLengthChanged += value;
             }
             remove
             {
-                if (m_playerLengthChanged != null)
+                if (MPlayerLengthChanged != null)
                 {
-                    m_playerLengthChanged -= value;
-                    if (m_playerLengthChanged == null)
+                    MPlayerLengthChanged -= value;
+                    if (MPlayerLengthChanged == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaPlayerLengthChanged);
+                        Dettach(LibvlcEventE.LibvlcMediaPlayerLengthChanged);
                     }
                 }
             }

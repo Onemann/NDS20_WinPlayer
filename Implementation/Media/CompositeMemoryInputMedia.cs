@@ -28,9 +28,9 @@ namespace Implementation.Media
 {
     internal sealed unsafe class CompositeMemoryInputMedia : BasicMedia, ICompositeMemoryInputMedia
     {
-        Dictionary<int, StreamData> m_streamData = new Dictionary<int, StreamData>();
-        Action<Exception> m_excHandler;
-        bool m_isComplete = false;
+        Dictionary<int, StreamData> _mStreamData = new Dictionary<int, StreamData>();
+        Action<Exception> _mExcHandler;
+        bool _mIsComplete = false;
 
         public CompositeMemoryInputMedia(IntPtr hMediaLib)
             : base(hMediaLib)
@@ -40,64 +40,64 @@ namespace Implementation.Media
 
         public void StreamAddingComplete()
         {
-            m_isComplete = true;
+            _mIsComplete = true;
         }
 
         public void AddStream(StreamInfo streamInfo, int maxItemsInQueue = 30)
         {
-            if (m_isComplete)
+            if (_mIsComplete)
             {
                 throw new InvalidOperationException("Stream adding is complete. No more streams allowed");
             }
 
-            m_streamData[streamInfo.ID] = new StreamData(streamInfo, maxItemsInQueue);
+            _mStreamData[streamInfo.Id] = new StreamData(streamInfo, maxItemsInQueue);
         }
 
         public void AddFrame(int streamId, FrameData frame)
         {
             var clone = DeepClone(frame);
-            m_streamData[streamId].Queue.Add(clone);
+            _mStreamData[streamId].Queue.Add(clone);
         }
 
         public void AddFrame(int streamId, byte[] data, long pts, long dts = -1)
         {
             var clone = DeepClone(data);
-            clone.PTS = pts;
-            clone.DTS = dts;
-            m_streamData[streamId].Queue.Add(clone);
+            clone.Pts = pts;
+            clone.Dts = dts;
+            _mStreamData[streamId].Queue.Add(clone);
         }
 
         public void AddFrame(int streamId, Bitmap bitmap, long pts, long dts = -1)
         {
-            Rectangle rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-            BitmapData bmpData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, bitmap.PixelFormat);
-            FrameData frame = DeepClone(bmpData.Scan0, bmpData.Stride * bmpData.Height);
+            var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            var bmpData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, bitmap.PixelFormat);
+            var frame = DeepClone(bmpData.Scan0, bmpData.Stride * bmpData.Height);
             bitmap.UnlockBits(bmpData);
-            frame.PTS = pts;
-            frame.DTS = dts;
-            m_streamData[streamId].Queue.Add(frame);
+            frame.Pts = pts;
+            frame.Dts = dts;
+            _mStreamData[streamId].Queue.Add(frame);
         }
 
         public void AddFrame(int streamId, Sound sound, long dts = -1)
         {
             var clone = DeepClone(sound);
-            clone.DTS = dts;
-            m_streamData[streamId].Queue.Add(clone);
+            clone.Dts = dts;
+            _mStreamData[streamId].Queue.Add(clone);
         }
 
         public void SetExceptionHandler(Action<Exception> handler)
         {
-            m_excHandler = handler;
+            _mExcHandler = handler;
         }
 
         public int GetPendingFramesCount(int streamId)
         {
-            return m_streamData[streamId].Queue.Count;
+            return _mStreamData[streamId].Queue.Count;
         }
 
         private FrameData DeepClone(byte[] buffer)
         {
-            FrameData clone = new FrameData();
+            var clone = new FrameData();
             clone.Data = new IntPtr(MemoryHeap.Alloc(buffer.Length));
             Marshal.Copy(buffer, 0, clone.Data, buffer.Length);
             clone.DataSize = buffer.Length;
@@ -106,22 +106,22 @@ namespace Implementation.Media
 
         private FrameData DeepClone(FrameData frameData)
         {
-            FrameData clone = DeepClone(frameData.Data, frameData.DataSize);
-            clone.DTS = frameData.DTS;
-            clone.PTS = frameData.PTS;
+            var clone = DeepClone(frameData.Data, frameData.DataSize);
+            clone.Dts = frameData.Dts;
+            clone.Pts = frameData.Pts;
             return clone;
         }
 
         private FrameData DeepClone(Sound sound)
         {
-            FrameData clone = DeepClone(sound.SamplesData, (int)sound.SamplesSize);
-            clone.PTS = sound.Pts;
+            var clone = DeepClone(sound.SamplesData, (int)sound.SamplesSize);
+            clone.Pts = sound.Pts;
             return clone;
         }
 
         private FrameData DeepClone(IntPtr data, int size)
         {
-            FrameData clone = new FrameData();
+            var clone = new FrameData();
             clone.Data = new IntPtr(MemoryHeap.Alloc(size));
             MemoryHeap.CopyMemory(clone.Data.ToPointer(), data.ToPointer(), size);
             clone.DataSize = size;
@@ -144,19 +144,19 @@ namespace Implementation.Media
         {
             try
             {
-                FrameData fdata = GetNextFrameData(cookie);
+                var fdata = GetNextFrameData(cookie);
                 *ppData = fdata.Data.ToPointer();
                 *dataSize = (uint)fdata.DataSize;
-                *pts = fdata.PTS;
-                *dts = fdata.DTS;
+                *pts = fdata.Pts;
+                *dts = fdata.Dts;
                 *flags = 0;
                 return 0;
             }
             catch (Exception ex)
             {
-                if (m_excHandler != null)
+                if (_mExcHandler != null)
                 {
-                    m_excHandler(ex);
+                    _mExcHandler(ex);
                 }
                 else
                 {
@@ -168,8 +168,8 @@ namespace Implementation.Media
 
         private FrameData GetNextFrameData(char* cookie)
         {
-            int index = (int)*cookie;
-            return m_streamData[index].Queue.Take();
+            var index = (int)*cookie;
+            return _mStreamData[index].Queue.Take();
         }
 
         private void OnImemRelease(void* data, char* cookie, uint dataSize, void* pData)
@@ -180,9 +180,9 @@ namespace Implementation.Media
             }
             catch (Exception ex)
             {
-                if (m_excHandler != null)
+                if (_mExcHandler != null)
                 {
-                    m_excHandler(ex);
+                    _mExcHandler(ex);
                 }
                 else
                 {

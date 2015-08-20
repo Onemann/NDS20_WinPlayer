@@ -22,27 +22,27 @@ namespace Implementation
 {
     internal unsafe struct PixelData : IDisposable
     {
-        public byte* pPixelData;
-        public int size;
+        public byte* PPixelData;
+        public int Size;
 
         public PixelData(int size)
         {
-            this.size = size;
-            this.pPixelData = (byte*)MemoryHeap.Alloc(size);
+            this.Size = size;
+            this.PPixelData = (byte*)MemoryHeap.Alloc(size);
         }
 
         #region IDisposable Members
 
         public void Dispose()
         {
-            MemoryHeap.Free(this.pPixelData);
+            MemoryHeap.Free(this.PPixelData);
         }
 
         #endregion
 
         public static bool operator ==(PixelData pd1, PixelData pd2)
         {
-            return (pd1.size == pd2.size && pd1.pPixelData == pd2.pPixelData);
+            return (pd1.Size == pd2.Size && pd1.PPixelData == pd2.PPixelData);
         }
 
         public static bool operator !=(PixelData pd1, PixelData pd2)
@@ -52,12 +52,12 @@ namespace Implementation
 
         public override int GetHashCode()
         {
-            return size.GetHashCode() ^ pPixelData->GetHashCode();
+            return Size.GetHashCode() ^ PPixelData->GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            PixelData pd = (PixelData)obj;
+            var pd = (PixelData)obj;
             if (pd == null)
             {
                 return false;

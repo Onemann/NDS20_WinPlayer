@@ -24,18 +24,18 @@ namespace Implementation
     /// </summary>
     public abstract class DisposableBase : CriticalFinalizerObject, IDisposable
     {
-        private volatile bool m_isDisposed;
+        private volatile bool _mIsDisposed;
 
         /// <summary>
         /// 
         /// </summary>
         public void Dispose()
         {
-            if (!m_isDisposed)
+            if (!_mIsDisposed)
             {
                 Dispose(true);
                 GC.SuppressFinalize(this);
-                m_isDisposed = true;
+                _mIsDisposed = true;
             }
         }
 
@@ -55,10 +55,10 @@ namespace Implementation
         /// </summary>
         ~DisposableBase()
         {
-            if (!m_isDisposed)
+            if (!_mIsDisposed)
             {
                 Dispose(false);
-                m_isDisposed = true;
+                _mIsDisposed = true;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Implementation
         /// </summary>
         protected void VerifyObjectNotDisposed()
         {
-            if (m_isDisposed)
+            if (_mIsDisposed)
             {
                 throw new ObjectDisposedException(this.GetType().Name);
             }

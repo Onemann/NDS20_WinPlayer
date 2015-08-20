@@ -47,6 +47,6 @@ namespace Declarations
         /// <summary>
         /// Storage aspect ratio
         /// </summary>
-        AspectRatio SAR { set; get; }
+        AspectRatio Sar { set; get; }
     }
 }

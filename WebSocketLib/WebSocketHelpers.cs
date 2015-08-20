@@ -29,11 +29,11 @@ namespace Bauglir.Ex
 {
   public class WebSocketIndexer
   {
-    private static int fIndex = 0;
+    private static int _fIndex = 0;
     
     public static int GetIndex()
     {
-      return fIndex++;
+      return _fIndex++;
     }
   }
 
@@ -63,7 +63,7 @@ namespace Bauglir.Ex
     public const int FrameTooLarge = 1004;
     public const int NoStatus = 1005;
     public const int CloseError = 1006;
-    public const int UTF8Error = 1007;
+    public const int Utf8Error = 1007;
 
     /*
      * I probably do not need this...
@@ -127,7 +127,7 @@ namespace Bauglir.Ex
     
     public string ToHeaders()
     {
-      string result = String.Empty;
+      var result = String.Empty;
       foreach( DictionaryEntry entry in this )
       {
         result += entry.Key + ": " + entry.Value + "\r\n";

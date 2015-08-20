@@ -31,63 +31,63 @@ namespace Implementation.Events
 
         }
 
-        protected override void MediaPlayerEventOccured(ref libvlc_event_t libvlc_event, IntPtr userData)
+        protected override void MediaPlayerEventOccured(ref LibvlcEventT libvlcEvent, IntPtr userData)
         {
-            switch(libvlc_event.type)
+            switch(libvlcEvent.type)
             {
-                case libvlc_event_e.libvlc_MediaDiscovererStarted:
+                case LibvlcEventE.LibvlcMediaDiscovererStarted:
 
                     break;
 
-                case libvlc_event_e.libvlc_MediaDiscovererEnded:
+                case LibvlcEventE.LibvlcMediaDiscovererEnded:
 
                     break;
             }
         }
 
-        private event EventHandler m_mediaDiscoveryStarted;
+        private event EventHandler MMediaDiscoveryStarted;
         public event EventHandler MediaDiscoveryStarted
         {
             add
             {
-                if (m_mediaDiscoveryStarted == null)
+                if (MMediaDiscoveryStarted == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaDiscovererStarted);
+                    Attach(LibvlcEventE.LibvlcMediaDiscovererStarted);
                 }
-                m_mediaDiscoveryStarted += value;
+                MMediaDiscoveryStarted += value;
             }
             remove
             {
-                if (m_mediaDiscoveryStarted != null)
+                if (MMediaDiscoveryStarted != null)
                 {
-                    m_mediaDiscoveryStarted -= value;
-                    if (m_mediaDiscoveryStarted == null)
+                    MMediaDiscoveryStarted -= value;
+                    if (MMediaDiscoveryStarted == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaDiscovererStarted);
+                        Dettach(LibvlcEventE.LibvlcMediaDiscovererStarted);
                     }
                 }
             }
         }
 
-        private event EventHandler m_mediaDiscoveryEnded;
+        private event EventHandler MMediaDiscoveryEnded;
         public event EventHandler MediaDiscoveryEnded
         {
             add
             {
-                if (m_mediaDiscoveryEnded == null)
+                if (MMediaDiscoveryEnded == null)
                 {
-                    Attach(libvlc_event_e.libvlc_MediaDiscovererEnded);
+                    Attach(LibvlcEventE.LibvlcMediaDiscovererEnded);
                 }
-                m_mediaDiscoveryEnded += value;
+                MMediaDiscoveryEnded += value;
             }
             remove
             {
-                if (m_mediaDiscoveryEnded != null)
+                if (MMediaDiscoveryEnded != null)
                 {
-                    m_mediaDiscoveryEnded -= value;
-                    if (m_mediaDiscoveryEnded == null)
+                    MMediaDiscoveryEnded -= value;
+                    if (MMediaDiscoveryEnded == null)
                     {
-                        Dettach(libvlc_event_e.libvlc_MediaDiscovererEnded);
+                        Dettach(LibvlcEventE.LibvlcMediaDiscovererEnded);
                     }
                 }
             }

@@ -31,12 +31,12 @@ namespace Implementation
 {
     internal sealed unsafe class MemoryInputMedia : BasicMedia, IMemoryInputMedia
     {
-        IntPtr m_pLock, m_pUnlock;
-        List<Delegate> m_callbacks = new List<Delegate>();
-        StreamInfo m_streamInfo;
-        BlockingCollection<FrameData> m_queue;
-        Action<Exception> m_excHandler;
-        bool m_initilaized;
+        IntPtr _mPLock, _mPUnlock;
+        List<Delegate> _mCallbacks = new List<Delegate>();
+        StreamInfo _mStreamInfo;
+        BlockingCollection<FrameData> _mQueue;
+        Action<Exception> _mExcHandler;
+        bool _mInitilaized;
         
         public MemoryInputMedia(IntPtr hMediaLib)
             : base(hMediaLib)
@@ -44,11 +44,11 @@ namespace Implementation
             ImemGet pLock = OnImemGet;
             ImemRelease pUnlock = OnImemRelease;
 
-            m_pLock = Marshal.GetFunctionPointerForDelegate(pLock);
-            m_pUnlock = Marshal.GetFunctionPointerForDelegate(pUnlock);
+            _mPLock = Marshal.GetFunctionPointerForDelegate(pLock);
+            _mPUnlock = Marshal.GetFunctionPointerForDelegate(pUnlock);
 
-            m_callbacks.Add(pLock);
-            m_callbacks.Add(pUnlock);
+            _mCallbacks.Add(pLock);
+            _mCallbacks.Add(pUnlock);
         }
 
         public void Initialize(StreamInfo streamInfo, int maxItemsInQueue)
@@ -58,15 +58,15 @@ namespace Implementation
                 throw new ArgumentNullException("streamInfo");
             }
 
-            m_streamInfo = streamInfo;
+            _mStreamInfo = streamInfo;
             AddOptions(MediaOptions.ToList());
-            m_queue = new BlockingCollection<FrameData>(maxItemsInQueue);
-            m_initilaized = true;
+            _mQueue = new BlockingCollection<FrameData>(maxItemsInQueue);
+            _mInitilaized = true;
         }
 
         public void AddFrame(FrameData frameData)
         {
-            if (!m_initilaized)
+            if (!_mInitilaized)
             {
                 throw new InvalidOperationException("The instance must be initialized first. Call Initialize method before adding frames");
             }
@@ -81,17 +81,17 @@ namespace Implementation
                 throw new ArgumentException("DataSize value must be greater than zero", "frameData.DataSize");
             }
 
-            if (frameData.PTS < 0)
+            if (frameData.Pts < 0)
             {
                 throw new ArgumentException("Pts value must be greater than zero", "frameData.PTS");
             }
 
-            m_queue.Add(DeepClone(frameData));
+            _mQueue.Add(DeepClone(frameData));
         }
 
         public void AddFrame(byte[] data, long pts, long dts)
         {
-            if (!m_initilaized)
+            if (!_mInitilaized)
             {
                 throw new InvalidOperationException("The instance must be initialized first. Call Initialize method before adding frames");
             }
@@ -106,15 +106,15 @@ namespace Implementation
                 throw new ArgumentException("Pts value must be greater than zero", "pts");
             }
 
-            FrameData frame = DeepClone(data);
-            frame.PTS = pts;
-            frame.DTS = dts;
-            m_queue.Add(frame);
+            var frame = DeepClone(data);
+            frame.Pts = pts;
+            frame.Dts = dts;
+            _mQueue.Add(frame);
         }
 
         public void AddFrame(Bitmap bitmap, long pts, long dts)
         {
-            if (!m_initilaized)
+            if (!_mInitilaized)
             {
                 throw new InvalidOperationException("The instance must be initialized first. Call Initialize method before adding frames");
             }
@@ -135,18 +135,18 @@ namespace Implementation
                 throw new ArgumentException("Supported pixel formats for bitmaps are Format24bppRgb and Format32bppRgb", "bitmap.PixelFormat");
             }
 
-            Rectangle rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-            BitmapData bmpData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, bitmap.PixelFormat);
-            FrameData frame = DeepClone(bmpData.Scan0, bmpData.Stride * bmpData.Height);
+            var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            var bmpData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, bitmap.PixelFormat);
+            var frame = DeepClone(bmpData.Scan0, bmpData.Stride * bmpData.Height);
             bitmap.UnlockBits(bmpData);
-            frame.PTS = pts;
-            frame.DTS = dts;
-            m_queue.Add(frame);
+            frame.Pts = pts;
+            frame.Dts = dts;
+            _mQueue.Add(frame);
         }
 
         private FrameData DeepClone(byte[] buffer)
         {
-            FrameData clone = new FrameData();
+            var clone = new FrameData();
             clone.Data = new IntPtr(MemoryHeap.Alloc(buffer.Length));
             Marshal.Copy(buffer, 0, clone.Data, buffer.Length);
             clone.DataSize = buffer.Length;
@@ -155,15 +155,15 @@ namespace Implementation
 
         private FrameData DeepClone(FrameData frameData)
         {
-            FrameData clone = DeepClone(frameData.Data, frameData.DataSize);
-            clone.DTS = frameData.DTS;
-            clone.PTS = frameData.PTS;
+            var clone = DeepClone(frameData.Data, frameData.DataSize);
+            clone.Dts = frameData.Dts;
+            clone.Pts = frameData.Pts;
             return clone;
         }
 
         private FrameData DeepClone(IntPtr data, int size)
         {
-            FrameData clone = new FrameData();
+            var clone = new FrameData();
             clone.Data = new IntPtr(MemoryHeap.Alloc(size));
             MemoryHeap.CopyMemory(clone.Data.ToPointer(), data.ToPointer(), size);
             clone.DataSize = size;
@@ -174,19 +174,19 @@ namespace Implementation
         {
             try
             {
-                FrameData fdata = m_queue.Take();
+                var fdata = _mQueue.Take();
                 *ppData = fdata.Data.ToPointer();
                 *dataSize = (uint)fdata.DataSize;
-                *pts = fdata.PTS;
-                *dts = fdata.DTS;
+                *pts = fdata.Pts;
+                *dts = fdata.Dts;
                 *flags = 0;
                 return 0;
             }
             catch (Exception ex)
             {
-                if (m_excHandler != null)
+                if (_mExcHandler != null)
                 {
-                    m_excHandler(ex);
+                    _mExcHandler(ex);
                 }
                 else
                 {
@@ -204,9 +204,9 @@ namespace Implementation
             }
             catch (Exception ex)
             {
-                if (m_excHandler != null)
+                if (_mExcHandler != null)
                 {
-                    m_excHandler(ex);
+                    _mExcHandler(ex);
                 }
                 else
                 {
@@ -219,19 +219,19 @@ namespace Implementation
         {
             get
             {
-                yield return string.Format(":imem-get={0}", m_pLock.ToInt64());
-                yield return string.Format(":imem-release={0}", m_pUnlock.ToInt64());
-                yield return string.Format(":imem-codec={0}", EnumUtils.GetEnumDescription(m_streamInfo.Codec));
-                yield return string.Format(":imem-cat={0}", (int)m_streamInfo.Category);
-                yield return string.Format(":imem-id={0}", m_streamInfo.ID);
-                yield return string.Format(":imem-group={0}", m_streamInfo.Group);
-                yield return string.Format(":imem-fps={0}", m_streamInfo.FPS);
-                yield return string.Format(":imem-width={0}", m_streamInfo.Width);
-                yield return string.Format(":imem-height={0}", m_streamInfo.Height);
-                yield return string.Format(":imem-size={0}", m_streamInfo.Size);
-                yield return string.Format(":imem-channels={0}", m_streamInfo.Channels);
-                yield return string.Format(":imem-samplerate={0}", m_streamInfo.Samplerate);
-                yield return string.Format(":imem-dar={0}", EnumUtils.GetEnumDescription(m_streamInfo.AspectRatio));
+                yield return string.Format(":imem-get={0}", _mPLock.ToInt64());
+                yield return string.Format(":imem-release={0}", _mPUnlock.ToInt64());
+                yield return string.Format(":imem-codec={0}", EnumUtils.GetEnumDescription(_mStreamInfo.Codec));
+                yield return string.Format(":imem-cat={0}", (int)_mStreamInfo.Category);
+                yield return string.Format(":imem-id={0}", _mStreamInfo.Id);
+                yield return string.Format(":imem-group={0}", _mStreamInfo.Group);
+                yield return string.Format(":imem-fps={0}", _mStreamInfo.Fps);
+                yield return string.Format(":imem-width={0}", _mStreamInfo.Width);
+                yield return string.Format(":imem-height={0}", _mStreamInfo.Height);
+                yield return string.Format(":imem-size={0}", _mStreamInfo.Size);
+                yield return string.Format(":imem-channels={0}", _mStreamInfo.Channels);
+                yield return string.Format(":imem-samplerate={0}", _mStreamInfo.Samplerate);
+                yield return string.Format(":imem-dar={0}", EnumUtils.GetEnumDescription(_mStreamInfo.AspectRatio));
                 yield return string.Format(":imem-cookie=3");
             }
         }
@@ -242,33 +242,33 @@ namespace Implementation
 
             if (disposing)
             {
-                m_callbacks = null;
-                if (m_queue.Count > 0)
+                _mCallbacks = null;
+                if (_mQueue.Count > 0)
                 {
-                    foreach (var item in m_queue)
+                    foreach (var item in _mQueue)
                     {
                         MemoryHeap.Free(item.Data.ToPointer());
                     }
                 }
-                m_queue = null;
+                _mQueue = null;
             }
         }
 
         public void SetExceptionHandler(Action<Exception> handler)
         {
-            m_excHandler = handler;
+            _mExcHandler = handler;
         }
 
         public int PendingFramesCount
         {
             get 
             {
-                if (m_queue == null)
+                if (_mQueue == null)
                 {
                     return 0;
                 }
 
-                return m_queue.Count;
+                return _mQueue.Count;
             }
         }
     }

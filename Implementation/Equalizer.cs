@@ -21,8 +21,8 @@ namespace Implementation
         {
             get
             {
-                int count = LibVlcMethods.libvlc_audio_equalizer_get_preset_count();
-                for (int i = 0; i < count; i++)
+                var count = LibVlcMethods.libvlc_audio_equalizer_get_preset_count();
+                for (var i = 0; i < count; i++)
                 {
                     yield return new Preset(i, Marshal.PtrToStringAnsi(LibVlcMethods.libvlc_audio_equalizer_get_preset_name(i)));
                 }
@@ -75,9 +75,9 @@ namespace Implementation
             {
                 if (_bands == null)
                 {
-                    int count = LibVlcMethods.libvlc_audio_equalizer_get_band_count();
-                    List<Band> temp = new List<Band>(count);
-                    for (int i = 0; i < count; i++)
+                    var count = LibVlcMethods.libvlc_audio_equalizer_get_band_count();
+                    var temp = new List<Band>(count);
+                    for (var i = 0; i < count; i++)
                     {
                         temp.Add(new Band(i, LibVlcMethods.libvlc_audio_equalizer_get_band_frequency(i), _handle));
                     }

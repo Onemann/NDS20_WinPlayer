@@ -21,7 +21,7 @@ using LibVlcWrapper;
 namespace Implementation
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    delegate void VlcEventHandlerDelegate(ref libvlc_event_t libvlc_event, IntPtr userData);
+    delegate void VlcEventHandlerDelegate(ref LibvlcEventT libvlcEvent, IntPtr userData);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     unsafe delegate void* LockEventHandler(void* opaque, void** plane);
@@ -63,5 +63,5 @@ namespace Implementation
     unsafe delegate void ImemRelease(void* data, char* cookie, uint dataSize, void* pData); 
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    unsafe delegate void LogCallback(void* data, libvlc_log_level level, void* ctx, char* fmt, char* args);
+    unsafe delegate void LogCallback(void* data, LibvlcLogLevel level, void* ctx, char* fmt, char* args);
 }

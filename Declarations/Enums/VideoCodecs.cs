@@ -31,19 +31,19 @@ namespace Declarations.Enums
         /// 24 bits per pixel blue, green and red
         /// </summary>
         [Description("RV24")]
-        BGR24,
+        Bgr24,
 
         /// <summary>
         /// 32 bits per pixel blue, green, red and empty (or alpha)
         /// </summary>
         [Description("RV32")]
-        BGR32,
+        Bgr32,
 
         /// <summary>
         /// Motion JPEG stream - each video frame encoded as jpeg image
         /// </summary>
         [Description("MJPG")]
-        MJPEG,
+        Mjpeg,
 
         /// <summary>
         /// YUV420 12 bits per pixel Y, Cb and Cr

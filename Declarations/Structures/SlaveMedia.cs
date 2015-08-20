@@ -18,7 +18,7 @@ namespace Declarations.Structures
         /// <param name="startTime"></param>
         public SlaveMedia(string mrl, int caching = 0, double startTime = 0)
         {
-            MRL = mrl;
+            Mrl = mrl;
             Caching = caching;
             StartTime = startTime;
         }
@@ -35,7 +35,7 @@ namespace Declarations.Structures
         /// <summary>
         /// 
         /// </summary>
-        public string MRL { get; private set; }
+        public string Mrl { get; private set; }
 
         /// <summary>
         /// 
@@ -43,8 +43,8 @@ namespace Declarations.Structures
         /// <returns></returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat(":input-slave={0}", MRL);
+            var sb = new StringBuilder();
+            sb.AppendFormat(":input-slave={0}", Mrl);
             if (Caching > 0)
             {
                 sb.AppendFormat(" :file-caching={0}", Caching);

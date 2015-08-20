@@ -23,7 +23,7 @@ namespace Implementation.Utils
     [SuppressUnmanagedCodeSecurity]
     internal unsafe class MemoryHeap
     {
-        static int ph = GetProcessHeap();
+        static int _ph = GetProcessHeap();
 
         private MemoryHeap() { }
 
@@ -35,7 +35,7 @@ namespace Implementation.Utils
         /// <returns></returns>
         public static void* Alloc(int size)
         {
-            void* result = HeapAlloc(ph, HEAP_ZERO_MEMORY, size);
+            var result = HeapAlloc(_ph, HeapZeroMemory, size);
             if (result == null)
             {
                 throw new OutOfMemoryException();
@@ -50,7 +50,7 @@ namespace Implementation.Utils
         /// <param name="block"></param>
         public static void Free(void* block)
         {
-            if (!HeapFree(ph, 0, block))
+            if (!HeapFree(_ph, 0, block))
             {
                 throw new InvalidOperationException();
             }
@@ -66,7 +66,7 @@ namespace Implementation.Utils
         /// <returns></returns>
         public static void* ReAlloc(void* block, int size)
         {
-            void* result = HeapReAlloc(ph, HEAP_ZERO_MEMORY, block, size);
+            var result = HeapReAlloc(_ph, HeapZeroMemory, block, size);
             if (result == null)
             {
                 throw new OutOfMemoryException();
@@ -82,7 +82,7 @@ namespace Implementation.Utils
         /// <returns></returns>
         public static int SizeOf(void* block)
         {
-            int result = HeapSize(ph, 0, block);
+            var result = HeapSize(_ph, 0, block);
             if (result == -1)
             {
                 throw new InvalidOperationException();
@@ -92,7 +92,7 @@ namespace Implementation.Utils
         }
 
         // Heap API flags
-        const int HEAP_ZERO_MEMORY = 0x00000008;
+        const int HeapZeroMemory = 0x00000008;
 
         // Heap API functions
         [DllImport("kernel32")]

@@ -33,7 +33,7 @@ namespace Implementation
 
             Data = (byte**)MemoryHeap.Alloc(sizeof(byte*) * Sizes.Length);
 
-            for (int i = 0; i < Sizes.Length; i++)
+            for (var i = 0; i < Sizes.Length; i++)
             {
                 Data[i] = (byte*)MemoryHeap.Alloc(sizeof(byte) * Sizes[i]);
             }
@@ -41,7 +41,7 @@ namespace Implementation
 
         public void Dispose()
         {
-            for (int i = 0; i < Sizes.Length; i++)
+            for (var i = 0; i < Sizes.Length; i++)
             {
                 MemoryHeap.Free(Data[i]);
             }
@@ -66,7 +66,7 @@ namespace Implementation
 
         public override bool Equals(object obj)
         {
-            PlanarPixelData pd = (PlanarPixelData)obj;
+            var pd = (PlanarPixelData)obj;
             if (pd == null)
             {
                 return false;

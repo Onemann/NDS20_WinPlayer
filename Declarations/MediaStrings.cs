@@ -26,28 +26,28 @@ namespace Declarations
     /// </summary>
     public class MediaStrings
     {
-        public const string DVD = @"dvd://";
-        public const string VCD = @"vcd://";
-        public const string CDDA = @"cdda://";
-        public const string BLURAY = @"bluray://";
+        public const string Dvd = @"dvd://";
+        public const string Vcd = @"vcd://";
+        public const string Cdda = @"cdda://";
+        public const string Bluray = @"bluray://";
 
-        public const string RTP = @"rtp://";
-        public const string RTSP = @"rtsp://";
-        public const string HTTP = @"http://";
-        public const string UDP = @"udp://";
-        public const string MMS = @"mms://";
+        public const string Rtp = @"rtp://";
+        public const string Rtsp = @"rtsp://";
+        public const string Http = @"http://";
+        public const string Udp = @"udp://";
+        public const string Mms = @"mms://";
 
-        public const string DSHOW = @"dshow://";
-        public const string SCREEN = @"screen://";
+        public const string Dshow = @"dshow://";
+        public const string Screen = @"screen://";
 
         /// <summary>
         /// Fake access module. Should be used with IVideoInputMedia objects.
         /// </summary>
-        public const string FAKE = @"fake://";
+        public const string Fake = @"fake://";
 
         /// <summary>
         /// imem access module. Should be used with IMemoryInputMedia objects
         /// </summary>
-        public const string IMEM = @"imem://";
+        public const string Imem = @"imem://";
     }
 }

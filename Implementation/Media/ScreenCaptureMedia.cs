@@ -24,16 +24,16 @@ namespace Implementation.Media
 {
    internal class ScreenCaptureMedia : BasicMedia, IScreenCaptureMedia
    {
-      private Rectangle m_captureArea;
-      private int m_fps;
-      private bool m_followMouse = false;
-      private string m_cursorFile;
+      private Rectangle _mCaptureArea;
+      private int _mFps;
+      private bool _mFollowMouse = false;
+      private string _mCursorFile;
 
       public ScreenCaptureMedia(IntPtr hMediaLib)
          : base(hMediaLib)
       {
-         m_captureArea = Screen.PrimaryScreen.Bounds;
-         m_fps = 1;
+         _mCaptureArea = Screen.PrimaryScreen.Bounds;
+         _mFps = 1;
       }
 
       #region IScreenCaptureMedia Members
@@ -42,46 +42,46 @@ namespace Implementation.Media
       {
          get
          {
-            return m_captureArea;
+            return _mCaptureArea;
          }
          set
          {
-            m_captureArea = value;
+            _mCaptureArea = value;
             UpdateCaptureArea();
          }
       }
 
       private void UpdateCaptureArea()
       {
-         List<string> options = new List<string>()
+         var options = new List<string>()
          {
-            string.Format(":screen-top={0}", m_captureArea.Top),
-            string.Format(":screen-left={0}", m_captureArea.Left),
-            string.Format(":screen-width={0}", m_captureArea.Width),
-            string.Format(":screen-height={0}", m_captureArea.Height)
+            string.Format(":screen-top={0}", _mCaptureArea.Top),
+            string.Format(":screen-left={0}", _mCaptureArea.Left),
+            string.Format(":screen-width={0}", _mCaptureArea.Width),
+            string.Format(":screen-height={0}", _mCaptureArea.Height)
          };
 
          AddOptions(options);
       }
 
-      public int FPS
+      public int Fps
       {
          get
          {
-            return m_fps;
+            return _mFps;
          }
          set
          {
-            m_fps = value;
+            _mFps = value;
             UpdateFrameRate();
          }
       }
 
       private void UpdateFrameRate()
       {
-         List<string> options = new List<string>()
+         var options = new List<string>()
          {
-            string.Format(":screen-fps={0}", m_fps)
+            string.Format(":screen-fps={0}", _mFps)
          };
 
          AddOptions(options);
@@ -89,9 +89,9 @@ namespace Implementation.Media
 
       private void UpdateFollowMouse()
       {
-         List<string> options = new List<string>()
+         var options = new List<string>()
          {
-            string.Format(":screen-follow-mouse={0}", m_followMouse.ToString())
+            string.Format(":screen-follow-mouse={0}", _mFollowMouse.ToString())
          };
 
          AddOptions(options);
@@ -101,11 +101,11 @@ namespace Implementation.Media
       {
          get
          {
-            return m_followMouse;
+            return _mFollowMouse;
          }
          set
          {
-            m_followMouse = value;
+            _mFollowMouse = value;
             UpdateFollowMouse();
          }
       }
@@ -114,20 +114,20 @@ namespace Implementation.Media
       {
          get
          {
-            return m_cursorFile;
+            return _mCursorFile;
          }
          set
          {
-            m_cursorFile = value;
+            _mCursorFile = value;
             UpdateCursorImage();
          }
       }
 
       private void UpdateCursorImage()
       {
-         List<string> options = new List<string>()
+         var options = new List<string>()
          {
-            string.Format(":screen-mouse-image={0}", m_cursorFile)
+            string.Format(":screen-mouse-image={0}", _mCursorFile)
          };
 
          AddOptions(options);      

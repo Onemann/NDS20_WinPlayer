@@ -28,36 +28,36 @@ namespace nVLC_Demo_WinForms
 {
     public partial class Form1 : Form
     {
-        IMediaPlayerFactory m_factory;
-        IDiskPlayer m_player;
-        IMediaFromFile m_media;
+        IMediaPlayerFactory _mFactory;
+        IDiskPlayer _mPlayer;
+        IMediaFromFile _mMedia;
 
         public Form1()
         {
             InitializeComponent();
 
-            m_factory = new MediaPlayerFactory(true);
-            m_player = m_factory.CreatePlayer<IDiskPlayer>();
+            _mFactory = new MediaPlayerFactory(true);
+            _mPlayer = _mFactory.CreatePlayer<IDiskPlayer>();
 
-            m_player.Events.PlayerPositionChanged += new EventHandler<MediaPlayerPositionChanged>(Events_PlayerPositionChanged);
-            m_player.Events.TimeChanged += new EventHandler<MediaPlayerTimeChanged>(Events_TimeChanged);
-            m_player.Events.MediaEnded += new EventHandler(Events_MediaEnded);
-            m_player.Events.PlayerStopped += new EventHandler(Events_PlayerStopped);
-            m_player.AspectRatio = AspectRatioMode.Default;
-            m_player.WindowHandle = panel1.Handle;
-            trackBar2.Value = m_player.Volume > 0 ? m_player.Volume : 0;
+            _mPlayer.Events.PlayerPositionChanged += new EventHandler<MediaPlayerPositionChanged>(Events_PlayerPositionChanged);
+            _mPlayer.Events.TimeChanged += new EventHandler<MediaPlayerTimeChanged>(Events_TimeChanged);
+            _mPlayer.Events.MediaEnded += new EventHandler(Events_MediaEnded);
+            _mPlayer.Events.PlayerStopped += new EventHandler(Events_PlayerStopped);
+            _mPlayer.AspectRatio = AspectRatioMode.Default;
+            _mPlayer.WindowHandle = panel1.Handle;
+            trackBar2.Value = _mPlayer.Volume > 0 ? _mPlayer.Volume : 0;
 
-            UISync.Init(this);
+            UiSync.Init(this);
         }
 
         void Events_PlayerStopped(object sender, EventArgs e)
         {
-            UISync.Execute(() => InitControls());
+            UiSync.Execute(() => InitControls());
         }
 
         void Events_MediaEnded(object sender, EventArgs e)
         {
-            UISync.Execute(() => InitControls());
+            UiSync.Execute(() => InitControls());
         }
 
         private void InitControls()
@@ -71,17 +71,17 @@ namespace nVLC_Demo_WinForms
         {
             string tmpstr;
             tmpstr = TimeSpan.FromMilliseconds(e.NewTime).ToString() + ".00";
-            UISync.Execute(() => lblTime.Text = tmpstr.Substring(0, 11));
+            UiSync.Execute(() => lblTime.Text = tmpstr.Substring(0, 11));
         }
 
         void Events_PlayerPositionChanged(object sender, MediaPlayerPositionChanged e)
         {
-            UISync.Execute(() => trackBar1.Value = (int)(e.NewPosition * 100));
+            UiSync.Execute(() => trackBar1.Value = (int)(e.NewPosition * 100));
         }
 
         private void LoadMedia()
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = ofd.FileName;
@@ -91,13 +91,13 @@ namespace nVLC_Demo_WinForms
         void Events_StateChanged(object sender, MediaStateChange e)
         {
             //UISync.Execute(() => label1.Text = e.NewState.ToString());
-            UISync.Execute(() => this.Text = e.NewState.ToString());
+            UiSync.Execute(() => this.Text = e.NewState.ToString());
             
         }
 
         void Events_DurationChanged(object sender, MediaDurationChange e)
         {
-            UISync.Execute(() => lblDuration.Text = TimeSpan.FromMilliseconds(e.NewDuration).ToString().Substring(0, 8));
+            UiSync.Execute(() => lblDuration.Text = TimeSpan.FromMilliseconds(e.NewDuration).ToString().Substring(0, 8));
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -109,15 +109,15 @@ namespace nVLC_Demo_WinForms
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
             {
-                m_media = m_factory.CreateMedia<IMediaFromFile>(textBox1.Text);
-                m_media.Events.DurationChanged += new EventHandler<MediaDurationChange>(Events_DurationChanged);
-                m_media.Events.StateChanged += new EventHandler<MediaStateChange>(Events_StateChanged);
-                m_media.Events.ParsedChanged += new EventHandler<MediaParseChange>(Events_ParsedChanged);
+                _mMedia = _mFactory.CreateMedia<IMediaFromFile>(textBox1.Text);
+                _mMedia.Events.DurationChanged += new EventHandler<MediaDurationChange>(Events_DurationChanged);
+                _mMedia.Events.StateChanged += new EventHandler<MediaStateChange>(Events_StateChanged);
+                _mMedia.Events.ParsedChanged += new EventHandler<MediaParseChange>(Events_ParsedChanged);
 
-                m_player.Open(m_media);
-                m_media.Parse(true);
+                _mPlayer.Open(_mMedia);
+                _mMedia.Parse(true);
 
-                m_player.Play();
+                _mPlayer.Play();
             }
             else
             {
@@ -132,29 +132,29 @@ namespace nVLC_Demo_WinForms
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
-            m_player.Volume = trackBar2.Value;
+            _mPlayer.Volume = trackBar2.Value;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            m_player.Position = (float)trackBar1.Value / 100;
+            _mPlayer.Position = (float)trackBar1.Value / 100;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            m_player.Stop();
+            _mPlayer.Stop();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            m_player.Pause();
+            _mPlayer.Pause();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            m_player.ToggleMute();
+            _mPlayer.ToggleMute();
 
-            button1.Text = m_player.Mute ? "Unmute" : "Mute";
+            button1.Text = _mPlayer.Mute ? "Unmute" : "Mute";
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -162,18 +162,18 @@ namespace nVLC_Demo_WinForms
             errorProvider1.Clear();
         }
 
-        private class UISync
+        private class UiSync
         {
-            private static ISynchronizeInvoke Sync;
+            private static ISynchronizeInvoke _sync;
 
             public static void Init(ISynchronizeInvoke sync)
             {
-                Sync = sync;
+                _sync = sync;
             }
 
             public static void Execute(Action action)
             {
-                Sync.BeginInvoke(action, null);
+                _sync.BeginInvoke(action, null);
             }
         }
     }

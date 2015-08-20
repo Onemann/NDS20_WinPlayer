@@ -36,12 +36,12 @@ namespace Declarations
       Rating,
       Date,
       Setting,
-      URL,
+      Url,
       Language,
       NowPlaying,
       Publisher,
       EncodedBy,
-      ArtworkURL,
-      TrackID
+      ArtworkUrl,
+      TrackId
    }
 }

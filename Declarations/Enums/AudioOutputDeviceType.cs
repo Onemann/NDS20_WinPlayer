@@ -26,14 +26,14 @@ namespace Declarations.Enums
     /// </summary>
     public enum AudioOutputDeviceType
     {
-        AudioOutputDevice_Error = -1,
-        AudioOutputDevice_Mono = 1,
-        AudioOutputDevice_Stereo = 2,
+        AudioOutputDeviceError = -1,
+        AudioOutputDeviceMono = 1,
+        AudioOutputDeviceStereo = 2,
         AudioOutputDevice_2F2R = 4,
         AudioOutputDevice_3F2R = 5,
-        AudioOutputDevice_5_1 = 6,
-        AudioOutputDevice_6_1 = 7,
-        AudioOutputDevice_7_1 = 8,
-        AudioOutputDevice_SPDIF = 10
+        AudioOutputDevice51 = 6,
+        AudioOutputDevice61 = 7,
+        AudioOutputDevice71 = 8,
+        AudioOutputDeviceSpdif = 10
     }
 }

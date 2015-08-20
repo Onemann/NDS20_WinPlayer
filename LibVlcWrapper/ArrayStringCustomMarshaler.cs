@@ -11,8 +11,8 @@ namespace LibVlcWrapper
 {
     class ArrayStringCustomMarshaler : ICustomMarshaler
     {
-        private readonly Native m_native = new Native();
-        private readonly Managed m_managed = new Managed();
+        private readonly Native _mNative = new Native();
+        private readonly Managed _mManaged = new Managed();
 
         public ArrayStringCustomMarshaler(String pstrCookie)
         {
@@ -21,29 +21,29 @@ namespace LibVlcWrapper
 
         #region ICustomMarshaler Members
 
-        public void CleanUpManagedData(object ManagedObj)
+        public void CleanUpManagedData(object managedObj)
         {
-            this.m_managed.CleanUpManagedData(ManagedObj);
+            this._mManaged.CleanUpManagedData(managedObj);
         }
 
         public void CleanUpNativeData(IntPtr pNativeData)
         {
-            this.m_native.CleanUpNativeData(pNativeData);
+            this._mNative.CleanUpNativeData(pNativeData);
         }
 
         public int GetNativeDataSize()
         {
-            return this.m_native.GetNativeDataSize();
+            return this._mNative.GetNativeDataSize();
         }
 
-        public IntPtr MarshalManagedToNative(object ManagedObj)
+        public IntPtr MarshalManagedToNative(object managedObj)
         {
-            return this.m_native.MarshalManagedToNative(ManagedObj);
+            return this._mNative.MarshalManagedToNative(managedObj);
         }
 
         public object MarshalNativeToManaged(IntPtr pNativeData)
         {
-            return this.m_managed.MarshalNativeToManaged(pNativeData);
+            return this._mManaged.MarshalNativeToManaged(pNativeData);
         }
 
         public static ICustomMarshaler GetInstance(String pstrCookie)
@@ -55,13 +55,13 @@ namespace LibVlcWrapper
 
         private class Native
         {
-            private readonly object m_lock_native;
-            private readonly IDictionary<IntPtr, StringArraySizePair> m_native_data = new Dictionary<IntPtr, StringArraySizePair>();
-            private volatile int m_native_data_size = 0;
+            private readonly object _mLockNative;
+            private readonly IDictionary<IntPtr, StringArraySizePair> _mNativeData = new Dictionary<IntPtr, StringArraySizePair>();
+            private volatile int _mNativeDataSize = 0;
 
             public Native()
             {
-                this.m_lock_native = ((ICollection)m_native_data).SyncRoot ?? new object();
+                this._mLockNative = ((ICollection)_mNativeData).SyncRoot ?? new object();
             }
 
             public void CleanUpNativeData(IntPtr pNativeData)
@@ -71,45 +71,45 @@ namespace LibVlcWrapper
                 }
                 else
                 {
-                    lock (this.m_lock_native)
+                    lock (this._mLockNative)
                     {
-                        var size = this.m_native_data[pNativeData].Size;
-                        this.m_native_data.Remove(pNativeData);
+                        var size = this._mNativeData[pNativeData].Size;
+                        this._mNativeData.Remove(pNativeData);
                         Marshal.FreeHGlobal(pNativeData);
-                        this.m_native_data_size -= size;
+                        this._mNativeDataSize -= size;
                     }
                 }
             }
 
             public int GetNativeDataSize()
             {
-                lock (this.m_lock_native)
+                lock (this._mLockNative)
                 {
-                    return this.m_native_data_size;
+                    return this._mNativeDataSize;
                 }
             }
 
-            public IntPtr MarshalManagedToNative(object ManagedObj)
+            public IntPtr MarshalManagedToNative(object managedObj)
             {
-                string[] strs = ManagedObj as string[];
-                if (ManagedObj != null && strs == null)
+                var strs = managedObj as string[];
+                if (managedObj != null && strs == null)
                 {
                     throw new InvalidCastException("ManagedObj to string[]");
                 }
 
-                if (ManagedObj == null)
+                if (managedObj == null)
                 {
                     return IntPtr.Zero;
                 }
                 else
                 {
-                    byte[][] bytess = new byte[strs.Length][];
+                    var bytess = new byte[strs.Length][];
 
-                    int native_data_size;
+                    int nativeDataSize;
                     {
-                        int strs_native_data_size = 0;
+                        var strsNativeDataSize = 0;
 
-                        for (int i = 0; i < strs.Length; ++i)
+                        for (var i = 0; i < strs.Length; ++i)
                         {
                             var str = strs[i];
                             byte[] bytes;
@@ -123,55 +123,55 @@ namespace LibVlcWrapper
                                 if (bytes == null)
                                     throw new ApplicationException("Encoding.GetBytes(String) returns null");
 
-                                strs_native_data_size += bytes.Length + 1;
+                                strsNativeDataSize += bytes.Length + 1;
                             }
                             bytess[i] = bytes;
                         }
 
-                        native_data_size = (bytess.Length + 1) * IntPtr.Size + strs_native_data_size;
+                        nativeDataSize = (bytess.Length + 1) * IntPtr.Size + strsNativeDataSize;
                     }
-                    var native_data = Marshal.AllocHGlobal(native_data_size);
+                    var nativeData = Marshal.AllocHGlobal(nativeDataSize);
                     try
                     {
                         {
-                            IntPtr str_native_data = native_data + (bytess.Length + 1) * IntPtr.Size;
-                            IntPtr str_ptr_native_data = native_data;
-                            for (int i = 0;
+                            var strNativeData = nativeData + (bytess.Length + 1) * IntPtr.Size;
+                            var strPtrNativeData = nativeData;
+                            for (var i = 0;
                                  i < bytess.Length;
-                                             str_native_data += bytess[i] == null ? 0 : bytess[i].Length + 1, str_ptr_native_data += IntPtr.Size, ++i)
+                                             strNativeData += bytess[i] == null ? 0 : bytess[i].Length + 1, strPtrNativeData += IntPtr.Size, ++i)
                             {
                                 if (bytess[i] == null)
                                 {
-                                    Marshal.WriteIntPtr(str_ptr_native_data, IntPtr.Zero);
+                                    Marshal.WriteIntPtr(strPtrNativeData, IntPtr.Zero);
                                 }
                                 else
                                 {
-                                    Marshal.Copy(bytess[i], 0, str_native_data, bytess[i].Length);
-                                    Marshal.WriteByte(str_native_data, bytess[i].Length, 0);
-                                    Marshal.WriteIntPtr(str_ptr_native_data, str_native_data);
+                                    Marshal.Copy(bytess[i], 0, strNativeData, bytess[i].Length);
+                                    Marshal.WriteByte(strNativeData, bytess[i].Length, 0);
+                                    Marshal.WriteIntPtr(strPtrNativeData, strNativeData);
                                 }
                             }
-                            Marshal.WriteIntPtr(str_ptr_native_data, IntPtr.Zero);
+                            Marshal.WriteIntPtr(strPtrNativeData, IntPtr.Zero);
                         }
 
-                        lock (this.m_lock_native)
+                        lock (this._mLockNative)
                         {
-                            this.m_native_data_size += native_data_size;
+                            this._mNativeDataSize += nativeDataSize;
                             try
                             {
-                                this.m_native_data.Add(native_data, new StringArraySizePair(strs, native_data_size));
+                                this._mNativeData.Add(nativeData, new StringArraySizePair(strs, nativeDataSize));
                             }
                             catch
                             {
-                                this.m_native_data_size -= native_data_size;
+                                this._mNativeDataSize -= nativeDataSize;
                                 throw;
                             }
                         }
-                        return native_data;
+                        return nativeData;
                     }
                     catch
                     {
-                        Marshal.FreeHGlobal(native_data);
+                        Marshal.FreeHGlobal(nativeData);
                         throw;
                     }
                 }
@@ -199,18 +199,18 @@ namespace LibVlcWrapper
 
         private class Managed
         {
-            private readonly object m_lock_managed;
-            private readonly IDictionary<string[], IntPtr> m_managed_data = new Dictionary<string[], IntPtr>(new StringArrayComparer());
+            private readonly object _mLockManaged;
+            private readonly IDictionary<string[], IntPtr> _mManagedData = new Dictionary<string[], IntPtr>(new StringArrayComparer());
 
             public Managed()
             {
-                this.m_lock_managed = ((ICollection)m_managed_data).SyncRoot ?? new object();
+                this._mLockManaged = ((ICollection)_mManagedData).SyncRoot ?? new object();
             }
 
-            public void CleanUpManagedData(object ManagedObj)
+            public void CleanUpManagedData(object managedObj)
             {
-                string[] strs = ManagedObj as string[];
-                if (ManagedObj != null && strs == null)
+                var strs = managedObj as string[];
+                if (managedObj != null && strs == null)
                 {
                     throw new InvalidCastException("ManagedObj to string[]");
                 }
@@ -220,9 +220,9 @@ namespace LibVlcWrapper
                 }
                 else
                 {
-                    lock (this.m_lock_managed)
+                    lock (this._mLockManaged)
                     {
-                        this.m_managed_data.Remove(strs);
+                        this._mManagedData.Remove(strs);
                     }
                 }
             }
@@ -233,11 +233,11 @@ namespace LibVlcWrapper
                 {
                     IntPtr[] ptrs = null;
                     {
-                        int size = 0;
-                        int offset = 0;
+                        var size = 0;
+                        var offset = 0;
                         for (; /*maxSize < 0 || size < maxSize*/; ++size, offset += IntPtr.Size)
                         {
-                            IntPtr ptr = Marshal.ReadIntPtr(pNativeData, offset);
+                            var ptr = Marshal.ReadIntPtr(pNativeData, offset);
                             if (ptr == IntPtr.Zero)
                             {
                                 ptrs = new IntPtr[size];
@@ -255,9 +255,9 @@ namespace LibVlcWrapper
                     }
 
                     var strs = new string[ptrs.Length];
-                    for (int i = 0; i < ptrs.Length; ++i)
+                    for (var i = 0; i < ptrs.Length; ++i)
                     {
-                        IntPtr ptr = ptrs[i];
+                        var ptr = ptrs[i];
                         string str;
                         if (ptr == IntPtr.Zero)
                         {
@@ -265,11 +265,11 @@ namespace LibVlcWrapper
                         }
                         else
                         {
-                            int size = 0;
+                            var size = 0;
                             byte[] message = null;
                             for (; /*maxSize < 0 || size < maxSize*/; ++size)
                             {
-                                byte b = Marshal.ReadByte(ptr, size);
+                                var b = Marshal.ReadByte(ptr, size);
                                 if (b == 0x0)
                                 {
                                     message = new byte[size];
@@ -289,9 +289,9 @@ namespace LibVlcWrapper
                         strs[i] = str;
                     }
 
-                    lock (this.m_lock_managed)
+                    lock (this._mLockManaged)
                     {
-                        this.m_managed_data.Add(strs, pNativeData);
+                        this._mManagedData.Add(strs, pNativeData);
                     }
 
                     return strs;
