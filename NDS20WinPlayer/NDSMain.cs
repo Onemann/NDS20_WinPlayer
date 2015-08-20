@@ -92,7 +92,7 @@ namespace NDS20WinPlayer
                 //get the physical mem usage
                 var memStat = Win32MemApi.GlobalMemoryStatusEx();
 
-                var totalByteOfMemoryUsed = memStat.UllTotalPhys/1024/1024;
+                var totalByteOfMemoryUsed = memStat.UllTotalPageFile/1024/1024;
                 //var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
                 //var totalByteOfMemoryUsed = currentProcess.WorkingSet64 / 1024  +"KB";
                 lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + @" Memory: " + totalByteOfMemoryUsed;
