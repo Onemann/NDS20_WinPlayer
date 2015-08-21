@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
             DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
             this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
@@ -93,8 +94,8 @@
             this.grdcLogMessage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
-            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.bar3 = new DevExpress.XtraBars.Bar();
@@ -104,16 +105,16 @@
             this.barStaticItem2 = new DevExpress.XtraBars.BarStaticItem();
             this.brItmCPU = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
-            this.barEditItem2 = new DevExpress.XtraBars.BarEditItem();
+            this.brItmHDD = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemProgressBar2 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
-            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.skinBarSubItem1 = new DevExpress.XtraBars.SkinBarSubItem();
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
-            this.styleController1 = new DevExpress.XtraEditors.StyleController();
+            this.styleController1 = new DevExpress.XtraEditors.StyleController(this.components);
             this.workspaceManager1 = new DevExpress.Utils.WorkspaceManager();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
@@ -1140,7 +1141,7 @@
             this.barHeaderItem1,
             this.barStaticItem2,
             this.brItmCPU,
-            this.barEditItem2});
+            this.brItmHDD});
             this.barManager1.MainMenu = this.bar2;
             this.barManager1.MaxItemId = 11;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -1179,7 +1180,7 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.statusMessage),
             new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem2),
             new DevExpress.XtraBars.LinkPersistInfo(this.brItmCPU),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barEditItem2)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.brItmHDD)});
             this.bar3.OptionsBar.AllowQuickCustomization = false;
             this.bar3.OptionsBar.DrawDragBorder = false;
             this.bar3.OptionsBar.UseWholeRow = true;
@@ -1220,7 +1221,7 @@
             this.brItmCPU.Edit = this.repositoryItemProgressBar1;
             this.brItmCPU.EditValue = "50";
             this.brItmCPU.Id = 9;
-            this.brItmCPU.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Plum;
+            this.brItmCPU.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Aqua;
             this.brItmCPU.ItemAppearance.Normal.Options.UseForeColor = true;
             this.brItmCPU.Name = "brItmCPU";
             this.brItmCPU.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
@@ -1237,16 +1238,28 @@
             this.repositoryItemProgressBar1.ShowTitle = true;
             this.repositoryItemProgressBar1.Step = 5;
             // 
-            // barEditItem2
+            // brItmHDD
             // 
-            this.barEditItem2.Caption = "barEditItem2";
-            this.barEditItem2.Edit = this.repositoryItemProgressBar2;
-            this.barEditItem2.Id = 10;
-            this.barEditItem2.Name = "barEditItem2";
+            this.brItmHDD.Caption = "HDD";
+            this.brItmHDD.CaptionAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.brItmHDD.Edit = this.repositoryItemProgressBar2;
+            this.brItmHDD.EditValue = "50";
+            this.brItmHDD.Id = 10;
+            this.brItmHDD.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Lime;
+            this.brItmHDD.ItemAppearance.Normal.Options.UseForeColor = true;
+            this.brItmHDD.Name = "brItmHDD";
+            this.brItmHDD.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
+            this.brItmHDD.Width = 70;
             // 
             // repositoryItemProgressBar2
             // 
+            this.repositoryItemProgressBar2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.repositoryItemProgressBar2.LookAndFeel.SkinName = "Metropolis Dark";
+            this.repositoryItemProgressBar2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.repositoryItemProgressBar2.Name = "repositoryItemProgressBar2";
+            this.repositoryItemProgressBar2.ReadOnly = true;
+            this.repositoryItemProgressBar2.ShowTitle = true;
+            this.repositoryItemProgressBar2.Step = 5;
             // 
             // barAndDockingController1
             // 
@@ -1461,7 +1474,7 @@
         private DevExpress.XtraBars.BarStaticItem barStaticItem2;
         private DevExpress.XtraBars.BarEditItem brItmCPU;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
-        private DevExpress.XtraBars.BarEditItem barEditItem2;
+        private DevExpress.XtraBars.BarEditItem brItmHDD;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar2;
 
 
