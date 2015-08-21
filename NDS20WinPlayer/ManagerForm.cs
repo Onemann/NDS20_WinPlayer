@@ -358,29 +358,6 @@ namespace NDS20WinPlayer
 
         public void MessageOnStatusbar(string message, Enum logType)
         {
-            System.Drawing.Color messageColor = new System.Drawing.Color();
-
-            switch ((LogType)logType)
-            {
-                case LogType.LOG_FATAL:
-                    messageColor = Color.Red;
-                    break;
-                case LogType.LOG_ERROR:
-                    messageColor = Color.OrangeRed;
-                    break;
-                case LogType.LOG_WARN:
-                    messageColor = Color.Yellow;
-                    break;
-                case LogType.LOG_INFO:
-                    messageColor = Color.White;
-                    break;
-                case LogType.LOG_DEBUG:
-                    messageColor = Color.Purple;
-                    break;
-                case LogType.LOG_TRACE:
-                    messageColor = Color.Cyan;
-                    break;
-            }
             if (this.InvokeRequired)
             {
                 var d = new MessageOnStatusbarCallback(MessageOnStatusbar);
@@ -388,10 +365,33 @@ namespace NDS20WinPlayer
             }
             else
             {
+                if (trlstLogFile.FocusedNode == null) return;
+                System.Drawing.Color messageColor = new System.Drawing.Color();
+
+                switch ((LogType)logType)
+                {
+                    case LogType.LOG_FATAL:
+                        messageColor = Color.Red;
+                        break;
+                    case LogType.LOG_ERROR:
+                        messageColor = Color.OrangeRed;
+                        break;
+                    case LogType.LOG_WARN:
+                        messageColor = Color.Yellow;
+                        break;
+                    case LogType.LOG_INFO:
+                        messageColor = Color.White;
+                        break;
+                    case LogType.LOG_DEBUG:
+                        messageColor = Color.Purple;
+                        break;
+                    case LogType.LOG_TRACE:
+                        messageColor = Color.Cyan;
+                        break;
+                }
                 statusMessage.Appearance.ForeColor = messageColor;
                 statusMessage.EditValue = message;
 
-                if (trlstLogFile.FocusedNode == null) return;
                 var logFileName = trlstLogFile.FocusedNode.GetDisplayText("logFileName");
                 var logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
                 var logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";

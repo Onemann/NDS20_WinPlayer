@@ -79,10 +79,11 @@ namespace NDS20WinPlayer
 
         #region try to connect with server
 
-        protected virtual void TmrSeverConnectionEvent(Object obj)
+        protected void TmrSeverConnectionEvent(Object obj)
         {
+            if (_tryServerConnecting || _serverConnected) return;
             // try to connect with server by web socket
-            this.Invoke(new MethodInvoker(delegate()
+            Invoke(new MethodInvoker(delegate()
             {
                 if (!_serverConnected && !_tryServerConnecting)
                 {
@@ -103,8 +104,8 @@ namespace NDS20WinPlayer
                 // calculate CPU Usage %
                 //AppInfoStrc.PlyrCpUusage = CurrentCpUusage;
 
-                lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + @" Memory: " +
-                                                 AppInfoStrc.PlyrMemUsage + "K"; // + " CPU:" + CurrentCPUusage;
+                //lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + @" Memory: " +
+                //                                 AppInfoStrc.PlyrMemUsage + "K"; // + " CPU:" + CurrentCPUusage;
                 //lblServerConnectionStatus.Text = (_serverConnected).ToString() + _nCountServerConnection + " Memory: " + GC.GetTotalMemory(false);
             }
                 ));
