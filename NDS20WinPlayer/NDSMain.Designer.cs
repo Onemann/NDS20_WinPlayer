@@ -13,6 +13,12 @@
         /// <param name="disposing">관리되는 리소스를 삭제해야 하면 true이고, 그렇지 않으면 false입니다.</param>
         protected override void Dispose(bool disposing)
         {
+            
+            if (TmrGatherPcInfo != null) TmrGatherPcInfo.Dispose();     // Stop timer
+            if (_tmrSeverConnection != null) _tmrSeverConnection.Dispose(); // Stop Timer
+
+            _p.Dispose();
+
             if (disposing && (components != null))
             {
                 components.Dispose();

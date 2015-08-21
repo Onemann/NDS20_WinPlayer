@@ -92,9 +92,9 @@ namespace NDS20WinPlayer
         public long cntsKey { get; set; }               // 콘텐츠 키
         public string cntsName { get; set; }            // 콘텐츠 명
         public int cntsPlayTime { get; set; }           // 콘텐츠 재생 시간
-        public DateTime scheCntsStartDt { get; set; }   //사용기간-시작일
-        public DateTime scheCntsEndDt { get; set; }     //사용기간-종료일
-        public DateTime scheCntsStartTime { get; set; } //사용시간-시작일
+        public string scheCntsStartDt { get; set; }   //사용기간-시작일
+        public string scheCntsEndDt { get; set; }     //사용기간-종료일
+        public string scheCntsStartTime { get; set; } //사용시간-시작일
         public string scheCntsEndTime { get; set; }     //사용시간-종료일
         public string ctscSector { get; set; }          //구간 정보 ex) "1,4,7"
 

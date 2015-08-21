@@ -20,6 +20,7 @@ namespace NDS20WinPlayer
     public partial class ManagerForm : DevExpress.XtraEditors.XtraForm
     {
         delegate void MessageOnStatusbarCallback(string msg, Enum logType);
+        delegate void ShowPcInfoOnStatusbarCallback();
         public ManagerForm()
         {
             InitializeComponent();
@@ -104,7 +105,7 @@ namespace NDS20WinPlayer
                 dirIfo = new DirectoryInfo(AppInfoStrc.DirOfSchedule);
                 if (!dirIfo.Exists) dirIfo.Create();
 
-                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
+                DirectoryInfo di = new System.IO.DirectoryInfo(AppInfoStrc.DirOfSchedule);
 
                 string scheFullPath = "";
                 string scheduleInfoJson = "";
@@ -366,7 +367,7 @@ namespace NDS20WinPlayer
             else
             {
                 if (trlstLogFile.FocusedNode == null) return;
-                System.Drawing.Color messageColor = new System.Drawing.Color();
+                Color messageColor = new Color();
 
                 switch ((LogType)logType)
                 {
@@ -396,14 +397,23 @@ namespace NDS20WinPlayer
                 var logFilePath = AppInfoStrc.DirOfLog + "\\" + logFileName;
                 var logTextJson = "[" + System.IO.File.ReadAllText(@logFilePath) + "]";
                 var logList = JsonConvert.DeserializeObject<clssLogList[]>(logTextJson, new IsoDateTimeConverter());
-                this.grdctrlLog.DataSource = logList;
+                grdctrlLog.DataSource = logList;
             }
         }
 
         // Show CPU usage, available storage capacity, memory usage on status bar  
         public void ShowNdsInfoOnStatusBar()
         {
-            brItmCPU.EditValue = AppInfoStrc.PlyrCpUusage;
+            if (this.InvokeRequired)
+            {
+                var d = new ShowPcInfoOnStatusbarCallback(ShowNdsInfoOnStatusBar);
+                Invoke(d, new object[] {});
+            }
+            else
+            {
+                brItmCPU.EditValue = AppInfoStrc.PlyrCpUusage;
+                brItmHDD.EditValue = AppInfoStrc.PlyrAvailableHdd;
+            }
         }
 
         private void ManagerForm_Load(object sender, EventArgs e)

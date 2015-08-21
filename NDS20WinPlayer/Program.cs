@@ -24,7 +24,7 @@ namespace NDS20WinPlayer
             SkinManager.EnableFormSkins();
             UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
 
-            Application.Run(new NDSMain());
+            Application.Run(mainForm: new NDSMain());
         }
     }
 }

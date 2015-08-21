@@ -14,6 +14,7 @@ using System.Threading;
 using Bauglir.Ex;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using Timer = System.Threading.Timer;
 
 namespace NDS20WinPlayer
 {
@@ -25,13 +26,19 @@ namespace NDS20WinPlayer
         public const int HtCaption = 0x2;
 
         int _nCountServerConnection = 0;
+        PerformanceCounter _p;
 
         System.Threading.Timer _tmrSeverConnection; // Try connect with server if not connected
 
         static bool _serverConnected = false;
         static bool _tryServerConnecting = false;
 
-        WebSocketClientConnection fConnection = new NDSWebSocketClientConnection(); //Create WebSocket client connection
+        public Timer TmrGatherPcInfo { get; private set; }
+
+        public static bool PcInfoGathering { get; set; }
+
+
+        readonly WebSocketClientConnection fConnection = new NDSWebSocketClientConnection(); //Create WebSocket client connection
 
         public List<Subframe> arrSubframe;
         public List<string> arrSchedule;
@@ -52,6 +59,11 @@ namespace NDS20WinPlayer
             LoadIniFile();
             LogFile.ThreadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
 
+            _p = new PerformanceCounter();
+            _p.CategoryName = "Processor";
+            _p.CounterName = "% Processor Time";
+            _p.InstanceName = "_Total";
+
 
             arrSubframe = new List<Subframe>();
             arrSchedule = new List<string>();
@@ -60,14 +72,23 @@ namespace NDS20WinPlayer
 
             assignWebSocket();
             
-            tmrSeverConnectionStart();
+            TmrSeverConnectionStart();
+            TmrGatherPcInfoStart();
             //startNDSWebSocket();
         }
 
-        #region Start server connection thread
-        private void tmrSeverConnectionStart()
+        private void TmrGatherPcInfoStart()
         {
+            if (TmrGatherPcInfo != null) TmrGatherPcInfo.Dispose();     // Stop timer
+            TimerCallback callback = TmrGatherPcInfoEvent;
+            Object data = (Object)200;
 
+            TmrGatherPcInfo = new System.Threading.Timer(callback, data, 1000, 1000);
+        }
+
+        #region Start server connection thread
+        private void TmrSeverConnectionStart()
+        {
             if (_tmrSeverConnection != null) _tmrSeverConnection.Dispose(); // Stop Timer
             _nCountServerConnection = 0;
             System.Threading.TimerCallback callback = TmrSeverConnectionEvent;
@@ -76,6 +97,22 @@ namespace NDS20WinPlayer
             _tmrSeverConnection = new System.Threading.Timer(callback, data, 1000, 5000);
         }
         #endregion
+
+#region Try to gather NDS player system information
+
+        protected void TmrGatherPcInfoEvent(Object obj)
+        {
+            if(PcInfoGathering) return;
+
+            Invoke(new MethodInvoker(delegate()
+            {
+                PcInfoGathering = true;
+                new Thread(StartGatherPcInfo).Start();
+            }
+                ));
+        }
+#endregion
+
 
         #region try to connect with server
 
@@ -99,7 +136,7 @@ namespace NDS20WinPlayer
 
                 //var totalByteOfMemoryUsed = memStat.UllTotalPhys /1024;
                 //var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
-                AppInfoStrc.PlyrMemUsage = System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 / 1024;
+                //AppInfoStrc.PlyrMemUsage = System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 / 1024;
 
                 // calculate CPU Usage %
                 //AppInfoStrc.PlyrCpUusage = CurrentCpUusage;
@@ -137,7 +174,7 @@ namespace NDS20WinPlayer
             {
 //#if DEBUG
                 case Keys.F3:
-                    initMainScreen();
+                    InitMainScreen();
                     drawSubFrame();
                     break;
 
@@ -237,7 +274,7 @@ namespace NDS20WinPlayer
 
         }
 
-        private void initMainScreen()
+        private void InitMainScreen()
         {
             this.BackColor = Color.Black;
             pnlHeader.Visible = false;
@@ -248,15 +285,15 @@ namespace NDS20WinPlayer
         // 생성된 폼이 있는지 확인
         public static Form IsFormAlreadyOpen(Type FormType)
         {
-            foreach (Form OpenForm in Application.OpenForms)
+            foreach (Form openForm in Application.OpenForms)
             {
-                if (OpenForm.GetType() == FormType)
-                    return OpenForm;
+                if (openForm.GetType() == FormType)
+                    return openForm;
             }
             return null;
         }
  
-        private void ShowManagerForm()
+        private static void ShowManagerForm()
         {
             ManagerForm managerForm = null;
             if( (managerForm = (ManagerForm)IsFormAlreadyOpen(typeof(ManagerForm))) == null) //생성된 폼이 없다면
@@ -280,7 +317,7 @@ namespace NDS20WinPlayer
 
         }
 
-        private void LoadIniFile()
+        private static void LoadIniFile()
         {
             var appIniFile = new IniFile();
 
@@ -328,7 +365,22 @@ namespace NDS20WinPlayer
             AppInfoStrc.PlayerId = appIniFile.Read("PlayerID", "PLAYER");
             
         }
+        private void StartGatherPcInfo()
+        {
+            AppInfoStrc.PlyrCpUusage = (int)_p.NextValue();
+            AppInfoStrc.PlyrAvailableHdd = 20;
+            AppInfoStrc.PlyrMemUsage = 70;
 
+            ManagerForm managerForm = null;
+
+            if ((managerForm = (ManagerForm)NDSMain.IsFormAlreadyOpen(typeof(ManagerForm))) != null) //생성된 폼이 있다면
+            {
+                managerForm.ShowNdsInfoOnStatusBar();
+
+            }
+            PcInfoGathering = false;
+
+        }
         private void StartNdsWebSocket()
         {
             if (AppInfoStrc.UrlOfServer != "" && AppInfoStrc.PortOfServer != "")
