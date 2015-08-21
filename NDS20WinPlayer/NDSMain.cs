@@ -289,14 +289,14 @@ namespace NDS20WinPlayer
             AppInfoStrc.DirOfSchedule = appIniFile.Read("DirOfSchedule", "PATH");
             if (AppInfoStrc.DirOfSchedule == "")
             {
-                appIniFile.Write(Key: InitValue.InitDirOfSchedule, Value: "[Path]");
+                appIniFile.Write("DirOfSchedule", InitValue.InitDirOfSchedule, "PATH");
                 AppInfoStrc.DirOfSchedule = InitValue.InitDirOfSchedule;
             }
 
             AppInfoStrc.DirOfLog = appIniFile.Read("DirOfLog", "PATH");
             if (AppInfoStrc.DirOfLog == "")
             {
-                appIniFile.Write(Key: InitValue.InitDirOfLog, Value: "PATH");
+                appIniFile.Write("DirOfLog", InitValue.InitDirOfLog, "PATH");
                 AppInfoStrc.DirOfLog = InitValue.InitDirOfLog;
             }
             #endregion
@@ -305,21 +305,21 @@ namespace NDS20WinPlayer
             AppInfoStrc.UrlOfServer = appIniFile.Read("UrlOfServer", "SERVER");
             if (AppInfoStrc.UrlOfServer == "")
             {
-                appIniFile.Write(Key: InitValue.InitUrlOfServer, Value: "SERVER");
+                appIniFile.Write("UrlOfServer", InitValue.InitUrlOfServer, "SERVER");
                 AppInfoStrc.UrlOfServer = InitValue.InitUrlOfServer;
             }
 
             AppInfoStrc.ExtentionOfServer = appIniFile.Read("ExtentionOfServer", "SERVER");
             if (AppInfoStrc.ExtentionOfServer == "")
             {
-                appIniFile.Write(Key: InitValue.InitExtensionOfServer, Value: "SERVER");
+                appIniFile.Write("ExtentionOfServer", InitValue.InitExtensionOfServer, "SERVER");
                 AppInfoStrc.ExtentionOfServer = InitValue.InitExtensionOfServer;
             }
 
             AppInfoStrc.PortOfServer = appIniFile.Read("PortOfServer", "SERVER");
             if (AppInfoStrc.PortOfServer == "")
             {
-                appIniFile.Write(Key: InitValue.InitPortOfServer, Value: "SERVER");
+                appIniFile.Write("PortOfServer", InitValue.InitPortOfServer, "SERVER");
                 AppInfoStrc.PortOfServer = InitValue.InitPortOfServer;
             }
             #endregion
@@ -332,7 +332,7 @@ namespace NDS20WinPlayer
         {
             if (AppInfoStrc.UrlOfServer != "" && AppInfoStrc.PortOfServer != "")
             {
-                #region ping test
+/*               #region ping test
 
                 Ping x = new Ping();
                 PingReply reply = x.Send(AppInfoStrc.UrlOfServer);
@@ -344,7 +344,7 @@ namespace NDS20WinPlayer
                     return;
                 }
                 #endregion
-                
+*/                
                 /*
                 #region TCP client test
                 System.Net.Sockets.TcpClient client = new System.Net.Sockets.TcpClient();
@@ -363,7 +363,7 @@ namespace NDS20WinPlayer
                 */
 
                 //ServerConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
-                _serverConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, "", false);
+                _serverConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
                 if (_serverConnected)
                 {
                     LogFile.ThreadWriteLog("[NETWORK]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 성공", LogType.LOG_INFO);
@@ -416,7 +416,10 @@ namespace NDS20WinPlayer
                 //LogFile.threadWriteLog(String.Format("ConnectionRead {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
                 //lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray(), 0,  (int)aData.Length);
                 //-lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray());
-                LogFile.ThreadWriteLog("[READ]" + Encoding.UTF8.GetString(aData.ToArray()), LogType.LOG_INFO);
+                //LogFile.ThreadWriteLog("[READ]" + Encoding.UTF8.GetString(aData.ToArray()), LogType.LOG_INFO);
+                var inString = Encoding.UTF8.GetString(aData.ToArray());
+                var outString = inString.Replace("\"", "'");
+                LogFile.ThreadWriteLog(outString, LogType.LOG_INFO);
             }
         }
 

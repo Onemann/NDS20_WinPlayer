@@ -11,8 +11,8 @@ namespace NDS20WinPlayer
         internal static readonly string InitDirOfLog = "LogFiles";
         #endregion
         #region Server connection
-        internal static readonly string InitUrlOfServer = "192.168.0.2";
-        internal static readonly string InitExtensionOfServer = "";
+        internal static readonly string InitUrlOfServer = "52.50.218.207";//"192.168.0.2";
+        internal static readonly string InitExtensionOfServer = "/socket/json";
         internal static readonly string InitPortOfServer = "9090";
         #endregion
 
