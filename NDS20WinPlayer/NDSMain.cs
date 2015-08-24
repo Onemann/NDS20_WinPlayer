@@ -90,8 +90,7 @@ namespace NDS20WinPlayer
 
         #region Start server connection thread
         private void TmrSeverConnectionStart()
-        {
-            if (_tmrSeverConnection != null) _tmrSeverConnection.Dispose(); // Stop Timer
+        {if (_tmrSeverConnection != null) _tmrSeverConnection.Dispose(); // Stop Timer
             _nCountServerConnection = 0;
             System.Threading.TimerCallback callback = TmrSeverConnectionEvent;
             Object data = (Object)200;
