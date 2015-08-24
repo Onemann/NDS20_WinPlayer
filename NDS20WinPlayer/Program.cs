@@ -24,9 +24,7 @@ namespace NDS20WinPlayer
         [STAThread]
         private static void Main()
         {
-
-
-        Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             BonusSkins.Register();
@@ -34,6 +32,7 @@ namespace NDS20WinPlayer
             UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
 
             CommonFunctions.LoadIniFile();
+            LogFile.ThreadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
 
             if (AppInfoStrc.PlayerId =="")  // 미등록 플레이어
             {

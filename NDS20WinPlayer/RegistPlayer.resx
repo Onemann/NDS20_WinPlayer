@@ -131,14 +131,12 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>536, 420</value>
   </data>
-  <data name="&gt;&gt;pictureEdit1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="pictureEdit2.Properties.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
   <data name="simpleButton1.Appearance.GradientMode" type="System.Drawing.Drawing2D.LinearGradientMode, System.Drawing">
     <value>Horizontal</value>
-  </data>
-  <data name="&gt;&gt;btnCancelRegist.Name" xml:space="preserve">
-    <value>btnCancelRegist</value>
   </data>
   <data name="simpleButton1.Appearance.FontStyleDelta" type="System.Drawing.FontStyle, System.Drawing">
     <value>Regular</value>
@@ -146,7 +144,6 @@
   <data name="edtPlayerId.Properties.NullValuePromptShowForEmptyValue" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelControl2.Appearance.Image" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="labelControl2.Text" xml:space="preserve">
     <value>Starting...</value>
+  </data>
+  <data name="&gt;&gt;pictureEdit1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>RegistPlayer</value>
@@ -168,8 +168,8 @@
   <data name="pictureEdit1.Properties.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="edtPlayerId.Properties.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="&gt;&gt;pictureEdit2.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="simpleButton1.Appearance.Image" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
@@ -182,6 +182,9 @@
   </data>
   <data name="pictureEdit1.Size" type="System.Drawing.Size, System.Drawing">
     <value>187, 44</value>
+  </data>
+  <data name="btnRequestRegist.Appearance.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Malgun Gothic, 9pt</value>
   </data>
   <data name="&gt;&gt;pictureEdit1.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -274,9 +277,8 @@
   <data name="&gt;&gt;labelControl1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <assembly alias="DevExpress.XtraEditors.v15.1" name="DevExpress.XtraEditors.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-  <data name="edtPlayerId.Properties.Mask.AutoComplete" type="DevExpress.XtraEditors.Mask.AutoCompleteType, DevExpress.XtraEditors.v15.1">
-    <value>Default</value>
+  <data name="&gt;&gt;btnCancelRegist.Name" xml:space="preserve">
+    <value>btnCancelRegist</value>
   </data>
   <data name="labelControl2.Appearance.FontSizeDelta" type="System.Int32, mscorlib">
     <value>0</value>
@@ -299,6 +301,9 @@
   <data name="labelControl2.Appearance.DisabledImage" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="pictureEdit2.Properties.Appearance.Image" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="&gt;&gt;btnRequestRegist.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -317,8 +322,12 @@
   <data name="&gt;&gt;labelControl2.Type" xml:space="preserve">
     <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
-  <data name="btnCancelRegist.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+  <data name="btnRequestRegist.Appearance.FontStyleDelta" type="System.Drawing.FontStyle, System.Drawing">
+    <value>Regular</value>
+  </data>
+  <assembly alias="DevExpress.XtraEditors.v15.1" name="DevExpress.XtraEditors.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="edtPlayerId.Properties.Mask.AutoComplete" type="DevExpress.XtraEditors.Mask.AutoCompleteType, DevExpress.XtraEditors.v15.1">
+    <value>Default</value>
   </data>
   <data name="edtPlayerId.Properties.Mask.PlaceHolder" type="System.Char, mscorlib" xml:space="preserve">
     <value>_</value>
@@ -850,17 +859,11 @@
   <data name="pictureEdit1.Properties.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Form1</value>
-  </data>
   <data name="edtPlayerId.Properties.Mask.SaveLiteral" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="&gt;&gt;labelControl2.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="btnRequestRegist.Location" type="System.Drawing.Point, System.Drawing">
-    <value>137, 260</value>
   </data>
   <data name="&gt;&gt;btnCancelRegist.Type" xml:space="preserve">
     <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
@@ -879,6 +882,9 @@
   </data>
   <data name="pictureEdit1.Location" type="System.Drawing.Point, System.Drawing">
     <value>324, 246</value>
+  </data>
+  <data name="labelControl2.Appearance.PressedImage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
   <data name="&gt;&gt;labelControl1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1181,11 +1187,17 @@
   <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="pictureEdit2.Properties.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="simpleButton1.Appearance.FontSizeDelta" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Form1</value>
+  </data>
+  <data name="btnRequestRegist.Appearance.Image" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="edtPlayerId.Properties.NullValuePrompt" xml:space="preserve">
-    <value />
+  <data name="btnRequestRegist.Appearance.GradientMode" type="System.Drawing.Drawing2D.LinearGradientMode, System.Drawing">
+    <value>Horizontal</value>
   </data>
   <data name="&gt;&gt;edtPlayerId.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1193,17 +1205,20 @@
   <data name="&gt;&gt;edtPlayerId.Name" xml:space="preserve">
     <value>edtPlayerId</value>
   </data>
-  <data name="labelControl2.Appearance.PressedImage" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="btnRequestRegist.Location" type="System.Drawing.Point, System.Drawing">
+    <value>137, 260</value>
   </data>
   <data name="pictureEdit1.Properties.Appearance.FontSizeDelta" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="pictureEdit2.Properties.Appearance.Image" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="btnCancelRegist.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
   </data>
   <data name="edtPlayerId.Properties.Mask.UseMaskAsDisplayFormat" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="btnRequestRegist.Appearance.FontSizeDelta" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="edtPlayerId.Properties.Mask.ShowPlaceHolders" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1235,23 +1250,23 @@
   <data name="edtPlayerId.Properties.AutoHeight" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="simpleButton1.Appearance.FontSizeDelta" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="edtPlayerId.Properties.NullValuePrompt" xml:space="preserve">
+    <value />
   </data>
   <data name="labelControl2.Appearance.Font" type="System.Drawing.Font, System.Drawing">
     <value>Gulim, 9pt</value>
   </data>
-  <data name="&gt;&gt;pictureEdit2.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="btnCancelRegist.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 346</value>
   </data>
   <data name="pictureEdit2.Properties.Appearance.BackColor" type="System.Drawing.Color, System.Drawing">
     <value>Transparent</value>
   </data>
-  <data name="btnCancelRegist.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 346</value>
+  <data name="btnCancelRegist.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
-  <data name="btnCancelRegist.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="edtPlayerId.Properties.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

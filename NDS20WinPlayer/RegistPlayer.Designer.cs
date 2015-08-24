@@ -134,16 +134,17 @@
             // btnRequestRegist
             // 
             resources.ApplyResources(this.btnRequestRegist, "btnRequestRegist");
-            this.btnRequestRegist.Appearance.Font = ((System.Drawing.Font)(resources.GetObject("simpleButton1.Appearance.Font")));
-            this.btnRequestRegist.Appearance.FontSizeDelta = ((int)(resources.GetObject("simpleButton1.Appearance.FontSizeDelta")));
-            this.btnRequestRegist.Appearance.FontStyleDelta = ((System.Drawing.FontStyle)(resources.GetObject("simpleButton1.Appearance.FontStyleDelta")));
-            this.btnRequestRegist.Appearance.GradientMode = ((System.Drawing.Drawing2D.LinearGradientMode)(resources.GetObject("simpleButton1.Appearance.GradientMode")));
-            this.btnRequestRegist.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Appearance.Image")));
+            this.btnRequestRegist.Appearance.Font = ((System.Drawing.Font)(resources.GetObject("btnRequestRegist.Appearance.Font")));
+            this.btnRequestRegist.Appearance.FontSizeDelta = ((int)(resources.GetObject("btnRequestRegist.Appearance.FontSizeDelta")));
+            this.btnRequestRegist.Appearance.FontStyleDelta = ((System.Drawing.FontStyle)(resources.GetObject("btnRequestRegist.Appearance.FontStyleDelta")));
+            this.btnRequestRegist.Appearance.GradientMode = ((System.Drawing.Drawing2D.LinearGradientMode)(resources.GetObject("btnRequestRegist.Appearance.GradientMode")));
+            this.btnRequestRegist.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("btnRequestRegist.Appearance.Image")));
             this.btnRequestRegist.Appearance.Options.UseFont = true;
             this.btnRequestRegist.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnRequestRegist.LookAndFeel.SkinName = "Darkroom";
             this.btnRequestRegist.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnRequestRegist.Name = "btnRequestRegist";
+            this.btnRequestRegist.Click += new System.EventHandler(this.btnRequestRegist_Click);
             // 
             // RegistPlayer
             // 
@@ -161,7 +162,9 @@
             this.DoubleBuffered = true;
             this.Name = "RegistPlayer";
             this.ShowIcon = false;
+            this.SplashImage = ((System.Drawing.Image)(resources.GetObject("$this.SplashImage")));
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RegistPlayer_FormClosed);
             this.Load += new System.EventHandler(this.RegistPlayer_Load);
             this.Shown += new System.EventHandler(this.RegistPlayer_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.edtPlayerId.Properties)).EndInit();
