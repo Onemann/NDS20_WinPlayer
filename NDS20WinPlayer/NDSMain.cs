@@ -56,7 +56,7 @@ namespace NDS20WinPlayer
         {
             InitializeComponent();
 
-            LoadIniFile();
+            //LoadIniFile();
             LogFile.ThreadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
 
             _p = new PerformanceCounter();
@@ -68,13 +68,15 @@ namespace NDS20WinPlayer
             arrSubframe = new List<Subframe>();
             arrSchedule = new List<string>();
 
-            assignScheule();
+            AssignScheule();
 
             assignWebSocket();
-            
+
             TmrSeverConnectionStart();
             TmrGatherPcInfoStart();
+
             //startNDSWebSocket();
+
         }
 
         private void TmrGatherPcInfoStart()
@@ -191,7 +193,7 @@ namespace NDS20WinPlayer
         }
 
         #region 테스트 코딩
-        private void assignScheule()
+        private void AssignScheule()
         {
             arrSchedule.Add(
                 "{" +
@@ -317,56 +319,12 @@ namespace NDS20WinPlayer
 
         }
 
-        private static void LoadIniFile()
-        {
-            var appIniFile = new IniFile();
-
-            #region Dir Path
-            AppInfoStrc.DirOfApplication = Environment.CurrentDirectory;
-
-            AppInfoStrc.DirOfSchedule = appIniFile.Read("DirOfSchedule", "PATH");
-            if (AppInfoStrc.DirOfSchedule == "")
-            {
-                appIniFile.Write("DirOfSchedule", InitValue.InitDirOfSchedule, "PATH");
-                AppInfoStrc.DirOfSchedule = InitValue.InitDirOfSchedule;
-            }
-
-            AppInfoStrc.DirOfLog = appIniFile.Read("DirOfLog", "PATH");
-            if (AppInfoStrc.DirOfLog == "")
-            {
-                appIniFile.Write("DirOfLog", InitValue.InitDirOfLog, "PATH");
-                AppInfoStrc.DirOfLog = InitValue.InitDirOfLog;
-            }
-            #endregion
-
-            #region Server connectoion Info
-            AppInfoStrc.UrlOfServer = appIniFile.Read("UrlOfServer", "SERVER");
-            if (AppInfoStrc.UrlOfServer == "")
-            {
-                appIniFile.Write("UrlOfServer", InitValue.InitUrlOfServer, "SERVER");
-                AppInfoStrc.UrlOfServer = InitValue.InitUrlOfServer;
-            }
-
-            AppInfoStrc.ExtentionOfServer = appIniFile.Read("ExtentionOfServer", "SERVER");
-            if (AppInfoStrc.ExtentionOfServer == "")
-            {
-                appIniFile.Write("ExtentionOfServer", InitValue.InitExtensionOfServer, "SERVER");
-                AppInfoStrc.ExtentionOfServer = InitValue.InitExtensionOfServer;
-            }
-
-            AppInfoStrc.PortOfServer = appIniFile.Read("PortOfServer", "SERVER");
-            if (AppInfoStrc.PortOfServer == "")
-            {
-                appIniFile.Write("PortOfServer", InitValue.InitPortOfServer, "SERVER");
-                AppInfoStrc.PortOfServer = InitValue.InitPortOfServer;
-            }
-            #endregion
-
-            AppInfoStrc.PlayerId = appIniFile.Read("PlayerID", "PLAYER");
-            
-        }
         private void StartGatherPcInfo()
         {
+            if(!PerformanceCounterCategory.Exists("Processor")) return;
+            if (!PerformanceCounterCategory.CounterExists(@"% Processor Time", "Processor")) return;
+
+
             AppInfoStrc.PlyrCpUusage = (int)_p.NextValue();
             AppInfoStrc.PlyrAvailableHdd = 20;
             AppInfoStrc.PlyrMemUsage = 70;

@@ -14,17 +14,38 @@ namespace NDS20WinPlayer
         /// <summary>
         /// 해당 응용 프로그램의 주 진입점입니다.
         /// </summary>
-        [STAThread]
-        static void Main()
+
+        private static void ShowChildForm(RegistPlayer.LoadStyle ls)
         {
-            Application.EnableVisualStyles();
+            RegistPlayer registPlayer = new RegistPlayer(ls);
+            registPlayer.ShowDialog();
+        }
+
+        [STAThread]
+        private static void Main()
+        {
+
+
+        Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
             UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
 
-            Application.Run(mainForm: new NDSMain());
+            CommonFunctions.LoadIniFile();
+
+            if (AppInfoStrc.PlayerId =="")  // 미등록 플레이어
+            {
+                ShowChildForm(RegistPlayer.LoadStyle.OnShownDoEvents);
+            }
+
+            if (AppInfoStrc.PlayerId != "")  // 등록된 플레이어
+            {
+                Application.Run(mainForm: new NDSMain());
+            }
         }
+
+
     }
 }

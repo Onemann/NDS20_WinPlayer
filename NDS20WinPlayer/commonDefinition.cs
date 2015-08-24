@@ -45,7 +45,8 @@ namespace NDS20WinPlayer
         public static string PlyrStatus;        //001 : 정상 002 : 여러상태~~~ 공통코드?? 상태에 따른 칼러값?
         public static int PlyrAvailableHdd;     //단위 : MB
         public static int PlyrCpUusage;         //플레이어CPU사용량
-        public static long PlyrMemUsage;         //플레이어Memory사용량
+        public static long PlyrMemUsage;        //플레이어Memory사용량
+        public static string PlyrId;            //플레이어 ID
         public static string MacAddress;        //플레이어 MAC 주소
         public static string IpAddress;         //플레이어 IP 주소
         #endregion
@@ -92,10 +93,10 @@ namespace NDS20WinPlayer
         public long cntsKey { get; set; }               // 콘텐츠 키
         public string cntsName { get; set; }            // 콘텐츠 명
         public int cntsPlayTime { get; set; }           // 콘텐츠 재생 시간
-        public string scheCntsStartDt { get; set; }   //사용기간-시작일
-        public string scheCntsEndDt { get; set; }     //사용기간-종료일
-        public string scheCntsStartTime { get; set; } //사용시간-시작일
-        public string scheCntsEndTime { get; set; }     //사용시간-종료일
+        public long scheCntsStartDt { get; set; }   //사용기간-시작일
+        public long scheCntsEndDt { get; set; }     //사용기간-종료일
+        public long scheCntsStartTime { get; set; } //사용시간-시작일
+        public long scheCntsEndTime { get; set; }     //사용시간-종료일
         public string ctscSector { get; set; }          //구간 정보 ex) "1,4,7"
 
         #region 구간 30 Sectors are more than enough
@@ -143,8 +144,8 @@ namespace NDS20WinPlayer
         public string scheKind { get; set; }        // [생성]스케줄 종류 : 기본, 이벤트
         public string ctscKey { get; set; }         // [숨김] 스케줄 키
         public string ctscName { get; set; }
-        public DateTime ctscStartdate { get; set; }
-        public DateTime ctscEnddate { get; set; }
+        public long ctscStartdate { get; set; }
+        public long ctscEnddate { get; set; }
         public int scheTotalSector { get; set; }         // [가칭] 총 구간
         public string scheFileName { get; set; }    // [생성, 숨김] 다운받은 스케줄 파일 명 - 파일명에서 가져옴
     }
