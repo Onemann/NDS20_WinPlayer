@@ -17,7 +17,7 @@
             if (TmrGatherPcInfo != null) TmrGatherPcInfo.Dispose();     // Stop timer
             if (_tmrSeverConnection != null) _tmrSeverConnection.Dispose(); // Stop Timer
 
-            if (_p != null) _p.Dispose();
+            if (_pCpu != null) _pCpu.Dispose();
 
             if (disposing && (components != null))
             {

@@ -120,9 +120,9 @@
             // 
             this.btnRequestRegist.Appearance.Font = ((System.Drawing.Font)(resources.GetObject("btnRequestRegist.Appearance.Font")));
             this.btnRequestRegist.Appearance.Options.UseFont = true;
+            resources.ApplyResources(this.btnRequestRegist, "btnRequestRegist");
             this.btnRequestRegist.ImageIndex = 1;
             this.btnRequestRegist.ImageList = this.imageCollection1;
-            resources.ApplyResources(this.btnRequestRegist, "btnRequestRegist");
             this.btnRequestRegist.LookAndFeel.SkinName = "Blueprint";
             this.btnRequestRegist.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnRequestRegist.Name = "btnRequestRegist";

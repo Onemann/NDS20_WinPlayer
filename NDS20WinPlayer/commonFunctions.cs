@@ -3,9 +3,41 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net.Json;
 using Bauglir.Ex;
+using System.Management;
+using System.Runtime.InteropServices;
 
 namespace NDS20WinPlayer
 {
+    public static class MemoryHelper
+    {
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct MEMORYSTATUSEX
+        {
+            internal uint dwLength;
+            internal uint dwMemoryLoad;
+            internal ulong ullTotalPhys;
+            internal ulong ullAvailPhys;
+            internal ulong ullTotalPageFile;
+            internal ulong ullAvailPageFile;
+            internal ulong ullTotalVirtual;
+            internal ulong ullAvailVirtual;
+            internal ulong ullAvailExtendedVirtual;
+        }
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("Kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern bool GlobalMemoryStatusEx(ref MEMORYSTATUSEX lpBuffer);
+
+        public static double GetGlobalMemoryStatusEX()
+        {
+            MEMORYSTATUSEX statEX = new MEMORYSTATUSEX();
+            statEX.dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX));
+            GlobalMemoryStatusEx(ref statEX);
+
+            return (double)statEX.ullTotalPhys;
+
+        }
+    }
+
     class CommonFunctions
     {
         public static Form IsFormAlreadyOpen(Type FormType)
@@ -101,7 +133,7 @@ namespace NDS20WinPlayer
             }
         }
 
-        public static object getJsonColValue(JsonObject jsonOject, string colName )
+        public static object GetJsonColValue(JsonObject jsonOject, string colName )
         {
             try
             {
@@ -112,6 +144,16 @@ namespace NDS20WinPlayer
             {
                 return null;
             }
+        }
+
+        public static string getTextHandlerIdFromJsonText(string jsonText)
+        {
+            var jsonObj = StringToJsonObject(jsonText);
+            if (jsonObj == null) return string.Empty;
+            var jsonColValue = GetJsonColValue(jsonObj, JsonColName.JsonCmd);
+            if (jsonColValue == null) return string.Empty;
+            if ((string)jsonColValue != JsonCmd.ServerConnected) return string.Empty;
+            return (string)CommonFunctions.GetJsonColValue(jsonObj, JsonColName.JsonTxtHndId);
         }
 #endregion
 

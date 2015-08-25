@@ -72,7 +72,7 @@ namespace NDS20WinPlayer
                  return;
              }
 
-             jsonSendPlayerRegeist(edtPlayerId.Text);
+             JsonSendPlayerRegeist(edtPlayerId.Text);
 
 
              PlayerRegistered = true;
@@ -80,7 +80,7 @@ namespace NDS20WinPlayer
              //Close();
          }
 
-        private void jsonSendPlayerRegeist(string playerID)
+        private void JsonSendPlayerRegeist(string playerID)
         {
             JsonObjectCollection collection = new JsonObjectCollection();
 
@@ -96,6 +96,28 @@ namespace NDS20WinPlayer
                 _fConnection.SendText(jsonText);
             }
         }
+
+        private void DoActByJsonFromServerResponseText(string inputText)
+        {
+            JsonObject jsonObj = CommonFunctions.StringToJsonObject(inputText);
+            if (jsonObj == null) return;
+            string jsonColValue = (string) CommonFunctions.GetJsonColValue(jsonObj, JsonColName.JsonCmd);
+
+            switch (jsonColValue)
+            {
+                case JsonCmd.ServerConnected:
+                    btnRequestRegist.Enabled = true;
+                    break;
+                case JsonCmd.PlayerRegist:
+                    MessageBox.Show("플레이어가 정상적으로 등록되었습니다");
+                    var appIniFile = new IniFile();
+                    appIniFile.Write(JsonColName.JsonPlyrId, edtPlayerId.Text, "PLAYER");
+                    Close();
+                    break;
+
+            }
+        }
+
         public void ConnectWithServer()
         {
             AssignWebSocket();
@@ -161,16 +183,14 @@ namespace NDS20WinPlayer
             }
             else
             {
+
                 var inString = Encoding.UTF8.GetString(aData.ToArray());
                 var outString = inString.Replace("\"", "'");
                 LogFile.ThreadWriteLog("[READ]" + outString, LogType.LOG_INFO);
 
-                var jsonObj = CommonFunctions.StringToJsonObject(inString);
-                if (jsonObj == null) return;
-                var jsonColValue = CommonFunctions.getJsonColValue(jsonObj, JsonColName.JsonCmd);
-                if (jsonColValue == null) return;
-                if ((string) jsonColValue != "CONNECT_OK") return;
-                var textHandlerId = (string)CommonFunctions.getJsonColValue(jsonObj, JsonColName.JsonTxtHndId);
+                DoActByJsonFromServerResponseText(inString);
+
+                var textHandlerId = CommonFunctions.getTextHandlerIdFromJsonText(inString);
                 AppInfoStrc.TextHandlerId = textHandlerId;
 
                 var appIniFile = new IniFile();

@@ -412,6 +412,8 @@ namespace NDS20WinPlayer
             else
             {
                 brItmCPU.EditValue = AppInfoStrc.PlyrCpUusage;
+                brItmMEM.EditValue = (AppInfoStrc.PlyrMemTotal - AppInfoStrc.PlyrMemUsage) / AppInfoStrc.PlyrMemTotal * 100;
+                brItmAvalMEM.Caption = string.Format("{0:N0}", AppInfoStrc.PlyrMemUsage) + "MB";
                 brItmHDD.EditValue = AppInfoStrc.PlyrAvailableHdd;
             }
         }
