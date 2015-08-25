@@ -27,28 +27,12 @@ namespace NDS20WinPlayer
         internal static readonly string JsonMsg = "Message";
         internal static readonly string JsonPlyrId = "playerID";
         internal static readonly string JsonTimestamp = "timestamp";
-        internal static readonly string JsonData = "data";
-        internal static readonly string JsonDataCpu = "cpu";
-        internal static readonly string JsonDataMem = "mem";
-        internal static readonly string JsonDataHdd = "hdd";
-        internal static readonly string JsonDataNet = "net";    //네트워크 이용률
-        internal static readonly string JsonDataVer = "ver";    
-
-
     }
 
     internal class JsonCmd
     {
-        internal const string ServerConnected = "CONNECT_OK";
-        internal const string PlayerRegist = "PLAYER_REGIST";
-        internal const string PlayerSysStatus = "PLAYER_SYS_STATUS";
-
-        internal const string NewScheduele = "PLAYER_SCD_PUSH";      //서버에서 플레이어로 PUSH(신규 스케줄 있음을 알림)
-        internal const string SchedueleDown = "PLAYER_SCHD_DOWN";   //서버에게 스케줄 송신을 요청 -> 서버응답: 스케줄 송신
-
-        internal const string PlayerResult = "PLAYER_RESULT";       //재생실적을 서버로 송신
-
-        internal const string DownloadStatus = "PLAYER_DOWN_STATUS"; // 스케줄, 컨텐츠 다운로드 현황
+        internal static readonly string ServerConnected = "CONNECT_OK";
+        internal static readonly string PlayerRegist = "PLAYER_REGIST";
     }
         #endregion
 
@@ -77,11 +61,9 @@ namespace NDS20WinPlayer
         public static int PlyrHeight;           //플레이어 세로 픽셀 px
         public static int PlyrUsed;             //플레이어사용유무
         public static string PlyrStatus;        //001 : 정상 002 : 여러상태~~~ 공통코드?? 상태에 따른 칼러값?
-        public static int PlyrCpUusage;         //플레이어CPU사용량
-        public static double PlyrMemTotal;        //전체 Memory
-        public static long PlyrMemUsage;        //플레이어Memory사용량
         public static int PlyrAvailableHdd;     //단위 : MB
-        public static int PlyrNetUsage;         //단위 : %
+        public static int PlyrCpUusage;         //플레이어CPU사용량
+        public static long PlyrMemUsage;        //플레이어Memory사용량
         public static string PlyrId;            //플레이어 ID
         public static string MacAddress;        //플레이어 MAC 주소
         public static string IpAddress;         //플레이어 IP 주소

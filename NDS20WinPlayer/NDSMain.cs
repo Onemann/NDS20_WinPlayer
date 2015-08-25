@@ -16,7 +16,6 @@ using System.Net.NetworkInformation;
 using System.Diagnostics;
 using Timer = System.Threading.Timer;
 
-
 namespace NDS20WinPlayer
 {
 
@@ -27,8 +26,7 @@ namespace NDS20WinPlayer
         public const int HtCaption = 0x2;
 
         int _nCountServerConnection = 0;
-        private readonly PerformanceCounter _pCpu;
-        private readonly PerformanceCounter _pMem;
+        PerformanceCounter _p;
 
         System.Threading.Timer _tmrSeverConnection; // Try connect with server if not connected
 
@@ -40,7 +38,7 @@ namespace NDS20WinPlayer
         public static bool PcInfoGathering { get; set; }
 
 
-        readonly WebSocketClientConnection _fConnection = new CommonFunctions.NDSWebSocketClientConnection(); //Create WebSocket client connection
+        readonly WebSocketClientConnection fConnection = new CommonFunctions.NDSWebSocketClientConnection(); //Create WebSocket client connection
 
         public List<Subframe> arrSubframe;
         public List<string> arrSchedule;
@@ -51,6 +49,8 @@ namespace NDS20WinPlayer
 
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
+        
+        //PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
         public NDSMain()
         {
@@ -59,11 +59,10 @@ namespace NDS20WinPlayer
             //LoadIniFile();
             //LogFile.ThreadWriteLog("====================NDS2.0 Player Opened!!====================", LogType.LOG_INFO);
 
-
-            AppInfoStrc.PlyrMemTotal = MemoryHelper.GetGlobalMemoryStatusEX() / 1024 / 1024;
-
-            _pCpu = new PerformanceCounter("Processor", "% Processor Time", "_Total", true);
-            _pMem = new PerformanceCounter("Memory", "Available MBytes", true);
+            _p = new PerformanceCounter();
+            _p.CategoryName = "Processor";
+            _p.CounterName = "% Processor Time";
+            _p.InstanceName = "_Total";
 
 
             arrSubframe = new List<Subframe>();
@@ -160,7 +159,7 @@ namespace NDS20WinPlayer
         }
 
         // open new sub frame with JSON frame parameter 
-        private void OpenSubframe(JsonObject jsonFrame)
+        private void openSubframe(JsonObject jsonFrame)
         {
             Subframe newSubframe = new Subframe(jsonFrame);
             newSubframe.TopLevel = false;
@@ -271,7 +270,7 @@ namespace NDS20WinPlayer
             {
                 JsonTextParser parser = new JsonTextParser();
                 JsonObject jsonSchedule = parser.Parse(arrSchedule[i]);
-                OpenSubframe(jsonSchedule);
+                openSubframe(jsonSchedule);
             }
 
         }
@@ -319,44 +318,15 @@ namespace NDS20WinPlayer
 
         }
 
-        private void SendPlayerStatusInfo()
-        {
-            JsonObjectCollection collection = new JsonObjectCollection();
-            collection.Add(new JsonStringValue(JsonColName.JsonTxtHndId, AppInfoStrc.TextHandlerId));   // textHandlerID
-            collection.Add(new JsonStringValue(JsonColName.JsonPlyrId, AppInfoStrc.PlayerId));          // PlayerID
-            collection.Add(new JsonStringValue(JsonColName.JsonCmd, JsonCmd.PlayerSysStatus));          // cmd
-            collection.Add(new JsonNumericValue(JsonColName.JsonTimestamp, CommonFunctions.ConvertToUnixTimestamp(DateTime.Now))); 
-
-            JsonObjectCollection dataInfo = new JsonObjectCollection();
-            //collection.Add(new JsonObjectCollection(JsonColName.JsonData));             // cmd
-            dataInfo.Add(new JsonNumericValue(JsonColName.JsonDataCpu, AppInfoStrc.PlyrCpUusage));
-            dataInfo.Add(new JsonNumericValue(JsonColName.JsonDataMem, AppInfoStrc.PlyrMemUsage));
-            dataInfo.Add(new JsonNumericValue(JsonColName.JsonDataHdd, AppInfoStrc.PlyrAvailableHdd));
-            dataInfo.Add(new JsonNumericValue(JsonColName.JsonDataNet, AppInfoStrc.PlyrNetUsage));
-            dataInfo.Add(new JsonStringValue(JsonColName.JsonDataVer, Application.ProductVersion));
-            JsonObjectCollection subData = new JsonObjectCollection(JsonColName.JsonData, dataInfo);
-            collection.Add(subData);
-
-
-
-
-            var jsonText = collection.ToString();
-
-            if (!_fConnection.Closed)
-            {
-                _fConnection.SendText(jsonText);
-            }
-        }
-
         private void StartGatherPcInfo()
         {
             if(!PerformanceCounterCategory.Exists("Processor")) return;
             if (!PerformanceCounterCategory.CounterExists(@"% Processor Time", "Processor")) return;
 
 
-            AppInfoStrc.PlyrCpUusage = (int)_pCpu.NextValue();
+            AppInfoStrc.PlyrCpUusage = (int)_p.NextValue();
             AppInfoStrc.PlyrAvailableHdd = 20;
-            AppInfoStrc.PlyrMemUsage = (int)_pMem.NextValue();
+            AppInfoStrc.PlyrMemUsage = 70;
 
             ManagerForm managerForm = null;
 
@@ -372,7 +342,7 @@ namespace NDS20WinPlayer
         {
             if (AppInfoStrc.UrlOfServer != "" && AppInfoStrc.PortOfServer != "")
             {
-                _serverConnected = _fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
+                _serverConnected = fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
                 if (!_serverConnected)
                 {
                     LogFile.ThreadWriteLog("[NETWORK ERROR]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 실패", LogType.LOG_ERROR);
@@ -387,14 +357,14 @@ namespace NDS20WinPlayer
 
         private void AssignWebSocket()
         {
-            _fConnection.ConnectionClose += ConnectionClose;
-            _fConnection.ConnectionRead += ConnectionRead;
-            _fConnection.ConnectionWrite += ConnectionWrite;
-            _fConnection.ConnectionOpen += ConnectionOpen;
-            ((CommonFunctions.NDSWebSocketClientConnection)_fConnection).ConnectionPing += ConnectionPing;
-            ((CommonFunctions.NDSWebSocketClientConnection)_fConnection).ConnectionPong += ConnectionPong;
-            ((CommonFunctions.NDSWebSocketClientConnection)_fConnection).ConnectionFramedBinary += ConnectionFramedBinary;
-            ((CommonFunctions.NDSWebSocketClientConnection)_fConnection).ConnectionFramedText += ConnectionFramedText;
+            fConnection.ConnectionClose += ConnectionClose;
+            fConnection.ConnectionRead += ConnectionRead;
+            fConnection.ConnectionWrite += ConnectionWrite;
+            fConnection.ConnectionOpen += ConnectionOpen;
+            ((CommonFunctions.NDSWebSocketClientConnection)fConnection).ConnectionPing += ConnectionPing;
+            ((CommonFunctions.NDSWebSocketClientConnection)fConnection).ConnectionPong += ConnectionPong;
+            ((CommonFunctions.NDSWebSocketClientConnection)fConnection).ConnectionFramedBinary += ConnectionFramedBinary;
+            ((CommonFunctions.NDSWebSocketClientConnection)fConnection).ConnectionFramedText += ConnectionFramedText;
         }
 
         void ConnectionOpen(WebSocketConnection aConnection)
@@ -407,7 +377,6 @@ namespace NDS20WinPlayer
             {
                 //LogFile.threadWriteLog(String.Format("ConnectionOpen {0}", aConnection.Index), LogType.LOG_TRACE);
                 _serverConnected = true;
-
                 LogFile.ThreadWriteLog("[NETWORK]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 성공", LogType.LOG_INFO);
             }
         }
@@ -440,14 +409,7 @@ namespace NDS20WinPlayer
                 //LogFile.ThreadWriteLog("[READ]" + Encoding.UTF8.GetString(aData.ToArray()), LogType.LOG_INFO);
                 var inString = Encoding.UTF8.GetString(aData.ToArray());
                 var outString = inString.Replace("\"", "'");
-                LogFile.ThreadWriteLog("[RECV]" + outString, LogType.LOG_INFO);
-                string textHanderId = CommonFunctions.getTextHandlerIdFromJsonText(inString);
-                if (textHanderId != string.Empty)
-                {
-                    AppInfoStrc.TextHandlerId = textHanderId;
-                    SendPlayerStatusInfo();
-                }
-
+                LogFile.ThreadWriteLog(outString, LogType.LOG_INFO);
             }
         }
 
@@ -461,9 +423,6 @@ namespace NDS20WinPlayer
             {
                 //LogFile.threadWriteLog(String.Format("ConnectionWrite {0}: final {1}, ext1 {2}, ext2 {3}, ext1 {4}, code {5}, length {6} ", aConnection.Index, aFinal, aRes1, aRes2, aRes3, aCode, aData.Length), LogType.LOG_TRACE);
                 //-lastSentMemo.Text = Encoding.UTF8.GetString(aData.ToArray(), 0, (int)aData.Length);
-                var inString = Encoding.UTF8.GetString(aData.ToArray());
-                var outString = inString.Replace("\"", "'");
-                LogFile.ThreadWriteLog("[SEND]" +outString, LogType.LOG_INFO);
             }
         }
 
@@ -518,10 +477,9 @@ namespace NDS20WinPlayer
         }
         private void NDSMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_serverConnected) _fConnection.Close(WebSocketCloseCode.Normal);
+            if (_serverConnected) fConnection.Close(WebSocketCloseCode.Normal);
         }
 
 
     }
-
 }

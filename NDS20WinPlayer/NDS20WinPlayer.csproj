@@ -145,7 +145,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Net.Json">
       <HintPath>..\3rd party\System.Net.Json.dll</HintPath>
     </Reference>

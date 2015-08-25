@@ -77,10 +77,10 @@
             this.tlcScheKey = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheStartdate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.repositoryItemDateEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.tlcScheEnddate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheFileName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcScheTotalSector = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.repositoryItemDateEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
             this.spctnctrlLog = new DevExpress.XtraEditors.SplitContainerControl();
             this.trlstLogFile = new DevExpress.XtraTreeList.TreeList();
@@ -118,9 +118,6 @@
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
             this.styleController1 = new DevExpress.XtraEditors.StyleController(this.components);
             this.workspaceManager1 = new DevExpress.Utils.WorkspaceManager();
-            this.brItmMEM = new DevExpress.XtraBars.BarEditItem();
-            this.repositoryItemProgressBar3 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
-            this.brItmAvalMEM = new DevExpress.XtraBars.BarStaticItem();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
@@ -165,7 +162,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.styleController1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).BeginInit();
             this.SuspendLayout();
             // 
             // tlcScheType
@@ -540,14 +536,14 @@
             // 
             // xtabManager
             // 
-            this.xtabManager.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.xtabManager.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabManager.Appearance.Options.UseFont = true;
-            this.xtabManager.AppearancePage.Header.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.xtabManager.AppearancePage.Header.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabManager.AppearancePage.Header.Options.UseFont = true;
             this.xtabManager.AppearancePage.Header.Options.UseTextOptions = true;
             this.xtabManager.AppearancePage.Header.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.xtabManager.AppearancePage.HeaderActive.BackColor = System.Drawing.Color.Black;
-            this.xtabManager.AppearancePage.HeaderActive.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.xtabManager.AppearancePage.HeaderActive.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabManager.AppearancePage.HeaderActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.xtabManager.AppearancePage.HeaderActive.Options.UseBackColor = true;
             this.xtabManager.AppearancePage.HeaderActive.Options.UseFont = true;
@@ -581,25 +577,25 @@
             // 
             // spltcontCntlManager
             // 
-            this.spltcontCntlManager.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spltcontCntlManager.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spltcontCntlManager.Appearance.Options.UseFont = true;
-            this.spltcontCntlManager.AppearanceCaption.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spltcontCntlManager.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spltcontCntlManager.AppearanceCaption.Options.UseFont = true;
             this.spltcontCntlManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.spltcontCntlManager.Location = new System.Drawing.Point(0, 0);
             this.spltcontCntlManager.LookAndFeel.SkinName = "DevExpress Dark Style";
             this.spltcontCntlManager.Name = "spltcontCntlManager";
-            this.spltcontCntlManager.Panel1.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spltcontCntlManager.Panel1.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spltcontCntlManager.Panel1.Appearance.Options.UseFont = true;
-            this.spltcontCntlManager.Panel1.AppearanceCaption.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spltcontCntlManager.Panel1.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spltcontCntlManager.Panel1.AppearanceCaption.Options.UseFont = true;
             this.spltcontCntlManager.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.spltcontCntlManager.Panel1.Controls.Add(this.treeList1);
             this.spltcontCntlManager.Panel1.ShowCaption = true;
             this.spltcontCntlManager.Panel1.Text = "재생 스케줄";
-            this.spltcontCntlManager.Panel2.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spltcontCntlManager.Panel2.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spltcontCntlManager.Panel2.Appearance.Options.UseFont = true;
-            this.spltcontCntlManager.Panel2.AppearanceCaption.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spltcontCntlManager.Panel2.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spltcontCntlManager.Panel2.AppearanceCaption.Options.UseFont = true;
             this.spltcontCntlManager.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
             this.spltcontCntlManager.Panel2.ShowCaption = true;
@@ -641,7 +637,7 @@
             // 
             // tlclSchedule
             // 
-            this.tlclSchedule.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.tlclSchedule.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.tlclSchedule.AppearanceHeader.Options.UseFont = true;
             this.tlclSchedule.AppearanceHeader.Options.UseTextOptions = true;
             this.tlclSchedule.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -757,7 +753,7 @@
             // 
             // trlstSchedule
             // 
-            this.trlstSchedule.Appearance.Caption.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.trlstSchedule.Appearance.Caption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.trlstSchedule.Appearance.Caption.Options.UseFont = true;
             this.trlstSchedule.Appearance.HeaderPanel.Options.UseTextOptions = true;
             this.trlstSchedule.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -865,6 +861,15 @@
             this.tlcScheStartdate.Visible = true;
             this.tlcScheStartdate.VisibleIndex = 3;
             // 
+            // repositoryItemDateEdit4
+            // 
+            this.repositoryItemDateEdit4.AutoHeight = false;
+            this.repositoryItemDateEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit4.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit4.Name = "repositoryItemDateEdit4";
+            // 
             // tlcScheEnddate
             // 
             this.tlcScheEnddate.AppearanceHeader.Options.UseTextOptions = true;
@@ -892,26 +897,17 @@
             this.tlcScheTotalSector.FieldName = "scheTotalSector";
             this.tlcScheTotalSector.Name = "tlcScheTotalSector";
             // 
-            // repositoryItemDateEdit4
-            // 
-            this.repositoryItemDateEdit4.AutoHeight = false;
-            this.repositoryItemDateEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit4.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit4.Name = "repositoryItemDateEdit4";
-            // 
             // xtabpg3Log
             // 
-            this.xtabpg3Log.Appearance.Header.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.xtabpg3Log.Appearance.Header.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabpg3Log.Appearance.Header.Options.UseFont = true;
-            this.xtabpg3Log.Appearance.HeaderActive.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.xtabpg3Log.Appearance.HeaderActive.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabpg3Log.Appearance.HeaderActive.Options.UseFont = true;
-            this.xtabpg3Log.Appearance.HeaderDisabled.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.xtabpg3Log.Appearance.HeaderDisabled.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabpg3Log.Appearance.HeaderDisabled.Options.UseFont = true;
-            this.xtabpg3Log.Appearance.HeaderHotTracked.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.xtabpg3Log.Appearance.HeaderHotTracked.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabpg3Log.Appearance.HeaderHotTracked.Options.UseFont = true;
-            this.xtabpg3Log.Appearance.PageClient.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.xtabpg3Log.Appearance.PageClient.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.xtabpg3Log.Appearance.PageClient.Options.UseFont = true;
             this.xtabpg3Log.Controls.Add(this.spctnctrlLog);
             this.xtabpg3Log.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg3Log.Image")));
@@ -921,17 +917,17 @@
             // 
             // spctnctrlLog
             // 
-            this.spctnctrlLog.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spctnctrlLog.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spctnctrlLog.Appearance.Options.UseFont = true;
-            this.spctnctrlLog.AppearanceCaption.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spctnctrlLog.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spctnctrlLog.AppearanceCaption.Options.UseFont = true;
             this.spctnctrlLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.spctnctrlLog.Location = new System.Drawing.Point(0, 0);
             this.spctnctrlLog.LookAndFeel.SkinName = "DevExpress Dark Style";
             this.spctnctrlLog.Name = "spctnctrlLog";
-            this.spctnctrlLog.Panel1.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spctnctrlLog.Panel1.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spctnctrlLog.Panel1.Appearance.Options.UseFont = true;
-            this.spctnctrlLog.Panel1.AppearanceCaption.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.spctnctrlLog.Panel1.AppearanceCaption.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.spctnctrlLog.Panel1.AppearanceCaption.Options.UseFont = true;
             this.spctnctrlLog.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.spctnctrlLog.Panel1.Controls.Add(this.trlstLogFile);
@@ -948,7 +944,7 @@
             // 
             // trlstLogFile
             // 
-            this.trlstLogFile.Appearance.HeaderPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.trlstLogFile.Appearance.HeaderPanel.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.trlstLogFile.Appearance.HeaderPanel.Options.UseFont = true;
             this.trlstLogFile.Appearance.HeaderPanel.Options.UseTextOptions = true;
             this.trlstLogFile.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1029,7 +1025,7 @@
             this.grdctrlLog.EmbeddedNavigator.Buttons.Remove.Visible = false;
             this.grdctrlLog.EmbeddedNavigator.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.grdctrlLog.EmbeddedNavigator.TextStringFormat = "{0} / {1}";
-            this.grdctrlLog.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdctrlLog.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdctrlLog.Location = new System.Drawing.Point(0, 0);
             this.grdctrlLog.LookAndFeel.SkinName = "Dark Side";
             this.grdctrlLog.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -1046,15 +1042,15 @@
             // 
             // grdvLog
             // 
-            this.grdvLog.Appearance.FooterPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.FooterPanel.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdvLog.Appearance.FooterPanel.Options.UseFont = true;
-            this.grdvLog.Appearance.GroupFooter.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.GroupFooter.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdvLog.Appearance.GroupFooter.Options.UseFont = true;
-            this.grdvLog.Appearance.GroupPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.GroupPanel.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdvLog.Appearance.GroupPanel.Options.UseFont = true;
-            this.grdvLog.Appearance.GroupRow.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.GroupRow.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdvLog.Appearance.GroupRow.Options.UseFont = true;
-            this.grdvLog.Appearance.HeaderPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.HeaderPanel.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdvLog.Appearance.HeaderPanel.Options.UseTextOptions = true;
             this.grdvLog.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.grdvLog.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -1070,11 +1066,11 @@
             // 
             // grdcLogType
             // 
-            this.grdcLogType.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogType.AppearanceCell.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogType.AppearanceCell.ForeColor = System.Drawing.Color.White;
             this.grdcLogType.AppearanceCell.Options.UseFont = true;
             this.grdcLogType.AppearanceCell.Options.UseForeColor = true;
-            this.grdcLogType.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogType.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogType.AppearanceHeader.Options.UseFont = true;
             this.grdcLogType.Caption = "분류";
             this.grdcLogType.FieldName = "logType";
@@ -1088,11 +1084,11 @@
             // 
             // grdcLogDateTime
             // 
-            this.grdcLogDateTime.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogDateTime.AppearanceCell.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogDateTime.AppearanceCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.grdcLogDateTime.AppearanceCell.Options.UseFont = true;
             this.grdcLogDateTime.AppearanceCell.Options.UseForeColor = true;
-            this.grdcLogDateTime.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogDateTime.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogDateTime.AppearanceHeader.Options.UseFont = true;
             this.grdcLogDateTime.Caption = "일시";
             this.grdcLogDateTime.ColumnEdit = this.repositoryItemDateEdit7;
@@ -1120,11 +1116,11 @@
             // 
             // grdcLogMessage
             // 
-            this.grdcLogMessage.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogMessage.AppearanceCell.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogMessage.AppearanceCell.ForeColor = System.Drawing.Color.White;
             this.grdcLogMessage.AppearanceCell.Options.UseFont = true;
             this.grdcLogMessage.AppearanceCell.Options.UseForeColor = true;
-            this.grdcLogMessage.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogMessage.AppearanceHeader.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.grdcLogMessage.AppearanceHeader.Options.UseFont = true;
             this.grdcLogMessage.Caption = "내용";
             this.grdcLogMessage.FieldName = "logMessage";
@@ -1148,7 +1144,7 @@
             this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelControl1.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.panelControl1.Appearance.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.panelControl1.Appearance.Options.UseFont = true;
             this.panelControl1.Controls.Add(this.xtabManager);
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
@@ -1182,16 +1178,13 @@
             this.barHeaderItem1,
             this.barStaticItem2,
             this.brItmCPU,
-            this.brItmHDD,
-            this.brItmMEM,
-            this.brItmAvalMEM});
+            this.brItmHDD});
             this.barManager1.MainMenu = this.bar2;
-            this.barManager1.MaxItemId = 13;
+            this.barManager1.MaxItemId = 11;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit4,
             this.repositoryItemProgressBar1,
-            this.repositoryItemProgressBar2,
-            this.repositoryItemProgressBar3});
+            this.repositoryItemProgressBar2});
             this.barManager1.StatusBar = this.bar3;
             // 
             // bar1
@@ -1224,9 +1217,7 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.statusMessage),
             new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem2),
             new DevExpress.XtraBars.LinkPersistInfo(this.brItmCPU),
-            new DevExpress.XtraBars.LinkPersistInfo(this.brItmHDD),
-            new DevExpress.XtraBars.LinkPersistInfo(this.brItmMEM),
-            new DevExpress.XtraBars.LinkPersistInfo(this.brItmAvalMEM)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.brItmHDD)});
             this.bar3.OptionsBar.AllowQuickCustomization = false;
             this.bar3.OptionsBar.DrawDragBorder = false;
             this.bar3.OptionsBar.UseWholeRow = true;
@@ -1272,7 +1263,7 @@
             this.brItmCPU.ItemAppearance.Normal.Options.UseForeColor = true;
             this.brItmCPU.Name = "brItmCPU";
             this.brItmCPU.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
-            this.brItmCPU.Width = 60;
+            this.brItmCPU.Width = 70;
             // 
             // repositoryItemProgressBar1
             // 
@@ -1296,7 +1287,7 @@
             this.brItmHDD.ItemAppearance.Normal.Options.UseForeColor = true;
             this.brItmHDD.Name = "brItmHDD";
             this.brItmHDD.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
-            this.brItmHDD.Width = 60;
+            this.brItmHDD.Width = 70;
             // 
             // repositoryItemProgressBar2
             // 
@@ -1370,37 +1361,6 @@
             this.workspaceManager1.TargetControl = this;
             this.workspaceManager1.TransitionType = pushTransition1;
             // 
-            // brItmMEM
-            // 
-            this.brItmMEM.CanOpenEdit = false;
-            this.brItmMEM.Caption = "MEM";
-            this.brItmMEM.Edit = this.repositoryItemProgressBar3;
-            this.brItmMEM.EditValue = "50";
-            this.brItmMEM.Id = 11;
-            this.brItmMEM.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Yellow;
-            this.brItmMEM.ItemAppearance.Normal.Options.UseForeColor = true;
-            this.brItmMEM.Name = "brItmMEM";
-            this.brItmMEM.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
-            this.brItmMEM.Width = 60;
-            // 
-            // repositoryItemProgressBar3
-            // 
-            this.repositoryItemProgressBar3.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
-            this.repositoryItemProgressBar3.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.repositoryItemProgressBar3.Name = "repositoryItemProgressBar3";
-            this.repositoryItemProgressBar3.ShowTitle = true;
-            this.repositoryItemProgressBar3.StartColor = System.Drawing.Color.Empty;
-            // 
-            // brItmAvalMEM
-            // 
-            this.brItmAvalMEM.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.brItmAvalMEM.Caption = "0MB";
-            this.brItmAvalMEM.Id = 12;
-            this.brItmAvalMEM.ItemAppearance.Normal.BackColor = System.Drawing.Color.Black;
-            this.brItmAvalMEM.ItemAppearance.Normal.Options.UseBackColor = true;
-            this.brItmAvalMEM.Name = "brItmAvalMEM";
-            this.brItmAvalMEM.TextAlignment = System.Drawing.StringAlignment.Near;
-            // 
             // ManagerForm
             // 
             this.Appearance.Options.UseFont = true;
@@ -1413,7 +1373,7 @@
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.LookAndFeel.SkinName = "DevExpress Dark Style";
@@ -1467,7 +1427,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.styleController1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1561,9 +1520,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar2;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit3;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit4;
-        private DevExpress.XtraBars.BarEditItem brItmMEM;
-        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar3;
-        private DevExpress.XtraBars.BarStaticItem brItmAvalMEM;
 
 
     }
