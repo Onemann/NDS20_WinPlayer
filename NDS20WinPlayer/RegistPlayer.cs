@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Net.Json;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraSplashScreen;
@@ -15,7 +16,7 @@ namespace NDS20WinPlayer
     public partial class RegistPlayer : SplashScreen
     {
         private bool _serverConnected = false;
-        readonly WebSocketClientConnection _fConnection = new NDSMain.NDSWebSocketClientConnection();
+        readonly WebSocketClientConnection _fConnection = new CommonFunctions.NDSWebSocketClientConnection();
 
         //public delegate void DoWorkDelegate();
         public enum LoadStyle
@@ -65,11 +66,36 @@ namespace NDS20WinPlayer
         }
          private void btnRequestRegist_Click(object sender, EventArgs e)
          {
+             if (edtPlayerId.Text == "")
+             {
+                 lblMessage.Text = "Player ID를 입력하세요";
+                 return;
+             }
+
+             jsonSendPlayerRegeist(edtPlayerId.Text);
+
+
              PlayerRegistered = true;
-             AppInfoStrc.PlayerId = "1234";
-             Close();
+             AppInfoStrc.PlayerId = edtPlayerId.Text;
+             //Close();
          }
 
+        private void jsonSendPlayerRegeist(string playerID)
+        {
+            JsonObjectCollection collection = new JsonObjectCollection();
+
+            collection.Add(new JsonStringValue(JsonColName.JsonTxtHndId, AppInfoStrc.TextHandlerId));   // textHandlerID
+            collection.Add(new JsonStringValue(JsonColName.JsonPlyrId, playerID));                      // PlayerID
+            collection.Add(new JsonStringValue(JsonColName.JsonCmd, JsonCmd.PlayerRegist));             // cmd
+            collection.Add(new JsonNumericValue(JsonColName.JsonTimestamp, CommonFunctions.ConvertToUnixTimestamp(DateTime.Now)));             // cmd
+
+            var jsonText = collection.ToString();
+
+            if (!_fConnection.Closed)
+            {
+                _fConnection.SendText(jsonText);
+            }
+        }
         public void ConnectWithServer()
         {
             AssignWebSocket();
@@ -137,7 +163,18 @@ namespace NDS20WinPlayer
             {
                 var inString = Encoding.UTF8.GetString(aData.ToArray());
                 var outString = inString.Replace("\"", "'");
-                LogFile.ThreadWriteLog(outString, LogType.LOG_INFO);
+                LogFile.ThreadWriteLog("[READ]" + outString, LogType.LOG_INFO);
+
+                var jsonObj = CommonFunctions.StringToJsonObject(inString);
+                if (jsonObj == null) return;
+                var jsonColValue = CommonFunctions.getJsonColValue(jsonObj, JsonColName.JsonCmd);
+                if (jsonColValue == null) return;
+                if ((string) jsonColValue != "CONNECT_OK") return;
+                var textHandlerId = (string)CommonFunctions.getJsonColValue(jsonObj, JsonColName.JsonTxtHndId);
+                AppInfoStrc.TextHandlerId = textHandlerId;
+
+                var appIniFile = new IniFile();
+                appIniFile.Write(JsonColName.JsonTxtHndId, textHandlerId, "PLAYER");
             }
         }
 

@@ -28,14 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistPlayer));
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.btnCancelRegist = new DevExpress.XtraEditors.SimpleButton();
+            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             this.edtPlayerId = new DevExpress.XtraEditors.TextEdit();
             this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.btnRequestRegist = new DevExpress.XtraEditors.SimpleButton();
+            this.lblMessage = new DevExpress.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtPlayerId.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
@@ -43,89 +47,70 @@
             // 
             // labelControl1
             // 
-            resources.ApplyResources(this.labelControl1, "labelControl1");
             this.labelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            resources.ApplyResources(this.labelControl1, "labelControl1");
+            this.labelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.labelControl1.Name = "labelControl1";
             // 
             // labelControl2
             // 
-            resources.ApplyResources(this.labelControl2, "labelControl2");
-            this.labelControl2.Appearance.DisabledImage = ((System.Drawing.Image)(resources.GetObject("labelControl2.Appearance.DisabledImage")));
             this.labelControl2.Appearance.Font = ((System.Drawing.Font)(resources.GetObject("labelControl2.Appearance.Font")));
-            this.labelControl2.Appearance.FontSizeDelta = ((int)(resources.GetObject("labelControl2.Appearance.FontSizeDelta")));
-            this.labelControl2.Appearance.FontStyleDelta = ((System.Drawing.FontStyle)(resources.GetObject("labelControl2.Appearance.FontStyleDelta")));
-            this.labelControl2.Appearance.GradientMode = ((System.Drawing.Drawing2D.LinearGradientMode)(resources.GetObject("labelControl2.Appearance.GradientMode")));
-            this.labelControl2.Appearance.HoverImage = ((System.Drawing.Image)(resources.GetObject("labelControl2.Appearance.HoverImage")));
-            this.labelControl2.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("labelControl2.Appearance.Image")));
-            this.labelControl2.Appearance.PressedImage = ((System.Drawing.Image)(resources.GetObject("labelControl2.Appearance.PressedImage")));
+            resources.ApplyResources(this.labelControl2, "labelControl2");
             this.labelControl2.Name = "labelControl2";
             // 
             // btnCancelRegist
             // 
-            resources.ApplyResources(this.btnCancelRegist, "btnCancelRegist");
             this.btnCancelRegist.Appearance.Font = ((System.Drawing.Font)(resources.GetObject("btnCancelRegist.Appearance.Font")));
-            this.btnCancelRegist.Appearance.FontSizeDelta = ((int)(resources.GetObject("btnCancelRegist.Appearance.FontSizeDelta")));
-            this.btnCancelRegist.Appearance.FontStyleDelta = ((System.Drawing.FontStyle)(resources.GetObject("btnCancelRegist.Appearance.FontStyleDelta")));
-            this.btnCancelRegist.Appearance.GradientMode = ((System.Drawing.Drawing2D.LinearGradientMode)(resources.GetObject("btnCancelRegist.Appearance.GradientMode")));
-            this.btnCancelRegist.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelRegist.Appearance.Image")));
             this.btnCancelRegist.Appearance.Options.UseFont = true;
             this.btnCancelRegist.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancelRegist.LookAndFeel.SkinName = "Darkroom";
+            this.btnCancelRegist.ImageIndex = 0;
+            this.btnCancelRegist.ImageList = this.imageCollection1;
+            this.btnCancelRegist.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
+            resources.ApplyResources(this.btnCancelRegist, "btnCancelRegist");
+            this.btnCancelRegist.LookAndFeel.SkinName = "Blueprint";
             this.btnCancelRegist.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnCancelRegist.Name = "btnCancelRegist";
             this.btnCancelRegist.Click += new System.EventHandler(this.btnCancelRegist_Click);
+            // 
+            // imageCollection1
+            // 
+            this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
+            this.imageCollection1.InsertGalleryImage("cancel_16x16.png", "images/actions/cancel_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/cancel_16x16.png"), 0);
+            this.imageCollection1.Images.SetKeyName(0, "cancel_16x16.png");
+            this.imageCollection1.InsertGalleryImage("apply_16x16.png", "images/actions/apply_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/apply_16x16.png"), 1);
+            this.imageCollection1.Images.SetKeyName(1, "apply_16x16.png");
+            this.imageCollection1.InsertGalleryImage("borules_16x16.png", "images/business%20objects/borules_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/business%20objects/borules_16x16.png"), 2);
+            this.imageCollection1.Images.SetKeyName(2, "borules_16x16.png");
+            this.imageCollection1.InsertGalleryImage("info_16x16.png", "images/support/info_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/support/info_16x16.png"), 3);
+            this.imageCollection1.Images.SetKeyName(3, "info_16x16.png");
+            this.imageCollection1.InsertGalleryImage("index_16x16.png", "images/support/index_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/support/index_16x16.png"), 4);
+            this.imageCollection1.Images.SetKeyName(4, "index_16x16.png");
             // 
             // edtPlayerId
             // 
             resources.ApplyResources(this.edtPlayerId, "edtPlayerId");
             this.edtPlayerId.Name = "edtPlayerId";
-            this.edtPlayerId.Properties.AccessibleDescription = resources.GetString("edtPlayerId.Properties.AccessibleDescription");
-            this.edtPlayerId.Properties.AccessibleName = resources.GetString("edtPlayerId.Properties.AccessibleName");
-            this.edtPlayerId.Properties.AutoHeight = ((bool)(resources.GetObject("edtPlayerId.Properties.AutoHeight")));
             this.edtPlayerId.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.edtPlayerId.Properties.LookAndFeel.SkinName = "Dark Side";
             this.edtPlayerId.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.edtPlayerId.Properties.Mask.AutoComplete = ((DevExpress.XtraEditors.Mask.AutoCompleteType)(resources.GetObject("edtPlayerId.Properties.Mask.AutoComplete")));
-            this.edtPlayerId.Properties.Mask.BeepOnError = ((bool)(resources.GetObject("edtPlayerId.Properties.Mask.BeepOnError")));
-            this.edtPlayerId.Properties.Mask.EditMask = resources.GetString("edtPlayerId.Properties.Mask.EditMask");
-            this.edtPlayerId.Properties.Mask.IgnoreMaskBlank = ((bool)(resources.GetObject("edtPlayerId.Properties.Mask.IgnoreMaskBlank")));
-            this.edtPlayerId.Properties.Mask.MaskType = ((DevExpress.XtraEditors.Mask.MaskType)(resources.GetObject("edtPlayerId.Properties.Mask.MaskType")));
-            this.edtPlayerId.Properties.Mask.PlaceHolder = ((char)(resources.GetObject("edtPlayerId.Properties.Mask.PlaceHolder")));
-            this.edtPlayerId.Properties.Mask.SaveLiteral = ((bool)(resources.GetObject("edtPlayerId.Properties.Mask.SaveLiteral")));
-            this.edtPlayerId.Properties.Mask.ShowPlaceHolders = ((bool)(resources.GetObject("edtPlayerId.Properties.Mask.ShowPlaceHolders")));
-            this.edtPlayerId.Properties.Mask.UseMaskAsDisplayFormat = ((bool)(resources.GetObject("edtPlayerId.Properties.Mask.UseMaskAsDisplayFormat")));
-            this.edtPlayerId.Properties.NullValuePrompt = resources.GetString("edtPlayerId.Properties.NullValuePrompt");
-            this.edtPlayerId.Properties.NullValuePromptShowForEmptyValue = ((bool)(resources.GetObject("edtPlayerId.Properties.NullValuePromptShowForEmptyValue")));
             // 
             // pictureEdit2
             // 
             resources.ApplyResources(this.pictureEdit2, "pictureEdit2");
             this.pictureEdit2.Name = "pictureEdit2";
-            this.pictureEdit2.Properties.AccessibleDescription = resources.GetString("pictureEdit2.Properties.AccessibleDescription");
-            this.pictureEdit2.Properties.AccessibleName = resources.GetString("pictureEdit2.Properties.AccessibleName");
             this.pictureEdit2.Properties.AllowFocused = false;
             this.pictureEdit2.Properties.Appearance.BackColor = ((System.Drawing.Color)(resources.GetObject("pictureEdit2.Properties.Appearance.BackColor")));
-            this.pictureEdit2.Properties.Appearance.FontSizeDelta = ((int)(resources.GetObject("pictureEdit2.Properties.Appearance.FontSizeDelta")));
-            this.pictureEdit2.Properties.Appearance.FontStyleDelta = ((System.Drawing.FontStyle)(resources.GetObject("pictureEdit2.Properties.Appearance.FontStyleDelta")));
-            this.pictureEdit2.Properties.Appearance.GradientMode = ((System.Drawing.Drawing2D.LinearGradientMode)(resources.GetObject("pictureEdit2.Properties.Appearance.GradientMode")));
-            this.pictureEdit2.Properties.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("pictureEdit2.Properties.Appearance.Image")));
             this.pictureEdit2.Properties.Appearance.Options.UseBackColor = true;
             this.pictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit2.Properties.ShowMenu = false;
             // 
             // pictureEdit1
             // 
-            resources.ApplyResources(this.pictureEdit1, "pictureEdit1");
             this.pictureEdit1.EditValue = global::NDS20WinPlayer.Properties.Resources.cj_png_powercast_hr_eng_1;
+            resources.ApplyResources(this.pictureEdit1, "pictureEdit1");
             this.pictureEdit1.Name = "pictureEdit1";
-            this.pictureEdit1.Properties.AccessibleDescription = resources.GetString("pictureEdit1.Properties.AccessibleDescription");
-            this.pictureEdit1.Properties.AccessibleName = resources.GetString("pictureEdit1.Properties.AccessibleName");
             this.pictureEdit1.Properties.AllowFocused = false;
             this.pictureEdit1.Properties.Appearance.BackColor = ((System.Drawing.Color)(resources.GetObject("pictureEdit1.Properties.Appearance.BackColor")));
-            this.pictureEdit1.Properties.Appearance.FontSizeDelta = ((int)(resources.GetObject("pictureEdit1.Properties.Appearance.FontSizeDelta")));
-            this.pictureEdit1.Properties.Appearance.FontStyleDelta = ((System.Drawing.FontStyle)(resources.GetObject("pictureEdit1.Properties.Appearance.FontStyleDelta")));
-            this.pictureEdit1.Properties.Appearance.GradientMode = ((System.Drawing.Drawing2D.LinearGradientMode)(resources.GetObject("pictureEdit1.Properties.Appearance.GradientMode")));
-            this.pictureEdit1.Properties.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("pictureEdit1.Properties.Appearance.Image")));
             this.pictureEdit1.Properties.Appearance.Options.UseBackColor = true;
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.ShowMenu = false;
@@ -133,31 +118,41 @@
             // 
             // btnRequestRegist
             // 
-            resources.ApplyResources(this.btnRequestRegist, "btnRequestRegist");
             this.btnRequestRegist.Appearance.Font = ((System.Drawing.Font)(resources.GetObject("btnRequestRegist.Appearance.Font")));
-            this.btnRequestRegist.Appearance.FontSizeDelta = ((int)(resources.GetObject("btnRequestRegist.Appearance.FontSizeDelta")));
-            this.btnRequestRegist.Appearance.FontStyleDelta = ((System.Drawing.FontStyle)(resources.GetObject("btnRequestRegist.Appearance.FontStyleDelta")));
-            this.btnRequestRegist.Appearance.GradientMode = ((System.Drawing.Drawing2D.LinearGradientMode)(resources.GetObject("btnRequestRegist.Appearance.GradientMode")));
-            this.btnRequestRegist.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("btnRequestRegist.Appearance.Image")));
             this.btnRequestRegist.Appearance.Options.UseFont = true;
-            this.btnRequestRegist.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnRequestRegist.LookAndFeel.SkinName = "Darkroom";
+            this.btnRequestRegist.ImageIndex = 1;
+            this.btnRequestRegist.ImageList = this.imageCollection1;
+            resources.ApplyResources(this.btnRequestRegist, "btnRequestRegist");
+            this.btnRequestRegist.LookAndFeel.SkinName = "Blueprint";
             this.btnRequestRegist.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnRequestRegist.Name = "btnRequestRegist";
             this.btnRequestRegist.Click += new System.EventHandler(this.btnRequestRegist_Click);
             // 
+            // lblMessage
+            // 
+            this.lblMessage.Appearance.Font = ((System.Drawing.Font)(resources.GetObject("labelControl3.Appearance.Font")));
+            this.lblMessage.Appearance.ImageIndex = 4;
+            this.lblMessage.Appearance.ImageList = this.imageCollection1;
+            resources.ApplyResources(this.lblMessage, "lblMessage");
+            this.lblMessage.HtmlImages = this.imageCollection1;
+            this.lblMessage.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftTop;
+            this.lblMessage.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.lblMessage.Name = "lblMessage";
+            // 
             // RegistPlayer
             // 
+            this.AcceptButton = this.btnRequestRegist;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancelRegist;
             this.ControlBox = true;
+            this.Controls.Add(this.labelControl1);
+            this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnRequestRegist);
             this.Controls.Add(this.edtPlayerId);
             this.Controls.Add(this.btnCancelRegist);
             this.Controls.Add(this.pictureEdit1);
             this.Controls.Add(this.labelControl2);
-            this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.pictureEdit2);
             this.DoubleBuffered = true;
             this.Name = "RegistPlayer";
@@ -167,6 +162,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RegistPlayer_FormClosed);
             this.Load += new System.EventHandler(this.RegistPlayer_Load);
             this.Shown += new System.EventHandler(this.RegistPlayer_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtPlayerId.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
@@ -184,5 +180,7 @@
         private DevExpress.XtraEditors.SimpleButton btnCancelRegist;
         private DevExpress.XtraEditors.TextEdit edtPlayerId;
         private DevExpress.XtraEditors.SimpleButton btnRequestRegist;
+        private DevExpress.Utils.ImageCollection imageCollection1;
+        private DevExpress.XtraEditors.LabelControl lblMessage;
     }
 }

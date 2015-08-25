@@ -17,6 +17,24 @@ namespace NDS20WinPlayer
         #endregion
 
     }
+        #region JSON
+
+    internal class JsonColName
+    {
+        internal static readonly string JsonCode = "code";
+        internal static readonly string JsonCmd = "cmd";
+        internal static readonly string JsonTxtHndId = "textHandlerID";
+        internal static readonly string JsonMsg = "Message";
+        internal static readonly string JsonPlyrId = "playerID";
+        internal static readonly string JsonTimestamp = "timestamp";
+    }
+
+    internal class JsonCmd
+    {
+        internal static readonly string ServerConnected = "CONNECT_OK";
+        internal static readonly string PlayerRegist = "PLAYER_REGIST";
+    }
+        #endregion
 
     class AppInfoStrc
     {
