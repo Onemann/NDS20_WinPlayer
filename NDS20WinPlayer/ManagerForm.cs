@@ -321,7 +321,7 @@ namespace NDS20WinPlayer
             }
             catch (Exception ex)
             {
-                LogFile.ThreadWriteLog(ex.Message + "|" + ex.Source, LogType.LOG_ERROR);
+                LogFile.ThreadWriteLog(ex.Message, LogType.LOG_ERROR);
             }
         }
         #endregion
@@ -477,6 +477,12 @@ namespace NDS20WinPlayer
                     break;
             }
             e.Appearance.ForeColor = messageColor;
+        }
+
+        private void grdvLog_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            // show full log message on memo edit
+            mmoLog.Text = grdvLog.GetFocusedRowCellValue("logMessage").ToString();
         }
     }
 }

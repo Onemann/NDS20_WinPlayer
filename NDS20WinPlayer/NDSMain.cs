@@ -14,6 +14,7 @@ using System.Threading;
 using Bauglir.Ex;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using DevExpress.XtraPrinting.Export.Pdf;
 using Timer = System.Threading.Timer;
 
 
@@ -368,6 +369,94 @@ namespace NDS20WinPlayer
             PcInfoGathering = false;
 
         }
+
+        private void SendRequestScheduleSending()
+        {
+            try
+            {
+                JsonObjectCollection collection = new JsonObjectCollection();
+                collection.Add(new JsonStringValue(JsonColName.JsonTxtHndId, AppInfoStrc.TextHandlerId));   // textHandlerID
+                collection.Add(new JsonStringValue(JsonColName.JsonPlyrId, AppInfoStrc.PlayerId));          // PlayerID
+                collection.Add(new JsonStringValue(JsonColName.JsonCmd, JsonCmd.SchedueleDown));            // cmd
+                collection.Add(new JsonNumericValue(JsonColName.JsonTimestamp,
+                    CommonFunctions.ConvertToUnixTimestamp(DateTime.Now)));
+
+                var jsonText = collection.ToString();
+
+                if (!_fConnection.Closed)
+                {
+                    _fConnection.SendText(jsonText);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogFile.ThreadWriteLog("[SEND-ERR]" + "SendRequestScheduleSending():" + ex.Message , LogType.LOG_ERROR);
+            }
+        }
+
+        private  void ActAfterReceivingJson(string jsonText)
+        {
+            try
+            {
+                var parser = new JsonTextParser();
+                var jsonObj = parser.Parse(jsonText);
+                // abstract cmd
+                var col = (JsonObjectCollection) jsonObj;
+                var cmdValue = (string)col[JsonColName.JsonCmd].GetValue();
+
+                switch (cmdValue)
+                {                
+                    case JsonCmd.ServerConnected:
+                        AppInfoStrc.TextHandlerId = (string) col[JsonColName.JsonTxtHndId].GetValue();
+                        SendPlayerStatusInfo(); // send player system status info : CPU, HDD, MEM
+                        SendRequestScheduleSending(); // sending request to server for releasing schedule
+                        break;
+
+                    case JsonCmd.SchedueleDown:
+                        // Schedule file will be created with filename consist with timestamp for unique naming. 
+                        double unixTimeStamp = (double) col[JsonColName.JsonTimestamp].GetValue();
+                        DateTime datetimeTimestamp = CommonFunctions.UnixTimeStampToDateTime(unixTimeStamp);
+                        string timeStamp = string.Format("{0:yyyyMMdd_HHmmss}", datetimeTimestamp);
+                        JsonToTextFile(jsonText, timeStamp);
+                        break;
+                }
+
+            }
+            catch (Exception)
+            {
+                // Write error log - Received JSON text.
+                var outText = jsonText.Replace("\"", "'");
+                LogFile.ThreadWriteLog("[RECV-ERR]" + outText, LogType.LOG_ERROR);
+            }
+        }
+
+        private void JsonToTextFile(string jsonText, string timeStamp)
+        {
+            try
+            {
+                //Schedule file creation with schedule JSON text.
+                var scheduleFilePath = AppInfoStrc.DirOfSchedule + "\\" + "Schd-" + timeStamp + "." + "sch"; // ex) Schd-20150825_122331.sch
+                FileInfo scheduleFileInfo = new FileInfo(scheduleFilePath);
+                DirectoryInfo scheduleDirectoryInfo = new DirectoryInfo(scheduleFileInfo.DirectoryName);
+                if (!scheduleDirectoryInfo.Exists) scheduleDirectoryInfo.Create();
+
+                if (scheduleFileInfo.Exists) scheduleFileInfo.Delete();
+                FileStream scheduleFileStream = scheduleFileInfo.Create();
+
+                StreamWriter scheduleStreamWriter = new StreamWriter(scheduleFileStream);
+                scheduleStreamWriter.WriteLine(jsonText);
+
+                scheduleStreamWriter.Close();
+
+            }
+            catch (Exception)
+            {
+                LogFile.ThreadWriteLog("[SCHD-ERR]" + AppInfoStrc.DirOfSchedule + "\\" + "Schd-" + timeStamp + "." + "sch" + " 파일 생성 오류", LogType.LOG_ERROR);
+            }
+
+        }
+
         private void StartNdsWebSocket()
         {
             if (AppInfoStrc.UrlOfServer != "" && AppInfoStrc.PortOfServer != "")
@@ -375,12 +464,12 @@ namespace NDS20WinPlayer
                 _serverConnected = _fConnection.Start(AppInfoStrc.UrlOfServer, AppInfoStrc.PortOfServer, AppInfoStrc.ExtentionOfServer, false);
                 if (!_serverConnected)
                 {
-                    LogFile.ThreadWriteLog("[NETWORK ERROR]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 실패", LogType.LOG_ERROR);
+                    LogFile.ThreadWriteLog("[NETWORK ERR]:" + AppInfoStrc.UrlOfServer + AppInfoStrc.ExtentionOfServer + " Web socket 연결 실패", LogType.LOG_ERROR);
                 }
             }
             else
             {
-                LogFile.ThreadWriteLog("[INI_ERROR]:" + "설정 파일에 서버 접속 정보가 없습니다.", LogType.LOG_ERROR);
+                LogFile.ThreadWriteLog("[INI_ERR]:" + "설정 파일에 서버 접속 정보가 없습니다.", LogType.LOG_ERROR);
             }
             _tryServerConnecting = false;
         }
@@ -439,15 +528,14 @@ namespace NDS20WinPlayer
                 //-lastReceivedMemo.Text = Encoding.UTF8.GetString(aData.ToArray());
                 //LogFile.ThreadWriteLog("[READ]" + Encoding.UTF8.GetString(aData.ToArray()), LogType.LOG_INFO);
                 var inString = Encoding.UTF8.GetString(aData.ToArray());
+
+
+                #region Comment after debugging.
                 var outString = inString.Replace("\"", "'");
                 LogFile.ThreadWriteLog("[RECV]" + outString, LogType.LOG_INFO);
-                string textHanderId = CommonFunctions.getTextHandlerIdFromJsonText(inString);
-                if (textHanderId != string.Empty)
-                {
-                    AppInfoStrc.TextHandlerId = textHanderId;
-                    SendPlayerStatusInfo();
-                }
+                #endregion
 
+                ActAfterReceivingJson(inString);
             }
         }
 

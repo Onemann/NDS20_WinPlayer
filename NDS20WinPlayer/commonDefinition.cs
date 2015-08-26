@@ -32,7 +32,9 @@ namespace NDS20WinPlayer
         internal static readonly string JsonDataMem = "mem";
         internal static readonly string JsonDataHdd = "hdd";
         internal static readonly string JsonDataNet = "net";    //네트워크 이용률
-        internal static readonly string JsonDataVer = "ver";    
+        internal static readonly string JsonDataVer = "ver";
+        internal static readonly string JsonschdList = "list";  //PLYAYER_SCHD_DOWN으로 받은 JSON 중 실제 Schedule 부분
+    
 
 
     }
@@ -44,11 +46,11 @@ namespace NDS20WinPlayer
         internal const string PlayerSysStatus = "PLAYER_SYS_STATUS";
 
         internal const string NewScheduele = "PLAYER_SCD_PUSH";      //서버에서 플레이어로 PUSH(신규 스케줄 있음을 알림)
-        internal const string SchedueleDown = "PLAYER_SCHD_DOWN";   //서버에게 스케줄 송신을 요청 -> 서버응답: 스케줄 송신
+        internal const string SchedueleDown = "PLAYER_SCD_DOWN";   //서버에게 스케줄 송신을 요청 -> 서버응답: 스케줄 송신
 
         internal const string PlayerResult = "PLAYER_RESULT";       //재생실적을 서버로 송신
 
-        internal const string DownloadStatus = "PLAYER_DOWN_STATUS"; // 스케줄, 컨텐츠 다운로드 현황
+        internal const string DownloadStatus = "PLAYER_DOWN_STATUS"; // 스케줄, 컨텐츠 다운로드 상태
     }
         #endregion
 
@@ -180,8 +182,8 @@ namespace NDS20WinPlayer
         public string scheKind { get; set; }        // [생성]스케줄 종류 : 기본, 이벤트
         public string ctscKey { get; set; }         // [숨김] 스케줄 키
         public string ctscName { get; set; }
-        public long ctscStartdate { get; set; }
-        public long ctscEnddate { get; set; }
+        public string ctscStartdate { get; set; }
+        public string ctscEnddate { get; set; }
         public int scheTotalSector { get; set; }         // [가칭] 총 구간
         public string scheFileName { get; set; }    // [생성, 숨김] 다운받은 스케줄 파일 명 - 파일명에서 가져옴
     }

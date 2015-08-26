@@ -28,9 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
-            DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
+            DevExpress.Utils.Animation.PushTransition pushTransition2 = new DevExpress.Utils.Animation.PushTransition();
             this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
@@ -96,8 +95,8 @@
             this.grdcLogMessage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
-            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
+            this.barManager1 = new DevExpress.XtraBars.BarManager();
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.bar3 = new DevExpress.XtraBars.Bar();
@@ -109,18 +108,20 @@
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.brItmHDD = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemProgressBar2 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
-            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
+            this.brItmMEM = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemProgressBar3 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
+            this.brItmAvalMEM = new DevExpress.XtraBars.BarStaticItem();
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.skinBarSubItem1 = new DevExpress.XtraBars.SkinBarSubItem();
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
-            this.styleController1 = new DevExpress.XtraEditors.StyleController(this.components);
+            this.styleController1 = new DevExpress.XtraEditors.StyleController();
             this.workspaceManager1 = new DevExpress.Utils.WorkspaceManager();
-            this.brItmMEM = new DevExpress.XtraBars.BarEditItem();
-            this.repositoryItemProgressBar3 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
-            this.brItmAvalMEM = new DevExpress.XtraBars.BarStaticItem();
+            this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
+            this.mmoLog = new DevExpress.XtraEditors.MemoEdit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
@@ -163,9 +164,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.styleController1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mmoLog.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tlcScheType
@@ -938,6 +940,8 @@
             this.spctnctrlLog.Panel1.ShowCaption = true;
             this.spctnctrlLog.Panel1.Text = "로그 파일";
             this.spctnctrlLog.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.spctnctrlLog.Panel2.Controls.Add(this.mmoLog);
+            this.spctnctrlLog.Panel2.Controls.Add(this.splitterControl1);
             this.spctnctrlLog.Panel2.Controls.Add(this.grdctrlLog);
             this.spctnctrlLog.Panel2.ShowCaption = true;
             this.spctnctrlLog.Panel2.Text = "로그 내용";
@@ -1017,7 +1021,7 @@
             // 
             // grdctrlLog
             // 
-            this.grdctrlLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdctrlLog.Dock = System.Windows.Forms.DockStyle.Top;
             this.grdctrlLog.EmbeddedNavigator.Appearance.BackColor = System.Drawing.Color.Black;
             this.grdctrlLog.EmbeddedNavigator.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.grdctrlLog.EmbeddedNavigator.Appearance.Options.UseBackColor = true;
@@ -1037,7 +1041,7 @@
             this.grdctrlLog.Name = "grdctrlLog";
             this.grdctrlLog.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemDateEdit7});
-            this.grdctrlLog.Size = new System.Drawing.Size(803, 481);
+            this.grdctrlLog.Size = new System.Drawing.Size(803, 435);
             this.grdctrlLog.TabIndex = 1;
             this.grdctrlLog.UseEmbeddedNavigator = true;
             this.grdctrlLog.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -1067,6 +1071,7 @@
             this.grdvLog.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.grdcLogDateTime, DevExpress.Data.ColumnSortOrder.Descending)});
             this.grdvLog.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.grdvLog_RowCellStyle);
+            this.grdvLog.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.grdvLog_FocusedRowChanged);
             // 
             // grdcLogType
             // 
@@ -1308,6 +1313,37 @@
             this.repositoryItemProgressBar2.ShowTitle = true;
             this.repositoryItemProgressBar2.Step = 5;
             // 
+            // brItmMEM
+            // 
+            this.brItmMEM.CanOpenEdit = false;
+            this.brItmMEM.Caption = "MEM";
+            this.brItmMEM.Edit = this.repositoryItemProgressBar3;
+            this.brItmMEM.EditValue = "50";
+            this.brItmMEM.Id = 11;
+            this.brItmMEM.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Yellow;
+            this.brItmMEM.ItemAppearance.Normal.Options.UseForeColor = true;
+            this.brItmMEM.Name = "brItmMEM";
+            this.brItmMEM.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
+            this.brItmMEM.Width = 60;
+            // 
+            // repositoryItemProgressBar3
+            // 
+            this.repositoryItemProgressBar3.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
+            this.repositoryItemProgressBar3.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.repositoryItemProgressBar3.Name = "repositoryItemProgressBar3";
+            this.repositoryItemProgressBar3.ShowTitle = true;
+            this.repositoryItemProgressBar3.StartColor = System.Drawing.Color.Empty;
+            // 
+            // brItmAvalMEM
+            // 
+            this.brItmAvalMEM.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.brItmAvalMEM.Caption = "0MB";
+            this.brItmAvalMEM.Id = 12;
+            this.brItmAvalMEM.ItemAppearance.Normal.BackColor = System.Drawing.Color.Black;
+            this.brItmAvalMEM.ItemAppearance.Normal.Options.UseBackColor = true;
+            this.brItmAvalMEM.Name = "brItmAvalMEM";
+            this.brItmAvalMEM.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
             // barAndDockingController1
             // 
             this.barAndDockingController1.LookAndFeel.SkinName = "DevExpress Dark Style";
@@ -1368,38 +1404,27 @@
             // workspaceManager1
             // 
             this.workspaceManager1.TargetControl = this;
-            this.workspaceManager1.TransitionType = pushTransition1;
+            this.workspaceManager1.TransitionType = pushTransition2;
             // 
-            // brItmMEM
+            // splitterControl1
             // 
-            this.brItmMEM.CanOpenEdit = false;
-            this.brItmMEM.Caption = "MEM";
-            this.brItmMEM.Edit = this.repositoryItemProgressBar3;
-            this.brItmMEM.EditValue = "50";
-            this.brItmMEM.Id = 11;
-            this.brItmMEM.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Yellow;
-            this.brItmMEM.ItemAppearance.Normal.Options.UseForeColor = true;
-            this.brItmMEM.Name = "brItmMEM";
-            this.brItmMEM.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
-            this.brItmMEM.Width = 60;
+            this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitterControl1.Location = new System.Drawing.Point(0, 435);
+            this.splitterControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.splitterControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.splitterControl1.Name = "splitterControl1";
+            this.splitterControl1.Size = new System.Drawing.Size(803, 5);
+            this.splitterControl1.TabIndex = 2;
+            this.splitterControl1.TabStop = false;
             // 
-            // repositoryItemProgressBar3
+            // mmoLog
             // 
-            this.repositoryItemProgressBar3.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
-            this.repositoryItemProgressBar3.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.repositoryItemProgressBar3.Name = "repositoryItemProgressBar3";
-            this.repositoryItemProgressBar3.ShowTitle = true;
-            this.repositoryItemProgressBar3.StartColor = System.Drawing.Color.Empty;
-            // 
-            // brItmAvalMEM
-            // 
-            this.brItmAvalMEM.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.brItmAvalMEM.Caption = "0MB";
-            this.brItmAvalMEM.Id = 12;
-            this.brItmAvalMEM.ItemAppearance.Normal.BackColor = System.Drawing.Color.Black;
-            this.brItmAvalMEM.ItemAppearance.Normal.Options.UseBackColor = true;
-            this.brItmAvalMEM.Name = "brItmAvalMEM";
-            this.brItmAvalMEM.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.mmoLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mmoLog.Location = new System.Drawing.Point(0, 440);
+            this.mmoLog.MenuManager = this.barManager1;
+            this.mmoLog.Name = "mmoLog";
+            this.mmoLog.Size = new System.Drawing.Size(803, 41);
+            this.mmoLog.TabIndex = 3;
             // 
             // ManagerForm
             // 
@@ -1465,9 +1490,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.styleController1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mmoLog.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1564,6 +1590,8 @@
         private DevExpress.XtraBars.BarEditItem brItmMEM;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar3;
         private DevExpress.XtraBars.BarStaticItem brItmAvalMEM;
+        private DevExpress.XtraEditors.MemoEdit mmoLog;
+        private DevExpress.XtraEditors.SplitterControl splitterControl1;
 
 
     }

@@ -12,7 +12,8 @@ namespace NDS20WinPlayer
     {
         public static void ThreadWriteLog(string strLogMsg, Enum logType)
         {
-
+            string output = new string(strLogMsg.Where(c => !char.IsControl(c)).ToArray());
+            strLogMsg = output.Replace("\"", "'");
             WriteLog(strLogMsg, logType);
             //new Thread(() => WriteLog(strLogMsg, logType)).Start();
         }

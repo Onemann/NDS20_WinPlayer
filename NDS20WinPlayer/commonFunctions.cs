@@ -114,8 +114,9 @@ namespace NDS20WinPlayer
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
-            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
+            //dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            dtDateTime = dtDateTime.AddSeconds(Math.Round(unixTimeStamp/1000)).ToLocalTime();
             return dtDateTime;
         }
 
@@ -155,6 +156,8 @@ namespace NDS20WinPlayer
             if ((string)jsonColValue != JsonCmd.ServerConnected) return string.Empty;
             return (string)CommonFunctions.GetJsonColValue(jsonObj, JsonColName.JsonTxtHndId);
         }
+
+        
 #endregion
 
         public class NDSWebSocketClientConnection : WebSocketClientConnection
