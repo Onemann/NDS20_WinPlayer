@@ -414,11 +414,22 @@ namespace NDS20WinPlayer
                         break;
 
                     case JsonCmd.SchedueleDown:
+                        
+                        JsonArrayCollection sheduleListColl = (JsonArrayCollection)col[JsonColName.JsonschdList]; // abstract only schedule JSON text
+
+                        string scheduleColItem = "";
+                        for (int idx = 0; idx < sheduleListColl.Count; idx++)
+                        {
+                            if (scheduleColItem != "") scheduleColItem += ",";
+                            scheduleColItem = scheduleColItem + sheduleListColl[idx];
+                        }
+
+                        scheduleColItem = "[" + scheduleColItem + "]";
                         // Schedule file will be created with filename consist with timestamp for unique naming. 
                         double unixTimeStamp = (double) col[JsonColName.JsonTimestamp].GetValue();
                         DateTime datetimeTimestamp = CommonFunctions.UnixTimeStampToDateTime(unixTimeStamp);
                         string timeStamp = string.Format("{0:yyyyMMdd_HHmmss}", datetimeTimestamp);
-                        JsonToTextFile(jsonText, timeStamp);
+                        JsonToTextFile(scheduleColItem, timeStamp);
                         break;
                 }
 

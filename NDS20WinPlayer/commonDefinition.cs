@@ -128,14 +128,16 @@ namespace NDS20WinPlayer
     // Contents class
     public class clssContents
     {
-        public long cntsKey { get; set; }               // 콘텐츠 키
+        public long scheOrder { get; set; }               // 콘텐츠 키
+        public string cntsKey { get; set; }               // 콘텐츠 키
         public string cntsName { get; set; }            // 콘텐츠 명
         public int cntsPlayTime { get; set; }           // 콘텐츠 재생 시간
-        public long scheCntsStartDt { get; set; }   //사용기간-시작일
-        public long scheCntsEndDt { get; set; }     //사용기간-종료일
-        public long scheCntsStartTime { get; set; } //사용시간-시작일
-        public long scheCntsEndTime { get; set; }     //사용시간-종료일
-        public string ctscSector { get; set; }          //구간 정보 ex) "1,4,7"
+        public string scheCntsStartDt { get; set; }   //사용기간-시작일
+        public string scheCntsEndDt { get; set; }     //사용기간-종료일
+        public string scheCntsStartTime { get; set; } //사용시간-시작일
+        public string scheCntsEndTime { get; set; }     //사용시간-종료일
+        public string cntsSectors { get; set; }          //구간 정보 ex) "1,4,7"
+        public string fileName { get; set; }            //파일명
 
         #region 구간 30 Sectors are more than enough
         public bool sector1 { get; set; }         // [가칭] 1구간
@@ -177,13 +179,13 @@ namespace NDS20WinPlayer
 
     public class clssSchedule
     {
+        public string scheKey { get; set; }         // [숨김] 스케줄 키
+        public string scheName { get; set; }        // 스케줄명
         public string scheType { get; set; }        // [숨김]스케쥴 코드 : 01-일반.기본, 02-일반.이밴트, 03-동기화.기본, 04-동기화.이벤트, 05-사내방송.기본, 06-사내방송.이벤트
         public string scheCategory { get; set; }    // [생성]스케줄 분류 : 일반, 동기화, 사내방송 
         public string scheKind { get; set; }        // [생성]스케줄 종류 : 기본, 이벤트
-        public string ctscKey { get; set; }         // [숨김] 스케줄 키
-        public string ctscName { get; set; }
-        public string ctscStartdate { get; set; }
-        public string ctscEnddate { get; set; }
+        public string scheStartDt { get; set; }
+        public string scheEndDt { get; set; }
         public int scheTotalSector { get; set; }         // [가칭] 총 구간
         public string scheFileName { get; set; }    // [생성, 숨김] 다운받은 스케줄 파일 명 - 파일명에서 가져옴
     }

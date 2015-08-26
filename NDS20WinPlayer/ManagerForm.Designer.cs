@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
-            DevExpress.Utils.Animation.PushTransition pushTransition2 = new DevExpress.Utils.Animation.PushTransition();
+            DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
             this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
@@ -87,16 +88,8 @@
             this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.repositoryItemDateEdit5 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.repositoryItemDateEdit6 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.grdctrlLog = new DevExpress.XtraGrid.GridControl();
-            this.grdvLog = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.grdcLogType = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.grdcLogDateTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemDateEdit7 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.grdcLogMessage = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
-            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.mmoLog = new DevExpress.XtraEditors.MemoEdit();
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.bar3 = new DevExpress.XtraBars.Bar();
@@ -111,17 +104,25 @@
             this.brItmMEM = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemProgressBar3 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.brItmAvalMEM = new DevExpress.XtraBars.BarStaticItem();
-            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.skinBarSubItem1 = new DevExpress.XtraBars.SkinBarSubItem();
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
-            this.styleController1 = new DevExpress.XtraEditors.StyleController();
-            this.workspaceManager1 = new DevExpress.Utils.WorkspaceManager();
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
-            this.mmoLog = new DevExpress.XtraEditors.MemoEdit();
+            this.grdctrlLog = new DevExpress.XtraGrid.GridControl();
+            this.grdvLog = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.grdcLogType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.grdcLogDateTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemDateEdit7 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
+            this.grdcLogMessage = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.xtabpg4Setup = new DevExpress.XtraTab.XtraTabPage();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.styleController1 = new DevExpress.XtraEditors.StyleController(this.components);
+            this.workspaceManager1 = new DevExpress.Utils.WorkspaceManager();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
@@ -154,20 +155,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit5.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit6.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdctrlLog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdvLog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
-            this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mmoLog.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdctrlLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdvLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.styleController1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mmoLog.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tlcScheType
@@ -429,7 +430,7 @@
             // grdcCtscSector
             // 
             this.grdcCtscSector.Caption = "구간";
-            this.grdcCtscSector.FieldName = "ctscSector";
+            this.grdcCtscSector.FieldName = "cntsSectors";
             this.grdcCtscSector.Name = "grdcCtscSector";
             this.grdcCtscSector.OptionsColumn.AllowEdit = false;
             this.grdcCtscSector.OptionsColumn.AllowFocus = false;
@@ -826,7 +827,7 @@
             // tlcScheKey
             // 
             this.tlcScheKey.Caption = "스케줄키";
-            this.tlcScheKey.FieldName = "ctscKey";
+            this.tlcScheKey.FieldName = "scheName";
             this.tlcScheKey.Name = "tlcScheKey";
             this.tlcScheKey.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
             this.tlcScheKey.SortOrder = System.Windows.Forms.SortOrder.Descending;
@@ -838,7 +839,7 @@
             this.tlcScheName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlcScheName.Caption = "스케줄";
             this.tlcScheName.ColumnEdit = this.repositoryItemTextEdit2;
-            this.tlcScheName.FieldName = "ctscName";
+            this.tlcScheName.FieldName = "scheName";
             this.tlcScheName.MinWidth = 52;
             this.tlcScheName.Name = "tlcScheName";
             this.tlcScheName.OptionsColumn.AllowEdit = false;
@@ -856,7 +857,7 @@
             this.tlcScheStartdate.AppearanceHeader.Options.UseTextOptions = true;
             this.tlcScheStartdate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlcScheStartdate.Caption = "시작일";
-            this.tlcScheStartdate.FieldName = "ctscStartdate";
+            this.tlcScheStartdate.FieldName = "scheStartDt";
             this.tlcScheStartdate.FilterMode = DevExpress.XtraGrid.ColumnFilterMode.DisplayText;
             this.tlcScheStartdate.Format.FormatString = "####-##-##";
             this.tlcScheStartdate.Format.FormatType = DevExpress.Utils.FormatType.Custom;
@@ -872,7 +873,7 @@
             this.tlcScheEnddate.AppearanceHeader.Options.UseTextOptions = true;
             this.tlcScheEnddate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlcScheEnddate.Caption = "종료일";
-            this.tlcScheEnddate.FieldName = "ctscEnddate";
+            this.tlcScheEnddate.FieldName = "scheEndDt";
             this.tlcScheEnddate.Format.FormatString = "####-##-##";
             this.tlcScheEnddate.Format.FormatType = DevExpress.Utils.FormatType.Custom;
             this.tlcScheEnddate.Name = "tlcScheEnddate";
@@ -1019,154 +1020,14 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemDateEdit6.Name = "repositoryItemDateEdit6";
             // 
-            // grdctrlLog
+            // mmoLog
             // 
-            this.grdctrlLog.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grdctrlLog.EmbeddedNavigator.Appearance.BackColor = System.Drawing.Color.Black;
-            this.grdctrlLog.EmbeddedNavigator.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.grdctrlLog.EmbeddedNavigator.Appearance.Options.UseBackColor = true;
-            this.grdctrlLog.EmbeddedNavigator.Appearance.Options.UseForeColor = true;
-            this.grdctrlLog.EmbeddedNavigator.Buttons.Append.Visible = false;
-            this.grdctrlLog.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
-            this.grdctrlLog.EmbeddedNavigator.Buttons.Edit.Visible = false;
-            this.grdctrlLog.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
-            this.grdctrlLog.EmbeddedNavigator.Buttons.Remove.Visible = false;
-            this.grdctrlLog.EmbeddedNavigator.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.grdctrlLog.EmbeddedNavigator.TextStringFormat = "{0} / {1}";
-            this.grdctrlLog.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdctrlLog.Location = new System.Drawing.Point(0, 0);
-            this.grdctrlLog.LookAndFeel.SkinName = "Dark Side";
-            this.grdctrlLog.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.grdctrlLog.MainView = this.grdvLog;
-            this.grdctrlLog.Name = "grdctrlLog";
-            this.grdctrlLog.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemDateEdit7});
-            this.grdctrlLog.Size = new System.Drawing.Size(803, 435);
-            this.grdctrlLog.TabIndex = 1;
-            this.grdctrlLog.UseEmbeddedNavigator = true;
-            this.grdctrlLog.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grdvLog});
-            this.grdctrlLog.Load += new System.EventHandler(this.grdctrlLog_Load);
-            // 
-            // grdvLog
-            // 
-            this.grdvLog.Appearance.FooterPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdvLog.Appearance.FooterPanel.Options.UseFont = true;
-            this.grdvLog.Appearance.GroupFooter.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdvLog.Appearance.GroupFooter.Options.UseFont = true;
-            this.grdvLog.Appearance.GroupPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdvLog.Appearance.GroupPanel.Options.UseFont = true;
-            this.grdvLog.Appearance.GroupRow.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdvLog.Appearance.GroupRow.Options.UseFont = true;
-            this.grdvLog.Appearance.HeaderPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdvLog.Appearance.HeaderPanel.Options.UseTextOptions = true;
-            this.grdvLog.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.grdvLog.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.grdcLogType,
-            this.grdcLogDateTime,
-            this.grdcLogMessage});
-            this.grdvLog.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.None;
-            this.grdvLog.GridControl = this.grdctrlLog;
-            this.grdvLog.Name = "grdvLog";
-            this.grdvLog.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.grdcLogDateTime, DevExpress.Data.ColumnSortOrder.Descending)});
-            this.grdvLog.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.grdvLog_RowCellStyle);
-            this.grdvLog.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.grdvLog_FocusedRowChanged);
-            // 
-            // grdcLogType
-            // 
-            this.grdcLogType.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdcLogType.AppearanceCell.ForeColor = System.Drawing.Color.White;
-            this.grdcLogType.AppearanceCell.Options.UseFont = true;
-            this.grdcLogType.AppearanceCell.Options.UseForeColor = true;
-            this.grdcLogType.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdcLogType.AppearanceHeader.Options.UseFont = true;
-            this.grdcLogType.Caption = "분류";
-            this.grdcLogType.FieldName = "logType";
-            this.grdcLogType.Name = "grdcLogType";
-            this.grdcLogType.OptionsColumn.AllowEdit = false;
-            this.grdcLogType.OptionsColumn.AllowFocus = false;
-            this.grdcLogType.OptionsColumn.ReadOnly = true;
-            this.grdcLogType.Visible = true;
-            this.grdcLogType.VisibleIndex = 0;
-            this.grdcLogType.Width = 74;
-            // 
-            // grdcLogDateTime
-            // 
-            this.grdcLogDateTime.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdcLogDateTime.AppearanceCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.grdcLogDateTime.AppearanceCell.Options.UseFont = true;
-            this.grdcLogDateTime.AppearanceCell.Options.UseForeColor = true;
-            this.grdcLogDateTime.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdcLogDateTime.AppearanceHeader.Options.UseFont = true;
-            this.grdcLogDateTime.Caption = "일시";
-            this.grdcLogDateTime.ColumnEdit = this.repositoryItemDateEdit7;
-            this.grdcLogDateTime.DisplayFormat.FormatString = "d";
-            this.grdcLogDateTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.grdcLogDateTime.FieldName = "logDateTime";
-            this.grdcLogDateTime.GroupFormat.FormatString = "D";
-            this.grdcLogDateTime.GroupFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.grdcLogDateTime.Name = "grdcLogDateTime";
-            this.grdcLogDateTime.OptionsColumn.AllowEdit = false;
-            this.grdcLogDateTime.OptionsColumn.AllowFocus = false;
-            this.grdcLogDateTime.OptionsColumn.ReadOnly = true;
-            this.grdcLogDateTime.Visible = true;
-            this.grdcLogDateTime.VisibleIndex = 1;
-            this.grdcLogDateTime.Width = 139;
-            // 
-            // repositoryItemDateEdit7
-            // 
-            this.repositoryItemDateEdit7.AutoHeight = false;
-            this.repositoryItemDateEdit7.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit7.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit7.Name = "repositoryItemDateEdit7";
-            // 
-            // grdcLogMessage
-            // 
-            this.grdcLogMessage.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdcLogMessage.AppearanceCell.ForeColor = System.Drawing.Color.White;
-            this.grdcLogMessage.AppearanceCell.Options.UseFont = true;
-            this.grdcLogMessage.AppearanceCell.Options.UseForeColor = true;
-            this.grdcLogMessage.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.grdcLogMessage.AppearanceHeader.Options.UseFont = true;
-            this.grdcLogMessage.Caption = "내용";
-            this.grdcLogMessage.FieldName = "logMessage";
-            this.grdcLogMessage.Name = "grdcLogMessage";
-            this.grdcLogMessage.OptionsColumn.AllowEdit = false;
-            this.grdcLogMessage.OptionsColumn.AllowFocus = false;
-            this.grdcLogMessage.OptionsColumn.ReadOnly = true;
-            this.grdcLogMessage.Visible = true;
-            this.grdcLogMessage.VisibleIndex = 2;
-            this.grdcLogMessage.Width = 522;
-            // 
-            // xtabpg4Setup
-            // 
-            this.xtabpg4Setup.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg4Setup.Image")));
-            this.xtabpg4Setup.Name = "xtabpg4Setup";
-            this.xtabpg4Setup.Size = new System.Drawing.Size(1000, 504);
-            this.xtabpg4Setup.Text = "설정";
-            // 
-            // panelControl1
-            // 
-            this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelControl1.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.panelControl1.Appearance.Options.UseFont = true;
-            this.panelControl1.Controls.Add(this.xtabManager);
-            this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
-            this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1010, 539);
-            this.panelControl1.TabIndex = 0;
-            // 
-            // defaultLookAndFeel1
-            // 
-            this.defaultLookAndFeel1.LookAndFeel.SkinName = "DevExpress Dark Style";
-            this.defaultLookAndFeel1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
+            this.mmoLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mmoLog.Location = new System.Drawing.Point(0, 440);
+            this.mmoLog.MenuManager = this.barManager1;
+            this.mmoLog.Name = "mmoLog";
+            this.mmoLog.Size = new System.Drawing.Size(803, 41);
+            this.mmoLog.TabIndex = 3;
             // 
             // barManager1
             // 
@@ -1393,19 +1254,6 @@
             this.barHeaderItem1.Id = 3;
             this.barHeaderItem1.Name = "barHeaderItem1";
             // 
-            // styleController1
-            // 
-            this.styleController1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.styleController1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.styleController1.LookAndFeel.SkinName = "Dark Side";
-            this.styleController1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
-            this.styleController1.LookAndFeel.UseDefaultLookAndFeel = false;
-            // 
-            // workspaceManager1
-            // 
-            this.workspaceManager1.TargetControl = this;
-            this.workspaceManager1.TransitionType = pushTransition2;
-            // 
             // splitterControl1
             // 
             this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1417,14 +1265,167 @@
             this.splitterControl1.TabIndex = 2;
             this.splitterControl1.TabStop = false;
             // 
-            // mmoLog
+            // grdctrlLog
             // 
-            this.mmoLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mmoLog.Location = new System.Drawing.Point(0, 440);
-            this.mmoLog.MenuManager = this.barManager1;
-            this.mmoLog.Name = "mmoLog";
-            this.mmoLog.Size = new System.Drawing.Size(803, 41);
-            this.mmoLog.TabIndex = 3;
+            this.grdctrlLog.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grdctrlLog.EmbeddedNavigator.Appearance.BackColor = System.Drawing.Color.Black;
+            this.grdctrlLog.EmbeddedNavigator.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.grdctrlLog.EmbeddedNavigator.Appearance.Options.UseBackColor = true;
+            this.grdctrlLog.EmbeddedNavigator.Appearance.Options.UseForeColor = true;
+            this.grdctrlLog.EmbeddedNavigator.Buttons.Append.Visible = false;
+            this.grdctrlLog.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+            this.grdctrlLog.EmbeddedNavigator.Buttons.Edit.Visible = false;
+            this.grdctrlLog.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+            this.grdctrlLog.EmbeddedNavigator.Buttons.Remove.Visible = false;
+            this.grdctrlLog.EmbeddedNavigator.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.grdctrlLog.EmbeddedNavigator.TextStringFormat = "{0} / {1}";
+            this.grdctrlLog.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdctrlLog.Location = new System.Drawing.Point(0, 0);
+            this.grdctrlLog.LookAndFeel.SkinName = "Dark Side";
+            this.grdctrlLog.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grdctrlLog.MainView = this.grdvLog;
+            this.grdctrlLog.Name = "grdctrlLog";
+            this.grdctrlLog.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemDateEdit7});
+            this.grdctrlLog.Size = new System.Drawing.Size(803, 435);
+            this.grdctrlLog.TabIndex = 1;
+            this.grdctrlLog.UseEmbeddedNavigator = true;
+            this.grdctrlLog.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdvLog});
+            this.grdctrlLog.Load += new System.EventHandler(this.grdctrlLog_Load);
+            // 
+            // grdvLog
+            // 
+            this.grdvLog.Appearance.FooterPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.FooterPanel.Options.UseFont = true;
+            this.grdvLog.Appearance.GroupFooter.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.GroupFooter.Options.UseFont = true;
+            this.grdvLog.Appearance.GroupPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.GroupPanel.Options.UseFont = true;
+            this.grdvLog.Appearance.GroupRow.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.GroupRow.Options.UseFont = true;
+            this.grdvLog.Appearance.HeaderPanel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdvLog.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            this.grdvLog.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.grdvLog.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.grdcLogType,
+            this.grdcLogDateTime,
+            this.grdcLogMessage});
+            this.grdvLog.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.None;
+            this.grdvLog.GridControl = this.grdctrlLog;
+            this.grdvLog.Name = "grdvLog";
+            this.grdvLog.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.grdcLogDateTime, DevExpress.Data.ColumnSortOrder.Descending)});
+            this.grdvLog.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.grdvLog_RowCellStyle);
+            this.grdvLog.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.grdvLog_FocusedRowChanged);
+            // 
+            // grdcLogType
+            // 
+            this.grdcLogType.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogType.AppearanceCell.ForeColor = System.Drawing.Color.White;
+            this.grdcLogType.AppearanceCell.Options.UseFont = true;
+            this.grdcLogType.AppearanceCell.Options.UseForeColor = true;
+            this.grdcLogType.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogType.AppearanceHeader.Options.UseFont = true;
+            this.grdcLogType.Caption = "분류";
+            this.grdcLogType.FieldName = "logType";
+            this.grdcLogType.Name = "grdcLogType";
+            this.grdcLogType.OptionsColumn.AllowEdit = false;
+            this.grdcLogType.OptionsColumn.AllowFocus = false;
+            this.grdcLogType.OptionsColumn.ReadOnly = true;
+            this.grdcLogType.Visible = true;
+            this.grdcLogType.VisibleIndex = 0;
+            this.grdcLogType.Width = 74;
+            // 
+            // grdcLogDateTime
+            // 
+            this.grdcLogDateTime.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogDateTime.AppearanceCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.grdcLogDateTime.AppearanceCell.Options.UseFont = true;
+            this.grdcLogDateTime.AppearanceCell.Options.UseForeColor = true;
+            this.grdcLogDateTime.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogDateTime.AppearanceHeader.Options.UseFont = true;
+            this.grdcLogDateTime.Caption = "일시";
+            this.grdcLogDateTime.ColumnEdit = this.repositoryItemDateEdit7;
+            this.grdcLogDateTime.DisplayFormat.FormatString = "d";
+            this.grdcLogDateTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.grdcLogDateTime.FieldName = "logDateTime";
+            this.grdcLogDateTime.GroupFormat.FormatString = "D";
+            this.grdcLogDateTime.GroupFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.grdcLogDateTime.Name = "grdcLogDateTime";
+            this.grdcLogDateTime.OptionsColumn.AllowEdit = false;
+            this.grdcLogDateTime.OptionsColumn.AllowFocus = false;
+            this.grdcLogDateTime.OptionsColumn.ReadOnly = true;
+            this.grdcLogDateTime.Visible = true;
+            this.grdcLogDateTime.VisibleIndex = 1;
+            this.grdcLogDateTime.Width = 139;
+            // 
+            // repositoryItemDateEdit7
+            // 
+            this.repositoryItemDateEdit7.AutoHeight = false;
+            this.repositoryItemDateEdit7.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit7.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit7.Name = "repositoryItemDateEdit7";
+            // 
+            // grdcLogMessage
+            // 
+            this.grdcLogMessage.AppearanceCell.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogMessage.AppearanceCell.ForeColor = System.Drawing.Color.White;
+            this.grdcLogMessage.AppearanceCell.Options.UseFont = true;
+            this.grdcLogMessage.AppearanceCell.Options.UseForeColor = true;
+            this.grdcLogMessage.AppearanceHeader.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.grdcLogMessage.AppearanceHeader.Options.UseFont = true;
+            this.grdcLogMessage.Caption = "내용";
+            this.grdcLogMessage.FieldName = "logMessage";
+            this.grdcLogMessage.Name = "grdcLogMessage";
+            this.grdcLogMessage.OptionsColumn.AllowEdit = false;
+            this.grdcLogMessage.OptionsColumn.AllowFocus = false;
+            this.grdcLogMessage.OptionsColumn.ReadOnly = true;
+            this.grdcLogMessage.Visible = true;
+            this.grdcLogMessage.VisibleIndex = 2;
+            this.grdcLogMessage.Width = 522;
+            // 
+            // xtabpg4Setup
+            // 
+            this.xtabpg4Setup.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg4Setup.Image")));
+            this.xtabpg4Setup.Name = "xtabpg4Setup";
+            this.xtabpg4Setup.Size = new System.Drawing.Size(1000, 504);
+            this.xtabpg4Setup.Text = "설정";
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControl1.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.panelControl1.Appearance.Options.UseFont = true;
+            this.panelControl1.Controls.Add(this.xtabManager);
+            this.panelControl1.Location = new System.Drawing.Point(0, 0);
+            this.panelControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(1010, 539);
+            this.panelControl1.TabIndex = 0;
+            // 
+            // defaultLookAndFeel1
+            // 
+            this.defaultLookAndFeel1.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.defaultLookAndFeel1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
+            // 
+            // styleController1
+            // 
+            this.styleController1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.styleController1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.styleController1.LookAndFeel.SkinName = "Dark Side";
+            this.styleController1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
+            this.styleController1.LookAndFeel.UseDefaultLookAndFeel = false;
+            // 
+            // workspaceManager1
+            // 
+            this.workspaceManager1.TargetControl = this;
+            this.workspaceManager1.TransitionType = pushTransition1;
             // 
             // ManagerForm
             // 
@@ -1480,20 +1481,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit6.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdctrlLog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdvLog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
-            this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mmoLog.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdctrlLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdvLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.styleController1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mmoLog.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

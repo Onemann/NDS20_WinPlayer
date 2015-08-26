@@ -117,7 +117,7 @@ namespace NDS20WinPlayer
 
                     #region 파일 JSON text 읽어서 grid에 채우기
                     scheduleInfoJson = System.IO.File.ReadAllText(@scheFullPath);
-
+                    //scheduleInfoJson = "[" + scheduleInfoJson + "]";
                     scheFileList = JsonConvert.DeserializeObject<clssSchedule[]>(scheduleInfoJson, new IsoDateTimeConverter());
 
                     #region 파일에 포함된 Json 배열의 스케줄을 Datasource에 추가하기
@@ -129,27 +129,27 @@ namespace NDS20WinPlayer
 
                         switch (scheType)
                         {
-                            case "01":
+                            case "001":
                                 scheFileOneRecord.scheCategory = "일반";
                                 scheFileOneRecord.scheKind = "기본";
                                 break;
-                            case "02":
+                            case "002":
                                 scheFileOneRecord.scheCategory = "일반";
                                 scheFileOneRecord.scheKind = "이벤트";
                                 break;
-                            case "03":
+                            case "003":
                                 scheFileOneRecord.scheCategory = "동기화";
                                 scheFileOneRecord.scheKind = "기본";
                                 break;
-                            case "04":
+                            case "004":
                                 scheFileOneRecord.scheCategory = "동기화";
                                 scheFileOneRecord.scheKind = "이벤트";
                                 break;
-                            case "05":
+                            case "005":
                                 scheFileOneRecord.scheCategory = "사내방송";
                                 scheFileOneRecord.scheKind = "기본";
                                 break;
-                            case "06":
+                            case "006":
                                 scheFileOneRecord.scheCategory = "사내방송";
                                 scheFileOneRecord.scheKind = "이벤트";
                                 break;
@@ -213,9 +213,8 @@ namespace NDS20WinPlayer
 
         private void trlstSchedule_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
-
             string jsonScheduleFile = e.Node.GetDisplayText("scheFileName");
-            string scheduleName = e.Node.GetDisplayText("ctscName");
+            string scheduleName = e.Node.GetDisplayText("scheName");
             int scheduleTotalSector = (int)e.Node.GetValue(tlcScheTotalSector);// e.Node.GetDisplayText("scheTotalSector");
 
             jsonScheduleToContentsGrid(jsonScheduleFile, scheduleName, scheduleTotalSector);
@@ -301,11 +300,11 @@ namespace NDS20WinPlayer
                 grdContents.DataSource = null;
                 for (int idx = 0; idx < dynSchedule.Count; idx++)
                 {
-                    if (dynSchedule[idx].ctscName == scheduleName)
+                    if (dynSchedule[idx].scheName == scheduleName)
                     {
-                        if (dynSchedule[idx].Contents != null)
+                        if (dynSchedule[idx].contents != null)
                         {
-                            contentsText = dynSchedule[idx].Contents.ToString();
+                            contentsText = dynSchedule[idx].contents.ToString();
                             clssContents[] cntsList = JsonConvert.DeserializeObject<clssContents[]>(contentsText, new IsoDateTimeConverter());
                             grdContents.DataSource = cntsList;
                         }
@@ -440,7 +439,7 @@ namespace NDS20WinPlayer
         {
             if (!e.Column.FieldName.Contains("grdcSector")) return;
 //                if (bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "ctscSector") == null) return;
-            var sectorCellValue = bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "ctscSector").ToString();
+            var sectorCellValue = bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "cntsSectors").ToString();
             var arrSectors = sectorCellValue.Split(',');
             if (arrSectors.Contains(e.Column.Caption)) 
                 e.Value = true;
