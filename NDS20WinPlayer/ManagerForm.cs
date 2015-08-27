@@ -11,6 +11,7 @@ using System.Windows.Forms;
 //using System.Net.Json;
 //using System.Xml;
 using System.IO;
+using System.Net.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 //using DevExpress.XtraGrid;
@@ -47,7 +48,7 @@ namespace NDS20WinPlayer
 
             scheduleclass[] shclist = JsonConvert.DeserializeObject<scheduleclass[]>(jsonSchedule, new IsoDateTimeConverter());
 
-            treeList1.DataSource = shclist;
+            tlstPlayContents.DataSource = shclist;
 
             /*
             arSchedule.Add(
@@ -218,9 +219,10 @@ namespace NDS20WinPlayer
             int scheduleTotalSector = (int)e.Node.GetValue(tlcScheTotalSector);// e.Node.GetDisplayText("scheTotalSector");
 
             jsonScheduleToContentsGrid(jsonScheduleFile, scheduleName, scheduleTotalSector);
+            NDSMain.CreateContentsPlayListBySector();
 
             //MessageBox.Show(scheduleFilePath);
-            
+
         }
 
         
@@ -437,12 +439,21 @@ namespace NDS20WinPlayer
         }
         private void bgrdvContents_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
         {
-            if (!e.Column.FieldName.Contains("grdcSector")) return;
+            if (e.Column.FieldName.Contains("grdcSector"))
+            {
 //                if (bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "ctscSector") == null) return;
-            var sectorCellValue = bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "cntsSectors").ToString();
-            var arrSectors = sectorCellValue.Split(',');
-            if (arrSectors.Contains(e.Column.Caption)) 
-                e.Value = true;
+                var sectorCellValue = bgrdvContents.GetRowCellValue(e.ListSourceRowIndex, "cntsSectors").ToString();
+                var arrSectors = sectorCellValue.Split(',');
+                if (arrSectors.Contains(e.Column.Caption))
+                    e.Value = true;
+            }
+            else
+            {
+                if (e.Column.FieldName == "grdcCntsDownload")
+                {
+                    e.Value = 100;
+                }
+            }
         }
 
         private void grdvLog_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
@@ -483,5 +494,39 @@ namespace NDS20WinPlayer
             // show full log message on memo edit
             mmoLog.Text = grdvLog.GetFocusedRowCellValue("logMessage").ToString();
         }
+
+        private void tlstPlayContents_Load(object sender, EventArgs e)
+        {
+            var jsonArrayCollection = new JsonArrayCollection();
+            jsonArrayCollection = NDSMain.CreateContentsPlayListBySector();
+            clssPlayContents[] shclist = JsonConvert.DeserializeObject<clssPlayContents[]>(jsonArrayCollection.ToString(), new IsoDateTimeConverter());
+            tlstPlayContents.DataSource = shclist;
+            tlstPlayContents.Nodes[0].Expanded = true;
+        }
+
+        private void tlstPlayContents_GetNodeDisplayValue(object sender, DevExpress.XtraTreeList.GetNodeDisplayValueEventArgs e)
+        {
+            if (e.Node.ParentNode == null)
+            {
+                if (e.Column.FieldName == "fldSector")
+                {
+                    e.Value += "구간";
+                    e.Column.AppearanceCell.ForeColor = Color.Yellow;
+                }
+                if (e.Column.FieldName == "cntsPlayTime") e.Value = "";
+                if (e.Column.FieldName == "scheCntsStartDt") e.Value = "";
+                if (e.Column.FieldName == "scheCntsEndDt") e.Value = "";
+                if (e.Column.FieldName == "scheCntsStartTime") e.Value = "";
+                if (e.Column.FieldName == "scheCntsEndTime") e.Value = "";
+            }
+            else
+            {
+                if (e.Column.FieldName == "fldSector")
+                {
+                    e.Column.AppearanceCell.ForeColor = Color.Lime;
+                }
+            }
+        }
+
     }
 }

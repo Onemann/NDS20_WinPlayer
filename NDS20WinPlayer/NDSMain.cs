@@ -14,7 +14,10 @@ using System.Threading;
 using Bauglir.Ex;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using System.Linq;
+using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting.Export.Pdf;
+using DevExpress.XtraReports.UserDesigner.Native;
 using Timer = System.Threading.Timer;
 
 
@@ -442,6 +445,117 @@ namespace NDS20WinPlayer
             }
         }
 
+        #region Create Json onject of contents list includes secotr for contents playing
+        public static JsonArrayCollection CreateContentsPlayListBySector()
+        {
+            try
+            {  
+                // Get latest schedule file name
+                DirectoryInfo schDirectoryInfo = new DirectoryInfo(@AppInfoStrc.DirOfSchedule);
+                Current.SchdName =
+                    schDirectoryInfo.EnumerateFiles().OrderByDescending(f => f.FullName).FirstOrDefault();
+
+                //load latest schedule file's Json text
+                var latestScheduleFullName = Current.SchdName.FullName;
+                string scheduleText = System.IO.File.ReadAllText(latestScheduleFullName);
+
+
+                var parser = new JsonTextParser();
+                var jsonObj = parser.Parse(@scheduleText);
+                // abstract cmd
+                var colArry = (JsonArrayCollection)jsonObj;
+
+                foreach (var o in colArry)
+                {
+                    int fldKeyId = 0;
+                    int fldParent = 0;
+                    int fldOrder = 0;
+
+                    var oneJsonSchdObj = (JsonObjectCollection) o;
+                    var vtotSector = oneJsonSchdObj[JsonColName.JsonSchdTotSec].GetValue(); //총구간
+                    int totSector = int.Parse(vtotSector.ToString());
+                        // create Json object array of play contents list by sector order
+                    if (totSector > 0)
+                    {
+                        //var jsonPlayContentsListObj = new JsonObjectCollection();
+                        var arrColPlayContentsList = new JsonArrayCollection();
+                        for (int idx = 0; idx < totSector; ++idx)
+                        {
+                            var jsonContentsObj = new JsonObjectCollection();
+
+                            #region create parent sector
+                            ++fldKeyId;
+                            jsonContentsObj.Add(new JsonNumericValue("fldKeyId", fldKeyId)); // Key ID
+                            // 구간 Added for displaying Sector field that parent tab in tree list
+                            jsonContentsObj.Add(new JsonNumericValue("fldSector", idx + 1));
+                            jsonContentsObj.Add(new JsonNumericValue("fldParentKey", 0));
+                            fldParent = fldKeyId;
+
+                            arrColPlayContentsList.Add(jsonContentsObj);
+                            #endregion
+                            //jsonPlayContentsListObj.Add(arrColPlayContentsList);
+
+
+                            // abstract contents list to Json array collections
+                            var colArrayContentsList =
+                                (JsonArrayCollection) oneJsonSchdObj[JsonColName.JsonContentsList];
+
+                            foreach (var oc in colArrayContentsList)
+                            {
+                                var oneJsonContentsObj = (JsonObjectCollection)oc;
+
+                                string cntsSectors = oneJsonContentsObj["cntsSectors"].GetValue().ToString();
+                                var arrSectors = cntsSectors.Split(',');
+
+                                if (arrSectors.Contains((idx + 1).ToString())) // if this content is included this sector then create play content list
+                                {
+                                    //var arrColPlayContentsList2 = new JsonArrayCollection();
+                                    var jsonContentsObj2 = new JsonObjectCollection();
+
+                                    ++fldKeyId;
+                                    ++fldOrder;
+
+                                    jsonContentsObj2.Add(new JsonNumericValue("fldKeyId", fldKeyId)); // Key ID
+                                    jsonContentsObj2.Add(new JsonNumericValue("fldOrder", fldOrder)); // 순서
+                                    jsonContentsObj2.Add(new JsonNumericValue("fldParentKey", fldParent)); // ParentKey
+                                    // 구간 Added for displaying Sector field that parent tab in tree list
+                                    jsonContentsObj2.Add(new JsonNumericValue("fldSector", idx + 1));
+
+
+
+                                    jsonContentsObj2.Add(oneJsonContentsObj["cntsKey"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["cntsName"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["cntsUpdateDt"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["cntsPlayTime"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["scheCntsStartDt"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["scheCntsEndDt"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["scheCntsStartTime"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["scheCntsEndTime"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["fileName"]);
+                                    jsonContentsObj2.Add(oneJsonContentsObj["mute"]);
+
+
+                                    arrColPlayContentsList.Add(jsonContentsObj2);
+                                    //jsonPlayContentsListObj.Add(arrColPlayContentsList2);
+                                }
+                            }
+                        }
+                        return arrColPlayContentsList;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                LogFile.ThreadWriteLog("[JSON-ERR]" + Current.SchdName.Name + " 구간별 상영 리스트 생성 오류", LogType.LOG_ERROR);
+                return null;
+            }
+            return null;
+        }
+        #endregion
         private void JsonToTextFile(string jsonText, string timeStamp)
         {
             try

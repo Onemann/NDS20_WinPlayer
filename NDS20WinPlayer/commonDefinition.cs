@@ -1,9 +1,16 @@
 ﻿using System;
+using System.IO;
+using DevExpress.Data.Filtering.Helpers;
+
 //using System.ComponentModel;
 //using System.Runtime.InteropServices;
 
 namespace NDS20WinPlayer
 {
+    internal class Current
+    {
+        internal static FileInfo SchdName;
+    }
     internal class InitValue
     {
         #region Dir Path
@@ -34,6 +41,9 @@ namespace NDS20WinPlayer
         internal static readonly string JsonDataNet = "net";    //네트워크 이용률
         internal static readonly string JsonDataVer = "ver";
         internal static readonly string JsonschdList = "list";  //PLYAYER_SCHD_DOWN으로 받은 JSON 중 실제 Schedule 부분
+        internal static readonly string JsonContentsList = "contents";  //PLYAYER_SCHD_DOWN으로 받은 JSON 중 실제 Contents 부분
+
+        internal static readonly string JsonSchdTotSec = "scheTotalSector";  //PLYAYER_SCHD_DOWN으로 받은 JSON 중 총구간 필드명
     
 
 
@@ -125,18 +135,36 @@ namespace NDS20WinPlayer
         //added
     }
 
+    public class clssPlayContents
+    {
+        public long fldKeyId { get; set; }              // KeyID
+        public long fldOrder { get; set; }              // 상영순서
+        public long fldParentKey { get; set; }          // Parent key
+        public int fldSector { get; set; }              // 구간
+        public long scheOrder { get; set; }             // 순서
+        public string cntsKey { get; set; }             // 콘텐츠 키
+        public string cntsName { get; set; }            // 콘텐츠 명
+        public int cntsPlayTime { get; set; }           // 콘텐츠 재생 시간
+        public long scheCntsStartDt { get; set; }     //사용기간-시작일
+        public long scheCntsEndDt { get; set; }       //사용기간-종료일
+        public long scheCntsStartTime { get; set; }   //사용시간-시작일
+        public long scheCntsEndTime { get; set; }     //사용시간-종료일
+        public string fileName { get; set; }            //파일명
+
+    }
     // Contents class
     public class clssContents
     {
-        public long scheOrder { get; set; }               // 콘텐츠 키
-        public string cntsKey { get; set; }               // 콘텐츠 키
+        public long scheOrder { get; set; }             // 순서
+        public string cntsKey { get; set; }             // 콘텐츠 키
         public string cntsName { get; set; }            // 콘텐츠 명
+        public int downloadRatio { get; set; }          // Contents download ration
         public int cntsPlayTime { get; set; }           // 콘텐츠 재생 시간
-        public string scheCntsStartDt { get; set; }   //사용기간-시작일
-        public string scheCntsEndDt { get; set; }     //사용기간-종료일
-        public string scheCntsStartTime { get; set; } //사용시간-시작일
-        public string scheCntsEndTime { get; set; }     //사용시간-종료일
-        public string cntsSectors { get; set; }          //구간 정보 ex) "1,4,7"
+        public long scheCntsStartDt { get; set; }     //사용기간-시작일
+        public long scheCntsEndDt { get; set; }       //사용기간-종료일
+        public long scheCntsStartTime { get; set; }   //사용시간-시작일
+        public long scheCntsEndTime { get; set; }     //사용시간-종료일
+        public string cntsSectors { get; set; }         //구간 정보 ex) "1,4,7"
         public string fileName { get; set; }            //파일명
 
         #region 구간 30 Sectors are more than enough
@@ -179,14 +207,17 @@ namespace NDS20WinPlayer
 
     public class clssSchedule
     {
-        public string scheKey { get; set; }         // [숨김] 스케줄 키
+        public long scheKey { get; set; }         // [숨김] 스케줄 키
         public string scheName { get; set; }        // 스케줄명
         public string scheType { get; set; }        // [숨김]스케쥴 코드 : 01-일반.기본, 02-일반.이밴트, 03-동기화.기본, 04-동기화.이벤트, 05-사내방송.기본, 06-사내방송.이벤트
         public string scheCategory { get; set; }    // [생성]스케줄 분류 : 일반, 동기화, 사내방송 
         public string scheKind { get; set; }        // [생성]스케줄 종류 : 기본, 이벤트
         public string scheStartDt { get; set; }
         public string scheEndDt { get; set; }
-        public int scheTotalSector { get; set; }         // [가칭] 총 구간
+        public int scheTotalSector { get; set; }    // [가칭] 총 구간
+        public string basePath { get; set; }           // [가칭] 다운로드 Root path
+        public string contentsPath { get; set; }       // [가칭] 다운로드 contents file folder
+        public string bridgePath { get; set; }         // [가칭] 다운로드 bridge contents file folder
         public string scheFileName { get; set; }    // [생성, 숨김] 다운받은 스케줄 파일 명 - 파일명에서 가져옴
     }
 
