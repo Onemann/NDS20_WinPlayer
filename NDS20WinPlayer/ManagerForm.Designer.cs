@@ -113,6 +113,8 @@
             this.brItmMEM = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemProgressBar3 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.brItmAvalMEM = new DevExpress.XtraBars.BarStaticItem();
+            this.brItmDown = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemProgressBar5 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -171,6 +173,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdctrlLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdvLog)).BeginInit();
@@ -1243,14 +1246,16 @@
             this.brItmCPU,
             this.brItmHDD,
             this.brItmMEM,
-            this.brItmAvalMEM});
+            this.brItmAvalMEM,
+            this.brItmDown});
             this.barManager1.MainMenu = this.bar2;
-            this.barManager1.MaxItemId = 13;
+            this.barManager1.MaxItemId = 14;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit4,
             this.repositoryItemProgressBar1,
             this.repositoryItemProgressBar2,
-            this.repositoryItemProgressBar3});
+            this.repositoryItemProgressBar3,
+            this.repositoryItemProgressBar5});
             this.barManager1.StatusBar = this.bar3;
             // 
             // bar1
@@ -1285,7 +1290,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.brItmCPU),
             new DevExpress.XtraBars.LinkPersistInfo(this.brItmHDD),
             new DevExpress.XtraBars.LinkPersistInfo(this.brItmMEM),
-            new DevExpress.XtraBars.LinkPersistInfo(this.brItmAvalMEM)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.brItmAvalMEM),
+            new DevExpress.XtraBars.LinkPersistInfo(this.brItmDown)});
             this.bar3.OptionsBar.AllowQuickCustomization = false;
             this.bar3.OptionsBar.DrawDragBorder = false;
             this.bar3.OptionsBar.UseWholeRow = true;
@@ -1397,6 +1403,25 @@
             this.brItmAvalMEM.ItemAppearance.Normal.Options.UseBackColor = true;
             this.brItmAvalMEM.Name = "brItmAvalMEM";
             this.brItmAvalMEM.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // brItmDown
+            // 
+            this.brItmDown.Caption = "Download";
+            this.brItmDown.Edit = this.repositoryItemProgressBar5;
+            this.brItmDown.Id = 13;
+            this.brItmDown.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Fuchsia;
+            this.brItmDown.ItemAppearance.Normal.Options.UseForeColor = true;
+            this.brItmDown.Name = "brItmDown";
+            this.brItmDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.Caption;
+            this.brItmDown.Width = 100;
+            // 
+            // repositoryItemProgressBar5
+            // 
+            this.repositoryItemProgressBar5.Appearance.ForeColor = System.Drawing.Color.White;
+            this.repositoryItemProgressBar5.LookAndFeel.SkinName = "Darkroom";
+            this.repositoryItemProgressBar5.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.repositoryItemProgressBar5.Name = "repositoryItemProgressBar5";
+            this.repositoryItemProgressBar5.ShowTitle = true;
             // 
             // barAndDockingController1
             // 
@@ -1681,6 +1706,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdctrlLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdvLog)).EndInit();
@@ -1796,6 +1822,8 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcScheCntsEndTime;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcFileName;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcParentKey;
+        private DevExpress.XtraBars.BarEditItem brItmDown;
+        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar5;
 
 
     }

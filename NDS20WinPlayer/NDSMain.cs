@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.ComponentModel;
-//using System.Data;
+using System.ComponentModel;
 using System.Drawing;
-//using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Net.Json;
 using System.IO;
 using System.Threading;
 using Bauglir.Ex;
-using System.Net.NetworkInformation;
 using System.Diagnostics;
 using System.Linq;
-using DevExpress.XtraEditors;
-using DevExpress.XtraPrinting.Export.Pdf;
-using DevExpress.XtraReports.UserDesigner.Native;
+using System.Net;
 using Timer = System.Threading.Timer;
 
 
@@ -56,6 +50,7 @@ namespace NDS20WinPlayer
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
+
         public NDSMain()
         {
             InitializeComponent();
@@ -76,11 +71,8 @@ namespace NDS20WinPlayer
             AssignScheule();
 
             AssignWebSocket();
-
             TmrSeverConnectionStart();
             TmrGatherPcInfoStart();
-
-            //startNDSWebSocket();
 
         }
 
@@ -201,15 +193,15 @@ namespace NDS20WinPlayer
         {
             arrSchedule.Add(
                 "{" +
-                " \"xPos\": 400," +
-                " \"yPos\": 100," +
-                " \"width\": 700," +
-                " \"height\": 396," +
-                " \"fileName\": \"D:/Projects/NDS/Contents/A.avi\"," +
+                " \"xPos\": 0," +
+                " \"yPos\": 0," +
+                " \"width\": 0," +
+                " \"height\": 0," +
+                " \"fileName\": \"D:/Projects/NDS20_WinPlayer/NDS20WinPlayer/bin/x86/Release/G00001OLC00002.wmv\"," +
                 " \"mute\": true " +
                 "}"
                 );
-
+            /*
             arrSchedule.Add(
                 "{" +
                 " \"xPos\": 1200," +
@@ -264,7 +256,7 @@ namespace NDS20WinPlayer
                 " \"mute\": true " +
                 "}"
                 );
-
+            */
         }
         #endregion
 
@@ -415,10 +407,12 @@ namespace NDS20WinPlayer
                         SendPlayerStatusInfo(); // send player system status info : CPU, HDD, MEM
                         SendRequestScheduleSending(); // sending request to server for releasing schedule
                         break;
-
+                    case JsonCmd.NewScheduele:
+                        SendRequestScheduleSending();
+                        break;
                     case JsonCmd.SchedueleDown:
-                        
-                        JsonArrayCollection sheduleListColl = (JsonArrayCollection)col[JsonColName.JsonschdList]; // abstract only schedule JSON text
+                        JsonArrayCollection sheduleListColl = (JsonArrayCollection) col[JsonColName.JsonschdList];
+                                // abstract only schedule JSON text
 
                         string scheduleColItem = "";
                         for (int idx = 0; idx < sheduleListColl.Count; idx++)
@@ -428,11 +422,26 @@ namespace NDS20WinPlayer
                         }
 
                         scheduleColItem = "[" + scheduleColItem + "]";
-                        // Schedule file will be created with filename consist with timestamp for unique naming. 
-                        double unixTimeStamp = (double) col[JsonColName.JsonTimestamp].GetValue();
-                        DateTime datetimeTimestamp = CommonFunctions.UnixTimeStampToDateTime(unixTimeStamp);
-                        string timeStamp = string.Format("{0:yyyyMMdd_HHmmss}", datetimeTimestamp);
-                        JsonToTextFile(scheduleColItem, timeStamp);
+                        string oldScheduleFileText = GetLatestScheuleFileText(); 
+                        if (scheduleColItem != oldScheduleFileText.TrimEnd() ) // create new schedule file if any differences. 
+                        // if received schedule json is differ from latest schedule file
+                        {
+                            // Schedule file will be created with filename consist with timestamp for unique naming. 
+                            double unixTimeStamp = (double) col[JsonColName.JsonTimestamp].GetValue();
+                            DateTime datetimeTimestamp = CommonFunctions.UnixTimeStampToDateTime(unixTimeStamp);
+                            string timeStamp = string.Format("{0:yyyyMMdd_HHmmss}", datetimeTimestamp);
+                            JsonToTextFile(scheduleColItem, timeStamp);
+
+                        }
+                        var beDownloadContentsListJson = CreateNotDownlodedContents(); // for Downloading....
+
+                        if (beDownloadContentsListJson != null)
+                        {
+                            // Web client download info
+
+                            DoDownloadContents(beDownloadContentsListJson); // begin Downloading.... 
+
+                        }
                         break;
                 }
 
@@ -445,21 +454,118 @@ namespace NDS20WinPlayer
             }
         }
 
-        #region Create Json onject of contents list includes secotr for contents playing
-        public static JsonArrayCollection CreateContentsPlayListBySector()
+        private void DoDownloadContents(JsonArrayCollection beDownloadContentsListJson)
+        {
+            foreach (JsonObject jsonObject in beDownloadContentsListJson)
+            {
+                JsonObjectCollection col = (JsonObjectCollection) jsonObject;
+
+                string contentsFileName = col["fileName"].GetValue().ToString();
+                string contentsUpdateDt = col["cntsUpdateDt"].GetValue().ToString();
+                string fullUrl = AppInfoStrc.UrlDownloadWebServer + AppInfoStrc.ExtDownloadWebServer + contentsFileName;
+                string fillLocalPath = AppInfoStrc.DirOfContents  + AppInfoStrc.CurrentScheduleKey  +
+                                       contentsUpdateDt + @"\" + contentsFileName;
+                DownloadFile(fullUrl, contentsFileName);
+            }
+        }
+
+        private static string GetLatestScheuleFileText()
         {
             try
-            {  
+            {
                 // Get latest schedule file name
                 DirectoryInfo schDirectoryInfo = new DirectoryInfo(@AppInfoStrc.DirOfSchedule);
                 Current.SchdName =
                     schDirectoryInfo.EnumerateFiles().OrderByDescending(f => f.FullName).FirstOrDefault();
 
                 //load latest schedule file's Json text
-                var latestScheduleFullName = Current.SchdName.FullName;
-                string scheduleText = System.IO.File.ReadAllText(latestScheduleFullName);
+                if (Current.SchdName != null)
+                {
+                    var latestScheduleFullName = Current.SchdName.FullName;
+                    return File.ReadAllText(latestScheduleFullName);
+                }
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                if (Current.SchdName != null) // Previous schedule file exists but wont be read.
+                    LogFile.ThreadWriteLog("[SCHD-ERR]" + Current.SchdName.Name + " 읽기 오류", LogType.LOG_WARN);
+                return String.Empty;
+            }
+        }
+
+        #region Create Json array collection for Contents lists were not downloaded
+        private static JsonArrayCollection CreateNotDownlodedContents()
+        {
+            try
+            {
+                string scheduleText = GetLatestScheuleFileText();
+                var parser = new JsonTextParser();
+                var jsonObj = parser.Parse(@scheduleText);
+                // abstract cmd
+                var colArry = (JsonArrayCollection) jsonObj;
+                //var col = (JsonObjectCollection)jsonObj;
+                var arrColPlayContentsList = new JsonArrayCollection();
 
 
+
+                foreach (var o in colArry)
+                {
+                    var oneJsonSchdObj = (JsonObjectCollection) o;
+
+                    var col = (JsonObjectCollection) o;
+
+                    AppInfoStrc.UrlDownloadWebServer = col[JsonColName.UrlDownloadWebServer].GetValue().ToString();
+                    AppInfoStrc.ExtDownloadWebServer = col[JsonColName.ExtDownloadWebServer].GetValue().ToString();
+                    AppInfoStrc.BridgePath = col[JsonColName.BridgePath].GetValue().ToString();
+                    AppInfoStrc.CurrentScheduleKey = col[JsonColName.JsonSchdKey].GetValue().ToString();
+
+                    var colArrayContentsList = (JsonArrayCollection)oneJsonSchdObj[JsonColName.JsonContentsList];
+                    if (colArrayContentsList != null)
+                    {
+                        foreach (var oc in colArrayContentsList)
+                        {
+                            var oneJsonContentsObj = (JsonObjectCollection) oc;
+                            var jsonContentsObj2 = new JsonObjectCollection();
+
+                            if (!isAreadyExist(arrColPlayContentsList, oneJsonContentsObj["cntsKey"]))
+                            {
+
+                                jsonContentsObj2.Add(oneJsonContentsObj["cntsKey"]);
+                                jsonContentsObj2.Add(oneJsonContentsObj["cntsUpdateDt"]);
+                                jsonContentsObj2.Add(oneJsonContentsObj["fileName"]);
+
+                                arrColPlayContentsList.Add(jsonContentsObj2);
+                            }
+                        }
+                    }
+                }
+                return arrColPlayContentsList;
+            }
+            catch (Exception)
+            {
+                LogFile.ThreadWriteLog("[JSON-ERR]" + Current.SchdName.Name + " 다운받을 콘텐츠 리스트 생성 오류", LogType.LOG_ERROR);
+                return null;
+            }
+        }
+
+        private static bool isAreadyExist(JsonArrayCollection jsonArrayCollection, JsonObject jsonObject) //다운받을 동일한 콘텐츠 파일이 없도록
+        {
+            foreach (JsonObject o in jsonArrayCollection)
+            {
+                if (o.ToString().Contains(jsonObject.ToString()))
+                    return true;
+            }
+            return false;
+        }
+        #endregion
+
+        #region Create Json onject of contents list includes secotr for contents playing
+        public static JsonArrayCollection CreateContentsPlayListBySector()
+        {
+            try
+            {  
+                string scheduleText = GetLatestScheuleFileText();
                 var parser = new JsonTextParser();
                 var jsonObj = parser.Parse(@scheduleText);
                 // abstract cmd
@@ -735,6 +841,72 @@ namespace NDS20WinPlayer
         }
 
 
+
+        private Stopwatch _sw;
+
+        public void DownloadFile(string url, string fileName)
+        {
+            //string path = @"C:\DL\";
+
+            Thread bgThread = new Thread(() =>
+            {
+                _sw = new Stopwatch();
+                _sw.Start();
+                ManagerForm managerForm = null;
+                if ((managerForm = (ManagerForm) IsFormAlreadyOpen(typeof (ManagerForm))) != null) //생성된 폼이 있다면
+                {
+                    //labelDownloadAudioStatusText.Visibility = Visibility.Visible;
+                }
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.DownloadFileCompleted +=
+                        new AsyncCompletedEventHandler(DownloadCompleted);
+                    webClient.DownloadProgressChanged +=
+                        new DownloadProgressChangedEventHandler(DownloadStatusChanged);
+                    webClient.DownloadFileAsync(new Uri(url), fileName);
+                }
+            });
+
+            bgThread.Start();
+        }
+
+        void DownloadStatusChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            BeginInvoke((MethodInvoker)delegate
+            {
+                int percent = 0;
+
+                if (e.ProgressPercentage != percent)
+                {
+                    percent = e.ProgressPercentage;
+
+                    
+
+                    ManagerForm managerForm = null;
+                    if ((managerForm = (ManagerForm)IsFormAlreadyOpen(typeof(ManagerForm))) != null) //생성된 폼이 있다면
+                    {
+                        managerForm.ShowDownloadProgressOnStatusBar(percent);
+
+                    }
+                    //progressBarDownloadAudio.Value = percent;
+
+                    //labelDownloadAudioProgress.Content = percent + "%";
+                    //labelDownloadAudioDlRate.Content = (Convert.ToDouble(e.BytesReceived) / 1024 /_sw.Elapsed.TotalSeconds).ToString("0.00") + " kb/s";
+
+                    //Thread.Sleep(50);
+                }
+            });
+        }
+
+        private void DownloadCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            BeginInvoke((MethodInvoker)delegate
+            {
+                //labelDownloadAudioDlRate.Content = "0 kb/s";
+                //labelDownloadAudioStatusText.Visibility = Visibility.Hidden;
+                //MessageBox.Show("Download completed");
+            });
+        }
     }
 
 }

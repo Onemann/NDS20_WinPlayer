@@ -12,6 +12,7 @@ using System.Windows.Forms;
 //using System.Xml;
 using System.IO;
 using System.Net.Json;
+using DevExpress.XtraBars;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 //using DevExpress.XtraGrid;
@@ -22,6 +23,9 @@ namespace NDS20WinPlayer
     {
         delegate void MessageOnStatusbarCallback(string msg, Enum logType);
         delegate void ShowPcInfoOnStatusbarCallback();
+
+        private delegate void ShowDownloadProgressOnStatusbarCallBack(int prgAmount);
+        private delegate void SetDownloadProgressOnStatusbarCallBack(bool  prgAmount);
         public ManagerForm()
         {
             InitializeComponent();
@@ -418,6 +422,36 @@ namespace NDS20WinPlayer
                 brItmHDD.EditValue = AppInfoStrc.PlyrAvailableHdd;
             }
         }
+
+        public void ShowDownloadProgressOnStatusBar(int percent)
+        {
+            if (this.InvokeRequired)
+            {
+                var d = new ShowDownloadProgressOnStatusbarCallBack(ShowDownloadProgressOnStatusBar);
+                Invoke(d, new object[] { });
+            }
+            else
+            {
+                brItmDown.EditValue = percent;
+            }
+
+        }
+
+        /*
+        public void SetDownloadProgressOnStatusBar(bool visiale)
+        {
+            if (this.InvokeRequired)
+            {
+                var d = new SetDownloadProgressOnStatusbarCallBack(SetDownloadProgressOnStatusBar);
+                Invoke(d, new object[] { });
+            }
+            else
+            {
+                brItmDown.AutoFillWidth = visiale;
+            }
+
+        }
+        */
 
         private void ManagerForm_Load(object sender, EventArgs e)
         {

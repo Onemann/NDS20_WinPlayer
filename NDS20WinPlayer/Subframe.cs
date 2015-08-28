@@ -40,8 +40,16 @@ namespace NDS20WinPlayer
             frameInfo.contentsFileName = (string)col["fileName"].GetValue();
             frameInfo.mute = bool.Parse(col["mute"].GetValue().ToString());
 
-            this.Width = frameInfo.width;
-            this.Height = frameInfo.height;
+            if (frameInfo.width == 0)
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                this.Width = frameInfo.width;
+                this.Height = frameInfo.height;
+                
+            }
             this.Location = new System.Drawing.Point(frameInfo.xPos, frameInfo.yPos);
 
             # region ==== Create Player ====

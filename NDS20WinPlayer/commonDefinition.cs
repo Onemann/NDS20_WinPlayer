@@ -16,6 +16,7 @@ namespace NDS20WinPlayer
         #region Dir Path
         internal static readonly string InitDirOfSchedule = "ScheduleFiles";
         internal static readonly string InitDirOfLog = "LogFiles";
+        internal static readonly string DirOfContents = @"D:\Contents\";
         #endregion
         #region Server connection
         internal static readonly string InitUrlOfServer = "52.50.218.207";//"192.168.0.2";
@@ -43,9 +44,12 @@ namespace NDS20WinPlayer
         internal static readonly string JsonschdList = "list";  //PLYAYER_SCHD_DOWN으로 받은 JSON 중 실제 Schedule 부분
         internal static readonly string JsonContentsList = "contents";  //PLYAYER_SCHD_DOWN으로 받은 JSON 중 실제 Contents 부분
 
+        internal static readonly string JsonSchdKey = "scheKey";             //PLYAYER_SCHD_DOWN으로 받은 JSON 스케줄키 필드명
         internal static readonly string JsonSchdTotSec = "scheTotalSector";  //PLYAYER_SCHD_DOWN으로 받은 JSON 중 총구간 필드명
-    
 
+        internal static readonly string UrlDownloadWebServer = "basePath";
+        internal static readonly string ExtDownloadWebServer = "contentsPath";
+        internal static readonly string BridgePath = "bridgePath";
 
     }
 
@@ -67,10 +71,9 @@ namespace NDS20WinPlayer
     class AppInfoStrc
     {
         public static string DirOfApplication;
-        
         public static string DirOfSchedule;
-
         public static string DirOfLog;
+        public static string DirOfContents;
 
 
         #region Sever connection info.
@@ -79,6 +82,12 @@ namespace NDS20WinPlayer
         public static string PortOfServer;      //REST Server Port : ex) 9090 
         public static string PlayerId;          //Player ID that was registered and permitted by server 
         public static string TextHandlerId = null;     //Assigned and given from server after connecting
+        #endregion
+
+        #region Web client download url info.
+        public static string UrlDownloadWebServer;      //Web download base URL : ex) http://52.50.212.193:8080/datas/G00001/
+        public static string ExtDownloadWebServer;      //Contents Extension : ex) contents/
+        public static string BridgePath;                //BridgePath ex) bridge/
         #endregion
 
         #region Player info.
@@ -99,6 +108,8 @@ namespace NDS20WinPlayer
         public static string IpAddress;         //플레이어 IP 주소
         #endregion
 
+        public static string CurrentScheduleKey;         //현재 적용 중인 스케줄키 - 다운로드 폴더명이 됨
+        public static string CurrentContentUpdateDt;     //스케줄의 콘텐츠의 cntsUpdateDt - 다운로드 하위 폴더명이 됨
 
     }
 

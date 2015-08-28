@@ -70,6 +70,13 @@ namespace NDS20WinPlayer
                 appIniFile.Write("DirOfLog", InitValue.InitDirOfLog, "PATH");
                 AppInfoStrc.DirOfLog = InitValue.InitDirOfLog;
             }
+
+            AppInfoStrc.DirOfContents = appIniFile.Read("DirOfContents", "PATH");
+            if (AppInfoStrc.DirOfContents == "")
+            {
+                appIniFile.Write("DirOfContents", InitValue.DirOfContents, "PATH");
+                AppInfoStrc.DirOfContents = InitValue.DirOfContents;
+            }
             #endregion
 
             #region Server connectoion Info
