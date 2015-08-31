@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net.Json;
 using DevExpress.XtraBars;
+using DevExpress.XtraGrid.Views.Base;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 //using DevExpress.XtraGrid;
@@ -21,8 +22,11 @@ namespace NDS20WinPlayer
 {
     public partial class ManagerForm : DevExpress.XtraEditors.XtraForm
     {
+        delegate void LogMessageOnStatusbarCallback(string msg, Enum logType);
         delegate void MessageOnStatusbarCallback(string msg, Enum logType);
         delegate void ShowPcInfoOnStatusbarCallback();
+
+        private delegate void ChangeDownloadProgressInGrdContentsCallBack(string fileName, int downloadPercent);
 
         private delegate void ShowDownloadProgressOnStatusbarCallBack(int prgAmount);
         private delegate void SetDownloadProgressOnStatusbarCallBack(bool  prgAmount);
@@ -362,11 +366,11 @@ namespace NDS20WinPlayer
             bgrdvContents.GroupPanelText = "그룹을 지으시려면 컬럼 해더를 여기로 드래그하시요";
         }
 
-        public void MessageOnStatusbar(string message, Enum logType)
+        public void LogMessageOnStatusbar(string message, Enum logType)
         {
             if (this.InvokeRequired)
             {
-                var d = new MessageOnStatusbarCallback(MessageOnStatusbar);
+                var d = new LogMessageOnStatusbarCallback(LogMessageOnStatusbar);
                 Invoke(d, new object[] { message, logType });
             }
             else
@@ -406,6 +410,43 @@ namespace NDS20WinPlayer
             }
         }
 
+        public void MessageOnStatusBar(string message, Enum logType)
+        {
+            if (InvokeRequired)
+            {
+                var d = new MessageOnStatusbarCallback(MessageOnStatusBar);
+                Invoke(d, new object[] {});
+            }
+            else
+            {
+                Color messageColor = new Color();
+
+                switch ((LogType)logType)
+                {
+                    case LogType.LOG_FATAL:
+                        messageColor = Color.Red;
+                        break;
+                    case LogType.LOG_ERROR:
+                        messageColor = Color.OrangeRed;
+                        break;
+                    case LogType.LOG_WARN:
+                        messageColor = Color.Yellow;
+                        break;
+                    case LogType.LOG_INFO:
+                        messageColor = Color.White;
+                        break;
+                    case LogType.LOG_DEBUG:
+                        messageColor = Color.Purple;
+                        break;
+                    case LogType.LOG_TRACE:
+                        messageColor = Color.Cyan;
+                        break;
+                }
+                statusMessage.Appearance.ForeColor = messageColor;
+                statusMessage.EditValue = message;
+
+            }
+        }
         // Show CPU usage, available storage capacity, memory usage on status bar  
         public void ShowNdsInfoOnStatusBar()
         {
@@ -423,6 +464,7 @@ namespace NDS20WinPlayer
             }
         }
 
+
         public void ShowDownloadProgressOnStatusBar(int percent)
         {
             if (this.InvokeRequired)
@@ -437,6 +479,42 @@ namespace NDS20WinPlayer
 
         }
 
+        public void ChangeDownloadProgressInGrdContents(string fileName, int downloadPercent)
+        {
+            if (this.InvokeRequired)
+            {
+                var d = new ChangeDownloadProgressInGrdContentsCallBack(ChangeDownloadProgressInGrdContents);
+                Invoke(d, new object[] { });
+            }
+            else
+            {
+                if (xtabManager.SelectedTabPage != xtabpg2Download) return;
+                ColumnView View = grdContents.MainView as ColumnView;
+                //View.BeginUpdate();
+                try
+                {
+                    int rowHandle = 0;
+                    DevExpress.XtraGrid.Columns.GridColumn fileNameColumn = View.Columns["fileName"];
+                    //DevExpress.XtraGrid.Columns.GridColumn grdcCntsDownload = View.Columns["grdcCntsDownload"];
+                    while (true)
+                    {
+                        // locate the next row
+                        rowHandle = View.LocateByValue(rowHandle, fileNameColumn, fileName);
+                        // exit the loop if no row is found
+                        if (rowHandle == DevExpress.XtraGrid.GridControl.InvalidRowHandle) break;
+                        View.SetRowCellValue(rowHandle, "downloadRatio", downloadPercent);
+
+                        rowHandle++;
+                    }
+
+                }
+                finally
+                {
+                    //View.RefreshData();
+                    //View.EndUpdate();
+                }
+            }
+        }
         /*
         public void SetDownloadProgressOnStatusBar(bool visiale)
         {
@@ -481,13 +559,13 @@ namespace NDS20WinPlayer
                 if (arrSectors.Contains(e.Column.Caption))
                     e.Value = true;
             }
-            else
-            {
-                if (e.Column.FieldName == "grdcCntsDownload")
-                {
-                    e.Value = 100;
-                }
-            }
+//            else
+//            {
+//                if (e.Column.FieldName == "grdcCntsDownload")
+//                {
+//                    e.Value = 0;
+//                }
+//            }
         }
 
         private void grdvLog_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)

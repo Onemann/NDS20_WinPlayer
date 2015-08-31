@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
             DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
+            this.repositoryItemProgressBar4 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.tlcScheType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
@@ -44,23 +45,29 @@
             this.bandedGridColumn7 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdContents = new DevExpress.XtraGrid.GridControl();
             this.bgrdvContents = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
-            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.grdcCntsKey = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcCntsName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.grdcFileName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcCntsDownload = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.repositoryItemProgressBar4 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.grdcCntsPlayTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.grdcCtscSector = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.grdcScheCntsStartDt = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcScheCntsEndDt = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.grdcScheCntsStartTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.grdcScheCntsEndTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.grdbndSector = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.repositoryItemDateEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.xtabManager = new DevExpress.XtraTab.XtraTabControl();
+            this.xtabpg2Download = new DevExpress.XtraTab.XtraTabPage();
+            this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
+            this.trlstSchedule = new DevExpress.XtraTreeList.TreeList();
+            this.tlcScheCategory = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcScheKind = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcScheKey = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcScheName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcScheStartdate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcScheEnddate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcScheFileName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcScheTotalSector = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.repositoryItemDateEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.xtabpg1PlayStatus = new DevExpress.XtraTab.XtraTabPage();
             this.spltcontCntlManager = new DevExpress.XtraEditors.SplitContainerControl();
             this.tlstPlayContents = new DevExpress.XtraTreeList.TreeList();
@@ -78,18 +85,6 @@
             this.tlcParentKey = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.repositoryItemDateEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.repositoryItemDateEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.xtabpg2Download = new DevExpress.XtraTab.XtraTabPage();
-            this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
-            this.trlstSchedule = new DevExpress.XtraTreeList.TreeList();
-            this.tlcScheCategory = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tlcScheKind = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tlcScheKey = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tlcScheName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tlcScheStartdate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tlcScheEnddate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tlcScheFileName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tlcScheTotalSector = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.repositoryItemDateEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.xtabpg3Log = new DevExpress.XtraTab.XtraTabPage();
             this.spctnctrlLog = new DevExpress.XtraEditors.SplitContainerControl();
             this.trlstLogFile = new DevExpress.XtraTreeList.TreeList();
@@ -134,15 +129,25 @@
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.styleController1 = new DevExpress.XtraEditors.StyleController(this.components);
             this.workspaceManager1 = new DevExpress.Utils.WorkspaceManager();
+            this.grdcCntsUpdateDt = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.grdbndSector = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgrdvContents)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).BeginInit();
             this.xtabManager.SuspendLayout();
+            this.xtabpg2Download.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
+            this.splitContainerControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trlstSchedule)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).BeginInit();
             this.xtabpg1PlayStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spltcontCntlManager)).BeginInit();
             this.spltcontCntlManager.SuspendLayout();
@@ -152,12 +157,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).BeginInit();
-            this.xtabpg2Download.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
-            this.splitContainerControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trlstSchedule)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).BeginInit();
             this.xtabpg3Log.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spctnctrlLog)).BeginInit();
             this.spctnctrlLog.SuspendLayout();
@@ -183,6 +182,17 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.styleController1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // repositoryItemProgressBar4
+            // 
+            this.repositoryItemProgressBar4.AllowFocused = false;
+            this.repositoryItemProgressBar4.AllowHtmlDraw = DevExpress.Utils.DefaultBoolean.True;
+            this.repositoryItemProgressBar4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.repositoryItemProgressBar4.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.repositoryItemProgressBar4.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
+            this.repositoryItemProgressBar4.Name = "repositoryItemProgressBar4";
+            this.repositoryItemProgressBar4.ReadOnly = true;
+            this.repositoryItemProgressBar4.ShowTitle = true;
             // 
             // tlcScheType
             // 
@@ -342,9 +352,6 @@
             this.grdContents.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdContents.MainView = this.bgrdvContents;
             this.grdContents.Name = "grdContents";
-            this.grdContents.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemDateEdit3,
-            this.repositoryItemProgressBar4});
             this.grdContents.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.grdContents.Size = new System.Drawing.Size(536, 481);
             this.grdContents.TabIndex = 2;
@@ -366,7 +373,9 @@
             this.grdbndSector});
             this.bgrdvContents.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
             this.grdcCntsKey,
+            this.grdcCntsUpdateDt,
             this.grdcCntsName,
+            this.grdcFileName,
             this.grdcCntsDownload,
             this.grdcCntsPlayTime,
             this.grdcCtscSector,
@@ -380,20 +389,6 @@
             this.bgrdvContents.OptionsView.ColumnAutoWidth = false;
             this.bgrdvContents.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.bgrdvContents_CustomUnboundColumnData);
             this.bgrdvContents.RowLoaded += new DevExpress.XtraGrid.Views.Base.RowEventHandler(this.bgrdvContents_RowLoaded);
-            // 
-            // gridBand1
-            // 
-            this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand1.Caption = "콘텐츠 정보";
-            this.gridBand1.Columns.Add(this.grdcCntsKey);
-            this.gridBand1.Columns.Add(this.grdcCntsName);
-            this.gridBand1.Columns.Add(this.grdcCntsDownload);
-            this.gridBand1.Columns.Add(this.grdcCntsPlayTime);
-            this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.gridBand1.Name = "gridBand1";
-            this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 250;
             // 
             // grdcCntsKey
             // 
@@ -420,29 +415,27 @@
             this.grdcCntsName.Visible = true;
             this.grdcCntsName.Width = 99;
             // 
+            // grdcFileName
+            // 
+            this.grdcFileName.Caption = "파일명";
+            this.grdcFileName.FieldName = "fileName";
+            this.grdcFileName.Name = "grdcFileName";
+            this.grdcFileName.OptionsColumn.AllowEdit = false;
+            this.grdcFileName.OptionsColumn.AllowFocus = false;
+            this.grdcFileName.OptionsColumn.ReadOnly = true;
+            this.grdcFileName.Visible = true;
+            // 
             // grdcCntsDownload
             // 
             this.grdcCntsDownload.Caption = "다운로드";
             this.grdcCntsDownload.ColumnEdit = this.repositoryItemProgressBar4;
-            this.grdcCntsDownload.FieldName = "grdcCntsDownload";
+            this.grdcCntsDownload.FieldName = "downloadRatio";
             this.grdcCntsDownload.Name = "grdcCntsDownload";
             this.grdcCntsDownload.OptionsColumn.AllowEdit = false;
             this.grdcCntsDownload.OptionsColumn.AllowFocus = false;
             this.grdcCntsDownload.OptionsColumn.ReadOnly = true;
-            this.grdcCntsDownload.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.grdcCntsDownload.Visible = true;
             this.grdcCntsDownload.Width = 59;
-            // 
-            // repositoryItemProgressBar4
-            // 
-            this.repositoryItemProgressBar4.AllowFocused = false;
-            this.repositoryItemProgressBar4.AllowHtmlDraw = DevExpress.Utils.DefaultBoolean.True;
-            this.repositoryItemProgressBar4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.repositoryItemProgressBar4.LookAndFeel.SkinName = "Dark Side";
-            this.repositoryItemProgressBar4.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.repositoryItemProgressBar4.Name = "repositoryItemProgressBar4";
-            this.repositoryItemProgressBar4.ReadOnly = true;
-            this.repositoryItemProgressBar4.ShowTitle = true;
             // 
             // grdcCntsPlayTime
             // 
@@ -457,17 +450,6 @@
             this.grdcCntsPlayTime.Visible = true;
             this.grdcCntsPlayTime.Width = 53;
             // 
-            // gridBand5
-            // 
-            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand5.Caption = "Hidden";
-            this.gridBand5.Columns.Add(this.grdcCtscSector);
-            this.gridBand5.Name = "gridBand5";
-            this.gridBand5.Visible = false;
-            this.gridBand5.VisibleIndex = -1;
-            this.gridBand5.Width = 75;
-            // 
             // grdcCtscSector
             // 
             this.grdcCtscSector.Caption = "구간";
@@ -477,20 +459,6 @@
             this.grdcCtscSector.OptionsColumn.AllowFocus = false;
             this.grdcCtscSector.OptionsColumn.ReadOnly = true;
             this.grdcCtscSector.Visible = true;
-            // 
-            // gridBand3
-            // 
-            this.gridBand3.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.gridBand3.AppearanceHeader.Options.UseForeColor = true;
-            this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand3.AutoFillDown = false;
-            this.gridBand3.Caption = "콘텐츠 사용 기간";
-            this.gridBand3.Columns.Add(this.grdcScheCntsStartDt);
-            this.gridBand3.Columns.Add(this.grdcScheCntsEndDt);
-            this.gridBand3.Name = "gridBand3";
-            this.gridBand3.VisibleIndex = 1;
-            this.gridBand3.Width = 150;
             // 
             // grdcScheCntsStartDt
             // 
@@ -519,20 +487,6 @@
             this.grdcScheCntsEndDt.OptionsColumn.AllowFocus = false;
             this.grdcScheCntsEndDt.OptionsColumn.ReadOnly = true;
             this.grdcScheCntsEndDt.Visible = true;
-            // 
-            // gridBand4
-            // 
-            this.gridBand4.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gridBand4.AppearanceHeader.Options.UseForeColor = true;
-            this.gridBand4.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand4.AutoFillDown = false;
-            this.gridBand4.Caption = "콘텐츠 사용 시간";
-            this.gridBand4.Columns.Add(this.grdcScheCntsStartTime);
-            this.gridBand4.Columns.Add(this.grdcScheCntsEndTime);
-            this.gridBand4.Name = "gridBand4";
-            this.gridBand4.VisibleIndex = 2;
-            this.gridBand4.Width = 100;
             // 
             // grdcScheCntsStartTime
             // 
@@ -564,24 +518,6 @@
             this.grdcScheCntsEndTime.Visible = true;
             this.grdcScheCntsEndTime.Width = 50;
             // 
-            // grdbndSector
-            // 
-            this.grdbndSector.AppearanceHeader.Options.UseTextOptions = true;
-            this.grdbndSector.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.grdbndSector.Caption = "구간";
-            this.grdbndSector.Name = "grdbndSector";
-            this.grdbndSector.VisibleIndex = 3;
-            this.grdbndSector.Width = 250;
-            // 
-            // repositoryItemDateEdit3
-            // 
-            this.repositoryItemDateEdit3.AutoHeight = false;
-            this.repositoryItemDateEdit3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit3.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit3.Name = "repositoryItemDateEdit3";
-            // 
             // xtabManager
             // 
             this.xtabManager.Appearance.Font = new System.Drawing.Font("맑은 고딕", 9F);
@@ -600,7 +536,7 @@
             this.xtabManager.Location = new System.Drawing.Point(2, 2);
             this.xtabManager.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.xtabManager.Name = "xtabManager";
-            this.xtabManager.SelectedTabPage = this.xtabpg1PlayStatus;
+            this.xtabManager.SelectedTabPage = this.xtabpg2Download;
             this.xtabManager.Size = new System.Drawing.Size(1006, 535);
             this.xtabManager.TabIndex = 0;
             this.xtabManager.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
@@ -609,6 +545,179 @@
             this.xtabpg3Log,
             this.xtabpg4Setup});
             this.xtabManager.TabPageWidth = 100;
+            // 
+            // xtabpg2Download
+            // 
+            this.xtabpg2Download.Controls.Add(this.splitContainerControl1);
+            this.xtabpg2Download.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg2Download.Image")));
+            this.xtabpg2Download.Name = "xtabpg2Download";
+            this.xtabpg2Download.Size = new System.Drawing.Size(1000, 504);
+            this.xtabpg2Download.Text = "스케줄";
+            // 
+            // splitContainerControl1
+            // 
+            this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerControl1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
+            this.splitContainerControl1.Name = "splitContainerControl1";
+            this.splitContainerControl1.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.splitContainerControl1.Panel1.Controls.Add(this.trlstSchedule);
+            this.splitContainerControl1.Panel1.ShowCaption = true;
+            this.splitContainerControl1.Panel1.Text = "재생 스케줄";
+            this.splitContainerControl1.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.splitContainerControl1.Panel2.Controls.Add(this.grdContents);
+            this.splitContainerControl1.Panel2.ShowCaption = true;
+            this.splitContainerControl1.Panel2.Text = "프레임별 재생 정보";
+            this.splitContainerControl1.Size = new System.Drawing.Size(1000, 504);
+            this.splitContainerControl1.SplitterPosition = 455;
+            this.splitContainerControl1.TabIndex = 1;
+            this.splitContainerControl1.Text = "NDS2.0 Manager";
+            // 
+            // trlstSchedule
+            // 
+            this.trlstSchedule.Appearance.Caption.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.trlstSchedule.Appearance.Caption.Options.UseFont = true;
+            this.trlstSchedule.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            this.trlstSchedule.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.trlstSchedule.Appearance.HeaderPanel.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.trlstSchedule.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.tlcScheType,
+            this.tlcScheCategory,
+            this.tlcScheKind,
+            this.tlcScheKey,
+            this.tlcScheName,
+            this.tlcScheStartdate,
+            this.tlcScheEnddate,
+            this.tlcScheFileName,
+            this.tlcScheTotalSector});
+            this.trlstSchedule.CustomizationFormBounds = new System.Drawing.Rectangle(478, 476, 206, 175);
+            this.trlstSchedule.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trlstSchedule.KeyFieldName = "ctscKey";
+            this.trlstSchedule.Location = new System.Drawing.Point(0, 0);
+            this.trlstSchedule.LookAndFeel.SkinName = "Dark Side";
+            this.trlstSchedule.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.trlstSchedule.Name = "trlstSchedule";
+            this.trlstSchedule.OptionsBehavior.PopulateServiceColumns = true;
+            this.trlstSchedule.OptionsView.AutoWidth = false;
+            this.trlstSchedule.OptionsView.EnableAppearanceEvenRow = true;
+            this.trlstSchedule.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFullFocus;
+            this.trlstSchedule.OptionsView.ShowSummaryFooter = true;
+            this.trlstSchedule.ParentFieldName = "Name";
+            this.trlstSchedule.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemDateEdit4});
+            this.trlstSchedule.Size = new System.Drawing.Size(451, 481);
+            this.trlstSchedule.TabIndex = 0;
+            this.trlstSchedule.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.trlstSchedule_FocusedNodeChanged);
+            this.trlstSchedule.Load += new System.EventHandler(this.trlstSchedule_Load);
+            // 
+            // tlcScheCategory
+            // 
+            this.tlcScheCategory.AppearanceCell.ForeColor = System.Drawing.Color.Yellow;
+            this.tlcScheCategory.AppearanceCell.Options.UseForeColor = true;
+            this.tlcScheCategory.Caption = "분류";
+            this.tlcScheCategory.FieldName = "scheCategory";
+            this.tlcScheCategory.MinWidth = 52;
+            this.tlcScheCategory.Name = "tlcScheCategory";
+            this.tlcScheCategory.OptionsColumn.AllowEdit = false;
+            this.tlcScheCategory.OptionsColumn.AllowFocus = false;
+            this.tlcScheCategory.OptionsColumn.ReadOnly = true;
+            this.tlcScheCategory.Visible = true;
+            this.tlcScheCategory.VisibleIndex = 0;
+            this.tlcScheCategory.Width = 78;
+            // 
+            // tlcScheKind
+            // 
+            this.tlcScheKind.AppearanceCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tlcScheKind.AppearanceCell.Options.UseForeColor = true;
+            this.tlcScheKind.Caption = "종류";
+            this.tlcScheKind.FieldName = "scheKind";
+            this.tlcScheKind.Name = "tlcScheKind";
+            this.tlcScheKind.OptionsColumn.AllowEdit = false;
+            this.tlcScheKind.OptionsColumn.AllowFocus = false;
+            this.tlcScheKind.OptionsColumn.ReadOnly = true;
+            this.tlcScheKind.Visible = true;
+            this.tlcScheKind.VisibleIndex = 1;
+            this.tlcScheKind.Width = 60;
+            // 
+            // tlcScheKey
+            // 
+            this.tlcScheKey.Caption = "스케줄키";
+            this.tlcScheKey.FieldName = "scheName";
+            this.tlcScheKey.Name = "tlcScheKey";
+            this.tlcScheKey.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
+            this.tlcScheKey.SortOrder = System.Windows.Forms.SortOrder.Descending;
+            this.tlcScheKey.Width = 61;
+            // 
+            // tlcScheName
+            // 
+            this.tlcScheName.AppearanceHeader.Options.UseTextOptions = true;
+            this.tlcScheName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcScheName.Caption = "스케줄";
+            this.tlcScheName.ColumnEdit = this.repositoryItemTextEdit2;
+            this.tlcScheName.FieldName = "scheName";
+            this.tlcScheName.MinWidth = 52;
+            this.tlcScheName.Name = "tlcScheName";
+            this.tlcScheName.OptionsColumn.AllowEdit = false;
+            this.tlcScheName.OptionsColumn.AllowFocus = false;
+            this.tlcScheName.OptionsColumn.ReadOnly = true;
+            this.tlcScheName.SummaryFooter = DevExpress.XtraTreeList.SummaryItemType.Count;
+            this.tlcScheName.SummaryFooterStrFormat = "{0}건";
+            this.tlcScheName.Visible = true;
+            this.tlcScheName.VisibleIndex = 2;
+            this.tlcScheName.Width = 128;
+            // 
+            // tlcScheStartdate
+            // 
+            this.tlcScheStartdate.AllowIncrementalSearch = false;
+            this.tlcScheStartdate.AppearanceHeader.Options.UseTextOptions = true;
+            this.tlcScheStartdate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcScheStartdate.Caption = "시작일";
+            this.tlcScheStartdate.FieldName = "scheStartDt";
+            this.tlcScheStartdate.FilterMode = DevExpress.XtraGrid.ColumnFilterMode.DisplayText;
+            this.tlcScheStartdate.Format.FormatString = "####-##-##";
+            this.tlcScheStartdate.Format.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.tlcScheStartdate.Name = "tlcScheStartdate";
+            this.tlcScheStartdate.OptionsColumn.AllowEdit = false;
+            this.tlcScheStartdate.OptionsColumn.AllowFocus = false;
+            this.tlcScheStartdate.OptionsColumn.ReadOnly = true;
+            this.tlcScheStartdate.Visible = true;
+            this.tlcScheStartdate.VisibleIndex = 3;
+            // 
+            // tlcScheEnddate
+            // 
+            this.tlcScheEnddate.AppearanceHeader.Options.UseTextOptions = true;
+            this.tlcScheEnddate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcScheEnddate.Caption = "종료일";
+            this.tlcScheEnddate.FieldName = "scheEndDt";
+            this.tlcScheEnddate.Format.FormatString = "####-##-##";
+            this.tlcScheEnddate.Format.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.tlcScheEnddate.Name = "tlcScheEnddate";
+            this.tlcScheEnddate.OptionsColumn.AllowEdit = false;
+            this.tlcScheEnddate.OptionsColumn.AllowFocus = false;
+            this.tlcScheEnddate.OptionsColumn.ReadOnly = true;
+            this.tlcScheEnddate.Visible = true;
+            this.tlcScheEnddate.VisibleIndex = 4;
+            // 
+            // tlcScheFileName
+            // 
+            this.tlcScheFileName.Caption = "파일명";
+            this.tlcScheFileName.FieldName = "scheFileName";
+            this.tlcScheFileName.Name = "tlcScheFileName";
+            // 
+            // tlcScheTotalSector
+            // 
+            this.tlcScheTotalSector.Caption = "총구간";
+            this.tlcScheTotalSector.FieldName = "scheTotalSector";
+            this.tlcScheTotalSector.Name = "tlcScheTotalSector";
+            // 
+            // repositoryItemDateEdit4
+            // 
+            this.repositoryItemDateEdit4.AutoHeight = false;
+            this.repositoryItemDateEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit4.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit4.Name = "repositoryItemDateEdit4";
             // 
             // xtabpg1PlayStatus
             // 
@@ -926,179 +1035,6 @@
             this.repositoryItemDateEdit2.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemDateEdit2.Name = "repositoryItemDateEdit2";
-            // 
-            // xtabpg2Download
-            // 
-            this.xtabpg2Download.Controls.Add(this.splitContainerControl1);
-            this.xtabpg2Download.Image = ((System.Drawing.Image)(resources.GetObject("xtabpg2Download.Image")));
-            this.xtabpg2Download.Name = "xtabpg2Download";
-            this.xtabpg2Download.Size = new System.Drawing.Size(1000, 504);
-            this.xtabpg2Download.Text = "스케줄";
-            // 
-            // splitContainerControl1
-            // 
-            this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerControl1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerControl1.LookAndFeel.SkinName = "DevExpress Dark Style";
-            this.splitContainerControl1.Name = "splitContainerControl1";
-            this.splitContainerControl1.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.splitContainerControl1.Panel1.Controls.Add(this.trlstSchedule);
-            this.splitContainerControl1.Panel1.ShowCaption = true;
-            this.splitContainerControl1.Panel1.Text = "재생 스케줄";
-            this.splitContainerControl1.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.splitContainerControl1.Panel2.Controls.Add(this.grdContents);
-            this.splitContainerControl1.Panel2.ShowCaption = true;
-            this.splitContainerControl1.Panel2.Text = "프레임별 재생 정보";
-            this.splitContainerControl1.Size = new System.Drawing.Size(1000, 504);
-            this.splitContainerControl1.SplitterPosition = 455;
-            this.splitContainerControl1.TabIndex = 1;
-            this.splitContainerControl1.Text = "NDS2.0 Manager";
-            // 
-            // trlstSchedule
-            // 
-            this.trlstSchedule.Appearance.Caption.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.trlstSchedule.Appearance.Caption.Options.UseFont = true;
-            this.trlstSchedule.Appearance.HeaderPanel.Options.UseTextOptions = true;
-            this.trlstSchedule.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.trlstSchedule.Appearance.HeaderPanel.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.trlstSchedule.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
-            this.tlcScheType,
-            this.tlcScheCategory,
-            this.tlcScheKind,
-            this.tlcScheKey,
-            this.tlcScheName,
-            this.tlcScheStartdate,
-            this.tlcScheEnddate,
-            this.tlcScheFileName,
-            this.tlcScheTotalSector});
-            this.trlstSchedule.CustomizationFormBounds = new System.Drawing.Rectangle(478, 476, 206, 175);
-            this.trlstSchedule.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trlstSchedule.KeyFieldName = "ctscKey";
-            this.trlstSchedule.Location = new System.Drawing.Point(0, 0);
-            this.trlstSchedule.LookAndFeel.SkinName = "Dark Side";
-            this.trlstSchedule.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.trlstSchedule.Name = "trlstSchedule";
-            this.trlstSchedule.OptionsBehavior.PopulateServiceColumns = true;
-            this.trlstSchedule.OptionsView.AutoWidth = false;
-            this.trlstSchedule.OptionsView.EnableAppearanceEvenRow = true;
-            this.trlstSchedule.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFullFocus;
-            this.trlstSchedule.OptionsView.ShowSummaryFooter = true;
-            this.trlstSchedule.ParentFieldName = "Name";
-            this.trlstSchedule.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemDateEdit4});
-            this.trlstSchedule.Size = new System.Drawing.Size(451, 481);
-            this.trlstSchedule.TabIndex = 0;
-            this.trlstSchedule.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.trlstSchedule_FocusedNodeChanged);
-            this.trlstSchedule.Load += new System.EventHandler(this.trlstSchedule_Load);
-            // 
-            // tlcScheCategory
-            // 
-            this.tlcScheCategory.AppearanceCell.ForeColor = System.Drawing.Color.Yellow;
-            this.tlcScheCategory.AppearanceCell.Options.UseForeColor = true;
-            this.tlcScheCategory.Caption = "분류";
-            this.tlcScheCategory.FieldName = "scheCategory";
-            this.tlcScheCategory.MinWidth = 52;
-            this.tlcScheCategory.Name = "tlcScheCategory";
-            this.tlcScheCategory.OptionsColumn.AllowEdit = false;
-            this.tlcScheCategory.OptionsColumn.AllowFocus = false;
-            this.tlcScheCategory.OptionsColumn.ReadOnly = true;
-            this.tlcScheCategory.Visible = true;
-            this.tlcScheCategory.VisibleIndex = 0;
-            this.tlcScheCategory.Width = 78;
-            // 
-            // tlcScheKind
-            // 
-            this.tlcScheKind.AppearanceCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.tlcScheKind.AppearanceCell.Options.UseForeColor = true;
-            this.tlcScheKind.Caption = "종류";
-            this.tlcScheKind.FieldName = "scheKind";
-            this.tlcScheKind.Name = "tlcScheKind";
-            this.tlcScheKind.OptionsColumn.AllowEdit = false;
-            this.tlcScheKind.OptionsColumn.AllowFocus = false;
-            this.tlcScheKind.OptionsColumn.ReadOnly = true;
-            this.tlcScheKind.Visible = true;
-            this.tlcScheKind.VisibleIndex = 1;
-            this.tlcScheKind.Width = 60;
-            // 
-            // tlcScheKey
-            // 
-            this.tlcScheKey.Caption = "스케줄키";
-            this.tlcScheKey.FieldName = "scheName";
-            this.tlcScheKey.Name = "tlcScheKey";
-            this.tlcScheKey.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
-            this.tlcScheKey.SortOrder = System.Windows.Forms.SortOrder.Descending;
-            this.tlcScheKey.Width = 61;
-            // 
-            // tlcScheName
-            // 
-            this.tlcScheName.AppearanceHeader.Options.UseTextOptions = true;
-            this.tlcScheName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.tlcScheName.Caption = "스케줄";
-            this.tlcScheName.ColumnEdit = this.repositoryItemTextEdit2;
-            this.tlcScheName.FieldName = "scheName";
-            this.tlcScheName.MinWidth = 52;
-            this.tlcScheName.Name = "tlcScheName";
-            this.tlcScheName.OptionsColumn.AllowEdit = false;
-            this.tlcScheName.OptionsColumn.AllowFocus = false;
-            this.tlcScheName.OptionsColumn.ReadOnly = true;
-            this.tlcScheName.SummaryFooter = DevExpress.XtraTreeList.SummaryItemType.Count;
-            this.tlcScheName.SummaryFooterStrFormat = "{0}건";
-            this.tlcScheName.Visible = true;
-            this.tlcScheName.VisibleIndex = 2;
-            this.tlcScheName.Width = 128;
-            // 
-            // tlcScheStartdate
-            // 
-            this.tlcScheStartdate.AllowIncrementalSearch = false;
-            this.tlcScheStartdate.AppearanceHeader.Options.UseTextOptions = true;
-            this.tlcScheStartdate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.tlcScheStartdate.Caption = "시작일";
-            this.tlcScheStartdate.FieldName = "scheStartDt";
-            this.tlcScheStartdate.FilterMode = DevExpress.XtraGrid.ColumnFilterMode.DisplayText;
-            this.tlcScheStartdate.Format.FormatString = "####-##-##";
-            this.tlcScheStartdate.Format.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.tlcScheStartdate.Name = "tlcScheStartdate";
-            this.tlcScheStartdate.OptionsColumn.AllowEdit = false;
-            this.tlcScheStartdate.OptionsColumn.AllowFocus = false;
-            this.tlcScheStartdate.OptionsColumn.ReadOnly = true;
-            this.tlcScheStartdate.Visible = true;
-            this.tlcScheStartdate.VisibleIndex = 3;
-            // 
-            // tlcScheEnddate
-            // 
-            this.tlcScheEnddate.AppearanceHeader.Options.UseTextOptions = true;
-            this.tlcScheEnddate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.tlcScheEnddate.Caption = "종료일";
-            this.tlcScheEnddate.FieldName = "scheEndDt";
-            this.tlcScheEnddate.Format.FormatString = "####-##-##";
-            this.tlcScheEnddate.Format.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.tlcScheEnddate.Name = "tlcScheEnddate";
-            this.tlcScheEnddate.OptionsColumn.AllowEdit = false;
-            this.tlcScheEnddate.OptionsColumn.AllowFocus = false;
-            this.tlcScheEnddate.OptionsColumn.ReadOnly = true;
-            this.tlcScheEnddate.Visible = true;
-            this.tlcScheEnddate.VisibleIndex = 4;
-            // 
-            // tlcScheFileName
-            // 
-            this.tlcScheFileName.Caption = "파일명";
-            this.tlcScheFileName.FieldName = "scheFileName";
-            this.tlcScheFileName.Name = "tlcScheFileName";
-            // 
-            // tlcScheTotalSector
-            // 
-            this.tlcScheTotalSector.Caption = "총구간";
-            this.tlcScheTotalSector.FieldName = "scheTotalSector";
-            this.tlcScheTotalSector.Name = "tlcScheTotalSector";
-            // 
-            // repositoryItemDateEdit4
-            // 
-            this.repositoryItemDateEdit4.AutoHeight = false;
-            this.repositoryItemDateEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit4.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit4.Name = "repositoryItemDateEdit4";
             // 
             // xtabpg3Log
             // 
@@ -1627,11 +1563,6 @@
             this.panelControl1.Size = new System.Drawing.Size(1010, 539);
             this.panelControl1.TabIndex = 0;
             // 
-            // defaultLookAndFeel1
-            // 
-            this.defaultLookAndFeel1.LookAndFeel.SkinName = "DevExpress Dark Style";
-            this.defaultLookAndFeel1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
-            // 
             // styleController1
             // 
             this.styleController1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
@@ -1644,6 +1575,81 @@
             // 
             this.workspaceManager1.TargetControl = this;
             this.workspaceManager1.TransitionType = pushTransition1;
+            // 
+            // grdcCntsUpdateDt
+            // 
+            this.grdcCntsUpdateDt.Caption = "업데이트";
+            this.grdcCntsUpdateDt.FieldName = "cntsUpdateDt";
+            this.grdcCntsUpdateDt.Name = "grdcCntsUpdateDt";
+            this.grdcCntsUpdateDt.OptionsColumn.AllowEdit = false;
+            this.grdcCntsUpdateDt.OptionsColumn.AllowFocus = false;
+            this.grdcCntsUpdateDt.OptionsColumn.ReadOnly = true;
+            this.grdcCntsUpdateDt.Visible = true;
+            this.grdcCntsUpdateDt.Width = 70;
+            // 
+            // gridBand1
+            // 
+            this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand1.Caption = "콘텐츠 정보";
+            this.gridBand1.Columns.Add(this.grdcCntsKey);
+            this.gridBand1.Columns.Add(this.grdcCntsUpdateDt);
+            this.gridBand1.Columns.Add(this.grdcCntsName);
+            this.gridBand1.Columns.Add(this.grdcFileName);
+            this.gridBand1.Columns.Add(this.grdcCntsDownload);
+            this.gridBand1.Columns.Add(this.grdcCntsPlayTime);
+            this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.gridBand1.Name = "gridBand1";
+            this.gridBand1.VisibleIndex = 0;
+            this.gridBand1.Width = 395;
+            // 
+            // gridBand5
+            // 
+            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand5.Caption = "Hidden";
+            this.gridBand5.Columns.Add(this.grdcCtscSector);
+            this.gridBand5.Name = "gridBand5";
+            this.gridBand5.Visible = false;
+            this.gridBand5.VisibleIndex = -1;
+            this.gridBand5.Width = 75;
+            // 
+            // gridBand3
+            // 
+            this.gridBand3.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.gridBand3.AppearanceHeader.Options.UseForeColor = true;
+            this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand3.AutoFillDown = false;
+            this.gridBand3.Caption = "콘텐츠 사용 기간";
+            this.gridBand3.Columns.Add(this.grdcScheCntsStartDt);
+            this.gridBand3.Columns.Add(this.grdcScheCntsEndDt);
+            this.gridBand3.Name = "gridBand3";
+            this.gridBand3.VisibleIndex = 1;
+            this.gridBand3.Width = 150;
+            // 
+            // gridBand4
+            // 
+            this.gridBand4.AppearanceHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.gridBand4.AppearanceHeader.Options.UseForeColor = true;
+            this.gridBand4.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand4.AutoFillDown = false;
+            this.gridBand4.Caption = "콘텐츠 사용 시간";
+            this.gridBand4.Columns.Add(this.grdcScheCntsStartTime);
+            this.gridBand4.Columns.Add(this.grdcScheCntsEndTime);
+            this.gridBand4.Name = "gridBand4";
+            this.gridBand4.VisibleIndex = 2;
+            this.gridBand4.Width = 100;
+            // 
+            // grdbndSector
+            // 
+            this.grdbndSector.AppearanceHeader.Options.UseTextOptions = true;
+            this.grdbndSector.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.grdbndSector.Caption = "구간";
+            this.grdbndSector.Name = "grdbndSector";
+            this.grdbndSector.VisibleIndex = 3;
+            this.grdbndSector.Width = 250;
             // 
             // ManagerForm
             // 
@@ -1667,15 +1673,19 @@
             this.Text = "NDS2.0 Player";
             this.Load += new System.EventHandler(this.ManagerForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ManagerForm_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdContents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgrdvContents)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtabManager)).EndInit();
             this.xtabManager.ResumeLayout(false);
+            this.xtabpg2Download.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
+            this.splitContainerControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trlstSchedule)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).EndInit();
             this.xtabpg1PlayStatus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spltcontCntlManager)).EndInit();
             this.spltcontCntlManager.ResumeLayout(false);
@@ -1685,12 +1695,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).EndInit();
-            this.xtabpg2Download.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
-            this.splitContainerControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trlstSchedule)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).EndInit();
             this.xtabpg3Log.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spctnctrlLog)).EndInit();
             this.spctnctrlLog.ResumeLayout(false);
@@ -1793,20 +1797,13 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
         private DevExpress.XtraBars.BarEditItem brItmHDD;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar2;
-        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit3;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit4;
         private DevExpress.XtraBars.BarEditItem brItmMEM;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar3;
         private DevExpress.XtraBars.BarStaticItem brItmAvalMEM;
         private DevExpress.XtraEditors.MemoEdit mmoLog;
         private DevExpress.XtraEditors.SplitterControl splitterControl1;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn grdcCntsDownload;
-        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar4;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand grdbndSector;
         private DevExpress.XtraTreeList.TreeList tlstPlayContents;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcFldOrder;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcCntsKey;
@@ -1824,6 +1821,14 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcParentKey;
         private DevExpress.XtraBars.BarEditItem brItmDown;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar5;
+        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar4;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn grdcFileName;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn grdcCntsUpdateDt;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand grdbndSector;
 
 
     }

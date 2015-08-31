@@ -164,7 +164,14 @@ namespace NDS20WinPlayer
             return (string)CommonFunctions.GetJsonColValue(jsonObj, JsonColName.JsonTxtHndId);
         }
 
-        
+        public static  string TrimEndString(string input, string suffixToRemove)
+        {
+            if (input != null && suffixToRemove != null && input.EndsWith(suffixToRemove))
+            {
+                return input.Substring(0, input.Length - suffixToRemove.Length);
+            }
+            else return input;
+        }
 #endregion
 
         public class NDSWebSocketClientConnection : WebSocketClientConnection
@@ -262,6 +269,8 @@ namespace NDS20WinPlayer
                     fCachedString = String.Empty;
                 }
             }
+
+
 
         }
 

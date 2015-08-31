@@ -461,11 +461,24 @@ namespace NDS20WinPlayer
                 JsonObjectCollection col = (JsonObjectCollection) jsonObject;
 
                 string contentsFileName = col["fileName"].GetValue().ToString();
-                string contentsUpdateDt = col["cntsUpdateDt"].GetValue().ToString();
+
+                double unixTimeStamp = (double)col["cntsUpdateDt"].GetValue();
+                DateTime datetimeTimestamp = CommonFunctions.UnixTimeStampToDateTime(unixTimeStamp);
+                string contentsUpdateDt = string.Format("{0:yyyyMMdd_HHmmss}", datetimeTimestamp);
+
+
                 string fullUrl = AppInfoStrc.UrlDownloadWebServer + AppInfoStrc.ExtDownloadWebServer + contentsFileName;
-                string fillLocalPath = AppInfoStrc.DirOfContents  + AppInfoStrc.CurrentScheduleKey  +
-                                       contentsUpdateDt + @"\" + contentsFileName;
-                DownloadFile(fullUrl, contentsFileName);
+                string fullLocalDir = AppInfoStrc.DirOfContents  +
+                                       contentsUpdateDt;
+
+                DirectoryInfo dirIfo = null;
+                dirIfo = new DirectoryInfo(fullLocalDir);
+                if (!dirIfo.Exists) dirIfo.Create();
+
+                string fullLocalPath = fullLocalDir + @"\" + contentsFileName;
+
+                DownloadFile(fullUrl, fullLocalPath, DownloadStatusChanged, DownloadCompleted);
+//                DownloadFile(fullUrl, contentsFileName, DownloadStatusChanged, DownloadCompleted);
             }
         }
 
@@ -844,7 +857,9 @@ namespace NDS20WinPlayer
 
         private Stopwatch _sw;
 
-        public void DownloadFile(string url, string fileName)
+        public void DownloadFile(string url, string fileName ,
+            Action<string, DownloadProgressChangedEventArgs> DownloadStatusChanged, 
+           Action<string, AsyncCompletedEventArgs>  DownloadCompleted)
         {
             //string path = @"C:\DL\";
 
@@ -852,17 +867,26 @@ namespace NDS20WinPlayer
             {
                 _sw = new Stopwatch();
                 _sw.Start();
-                ManagerForm managerForm = null;
-                if ((managerForm = (ManagerForm) IsFormAlreadyOpen(typeof (ManagerForm))) != null) //생성된 폼이 있다면
-                {
+                //ManagerForm managerForm = null;
+                //if ((managerForm = (ManagerForm) IsFormAlreadyOpen(typeof (ManagerForm))) != null) //생성된 폼이 있다면
+                //{
                     //labelDownloadAudioStatusText.Visibility = Visibility.Visible;
-                }
+                //}
+                fileName += "part";
                 using (WebClient webClient = new WebClient())
                 {
+                    webClient.DownloadProgressChanged +=
+                        (object sender, DownloadProgressChangedEventArgs e) => DownloadStatusChanged(fileName, e);
+
+                    webClient.DownloadFileCompleted +=
+                        (object sender, AsyncCompletedEventArgs e) => DownloadCompleted(fileName, e);
+
+                    /*
                     webClient.DownloadFileCompleted +=
                         new AsyncCompletedEventHandler(DownloadCompleted);
                     webClient.DownloadProgressChanged +=
                         new DownloadProgressChangedEventHandler(DownloadStatusChanged);
+                     */
                     webClient.DownloadFileAsync(new Uri(url), fileName);
                 }
             });
@@ -870,7 +894,7 @@ namespace NDS20WinPlayer
             bgThread.Start();
         }
 
-        void DownloadStatusChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void DownloadStatusChanged(string fileName, DownloadProgressChangedEventArgs e)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -879,13 +903,17 @@ namespace NDS20WinPlayer
                 if (e.ProgressPercentage != percent)
                 {
                     percent = e.ProgressPercentage;
-
                     
 
                     ManagerForm managerForm = null;
                     if ((managerForm = (ManagerForm)IsFormAlreadyOpen(typeof(ManagerForm))) != null) //생성된 폼이 있다면
                     {
-                        managerForm.ShowDownloadProgressOnStatusBar(percent);
+                        //managerForm.ShowDownloadProgressOnStatusBar(percent);
+                        //managerForm.MessageOnStatusBar(fileName, LogType.LOG_TRACE);
+                        fileName = new FileInfo(fileName).Name.ToString();
+
+                        fileName = CommonFunctions.TrimEndString(fileName, "part");
+                        managerForm.ChangeDownloadProgressInGrdContents(fileName, percent);
 
                     }
                     //progressBarDownloadAudio.Value = percent;
@@ -898,13 +926,30 @@ namespace NDS20WinPlayer
             });
         }
 
-        private void DownloadCompleted(object sender, AsyncCompletedEventArgs e)
+        private void DownloadCompleted(string fileName, AsyncCompletedEventArgs e)
         {
             BeginInvoke((MethodInvoker)delegate
             {
                 //labelDownloadAudioDlRate.Content = "0 kb/s";
                 //labelDownloadAudioStatusText.Visibility = Visibility.Hidden;
                 //MessageBox.Show("Download completed");
+                /*
+                string downloadedLocalFile = fileName;
+                ManagerForm managerForm = null;
+                if ((managerForm = (ManagerForm)IsFormAlreadyOpen(typeof(ManagerForm))) != null) //생성된 폼이 있다면
+                {
+                    managerForm.MessageOnStatusBar("[Download completed]" + downloadedLocalFile, LogType.LOG_TRACE);
+                }
+                 */
+
+                // rename *.extpart to *.ext
+                string newFileName = CommonFunctions.TrimEndString(fileName, "part");
+                if(File.Exists(newFileName))
+                {
+                    File.Delete(newFileName);
+                }
+                File.Move(fileName, newFileName);
+
             });
         }
     }

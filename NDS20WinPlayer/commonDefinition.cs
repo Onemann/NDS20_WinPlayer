@@ -169,6 +169,7 @@ namespace NDS20WinPlayer
         public long scheOrder { get; set; }             // 순서
         public string cntsKey { get; set; }             // 콘텐츠 키
         public string cntsName { get; set; }            // 콘텐츠 명
+        public long cntsUpdateDt { get; set; }          // 콘텐츠 Updated timestamp (unique)
         public int downloadRatio { get; set; }          // Contents download ration
         public int cntsPlayTime { get; set; }           // 콘텐츠 재생 시간
         public long scheCntsStartDt { get; set; }     //사용기간-시작일
